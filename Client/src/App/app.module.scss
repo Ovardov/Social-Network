@@ -44,7 +44,7 @@
         max-width: var(--layout-content-width);
         margin: var(--spacing-layout-elements) auto;
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: 1fr 1.5fr 1fr;
         grid-gap: var(--spacing-layout-elements);
     }
 }

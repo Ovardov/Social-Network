@@ -8,7 +8,7 @@
 
         & p {
             display: grid;
-            grid-template-columns: repeat(7, 1fr);
+            grid-template-columns: repeat(8, 1fr);
             padding: 0.5em;
 
             &:first-child {
@@ -17,11 +17,10 @@
         }
 
         & textarea {
-            grid-column: span 6;
+            grid-column: span 7;
             resize: none;
             border: transparent;
             max-width: 100%;
-            margin-left: 0.5em;
             min-height: 5em;
             outline: none;
         }
@@ -31,12 +30,12 @@
             display: flex;
             align-items: center;
             cursor: pointer;
-            font-size: 1.8em;
+            font-size: 1.5em;
             color: var(--color-blue-main);
         }
 
         & input[type="submit"] {
-            grid-column: 4 /-1;
+            grid-column: 5 /-1;
             padding: 0.05em 0.5em;
         }
     }
