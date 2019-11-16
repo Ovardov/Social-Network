@@ -69,7 +69,11 @@ h6 {
 
 a {
     text-decoration: none;
-    color: var(--color-beige-main, #000000);
+    color: var(--color-grey-main);
+}
+
+li {
+    list-style: none outside;
 }
 
 p, ul, ol {

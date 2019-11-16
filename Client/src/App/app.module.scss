@@ -1,4 +1,19 @@
 .site {
     max-width: var(--layout-main-width);
     margin: 0 auto;
+    background: #F4F4F4;
+
+    & .site-header {
+        padding: 0.5em 2em;
+        display: flex;
+        align-items: center;
+        background: var(--color-body-background);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        border-bottom: 1px solid #E8E8E8;
+        box-shadow: 0 0 0.3em 0 rgba(0, 0, 0, 0.5);
+    }
 }

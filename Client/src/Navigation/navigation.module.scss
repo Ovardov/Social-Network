@@ -1,0 +1,33 @@
+.site-navigation {
+    margin-right: 2em;
+
+    & .notification-list {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 0;
+
+        & .notification-button {
+            font-size: 1.2em;
+
+            &:not(:last-child) {
+                margin-right: 1em;
+            }
+
+            &:hover a {
+                border-radius: 0.3em;
+                background: var(--color-blue-main);
+
+                & svg {
+                    color: var(--color-body-background);
+                }
+            }
+
+            & a {
+                padding: 0.3em;
+                display: flex;
+                align-items: center;
+            }
+        }
+    }
+}
