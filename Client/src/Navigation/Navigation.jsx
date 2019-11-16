@@ -1,5 +1,4 @@
 import React from 'react';
-import { MdNotifications, MdMessage, MdPeople } from 'react-icons/md';
 import styles from './navigation.module.scss';
 
 function Navigation() {
@@ -7,13 +6,13 @@ function Navigation() {
         <nav className={styles['site-navigation']}>
             <ul className={styles['notification-list']}>
                 <li className={styles['notification-button']}>
-                    <a href="/"><MdNotifications /></a>
+                    <a href="/"><i class="fas fa-bell"></i></a>
                 </li>
                 <li className={styles['notification-button']}>
-                    <a href="/"><MdMessage /></a>
+                    <a href="/"><i class="fas fa-comment-dots"></i></a>
                 </li>
                 <li className={styles['notification-button']}>
-                    <a href="/"><MdPeople /></a>
+                    <a href="/"><i class="fas fa-user-friends"></i></a>
                 </li>
             </ul>
         </nav>

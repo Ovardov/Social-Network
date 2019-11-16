@@ -3,6 +3,7 @@ import SiteTitle from '../SiteTitle/SiteTitle';
 import Navigation from '../Navigation/Navigation';
 import Search from '../Search/Search';
 import Avatar from '../Avatar/Avatar';
+import CreatePost from '../Post/CreatePost/CreatePost';
 import styles from './app.module.scss';
 
 function App() {
@@ -20,6 +21,10 @@ function App() {
           </a>
         </div>
       </header>
+
+      <main className={styles['site-main']}>
+          <CreatePost />
+      </main>
     </div>
   );
 }
