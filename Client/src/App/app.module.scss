@@ -16,4 +16,28 @@
         border-bottom: 1px solid #E8E8E8;
         box-shadow: 0 0 0.3em 0 rgba(0, 0, 0, 0.5);
     }
+
+    & .user-info {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        & a {
+            margin-left: 0.5em;
+            color: #000000;
+
+            & p {
+                padding-bottom: 0;
+                font-size: 0.7em;
+
+                &:nth-child(2) {
+                    color: var(--color-grey-main);
+                }
+            }
+
+            & .name {
+                font-size: 0.9em;
+            }
+        }
+    }
 }

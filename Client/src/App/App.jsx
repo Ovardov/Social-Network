@@ -12,7 +12,13 @@ function App() {
         <SiteTitle />
         <Search />
         <Navigation />
-        <Avatar name="Sean Doran" image="https://pbs.twimg.com/profile_images/1055263632861343745/vIqzOHXj.jpg" />
+        <div className={styles['user-info']}>
+          <Avatar name="Sean Doran" image="https://pbs.twimg.com/profile_images/1055263632861343745/vIqzOHXj.jpg" />
+          <a href="#">
+            <p className={styles.name}>Sean Doran</p>
+            <p>View your profile</p>
+          </a>
+        </div>
       </header>
     </div>
   );
