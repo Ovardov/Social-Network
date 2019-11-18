@@ -4,7 +4,9 @@ import Navigation from '../Navigation/Navigation';
 import Search from '../Search/Search';
 import Avatar from '../Avatar/Avatar';
 import CreatePost from '../Post/CreatePost/CreatePost';
+import PostList from '../Post/PostList/PostList';
 import styles from './app.module.scss';
+import data from '../data';
 
 function App() {
   return (
@@ -24,6 +26,7 @@ function App() {
 
       <main className={styles['site-main']}>
           <CreatePost />
+          <PostList posts={data}/>
       </main>
     </div>
   );
