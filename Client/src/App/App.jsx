@@ -3,6 +3,7 @@ import SiteTitle from '../SiteTitle/SiteTitle';
 import Navigation from '../Navigation/Navigation';
 import Search from '../Search/Search';
 import Avatar from '../Avatar/Avatar';
+import Weather from '../Weather/Weather';
 import CreatePost from '../Post/CreatePost/CreatePost';
 import PostList from '../Post/PostList/PostList';
 import styles from './app.module.scss';
@@ -25,6 +26,7 @@ function App() {
       </header>
 
       <main className={styles['site-main']}>
+          <Weather />
           <CreatePost />
           <PostList posts={data}/>
       </main>

@@ -6,13 +6,13 @@ function Navigation() {
         <nav className={styles['site-navigation']}>
             <ul className={styles['notification-list']}>
                 <li className={styles['notification-button']}>
-                    <a href="/"><i class="fas fa-bell"></i></a>
+                    <a href="/"><i className="fas fa-bell"></i></a>
                 </li>
                 <li className={styles['notification-button']}>
-                    <a href="/"><i class="fas fa-comment-dots"></i></a>
+                    <a href="/"><i className="fas fa-comment-dots"></i></a>
                 </li>
                 <li className={styles['notification-button']}>
-                    <a href="/"><i class="fas fa-user-friends"></i></a>
+                    <a href="/"><i className="fas fa-user-friends"></i></a>
                 </li>
             </ul>
         </nav>

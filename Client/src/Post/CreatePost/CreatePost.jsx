@@ -14,7 +14,7 @@ function CreatePost() {
 
                 <p>
                     <a className={styles['photo-container']}>
-                        <i class="fas fa-image"></i>
+                        <i className="fas fa-image"></i>
                     </a>
 
                     <input type="submit" value="POST" />

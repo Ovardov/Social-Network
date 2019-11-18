@@ -5,23 +5,30 @@
     border: 1px solid #E8E8E8;
 
     & form {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
 
         & p {
-            display: grid;
-            grid-template-columns: repeat(8, 1fr);
+            display: flex;
+            justify-content: space-between;
             padding: 0.5em;
 
             &:first-child {
-                border-bottom: 1px solid #E8E8E8;
+                height: 100%;
+            }
+
+            &:last-child {
+                border-top: 1px solid #E8E8E8;
             }
         }
 
         & textarea {
-            grid-column: span 7;
             resize: none;
             border: transparent;
-            max-width: 100%;
-            min-height: 5em;
+            height: 100%;
+            width: 88%;
             outline: none;
         }
 
@@ -35,7 +42,7 @@
         }
 
         & input[type="submit"] {
-            grid-column: 5 /-1;
+            width: 40%;
             padding: 0.05em 0.5em;
         }
     }

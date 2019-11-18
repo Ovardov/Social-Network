@@ -1,14 +1,9 @@
-import React, { Component, Fragment } from 'react';
-import { FaHeart, FaComment, FaRegHeart, FaRegComment } from 'react-icons/fa';
+import React, { Component } from 'react';
 import Avatar from '../../Avatar/Avatar';
 import styles from './post-card.module.scss';
 
 
 class PostCard extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const { date, author, description, image, likes, comments } = this.props;
 
@@ -22,7 +17,7 @@ class PostCard extends Component {
                     </div>
 
                     <div className={styles['more-info-container']}>
-                        <i class="fas fa-ellipsis-v more-info"></i>
+                        <i className="fas fa-ellipsis-v more-info"></i>
                     </div>
                 </header>
 
@@ -37,11 +32,11 @@ class PostCard extends Component {
 
                     <section className={styles['action-buttons']}>
                         <a className={styles.button} >
-                            <i class="fas fa-heart"></i>
+                            <i className="fas fa-heart"></i>
                         </a>
 
                         <a className={styles.button} >
-                            <i class="fas fa-comment"></i>
+                            <i className="fas fa-comment"></i>
                         </a>
                     </section>
                 </main>
@@ -49,12 +44,12 @@ class PostCard extends Component {
                 <footer>
                     <section className={styles['social-container']}>
                         <a href="#" className={styles['like']}>
-                            <i class="far fa-heart"></i>
+                            <i className="far fa-heart"></i>
                             {likes.length}
                         </a>
 
                         <a href="#" className={styles['comment']}>
-                            <i class="far fa-comment"></i>
+                            <i className="far fa-comment"></i>
                             {comments.length}
                         </a>
                     </section>
