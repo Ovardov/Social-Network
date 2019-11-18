@@ -47,7 +47,9 @@
         flex-wrap: wrap;
         flex-grow: 1;
 
-        & div:not(:last-child) {
+        & .left-column > div:not(:last-child),
+        & .middle-column > div:not(:last-child),
+        & .right-column > div:not(:last-child) {
             margin-bottom: var(--spacing-layout-elements);
         }
 
