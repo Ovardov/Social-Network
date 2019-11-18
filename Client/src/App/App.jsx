@@ -26,9 +26,18 @@ function App() {
       </header>
 
       <main className={styles['site-main']}>
+        <section className={styles['left-column']}>
           <Weather />
+        </section>
+
+        <section className={styles['middle-column']}>
           <CreatePost />
-          <PostList posts={data}/>
+          <PostList posts={data} />
+        </section>
+
+        <section className={styles['right-column']}>
+          <Weather />
+        </section>
       </main>
     </div>
   );

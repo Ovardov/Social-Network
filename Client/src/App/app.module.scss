@@ -43,8 +43,22 @@
     & .site-main {
         max-width: var(--layout-content-width);
         margin: var(--spacing-layout-elements) auto;
-        display: grid;
-        grid-template-columns: 1fr 1.5fr 1fr;
-        grid-gap: var(--spacing-layout-elements);
+        display: flex;
+        flex-wrap: wrap;
+        flex-grow: 1;
+
+        & div:not(:last-child) {
+            margin-bottom: var(--spacing-layout-elements);
+        }
+
+        & .left-column,
+        & .right-column {
+            flex-basis: 25%;
+        }
+
+        & .middle-column {
+            flex-basis: 45%;
+            margin: 0 var(--spacing-layout-elements);
+        }
     }
 }
