@@ -1,5 +1,4 @@
 import React from 'react';
-import { FiSearch } from 'react-icons/fi';
 import styles from './search.module.scss';
 
 function Search() {
@@ -10,7 +9,7 @@ function Search() {
             </p>
 
             <button type="submit">
-                <FiSearch />
+                <i class="fas fa-search"></i>
             </button>
         </form>
     )

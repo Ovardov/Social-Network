@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './site-title.module.scss';
 
 function SiteTitle() {
     return (
         <h1 className={styles['site-title']}>
-            <a href="/">SN</a>
+            <Link to="/">SN</Link>
         </h1>
     )
 }

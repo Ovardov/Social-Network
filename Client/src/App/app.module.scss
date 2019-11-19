@@ -3,64 +3,12 @@
     margin: 0 auto;
     background: #F4F4F4;
 
-    & .site-header {
-        padding: 0.5em 2em;
-        display: flex;
-        align-items: center;
-        background: var(--color-body-background);
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 100;
-        border-bottom: 1px solid #E8E8E8;
-        box-shadow: 0 0 0.3em 0 rgba(0, 0, 0, 0.5);
-
-        & .user-info {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            & a {
-                margin-left: 0.5em;
-                color: #000000;
-
-                & p {
-                    padding-bottom: 0;
-                    font-size: 0.7em;
-
-                    &:nth-child(2) {
-                        color: var(--color-grey-main);
-                    }
-                }
-
-                & .name {
-                    font-size: 0.9em;
-                }
-            }
-        }
-    }
-
     & .site-main {
         max-width: var(--layout-content-width);
-        margin: var(--spacing-layout-elements) auto;
+        margin: var(--spacing-layout-elements) auto 0 auto;
+        padding-bottom: var(--spacing-layout-elements);
         display: flex;
         flex-wrap: wrap;
         flex-grow: 1;
-
-        & .left-column > div:not(:last-child),
-        & .middle-column > div:not(:last-child),
-        & .right-column > div:not(:last-child) {
-            margin-bottom: var(--spacing-layout-elements);
-        }
-
-        & .left-column,
-        & .right-column {
-            flex-basis: 25%;
-        }
-
-        & .middle-column {
-            flex-basis: 45%;
-            margin: 0 var(--spacing-layout-elements);
-        }
     }
 }

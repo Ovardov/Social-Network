@@ -1,0 +1,37 @@
+.site-header {
+    padding: 0.5em 2em;
+    display: flex;
+    align-items: center;
+    background: var(--color-body-background);
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    border-bottom: 1px solid #E8E8E8;
+    box-shadow: 0 0 0.3em 0 rgba(0, 0, 0, 0.5);
+
+    & .user-info {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        & .description {
+            margin-left: 0.5em;
+            color: #000000;
+
+            & .view-profile {
+                padding-bottom: 0;
+                font-size: 0.9em;
+
+                &:nth-child(2) {
+                    color: var(--color-grey-main);
+                }
+            }
+
+            & .name {
+                display: block;
+                color: #000000;
+            }
+        }
+    }
+}
