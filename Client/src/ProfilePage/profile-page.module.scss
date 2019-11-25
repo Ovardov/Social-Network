@@ -20,46 +20,54 @@
             left: 50%;
             transform: translate(-50%, 0);
 
-            &>div {
+            & > div {
                 width: 7em;
                 height: 7em;
             }
         }
     }
 
-    & .menu ul {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding-bottom: 0;
+    & .menu {
+        margin-bottom: var(--spacing-layout-elements);
 
-        & .left,
-        & .right {
+        & ul {
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 0;
 
-            & li:not(:last-child) {
-                margin-right: 1em;
-            }
-        }
+            & .left,
+            & .right {
+                display: flex;
 
-        & li {
-            width: 10em;
-            text-align: center;
-
-            &:not(.active):hover > a {
-                background: #FFFFFF;
-                color: var(--color-blue-main);
-                border-color: var(--color-blue-main);
+                & li:not(:last-child) {
+                    margin-right: 1em;
+                }
             }
 
-            &:not(.active) > a {
-                background: #FFFFFF;
-                color: var(--color-grey-main);
-                border-color: var(--color-grey-main);
-            }
+            & li {
+                width: 10em;
+                height: 2.5em;
+                text-align: center;
 
-            & a {
-                display: block;
+                &:not(.active):hover > button {
+                    background: #FFFFFF;
+                    color: var(--color-blue-main);
+                    border-color: var(--color-blue-main);
+                }
+
+                &:not(.active) > button {
+                    background: #FFFFFF;
+                    color: var(--color-grey-main);
+                    border-color: var(--color-grey-main);
+                }
+
+                & button {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    font-size: 1.05em;
+                }
             }
         }
     }

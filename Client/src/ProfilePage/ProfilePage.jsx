@@ -1,41 +1,65 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react';
 import Avatar from '../Avatar/Avatar';
+import FriendPage from '../Friend/FriendPage/FriendPage';
+import friends from '../friends';
 import styles from './profile-page.module.scss';
 
-function ProfilePage() {
-    return (
-        <section className={styles.container}>
-            <div className={styles.photos}>
-                <img className={styles.cover} src="https://miro.medium.com/max/785/1*H-25KB7EbSHjv70HXrdl6w.png" alt="" />
+class ProfilePage extends Component {
+    constructor(props) {
+        super(props)
 
-                <div className={styles['profile-picture']}>
-                    <Avatar name="Sean Doran" image="https://pbs.twimg.com/profile_images/1055263632861343745/vIqzOHXj.jpg" />
+        this.state = {
+            showContentPage: 'Friends'
+        }
+    }
+
+    handleShowContentPage = (event) => {
+    
+        this.setState({
+            showContentPage: event.target.innerText
+        })
+    }
+
+    render() {
+        const showContentPage = this.state.showContentPage;
+
+        return (
+            <section className={styles.container}>
+                <div className={styles.photos}>
+                    <img className={styles.cover} src="https://miro.medium.com/max/785/1*H-25KB7EbSHjv70HXrdl6w.png" alt="" />
+
+                    <div className={styles['profile-picture']}>
+                        <Avatar name="Sean Doran" image="https://pbs.twimg.com/profile_images/1055263632861343745/vIqzOHXj.jpg" />
+                    </div>
                 </div>
-            </div>
 
-            <div className={styles.menu}>
-                <ul>
-                    <div className={styles.left}>
-                        <li className={styles.active}>
-                            <Link className="button" children to="/profile/1">Timeline</Link>
-                        </li>
-                        <li>
-                            <Link className="button" to="/profile/1/about">About</Link>
-                        </li>
-                    </div>
-                    <div className={styles.right}>
-                        <li>
-                            <Link className="button" to="/profile/1/friends">Friends</Link>
-                        </li>
-                        <li>
-                            <Link className="button" to="/profile/1/photos">Photos</Link>
-                        </li>
-                    </div>
-                </ul>
-            </div>
-        </section>
-    )
+                <div className={styles.menu}>
+                    <ul>
+                        <div className={styles.left}>
+                            <li className={showContentPage === 'Timeline' ? `${styles.active}` : ""} >
+                                <button className="button" onClick={this.handleShowContentPage}>Timeline</button>
+                            </li>
+                            <li className={showContentPage === 'About' ? `${styles.active}` : ""} >
+                                <button className="button" onClick={this.handleShowContentPage}>About</button>
+                            </li>
+                        </div>
+                        <div className={styles.right}>
+                            <li className={showContentPage === 'Friends' ? `${styles.active}` : ""} >
+                                <button className="button" onClick={this.handleShowContentPage}>Friends</button>
+                            </li>
+                            <li className={showContentPage === 'Photos' ? `${styles.active}` : ""} >
+                                <button className="button" onClick={this.handleShowContentPage}>Photos</button>
+                            </li>
+                        </div>
+                    </ul>
+                </div>
+
+                <div className={styles.content}>
+                    {showContentPage === 'Friends' && <FriendPage friends={friends} />}
+                </div>
+            </section>
+        )
+    }
 }
 
 export default ProfilePage;
