@@ -20,7 +20,7 @@
             left: 50%;
             transform: translate(-50%, 0);
 
-            & > div {
+            &>div {
                 width: 7em;
                 height: 7em;
             }
@@ -50,13 +50,13 @@
                 height: 2.5em;
                 text-align: center;
 
-                &:not(.active):hover > button {
+                &:not(.active):hover>button {
                     background: #FFFFFF;
                     color: var(--color-blue-main);
                     border-color: var(--color-blue-main);
                 }
 
-                &:not(.active) > button {
+                &:not(.active)>button {
                     background: #FFFFFF;
                     color: var(--color-grey-main);
                     border-color: var(--color-grey-main);

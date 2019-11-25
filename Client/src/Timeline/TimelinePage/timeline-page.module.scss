@@ -1,0 +1,22 @@
+.container {
+    width: 100%;
+    margin: var(--spacing-layout-elements) 0 0 0;
+    padding-bottom: var(--spacing-layout-elements);
+    display: flex;
+    flex-wrap: wrap;
+
+    & .left-column>div:not(:last-child),
+    .right-column>div:not(:last-child) {
+        margin-bottom: var(--spacing-layout-elements);
+    }
+
+    & .left-column {
+        flex-basis: 38%;
+    }
+
+    & .right-column {
+        flex-basis: 58%;
+        margin-left: var(--spacing-layout-elements);
+        flex-grow: 1;
+    }
+}

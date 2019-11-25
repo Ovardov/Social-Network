@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Avatar from '../Avatar/Avatar';
 import FriendPage from '../Friend/FriendPage/FriendPage';
+import TimelinePage from '../Timeline/TimelinePage/TimelinePage';
 import friends from '../friends';
+import data from '../data';
 import styles from './profile-page.module.scss';
 
 class ProfilePage extends Component {
@@ -9,12 +11,11 @@ class ProfilePage extends Component {
         super(props)
 
         this.state = {
-            showContentPage: 'Friends'
+            showContentPage: 'Timeline'
         }
     }
 
     handleShowContentPage = (event) => {
-    
         this.setState({
             showContentPage: event.target.innerText
         })
@@ -22,6 +23,8 @@ class ProfilePage extends Component {
 
     render() {
         const showContentPage = this.state.showContentPage;
+
+        const filteredData = data.filter((post) => post.author.name === "Sean Doran");
 
         return (
             <section className={styles.container}>
@@ -55,6 +58,7 @@ class ProfilePage extends Component {
                 </div>
 
                 <div className={styles.content}>
+                    {showContentPage === 'Timeline' && <TimelinePage posts={filteredData} />}
                     {showContentPage === 'Friends' && <FriendPage friends={friends} />}
                 </div>
             </section>
