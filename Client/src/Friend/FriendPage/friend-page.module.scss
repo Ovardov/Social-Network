@@ -1,0 +1,10 @@
+.search-container {
+    margin-bottom: var(--spacing-layout-elements);
+    padding: 0.5em;
+    background: #FFFFFF;
+    border-radius: 0.5em;
+    
+    & > form {
+        justify-content: flex-end;
+    }
+}
