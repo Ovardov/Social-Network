@@ -3,9 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Header from '../Header/Header';
 import HomePage from '../HomePage/HomePage';
 import ProfilePage from '../ProfilePage/ProfilePage';
-import FriendList from '../Friend/FriendList/FriendList';
 import styles from './app.module.scss';
-import friends from '../friends';
 
 
 function App() {

@@ -1,0 +1,5 @@
+.container {
+    display: grid;
+    grid-gap: var(--spacing-layout-elements);
+    grid-template-columns: repeat(3, 1fr);
+}

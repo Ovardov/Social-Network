@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import Avatar from '../Avatar/Avatar';
-import FriendPage from '../Friend/FriendPage/FriendPage';
 import TimelinePage from '../Timeline/TimelinePage/TimelinePage';
+import FriendPage from '../Friend/FriendPage/FriendPage';
+import GalleryPage from '../Gallery/GalleryPage/GalleryPage';
 import friends from '../friends';
 import data from '../data';
+import photos from '../photos';
 import styles from './profile-page.module.scss';
 
 class ProfilePage extends Component {
@@ -50,8 +52,8 @@ class ProfilePage extends Component {
                             <li className={showContentPage === 'Friends' ? `${styles.active}` : ""} >
                                 <button className="button" onClick={this.handleShowContentPage}>Friends</button>
                             </li>
-                            <li className={showContentPage === 'Photos' ? `${styles.active}` : ""} >
-                                <button className="button" onClick={this.handleShowContentPage}>Photos</button>
+                            <li className={showContentPage === 'Gallery' ? `${styles.active}` : ""} >
+                                <button className="button" onClick={this.handleShowContentPage}>Gallery</button>
                             </li>
                         </div>
                     </ul>
@@ -60,6 +62,7 @@ class ProfilePage extends Component {
                 <div className={styles.content}>
                     {showContentPage === 'Timeline' && <TimelinePage posts={filteredData} />}
                     {showContentPage === 'Friends' && <FriendPage friends={friends} />}
+                    {showContentPage === 'Gallery' && <GalleryPage photos={photos} />}
                 </div>
             </section>
         )
