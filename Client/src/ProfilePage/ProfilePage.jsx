@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Avatar from '../Avatar/Avatar';
 import TimelinePage from '../Timeline/TimelinePage/TimelinePage';
+import AboutPage from '../About/AboutPage/AboutPage';
 import FriendPage from '../Friend/FriendPage/FriendPage';
 import GalleryPage from '../Gallery/GalleryPage/GalleryPage';
 import friends from '../friends';
@@ -61,6 +62,7 @@ class ProfilePage extends Component {
 
                 <div className={styles.content}>
                     {showContentPage === 'Timeline' && <TimelinePage posts={filteredData} />}
+                    {showContentPage === 'About' && <AboutPage photos={photos} />}
                     {showContentPage === 'Friends' && <FriendPage friends={friends} />}
                     {showContentPage === 'Gallery' && <GalleryPage photos={photos} />}
                 </div>
