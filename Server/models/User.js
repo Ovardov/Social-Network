@@ -3,7 +3,6 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 const userSchema = new Schema({
-
     username: {
         type: Schema.Types.String,
         unique: true,
@@ -13,7 +12,12 @@ const userSchema = new Schema({
     password: {
         type: Schema.Types.String,
         required: true
-    }
+    },
+
+    posts: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Post'
+    }]
 });
 
 userSchema.methods = {
