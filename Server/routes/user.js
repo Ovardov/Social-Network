@@ -1,16 +1,16 @@
 const router = require('express').Router();
-const controllers = require('../controllers/');
+const { userController } = require('../controllers');
 
-router.get('/', controllers.user.get);
+router.get('/', userController.get);
 
-router.post('/register', controllers.user.post.register);
+router.post('/register', userController.post.register);
 
-router.post('/login', controllers.user.post.login);
+router.post('/login', userController.post.login);
 
-router.post('/logout', controllers.user.post.logout);
+router.post('/logout', userController.post.logout);
 
-router.put('/:id', controllers.user.put);
+router.put('/:id', userController.put);
 
-router.delete('/:id', controllers.user.delete);
+router.delete('/:id', userController.delete);
 
 module.exports = router;

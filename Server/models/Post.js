@@ -7,7 +7,9 @@ const postSchema = new Schema({
     },
 
     date: {
-        default: Date.now()
+        type: Date,
+        required: true,
+        default: Date.now
     },
 
     description: {
@@ -21,11 +23,13 @@ const postSchema = new Schema({
     likes: [{
         type: Schema.Types.ObjectId,
         ref: 'User',
+        default: []
     }],
 
     comments: [{
         type: Schema.Types.ObjectId,
         ref: 'User',
+        default: []
     }]
 });
 
