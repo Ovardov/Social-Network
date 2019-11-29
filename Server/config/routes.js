@@ -1,4 +1,4 @@
-const router = require('../routes/');
+const router = require('../routes');
 
 module.exports = (app) => {
 

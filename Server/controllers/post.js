@@ -8,19 +8,24 @@ module.exports = {
     },
 
     post: {
-        create: (req, res, next) => {
+        create: async (req, res, next) => {
             const { description, image } = req.body;
-            // const author = req.user;
+            const authorId = req.user._id;
 
-            models.User.create({ description, image })
-                .then((createdPost) => res.send(createdPost))
-                .catch(next)
-        },
+            try {
+                const createdPost = await models.Post.create({ author: authorId, description, image })
+                await models.User.updateOne({ _id: authorId }, { $push: { posts: createdPost } });
+
+                res.send(createdPost);
+            } catch (e) {
+                next(e)
+            }
+        }
     },
 
     put: (req, res, next) => {
         const id = req.params.id;
-        
+
         models.Post.updateOne({ _id: id })
             .then((updatedPost) => res.send(updatedPost))
             .catch(next)
@@ -28,7 +33,7 @@ module.exports = {
 
     delete: (req, res, next) => {
         const id = req.params.id;
-        
+
         models.Post.deleteOne({ _id: id })
             .then((removedPost) => res.send(removedPost))
             .catch(next)
