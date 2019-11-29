@@ -10,7 +10,7 @@ module.exports = {
     post: {
         create: async (req, res, next) => {
             const { description, image } = req.body;
-            const authorId = req.user._id;
+            const authorId = '5de0d21bf2b8bc1f00e201f7'
 
             try {
                 const createdPost = await models.Post.create({ author: authorId, description, image })

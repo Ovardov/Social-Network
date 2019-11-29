@@ -38,6 +38,10 @@
             cursor: pointer;
             font-size: 1.8em;
             color: var(--color-blue-main);
+
+            & input[type="file"] {
+                display: none;
+            }
         }
 
         & input[type="submit"] {
