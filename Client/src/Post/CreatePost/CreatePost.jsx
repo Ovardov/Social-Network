@@ -53,7 +53,7 @@ function CreatePost() {
                         <input id="file-uploader" type="file" onChange={(e) => setFile(e.target.files[0])} />
                     </label>
 
-                    <input type="submit" value="POST" onClick={submitPost} />
+                    <input type="submit" value="POST"/>
                 </p>
             </form>
         </div>

@@ -3,9 +3,7 @@ import PostCard from '../PostCard/PostCard';
 import styles from './post-list.module.scss';
 
 function renderPosts(posts, userInfo) {
-    console.log(posts);
     return posts.map(post => {
-        
         return (<PostCard key={post.id} {...post} author={userInfo ? userInfo : post.author} />);
     });
 }
