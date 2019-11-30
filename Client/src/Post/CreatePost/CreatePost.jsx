@@ -49,11 +49,17 @@ function CreatePost() {
                 <p>
                     <label className={styles['photo-container']} htmlFor="file-uploader">
                         <i className="fas fa-image"></i>
-                        
+
                         <input id="file-uploader" type="file" onChange={(e) => setFile(e.target.files[0])} />
+
+                        <span className={styles.ready}>
+                            {file && file.name}
+                            {file && <i class="fas fa-check-circle"></i>}
+                        </span>
                     </label>
 
-                    <input type="submit" value="POST"/>
+
+                    <input type="submit" value="POST" />
                 </p>
             </form>
         </div>

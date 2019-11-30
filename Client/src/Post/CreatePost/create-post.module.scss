@@ -42,6 +42,16 @@
             & input[type="file"] {
                 display: none;
             }
+
+            & .ready {
+                font-size: 0.7em;
+                margin-left: 0.5em;
+
+                & > i {
+                    color: green;
+                    margin-left: 0.3em;
+                }
+            }
         }
 
         & input[type="submit"] {
