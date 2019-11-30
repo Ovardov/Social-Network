@@ -4,16 +4,25 @@ const utils = require('../utils');
 
 module.exports = {
     get: (req, res, next) => {
-        models.User.find()
+        const userId = req.query.id;
+        let query = {};
+
+        if(userId) {
+            query = {
+                _id: userId
+            }
+        } 
+
+        models.User.find(query).populate('posts')
             .then((users) => res.send(users))
             .catch(next)
     },
 
     post: {
         register: (req, res, next) => {
-            const { username, password } = req.body;
+            const { username, password, name } = req.body;
 
-            models.User.create({ username, password })
+            models.User.create({ username, password, name })
                 .then((createdUser) => res.send(createdUser))
                 .catch(next)
         },

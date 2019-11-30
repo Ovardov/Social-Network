@@ -6,7 +6,7 @@ import styles from './post-card.module.scss';
 class PostCard extends Component {
     render() {
         const { date, author, description, image, likes, comments } = this.props;
-
+        
         return (
             <section className={styles.container}>
                 <header className={styles['user-container']}>

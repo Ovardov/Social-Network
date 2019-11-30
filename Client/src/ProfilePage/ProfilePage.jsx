@@ -4,8 +4,8 @@ import TimelinePage from '../Timeline/TimelinePage/TimelinePage';
 import AboutPage from '../About/AboutPage/AboutPage';
 import FriendPage from '../Friend/FriendPage/FriendPage';
 import GalleryPage from '../Gallery/GalleryPage/GalleryPage';
+import userService from '../services/userService';
 import friends from '../friends';
-import data from '../data';
 import photos from '../photos';
 import styles from './profile-page.module.scss';
 
@@ -14,7 +14,9 @@ class ProfilePage extends Component {
         super(props)
 
         this.state = {
-            showContentPage: 'Timeline'
+            showContentPage: 'Timeline',
+            posts: [],
+            userInfo: {}
         }
     }
 
@@ -24,10 +26,29 @@ class ProfilePage extends Component {
         })
     }
 
+    componentDidMount() {
+        const userId = '5de21c7d193ea81b04381a49';
+
+        userService.loadUser(userId)
+            .then(user => {
+                this.setState({
+                    posts: user[0].posts,
+                    userInfo: {
+                        name: user[0].name,
+                        profilePicture: user[0].profilePicture
+                    }
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            })
+
+    }
+
     render() {
         const showContentPage = this.state.showContentPage;
-
-        const filteredData = data.filter((post) => post.author.name === "Sean Doran");
+        const userInfo = this.state.userInfo;
+        const posts = this.state.posts;
 
         return (
             <section className={styles.container}>
@@ -35,7 +56,7 @@ class ProfilePage extends Component {
                     <img className={styles.cover} src="https://miro.medium.com/max/785/1*H-25KB7EbSHjv70HXrdl6w.png" alt="" />
 
                     <div className={styles['profile-picture']}>
-                        <Avatar name="Sean Doran" image="https://pbs.twimg.com/profile_images/1055263632861343745/vIqzOHXj.jpg" />
+                        <Avatar name={userInfo.name} profilePicture={userInfo.profilePicture} />
                     </div>
                 </div>
 
@@ -61,7 +82,7 @@ class ProfilePage extends Component {
                 </div>
 
                 <div className={styles.content}>
-                    {showContentPage === 'Timeline' && <TimelinePage posts={filteredData} />}
+                    {showContentPage === 'Timeline' && <TimelinePage posts={posts} userInfo={userInfo}/>}
                     {showContentPage === 'About' && <AboutPage photos={photos} />}
                     {showContentPage === 'Friends' && <FriendPage friends={friends} />}
                     {showContentPage === 'Gallery' && <GalleryPage photos={photos} />}

@@ -3,7 +3,7 @@ import PostList from '../../Post/PostList/PostList';
 import Weather from '../../Weather/Weather';
 import styles from './timeline-page.module.scss';
 
-function TimelinePage({ posts }) {
+function TimelinePage({ posts, userInfo }) {
     return (
         <div className={styles.container}>
             <section className={styles['left-column']}>
@@ -11,7 +11,7 @@ function TimelinePage({ posts }) {
             </section>
 
             <section className={styles['right-column']}>
-                <PostList posts={posts} />
+                <PostList posts={posts} userInfo={userInfo}/>
             </section>
         </div>
     )

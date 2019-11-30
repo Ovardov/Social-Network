@@ -13,7 +13,7 @@ function Header() {
             <Search />
             <Navigation />
             <div className={styles['user-info']}>
-                <Avatar name="Sean Doran" image="https://pbs.twimg.com/profile_images/1055263632861343745/vIqzOHXj.jpg" />
+                <Avatar name="Sean Doran" profilePicture="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1575099159/tjtegxh6a0adt5rwea9u.png" />
                
                 <div className={styles.description}>
                     <Link to="/profile/1" className={styles.name}>Sean Doran</Link>

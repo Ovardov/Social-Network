@@ -14,6 +14,16 @@ const userSchema = new Schema({
         required: true
     },
 
+    name: {
+        type: Schema.Types.String,
+        required: true,
+    },
+
+    profilePicture: {
+        type: Schema.Types.String,
+        default: 'https://res.cloudinary.com/dxxq5xtsy/image/upload/v1575099159/tjtegxh6a0adt5rwea9u.png'
+    },
+
     posts: [{
         type: Schema.Types.ObjectId,
         ref: 'Post'

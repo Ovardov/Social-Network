@@ -4,13 +4,13 @@ import Avatar from '../../Avatar/Avatar';
 import styles from './friend-card.module.scss';
 
 
-function PostCard({ name, image, livesIn, id }) {
+function PostCard({ name, profilePicture, livesIn, id }) {
 
     return (
         <Link to={`/profile/${id}`}>
             <section className={styles.container}>
                 <div className={styles['image-container']}>
-                    <Avatar name={name} image={image}></Avatar>
+                    <Avatar name={name} profilePicture={profilePicture}></Avatar>
 
                     <div className={styles['message-container']}>
                         <i class="fas fa-user-circle message-icon"></i>
