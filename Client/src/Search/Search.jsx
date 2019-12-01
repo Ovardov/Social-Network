@@ -8,9 +8,8 @@ function Search({ submit }) {
                 <input type="text" placeholder="Search" name="search" />
             </p>
 
-
             <button type="submit">
-                <i class="fas fa-search"></i>
+                <i className="fas fa-search"></i>
             </button>
         </form>
     )

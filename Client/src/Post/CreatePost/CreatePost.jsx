@@ -58,7 +58,6 @@ function CreatePost() {
                         </span>
                     </label>
 
-
                     <input type="submit" value="POST" />
                 </p>
             </form>

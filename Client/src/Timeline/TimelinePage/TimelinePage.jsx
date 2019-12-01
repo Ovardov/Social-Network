@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PostList from '../../Post/PostList/PostList';
 import Weather from '../../Weather/Weather';
 import styles from './timeline-page.module.scss';
