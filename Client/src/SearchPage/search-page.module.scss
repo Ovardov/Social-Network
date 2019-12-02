@@ -7,6 +7,10 @@
         grid-template-columns: 1fr;
         grid-gap: var(--spacing-layout-elements);
 
+        & .no-users {
+            padding-bottom: 0;
+            text-align: center;
+        }
 
         & .user-container {
             padding: 1em;

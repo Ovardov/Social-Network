@@ -21,20 +21,14 @@ function renderUsers(users) {
     })
 }
 
-function UserList(users) {
-    return (
-        <div className={styles['user-list']}>
-            {renderUsers(users)}
-        </div>
-    )
-}
-
 function SearchPage(props) {
     const { users } = props.history.location.state;
 
     return (
         <div className={styles.container}>
-            {UserList(users)}
+            <div className={styles['user-list']}>
+                {users.length != 0 ? renderUsers(users) : <p className={styles['no-users']}>No users found</p>}
+            </div>
         </div>
     )
 }
