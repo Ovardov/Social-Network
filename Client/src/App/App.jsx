@@ -3,12 +3,13 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Header from '../Header/Header';
 import HomePage from '../HomePage/HomePage';
 import ProfilePage from '../ProfilePage/ProfilePage';
+import SearchPage from '../SearchPage/SearchPage';
 import styles from './app.module.scss';
 
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter >
       <div className={styles.site}>
         <Header />
 
@@ -16,6 +17,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route path="/profile/:id" component={ProfilePage} />
+            <Route path="/search" component={SearchPage} />
           </Switch>
         </main>
       </div>

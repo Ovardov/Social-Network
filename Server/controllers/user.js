@@ -4,18 +4,26 @@ const utils = require('../utils');
 
 module.exports = {
     get: (req, res, next) => {
-        const userId = req.query.id;
+        const { userId, limit, name } = req.query;
         let query = {};
 
-        if(userId) {
-            query = {
-                _id: userId
-            }
-        } 
+        if (userId) {
+            query = { _id: userId }
+        }
 
-        models.User.find(query).populate('posts')
-            .then((users) => res.send(users))
-            .catch(next)
+        if (name) {
+            query = { ...query, name: { $regex: name, $options: 'i' } };
+        }
+
+        if (limit) {
+            models.User.find(query).populate('posts').limit(limit)
+                .then((users) => res.send(users))
+                .catch(next)
+        } else {
+            models.User.find(query).populate('posts')
+                .then((users) => res.send(users))
+                .catch(next)
+        }
     },
 
     post: {
@@ -66,7 +74,7 @@ module.exports = {
 
     delete: (req, res, next) => {
         const id = req.params.id;
-        
+
         models.User.deleteOne({ _id: id })
             .then((removedUser) => res.send(removedUser))
             .catch(next)

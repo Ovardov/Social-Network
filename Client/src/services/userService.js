@@ -1,9 +1,19 @@
 const postService = {
-    loadUser: function (id) {
-        let query = '';
-
+    loadUser: function (id, searchName, limit) {
+        let query = id || searchName || limit
+            ? '?'
+            : ''
+        
         if(id) {
-            query = `?id=${id}`;
+            query += `id=${id}`;
+        }
+
+        if(searchName) {
+            query += `name=${searchName}`
+        }
+
+        if(limit) {
+            query += `limit=${limit}`
         }
 
         return fetch(`http://localhost:3001/api/user${query}`, {
