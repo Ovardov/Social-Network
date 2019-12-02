@@ -5,7 +5,10 @@ function Search({ submit, changeSet }) {
     return (
         <form className={styles.container} onSubmit={submit}>
             <p>
-                <input type="text" placeholder="Search" onChange={e => changeSet(e.target.value)} />
+                {changeSet
+                    ? <input type="text" placeholder="Search" name="search" onChange={e => changeSet(e.target.value)} />
+                    : <input type="text" placeholder="Search" name="search" />
+                }
             </p>
 
             <button type="submit">
