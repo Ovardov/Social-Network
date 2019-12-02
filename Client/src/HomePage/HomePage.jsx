@@ -21,7 +21,6 @@ function HomePage() {
     }, []);
 
     return (
-
         <Fragment>
             <section className={styles['left-column']}>
                 <Weather />
