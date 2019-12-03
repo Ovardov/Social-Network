@@ -1,0 +1,29 @@
+.container {
+    min-height: 100vh;
+    width: 100%;
+    background: -webkit-linear-gradient(40deg, #FFFFFF 50%, var(--color-blue-main));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & .content {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        & .description {
+            max-width: 30em;
+
+            & .message {
+                width: 100%;
+                font-size: 5rem;
+                font-weight: bold;
+                color: var(--color-blue-main);
+                line-height: 1;
+                text-shadow: 3px 5px #DDE9FF;
+            }
+        }
+    }
+}

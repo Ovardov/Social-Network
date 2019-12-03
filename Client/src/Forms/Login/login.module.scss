@@ -1,0 +1,60 @@
+.container {
+    padding: 2em;
+    border-radius: 0.3em;
+    background: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    box-shadow: 0 0 0.3em 0 rgba(0, 0, 0, 0.5);
+
+    & p {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        padding-bottom: 0;
+        margin-bottom: var(--spacing-layout-elements);
+
+        & input {
+            border: 1px solid var(--color-grey-main);
+            background: transparent;
+            border-radius: 0.3em;
+            padding: 0.5em 2em;
+            outline: none;
+            position: relative;
+
+            &::placeholder {
+                color: var(--color-grey-main);
+            }
+
+            &:focus,
+            &:hover {
+
+                & + i {
+                    color: var(--color-blue-main);
+                }
+
+                &::placeholder {
+                    color: var(--color-blue-main);
+                }
+
+                border-color: var(--color-blue-main);
+            }
+        }
+
+        & i {
+            position: absolute;
+            top: 2.2em;
+            left: 0.5em;
+            color: var(--color-grey-main);
+        }
+    }
+
+    & input[type=submit] {
+        width: 100%;
+        padding: 0.5em 2em;
+        background: #FF5F59;
+        border-color: #FF5F59;
+
+        &:hover {
+            color: #FF5F59;
+        }
+    }
+}
