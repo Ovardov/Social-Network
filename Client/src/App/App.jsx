@@ -14,7 +14,7 @@ function App() {
     <BrowserRouter >
       <div className={styles.site}>
         <Header />
-         
+
         <main className={styles['site-main']}>
           <Switch>
             <Route exact path="/" component={HomePage} />

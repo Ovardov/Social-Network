@@ -26,14 +26,14 @@ function Login(props) {
     return (
         <form className={styles.container} onSubmit={handleSubmit}>
             <p>
+                <input type="text" id="log-in-username" onChange={(e) => setUsername(e.target.value)}/>
                 <label htmlFor="log-in-username">Username</label>
-                <input type="text" id="log-in-username" placeholder="Ovardov" onChange={(e) => setUsername(e.target.value)}/>
                 <i class="fas fa-user"></i>
             </p>
 
             <p>
+                <input type="password" id="log-in-password" onChange={(e) => setPassword(e.target.value)}/>
                 <label htmlFor="log-in-password">Password</label>
-                <input type="password" id="log-in-password" placeholder="********" onChange={(e) => setPassword(e.target.value)}/>
                 <i class="fas fa-lock"></i>
             </p>
 
