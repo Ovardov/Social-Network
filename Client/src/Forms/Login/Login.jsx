@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import userService from '../../services/userService';
-import styles from './login.module.scss';
+import styles from '../forms.module.scss';
 
 function Login(props) {
     const [username, setUsername] = useState('');
@@ -37,7 +37,7 @@ function Login(props) {
                 <i class="fas fa-lock"></i>
             </p>
 
-            <input type="submit" value="Sign In" />
+            <button type="submit" className="button">Sign In</button>
         </form>
     )
 }

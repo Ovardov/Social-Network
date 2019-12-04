@@ -34,6 +34,19 @@ const postService = {
         })
             .then(res => res.json())
             .catch(err => console.error(err));
+    },
+
+    register: function(data) {
+        return fetch(`http://localhost:3001/api/user/register`, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        })
+            .then(res => res.json())
+            .catch(err => console.error(err));
     
     }
 }

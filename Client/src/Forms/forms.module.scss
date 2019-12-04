@@ -16,20 +16,19 @@
             position: absolute;
             top: 1.1em;
             left: 2em;
-            cursor: text;
             color: var(--color-grey-main);
         }
 
         & input {
             border: 1px solid var(--color-grey-main);
             background: transparent;
-            border-radius: 0.3em;
             padding: 1em 2em;
+            border-radius: 0.3em;
             outline: none;
             position: relative;
 
             &:focus {
-                & + label {
+                &+label {
                     font-size: 0.7em;
                     top: 0;
                     left: 0.7em;
@@ -38,7 +37,7 @@
 
             &:focus,
             &:hover {
-                & ~ i {
+                &~i {
                     color: var(--color-blue-main);
                 }
 
@@ -54,14 +53,23 @@
         }
     }
 
-    & input[type=submit] {
+    & button[type=button],
+    & button[type=submit] {
         width: 100%;
-        padding: 0.5em 2em;
-        background: #FF5F59;
-        border-color: #FF5F59;
+        padding: 1em 2em;
+    }
 
-        &:hover {
-            color: #FF5F59;
+    & .register-buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 0;
+        margin-bottom: 0;
+
+        & button:first-child:nth-last-child(2),
+        & button:first-child:nth-last-child(2)~button {
+            flex-basis: 45%;
         }
     }
 }

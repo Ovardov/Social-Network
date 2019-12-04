@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Header from '../Header/Header';
 import HomePage from '../HomePage/HomePage';
 import PublicHomePage from '../HomePage/PublicHomePage/PublicHomePage';
-import LoginPage from '../LoginPage/LoginPage';
+import LoginRegisterPage from '../LoginRegisterPage/LoginRegisterPage';
 import ProfilePage from '../ProfilePage/ProfilePage';
 import SearchPage from '../SearchPage/SearchPage';
 import styles from './app.module.scss';
@@ -13,12 +13,13 @@ function App() {
   return (
     <BrowserRouter >
       <div className={styles.site}>
-        <Header />
-
-        <main className={styles['site-main']}>
+        {/* <Header /> */}
+        {/* className={styles['site-main']} */}
+        <main >
           <Switch>
-            <Route exact path="/" component={HomePage} />
-            {/* <Route path="/login" component={LoginPage} /> */}
+            <Route exact path="/" component={PublicHomePage} />
+            <Route path="/login" component={LoginRegisterPage} />
+            <Route path="/register" component={LoginRegisterPage} />
             <Route path="/profile/:id" component={ProfilePage} />
             <Route path="/search" component={SearchPage} />
           </Switch>

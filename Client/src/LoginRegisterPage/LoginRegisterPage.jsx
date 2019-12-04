@@ -1,8 +1,11 @@
 import React from 'react';
 import Login from '../Forms/Login/Login';
-import styles from './login-page.module.scss';
+import Register from '../Forms/Register/Register';
+import styles from './login-register-page.module.scss';
 
 function LoginPage(props) {
+    const { pathname } = props.location;
+    console.log(pathname);
     return (
         <section className={styles.container}>
             <section className={styles.content}>
@@ -11,7 +14,8 @@ function LoginPage(props) {
                 </div>
 
                 <section className={styles.form}>
-                    <Login {...props}/>
+                    {pathname === '/login' && <Login {...props} />}
+                    {pathname === '/register' && <Register {...props} />}
                 </section>
             </section>
         </section>
