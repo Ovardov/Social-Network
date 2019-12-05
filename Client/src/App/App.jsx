@@ -26,7 +26,7 @@ function App() {
               <Route exact path="/" component={isLogged === true ? HomePage : PublicHomePage} />
               {isLogged === false && <Route path="/login" component={LoginRegisterPage} />}
               {isLogged === false && <Route path="/register" component={LoginRegisterPage} />}
-              {isLogged === true && <Route path="/profile/:id" component={ProfilePage} />}
+              {isLogged === true && <Route path="/profile/:username" component={ProfilePage} />}
               {isLogged === true && <Route path="/search" component={SearchPage} />}
             </Switch>
           </main>

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import {UserContext} from '../../App/App';
 import Avatar from '../../Avatar/Avatar';
 import postService from '../../services/postService';
 import cloudinaryService from '../../services/cloudinaryService';
@@ -7,6 +8,8 @@ import styles from './create-post.module.scss';
 function CreatePost() {
     const [description, setDescription] = useState('');
     const [file, setFile] = useState(null);
+
+    const {username, name} = useContext(UserContext);
 
     const submitPost = async (e) => {
         e.preventDefault();
@@ -22,7 +25,7 @@ function CreatePost() {
 
             const data = {
                 description,
-                image: imageUrl
+                image: imageUrl,
             }
 
             postService.addPost(data)
@@ -41,7 +44,7 @@ function CreatePost() {
         <div className={styles.container}>
             <form onSubmit={submitPost}>
                 <p>
-                    <Avatar name="Sean Doran" profilePicture="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1575099159/tjtegxh6a0adt5rwea9u.png" />
+                    <Avatar username={username} name={name} profilePicture="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1575099159/tjtegxh6a0adt5rwea9u.png" />
 
                     <textarea placeholder="Share what you are thinking here..." onChange={(e) => setDescription(e.target.value)}>{description}</textarea>
                 </p>

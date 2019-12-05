@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 import Avatar from '../../Avatar/Avatar';
 import styles from './post-card.module.scss';
 
@@ -12,7 +13,7 @@ class PostCard extends Component {
                 <header className={styles['user-container']}>
                     <Avatar {...author} />
                     <div className={styles['user-info']}>
-                        <a>{author.name}</a>
+                        <Link to={`/profile/${author.username}`}>{author.name}</Link>
                         <span>{date}</span>
                     </div>
 

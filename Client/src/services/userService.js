@@ -1,11 +1,11 @@
 const postService = {
-    loadUser: function (id, searchName, limit) {
-        let query = id || searchName || limit
+    loadUser: function (username, searchName, limit) {
+        let query = username || searchName || limit
             ? '?'
             : ''
         
-        if(id) {
-            query += `id=${id}`;
+        if(username) {
+            query += `username=${username}`;
         }
 
         if(searchName) {

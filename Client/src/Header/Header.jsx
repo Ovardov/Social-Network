@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import { withRouter, Link } from 'react-router-dom';
+import {UserContext} from '../App/App';
 import SiteTitle from '../SiteTitle/SiteTitle';
 import Navigation from '../Navigation/Navigation';
 import Search from '../Search/Search';
@@ -11,6 +11,8 @@ import styles from './header.module.scss';
 function Header(props) {
     const [searchName, setSearchName] = useState('');
     const [users, setUsers] = useState([]);
+
+    const {name, username} = useContext(UserContext);
 
     useEffect(() => {
         userService.loadUser(null, searchName)
@@ -34,11 +36,11 @@ function Header(props) {
             <Search submit={handleSubmit} changeSet={setSearchName} />
             <Navigation />
             <div className={styles['user-info']}>
-                <Avatar name="Sean Doran" profilePicture="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1575099159/tjtegxh6a0adt5rwea9u.png" />
+                <Avatar username={username} name={name} profilePicture="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1575099159/tjtegxh6a0adt5rwea9u.png" />
 
                 <div className={styles.description}>
-                    <Link to="/profile/1" className={styles.name}>Sean Doran</Link>
-                    <Link to="/profile/1" className={styles['view-profile']}>View your profile</Link>
+                    <Link to={`/profile/${username}`} className={styles.name}>{name}</Link>
+                    <Link to={`/profile/${username}`} className={styles['view-profile']}>View your profile</Link>
                 </div>
             </div>
         </header>

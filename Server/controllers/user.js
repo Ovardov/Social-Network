@@ -4,11 +4,11 @@ const utils = require('../utils');
 
 module.exports = {
     get: (req, res, next) => {
-        const { id, limit, name } = req.query;
+        const { username, limit, name } = req.query;
         let query = {};
 
-        if (id) {
-            query = { _id: id }
+        if (username) {
+            query = { username }
         }
 
         if (name) {
