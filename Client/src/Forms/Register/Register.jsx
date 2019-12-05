@@ -29,8 +29,12 @@ function Register(props) {
                 }
 
                 userService.register(data)
-                    .then(() => {
-                        props.history.push('/login');
+                    .then((res) => {
+                        if(typeof res === 'object') {
+                            props.history.push('/login');
+                        }
+
+                        setErrors([res]);
                     })
                     .catch(err => {
                         console.log(err);

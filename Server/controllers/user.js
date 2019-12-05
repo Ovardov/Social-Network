@@ -31,8 +31,12 @@ module.exports = {
             const { username, password, name } = req.body;
 
             models.User.create({ username, password, name })
-                .then((createdUser) => res.send(createdUser))
-                .catch(next)
+                .then((createdUser) => {
+                   res.send(createdUser);
+                })
+                .catch(err => {
+                    err.code === 11000 ? res.status(401).send('Username is already taken!') : next(err)
+                });
         },
 
         login: (req, res, next) => {

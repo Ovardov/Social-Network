@@ -5,7 +5,7 @@ const saltRounds = 10;
 const userSchema = new Schema({
     username: {
         type: Schema.Types.String,
-        unique: true,
+        unique: [true, 'Username is already taken!'],
         required: true
     },
 

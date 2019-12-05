@@ -45,7 +45,7 @@ const postService = {
             },
             credentials: 'include'
         })
-            .then(res => res.json())
+            .then(res => res.status === 200 ? res.json() : res.text())
             .catch(err => console.error(err));
     
     }
