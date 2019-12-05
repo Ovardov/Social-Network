@@ -27,8 +27,9 @@
             outline: none;
             position: relative;
 
-            &:focus {
-                &+label {
+            &:focus,
+            &:not([value=""]) {
+                & + label {
                     font-size: 0.7em;
                     top: 0;
                     left: 0.7em;
@@ -37,7 +38,7 @@
 
             &:focus,
             &:hover {
-                &~i {
+                & ~ i {
                     color: var(--color-blue-main);
                 }
 

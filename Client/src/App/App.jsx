@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useContext, createContext } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Header from '../Header/Header';
 import HomePage from '../HomePage/HomePage';
@@ -8,25 +8,31 @@ import ProfilePage from '../ProfilePage/ProfilePage';
 import SearchPage from '../SearchPage/SearchPage';
 import styles from './app.module.scss';
 
+export const UserContext = createContext({name: '', username: '', isLogged: false})
 
 function App() {
-  return (
-    <BrowserRouter >
-      <div className={styles.site}>
-        {/* <Header /> */}
-        {/* className={styles['site-main']} */}
-        <main >
-          <Switch>
-            <Route exact path="/" component={PublicHomePage} />
-            <Route path="/login" component={LoginRegisterPage} />
-            <Route path="/register" component={LoginRegisterPage} />
-            <Route path="/profile/:id" component={ProfilePage} />
-            <Route path="/search" component={SearchPage} />
-          </Switch>
-        </main>
-      </div>
-    </BrowserRouter>
+  const [isLogged, setIsLogged] = useState(false);
+  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
 
+  return (
+    <UserContext.Provider value={{isLogged, setIsLogged, name, setName, username, setUsername}}>
+      <BrowserRouter >
+        <div className={styles.site}>
+          {isLogged === true && <Header />}
+
+          <main className={isLogged === true ? styles['site-main'] : ""}>
+            <Switch>
+              <Route exact path="/" component={isLogged === true ? HomePage : PublicHomePage} />
+              {isLogged === false && <Route path="/login" component={LoginRegisterPage} />}
+              {isLogged === false && <Route path="/register" component={LoginRegisterPage} />}
+              {isLogged === true && <Route path="/profile/:id" component={ProfilePage} />}
+              {isLogged === true && <Route path="/search" component={SearchPage} />}
+            </Switch>
+          </main>
+        </div>
+      </BrowserRouter>
+      </UserContext.Provider>
   );
 }
 

@@ -39,7 +39,7 @@ module.exports = {
             const { username, password } = req.body;
 
             models.User.findOne({ username })
-                .then((user) => Promise.all([user, user.matchPassword(password)]))
+                .then((user) => !!user ? Promise.all([user, user.matchPassword(password)]) : [null, null])
                 .then(([user, match]) => {
                     if (!match) {
                         res.status(401).send('Invalid username or password');
