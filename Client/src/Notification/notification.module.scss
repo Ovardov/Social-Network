@@ -1,0 +1,19 @@
+.container {
+    margin: 0 auto var(--spacing-layout-elements) auto;
+    text-align: center;
+    padding: 1em;
+    width: 100%;
+    background: #E77676;
+    color: #FFFFFF;
+    border-radius: 0.3em;
+    display: block;
+
+    &:empty {
+        display: none;
+    }
+
+    & .message {
+        text-decoration: underline;
+        margin-bottom: 0;
+    }
+}

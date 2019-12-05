@@ -28,7 +28,7 @@
             position: relative;
 
             &:focus,
-            &:not([value=""]) {
+            &:required{
                 & + label {
                     font-size: 0.7em;
                     top: 0;
@@ -58,6 +58,7 @@
     & button[type=submit] {
         width: 100%;
         padding: 1em 2em;
+        margin-bottom: 0.5em;
     }
 
     & .register-buttons {
@@ -71,6 +72,14 @@
         & button:first-child:nth-last-child(2),
         & button:first-child:nth-last-child(2)~button {
             flex-basis: 45%;
+        }
+    }
+
+    & .link {
+        color: var(--color-blue-main);
+
+        &:hover {
+            text-decoration: underline;
         }
     }
 }

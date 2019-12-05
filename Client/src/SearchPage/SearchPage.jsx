@@ -27,7 +27,7 @@ function SearchPage(props) {
     return (
         <div className={styles.container}>
             <div className={styles['user-list']}>
-                {users.length != 0 ? renderUsers(users) : <p className={styles['no-users']}>No users found</p>}
+                {users.length !== 0 ? renderUsers(users) : <p className={styles['no-users']}>No users found</p>}
             </div>
         </div>
     )

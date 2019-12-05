@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import {Link} from 'react-router-dom';
 import { UserContext } from '../../App/App';
 import Notification from '../../Notification/Notification';
 import userService from '../../services/userService';
@@ -9,7 +10,9 @@ function Login(props) {
     const [username, setLoginUsername] = useState('');
     const [password, setLoginPassword] = useState('');
     const [errors, setErrors] = useState([]);
+    
     const { setIsLogged, setName, setUsername } = useContext(UserContext);
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -28,7 +31,7 @@ function Login(props) {
 
                     props.history.push('/');
                 } else {
-                    setErrors([...errors, res]);
+                    setErrors([res]);
                 }
             })
             .catch(err => {
@@ -38,6 +41,7 @@ function Login(props) {
 
     return (
         <form className={styles.container} onSubmit={handleSubmit}>
+            <Notification errors={errors} />
             <p>
                 <input type="text" id="log-in-username" onChange={(e) => setLoginUsername(e.target.value)} value={username} />
                 <label htmlFor="log-in-username">Username</label>
@@ -50,10 +54,10 @@ function Login(props) {
                 <i class="fas fa-lock"></i>
             </p>
 
-            <button type="submit" className="button">Sign In</button>
-            <Notification errors={errors}/>
-        </form>
+            <button type="submit" className="button">Login</button>
 
+            <Link to="/register" className={styles.link}>Create an account!</Link>
+        </form>
     )
 }
 

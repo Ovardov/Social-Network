@@ -3,7 +3,7 @@ import Login from '../Forms/Login/Login';
 import Register from '../Forms/Register/Register';
 import styles from './login-register-page.module.scss';
 
-function LoginPage(props) {
+function LoginRegisterPage(props) {
     const { pathname } = props.location;
 
     return (
@@ -22,5 +22,5 @@ function LoginPage(props) {
     )
 }
 
-export default LoginPage;
+export default LoginRegisterPage;
 
