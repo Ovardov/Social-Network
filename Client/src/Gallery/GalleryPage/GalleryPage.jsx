@@ -1,10 +1,10 @@
 import React, {Fragment} from 'react';
 import GaleryList from '../GalleryList/GalleryList';
 
-function GalleryPage({photos}) {
+function GalleryPage({posts}) {
     return (
         <Fragment>
-            <GaleryList photos={photos} />
+            <GaleryList posts={posts} />
         </Fragment>
     )
 }

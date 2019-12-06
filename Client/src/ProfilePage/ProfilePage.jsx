@@ -7,7 +7,6 @@ import GalleryPage from '../Gallery/GalleryPage/GalleryPage';
 import EditProfilePage from './EditProfilePage/EditProfilePage';
 import userService from '../services/userService';
 import friends from '../friends';
-import photos from '../photos';
 import styles from './profile-page.module.scss';
 
 function ProfilePage(props) {
@@ -76,7 +75,7 @@ function ProfilePage(props) {
                 {showContentPage === 'Timeline' && <TimelinePage posts={posts} userInfo={userInfo} />}
                 {showContentPage === 'About' && <AboutPage userInfo={userInfo} setShowContentPage={setShowContentPage}/>}
                 {showContentPage === 'Friends' && <FriendPage friends={friends} />}
-                {showContentPage === 'Gallery' && <GalleryPage photos={photos} />}
+                {showContentPage === 'Gallery' && <GalleryPage posts={posts} />}
                 {showContentPage === 'Edit' && <EditProfilePage userInfo={userInfo} setUserInfo={setUserInfo} props={props} setShowContentPage={setShowContentPage}/>}
             </div>
         </section>

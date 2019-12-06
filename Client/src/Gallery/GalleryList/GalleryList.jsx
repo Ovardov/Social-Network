@@ -2,16 +2,16 @@ import React from 'react';
 import GalleryCard from '../GalleryCard/GalleryCard';
 import styles from './gallery-list.module.scss';
 
-function renderPhotos(photos) {
-    return photos.map(photo => {
-        return (<GalleryCard key={photo.id} {...photo} />);
+function renderPhotos(posts) {
+    return posts.map(post => {
+        return (<GalleryCard key={post.id} {...post} />);
     });
 }
 
-function GalleryList({ photos }) {
+function GalleryList({ posts }) {
     return (
         <ul className={styles.container}>
-            {renderPhotos(photos)}
+            {renderPhotos(posts)}
         </ul>
     )
 }
