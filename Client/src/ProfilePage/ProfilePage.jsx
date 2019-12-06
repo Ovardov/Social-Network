@@ -4,6 +4,7 @@ import TimelinePage from '../Timeline/TimelinePage/TimelinePage';
 import AboutPage from '../About/AboutPage/AboutPage';
 import FriendPage from '../Friend/FriendPage/FriendPage';
 import GalleryPage from '../Gallery/GalleryPage/GalleryPage';
+import EditProfilePage from './EditProfilePage/EditProfilePage';
 import userService from '../services/userService';
 import friends from '../friends';
 import photos from '../photos';
@@ -40,12 +41,6 @@ function ProfilePage(props) {
             })
     }, []);
 
-    useEffect(() => {
-        userService.update(userInfo)
-            .then((res) => console.log(res))
-            .catch(err => console.log(err));
-    }, [userInfo]);
-
     return (
         <section className={styles.container}>
             <div className={styles.photos}>
@@ -79,9 +74,10 @@ function ProfilePage(props) {
 
             <div className={styles.content}>
                 {showContentPage === 'Timeline' && <TimelinePage posts={posts} userInfo={userInfo} />}
-                {showContentPage === 'About' && <AboutPage userInfo={userInfo} setUserInfo={setUserInfo} />}
+                {showContentPage === 'About' && <AboutPage userInfo={userInfo} setShowContentPage={setShowContentPage}/>}
                 {showContentPage === 'Friends' && <FriendPage friends={friends} />}
                 {showContentPage === 'Gallery' && <GalleryPage photos={photos} />}
+                {showContentPage === 'Edit' && <EditProfilePage userInfo={userInfo} setUserInfo={setUserInfo} props={props} setShowContentPage={setShowContentPage}/>}
             </div>
         </section>
     )

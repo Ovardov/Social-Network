@@ -21,6 +21,7 @@
             background: #FFFFFF;
             padding: 1em;
             border-radius: 0.3em;
+            position: relative;
 
             & h4 {
                 text-align: center;
@@ -29,6 +30,23 @@
             & p {
                 padding-bottom: 0;
                 text-align: justify;
+            }
+
+            & .action-container {
+                margin-left: auto;
+                position: absolute;
+                top: 0.9em;
+                right: 1em;
+                font-size: 1.2em;
+                color: var(--color-red-main);
+                background: transparent;
+                border: none;
+                outline: none;
+                cursor: pointer;
+
+                &:hover {
+                    color: var(--color-blue-main);
+                }
             }
         }
     }

@@ -1,8 +1,9 @@
 import React from 'react';
+import {Link} from 'react-router-dom'
 import styles from './about-list.module.scss';
 
 
-function AboutList({ userInfo, setUserInfo }) {
+function AboutList({ userInfo, setShowContentPage }) {
     return (
         <section className={styles.container}>
             <section className={styles.work}>
@@ -10,13 +11,11 @@ function AboutList({ userInfo, setUserInfo }) {
                     <i class="fas fa-briefcase"></i>
                 </span>
 
-                {userInfo.work && <span>Works at {userInfo.work}</span>}
+                <span>{userInfo.work ? `Works at ${userInfo.work}` : 'Add a workplace' }</span>
 
-                {!userInfo.work && <input placeholder="Add a workplace" onBlur={e => setUserInfo({ ...userInfo, work: e.target.value })}></input>}
-
-                <span className={styles['action-container']}>
+                <button className={styles['action-container']} onClick={() => setShowContentPage('Edit')}>
                     {userInfo.work ? <i class="fas fa-edit"></i> : <i class="fas fa-plus"></i>}
-                </span>
+                </button>
             </section>
 
             <section className={styles.education}>
@@ -24,14 +23,11 @@ function AboutList({ userInfo, setUserInfo }) {
                     <i class="fas fa-graduation-cap"></i>
                 </span>
 
-                {userInfo.education
-                    ? <span>Studied at {userInfo.education}</span>
-                    : <input placeholder="Add a school" onChange={e => setUserInfo({ ...userInfo, education: e.target.value })}></input>
-                }
+                <span>{userInfo.education ? `Studied at ${userInfo.education}` : 'Add a school' }</span>
 
-                <span className={styles['action-container']}>
+                <button className={styles['action-container']} onClick={() => setShowContentPage('Edit')}>
                     {userInfo.education ? <i class="fas fa-edit"></i> : <i class="fas fa-plus"></i>}
-                </span>
+                </button>
             </section>
 
             <section className={styles.home}>
@@ -39,14 +35,11 @@ function AboutList({ userInfo, setUserInfo }) {
                     <i class="fas fa-home"></i>
                 </span>
 
-                {userInfo.home
-                    ? <span>Lives in {userInfo.home}</span>
-                    : <input placeholder="Add your current city" onBlur={e => setUserInfo({ ...userInfo, home: e.target.value })}></input>
-                }
+                <span>{userInfo.home ? `Lives in ${userInfo.home}` : 'Add your current city' }</span>
 
-                <span className={styles['action-container']}>
+                <button className={styles['action-container']} onClick={() => setShowContentPage('Edit')}>
                     {userInfo.home ? <i class="fas fa-edit"></i> : <i class="fas fa-plus"></i>}
-                </span>
+                </button>
             </section>
 
             <section className={styles['sectionfe-events']}>
@@ -54,14 +47,11 @@ function AboutList({ userInfo, setUserInfo }) {
                     <i class="fas fa-heart"></i>
                 </span>
 
-                {userInfo.relationshipStatus
-                    ? <span>{userInfo.relationshipStatus}</span>
-                    : <input placeholder="Relationship Status" onBlur={e => setUserInfo({ ...userInfo, relationshipStatus: e.target.value })}></input>
-                }
+                <span>{userInfo.relationshipStatus ? `${userInfo.relationshipStatus}` : 'Add your relationship status' }</span>
 
-                <span className={styles['action-container']}>
+                <button className={styles['action-container']} onClick={() => setShowContentPage('Edit')}>
                     {userInfo.relationshipStatus ? <i class="fas fa-edit"></i> : <i class="fas fa-plus"></i>}
-                </span>
+                </button>
             </section>
         </section>
     )

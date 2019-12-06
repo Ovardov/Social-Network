@@ -39,8 +39,16 @@
 
         & .action-container {
             margin-left: auto;
+            font-size: 1.2em;
             color: var(--color-red-main);
+            background: transparent;
+            outline: none;
             cursor: pointer;
+            border: none;
+
+            &:hover {
+                color: var(--color-blue-main);
+            }
         }
 
     }
