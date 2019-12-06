@@ -32,7 +32,7 @@ module.exports = {
 
             models.User.create({ username, password, name })
                 .then((createdUser) => {
-                   res.send(createdUser);
+                    res.send(createdUser);
                 })
                 .catch(err => {
                     err.code === 11000 ? res.status(401).send('Username is already taken!') : next(err)
@@ -68,12 +68,11 @@ module.exports = {
     },
 
     put: (req, res, next) => {
-        const id = req.params.id;
-        const { username, password } = req.body;
+        const data = req.body;
 
-        models.User.update({ _id: id }, { username, password })
+        models.User.updateOne({ username: data.username }, data)
             .then((updatedUser) => res.send(updatedUser))
-            .catch(next)
+            .catch(next);
     },
 
     delete: (req, res, next) => {

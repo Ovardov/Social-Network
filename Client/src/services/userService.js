@@ -1,18 +1,20 @@
+import { userInfo } from "os";
+
 const postService = {
     loadUser: function (username, searchName, limit) {
         let query = username || searchName || limit
             ? '?'
             : ''
-        
-        if(username) {
+
+        if (username) {
             query += `username=${username}`;
         }
 
-        if(searchName) {
+        if (searchName) {
             query += `name=${searchName}`
         }
 
-        if(limit) {
+        if (limit) {
             query += `limit=${limit}`
         }
 
@@ -23,7 +25,21 @@ const postService = {
             .catch(err => console.error(err));
     },
 
-    login: function(data) {
+    update(data) {
+        return fetch(`http://localhost:3001/api/user/${data.username}`, {
+            method: 'PUT',
+            body: JSON.stringify(data),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        })
+            .then(res => res.json())
+            .catch(err => console.error(err));
+    },
+
+    login: function (data) {
         return fetch(`http://localhost:3001/api/user/login`, {
             method: 'POST',
             body: JSON.stringify(data),
@@ -36,7 +52,7 @@ const postService = {
             .catch(err => console.error(err));
     },
 
-    register: function(data) {
+    register: function (data) {
         return fetch(`http://localhost:3001/api/user/register`, {
             method: 'POST',
             body: JSON.stringify(data),
@@ -47,7 +63,7 @@ const postService = {
         })
             .then(res => res.status === 200 ? res.json() : res.text())
             .catch(err => console.error(err));
-    
+
     }
 }
 

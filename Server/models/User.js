@@ -27,7 +27,27 @@ const userSchema = new Schema({
     posts: [{
         type: Schema.Types.ObjectId,
         ref: 'Post'
-    }]
+    }],
+
+    about: {
+        type: Schema.Types.String
+    },
+
+    work: {
+        type: Schema.Types.String
+    },
+
+    education: {
+        type: Schema.Types.String
+    },
+
+    home: {
+        type: Schema.Types.String
+    },
+
+    relationshipStatus: {
+        type: Schema.Types.String
+    }
 });
 
 userSchema.methods = {

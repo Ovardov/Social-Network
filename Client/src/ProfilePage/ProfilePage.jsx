@@ -18,19 +18,33 @@ function ProfilePage(props) {
         setShowContentPage(event.target.innerText);
     }
 
-
     useEffect(() => {
-        const {username} = props.match.params
+        const { username } = props.match.params
 
         userService.loadUser(username)
             .then(user => {
                 setPosts(user[0].posts);
-                setUserInfo({ username: user[0].username, name: user[0].name, profilePicture: user[0].profilePicture });
+                setUserInfo({
+                    username: user[0].username,
+                    name: user[0].name,
+                    profilePicture: user[0].profilePicture,
+                    relationshipStatus: user[0].relationshipStatus,
+                    home: user[0].home,
+                    work: user[0].work,
+                    education: user[0].education,
+                    about: user[0].about
+                });
             })
             .catch(err => {
                 console.log(err);
             })
     }, []);
+
+    useEffect(() => {
+        userService.update(userInfo)
+            .then((res) => console.log(res))
+            .catch(err => console.log(err));
+    }, [userInfo]);
 
     return (
         <section className={styles.container}>
@@ -65,7 +79,7 @@ function ProfilePage(props) {
 
             <div className={styles.content}>
                 {showContentPage === 'Timeline' && <TimelinePage posts={posts} userInfo={userInfo} />}
-                {showContentPage === 'About' && <AboutPage photos={photos} />}
+                {showContentPage === 'About' && <AboutPage userInfo={userInfo} setUserInfo={setUserInfo} />}
                 {showContentPage === 'Friends' && <FriendPage friends={friends} />}
                 {showContentPage === 'Gallery' && <GalleryPage photos={photos} />}
             </div>
