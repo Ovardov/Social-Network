@@ -2,7 +2,7 @@ const models = require('../models');
 
 module.exports = {
     get: (req, res, next) => {
-        models.Post.find().populate('author')
+        models.Post.find().populate('author').sort({date: -1})
             .then((posts) => res.send(posts))
             .catch(next)
     },
