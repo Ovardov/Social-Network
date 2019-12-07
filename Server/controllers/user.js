@@ -16,17 +16,31 @@ module.exports = {
         }
 
         if (limit) {
-            models.User.find(query).populate('posts').limit(limit)
+            models.User.find(query).populate('posts').populate('friends').limit(limit)
                 .then((users) => res.send(users))
                 .catch(next)
         } else {
-            models.User.find(query).populate('posts')
+            models.User.find(query).populate('friends').populate('posts')
                 .then((users) => res.send(users))
                 .catch(next)
         }
     },
 
     post: {
+        addFriend: async (req, res, next) => {
+            const friendId = req.body.id;
+            const authorId = req.user._id;
+
+            try {
+                await models.User.updateOne({ _id: authorId }, { $push: { friends: friendId } })
+                await models.User.updateOne({ _id: friendId }, { $push: { friends: authorId } });
+
+                res.send(createdPost);
+            } catch (e) {
+                next(e)
+            }
+        },
+
         register: (req, res, next) => {
             const { username, password, name } = req.body;
 
@@ -54,6 +68,7 @@ module.exports = {
                     res.cookie(config.authCookieName, token).send(user);
                 })
                 .catch(next);
+
         },
 
         logout: (req, res, next) => {

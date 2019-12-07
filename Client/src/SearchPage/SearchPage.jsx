@@ -1,6 +1,7 @@
 import React from 'react';
 import Avatar from '../Avatar/Avatar';
 import styles from './search-page.module.scss';
+import AddFriend from '../AddFriend/AddFriend';
 
 function renderUsers(users) {
     return users.map(user => {
@@ -13,10 +14,7 @@ function renderUsers(users) {
                 <p className={styles.work}>Works at Google</p>
             </div>
 
-            <button className="button">
-                <i class="fas fa-user-plus"></i>
-                Add Friend
-            </button>
+            <AddFriend id={user._id}/>
         </div>
     })
 }

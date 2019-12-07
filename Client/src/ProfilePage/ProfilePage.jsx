@@ -13,13 +13,14 @@ function ProfilePage(props) {
     const [showContentPage, setShowContentPage] = useState('Timeline');
     const [posts, setPosts] = useState([]);
     const [userInfo, setUserInfo] = useState({});
+    const { username } = props.match.params
 
     const handleShowContentPage = (event) => {
         setShowContentPage(event.target.innerText);
     }
 
     useEffect(() => {
-        const { username } = props.match.params
+        
 
         userService.loadUser(username)
             .then(user => {
@@ -38,7 +39,7 @@ function ProfilePage(props) {
             .catch(err => {
                 console.log(err);
             })
-    }, []);
+    }, [username]);
 
     return (
         <section className={styles.container}>

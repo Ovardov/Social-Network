@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import AboutList from '../AboutList/AboutList';
 import styles from './about-page.module.scss';
 
@@ -15,7 +15,7 @@ function AboutPage({ userInfo, setShowContentPage }) {
                     <p>{userInfo.about ? `${userInfo.about}` : 'Add bio'}</p>
 
                     <button className={styles['action-container']} onClick={() => setShowContentPage('Edit')}>
-                        {userInfo.about ? <i class="fas fa-edit"></i> : <i class="fas fa-plus"></i>}
+                        {userInfo.about ? <i className="fas fa-edit"></i> : <i className="fas fa-plus"></i>}
                     </button>
                 </div>
             </section>

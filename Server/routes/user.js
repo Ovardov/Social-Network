@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const auth = require('../utils/auth');
 const { userController } = require('../controllers');
 
 router.get('/', userController.get);
@@ -8,6 +9,8 @@ router.post('/register', userController.post.register);
 router.post('/login', userController.post.login);
 
 router.post('/logout', userController.post.logout);
+
+router.post('/add-friend', auth(), userController.post.addFriend);
 
 router.put('/:username', userController.put);
 

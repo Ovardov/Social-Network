@@ -29,6 +29,11 @@ const userSchema = new Schema({
         ref: 'Post'
     }],
 
+    friends: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+
     about: {
         type: Schema.Types.String
     },
@@ -76,5 +81,5 @@ userSchema.pre('save', function (next) {
 
     next();
 });
-
+  
 module.exports = new model('User', userSchema);

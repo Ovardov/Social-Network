@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import userService from '../../services/userService';
 import styles from './edit-profile-page.module.scss';
 

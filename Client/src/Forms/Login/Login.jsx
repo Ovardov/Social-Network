@@ -45,13 +45,13 @@ function Login(props) {
             <p>
                 <input type="text" id="log-in-username" onChange={(e) => setLoginUsername(e.target.value)} value={username} />
                 <label htmlFor="log-in-username">Username</label>
-                <i class="fas fa-user"></i>
+                <i className="fas fa-user"></i>
             </p>
 
             <p>
                 <input type="password" id="log-in-password" onChange={(e) => setLoginPassword(e.target.value)} value={password}/>
                 <label htmlFor="log-in-password">Password</label>
-                <i class="fas fa-lock"></i>
+                <i className="fas fa-lock"></i>
             </p>
 
             <button type="submit" className="button">Login</button>

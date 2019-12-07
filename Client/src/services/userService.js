@@ -1,5 +1,3 @@
-import { userInfo } from "os";
-
 const postService = {
     loadUser: function (username, searchName, limit) {
         let query = username || searchName || limit
@@ -28,6 +26,20 @@ const postService = {
     update(data) {
         return fetch(`http://localhost:3001/api/user/${data.username}`, {
             method: 'PUT',
+            body: JSON.stringify(data),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        })
+            .then(res => res.json())
+            .catch(err => console.error(err));
+    },
+
+    addFriend(data) {
+        return fetch(`http://localhost:3001/api/user/add-friend`, {
+            method: 'POST',
             body: JSON.stringify(data),
             headers: {
                 'Accept': 'application/json',
