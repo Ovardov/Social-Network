@@ -20,7 +20,7 @@ module.exports = {
                 .then((users) => res.send(users))
                 .catch(next)
         } else {
-            models.User.find(query).populate('friends').populate('posts')
+            models.User.find(query).populate('friends').populate('posts').sort({_id: -1})
                 .then((users) => res.send(users))
                 .catch(next)
         }
