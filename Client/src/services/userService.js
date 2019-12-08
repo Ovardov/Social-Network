@@ -1,5 +1,5 @@
 const postService = {
-    loadUser: function (username, searchName, limit) {
+    loadUser: function (username, searchName, limit, expectUsername) {
         let query = username || searchName || limit
             ? '?'
             : ''
@@ -9,11 +9,15 @@ const postService = {
         }
 
         if (searchName) {
-            query += `name=${searchName}`
+            query += `&name=${searchName}`
         }
 
         if (limit) {
-            query += `limit=${limit}`
+            query += `&limit=${limit}`
+        }
+
+        if(expectUsername) {
+            query += `&expectUsername=${expectUsername}`;
         }
 
         return fetch(`http://localhost:3001/api/user${query}`, {

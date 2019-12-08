@@ -3,29 +3,31 @@ const config = require('../config/config');
 const utils = require('../utils');
 
 module.exports = {
-    get: {
-        home: (req, res, next) => {
-            const { username, limit, name } = req.query;
-            let query = {};
+    get: (req, res, next) => {
+        const { username, limit, name, expectUsername } = req.query;
+        let query = {};
 
-            if (username) {
-                query = { username }
-            }
+        if (username) {
+            query = { username }
+        }
 
-            if (name) {
-                query = { ...query, name: { $regex: name, $options: 'i' } };
-            }
+        if (name) {
+            query = { ...query, name: { $regex: name, $options: 'i' } };
+        }
 
-            if (limit) {
-                models.User.find(query).populate('posts').populate('friends').limit(limit)
-                    .then((users) => res.send(users))
-                    .catch(next)
-            } else {
-                models.User.find(query).populate('friends').populate('posts').sort({ _id: -1 })
-                    .then((users) => res.send(users))
-                    .catch(next)
-            }
-        },
+        if (expectUsername) {
+            query = { ...query, username: { $nin: expectUsername } }
+        }
+
+        if (limit) {
+            models.User.find(query).populate('friends').populate('posts').limit(+limit)
+                .then((users) => res.send(users))
+                .catch(next)
+        } else {
+            models.User.find(query).populate('friends').populate('posts').sort({ _id: -1 })
+                .then((users) => res.send(users))
+                .catch(next)
+        }
     },
 
     post: {
