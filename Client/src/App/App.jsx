@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Header from '../Header/Header';
 import HomePage from '../HomePage/HomePage';
@@ -6,6 +6,7 @@ import PublicHomePage from '../HomePage/PublicHomePage/PublicHomePage';
 import LoginRegisterPage from '../LoginRegisterPage/LoginRegisterPage';
 import ProfilePage from '../ProfilePage/ProfilePage';
 import SearchPage from '../SearchPage/SearchPage';
+import userService from '../services/userService';
 import styles from './app.module.scss';
 
 export const UserContext = createContext({name: '', username: '', isLogged: false})
@@ -14,6 +15,20 @@ function App() {
   const [isLogged, setIsLogged] = useState(false);
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
+
+  useEffect(() => {
+    userService.auth()
+      .then(user => {
+        
+        if(user.hasOwnProperty('username')) {
+          setIsLogged(true);
+          setName(user.name);
+          setUsername(user.username);
+        }
+      })
+      .catch(err => console.log(err))
+      
+  }, []);
 
   return (
     <UserContext.Provider value={{isLogged, setIsLogged, name, setName, username, setUsername}}>

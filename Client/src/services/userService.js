@@ -51,6 +51,15 @@ const postService = {
             .catch(err => console.error(err));
     },
 
+    auth() {
+        return fetch(`http://localhost:3001/auth`, {
+            method: 'GET',
+            credentials: 'include'
+        })
+            .then(res => res.status === 200 ? res.json() : res.text())
+            .catch(err => console.error(err));
+    },
+
     login: function (data) {
         return fetch(`http://localhost:3001/api/user/login`, {
             method: 'POST',
