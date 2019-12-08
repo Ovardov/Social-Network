@@ -1,5 +1,5 @@
 const postService = {
-    loadUser: function (username, searchName, limit, expectUsername) {
+    loadUser: (username, searchName, limit) => {
         let query = username || searchName || limit
             ? '?'
             : ''
@@ -16,12 +16,18 @@ const postService = {
             query += `&limit=${limit}`
         }
 
-        if(expectUsername) {
-            query += `&expectUsername=${expectUsername}`;
-        }
-
         return fetch(`http://localhost:3001/api/user${query}`, {
             method: 'GET',
+        })
+            .then(res => res.json())
+            .catch(err => console.error(err));
+    },
+
+    loadSuggestedFriends: (expectedFriends) => {
+        let query = `username=${expectedFriends}`
+
+    return fetch(`http://localhost:3001/api/user/suggested?${query}`, {
+            method: 'GET'
         })
             .then(res => res.json())
             .catch(err => console.error(err));

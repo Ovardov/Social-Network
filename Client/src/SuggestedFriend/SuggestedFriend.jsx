@@ -1,30 +1,25 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import SuggestedList from './SuggestedList/SuggestedList';
 import userService from '../services/userService';
 import styles from './suggested-friend.module.scss';
-import { UserContext } from '../App/App';
 
-function SuggestedFriend() {
+function SuggestedFriend({ expectedFriends }) {
     const [users, setUsers] = useState([]);
-    const { username } = useContext(UserContext);
-    
+
     useEffect(() => {
-        const limit = 3;
-        const expectUsername = username;
-        
-        userService.loadUser(null, null, limit, expectUsername)
+        userService.loadSuggestedFriends(expectedFriends)
             .then(res => {
                 setUsers(res);
             })
             .catch(err => {
                 console.log(err);
             })
-    }, [username]);
+    }, [expectedFriends]);
 
     return (
         <div className={styles.container}>
             <p>Suggested Friends</p>
-            <SuggestedList users={users} />
+            {users &&<SuggestedList users={users} />}
         </div>
     )
 }

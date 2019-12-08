@@ -12,12 +12,16 @@ import styles from './home-page.module.scss';
 function HomePage() {
     const [posts, SetPosts] = useState([]);
     const { username } = useContext(UserContext);
+    const [expectedFriends, setExpectedFriends] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
             try {
                 const user = await userService.loadUser(username);
                 const posts = await postService.loadPosts();
+
+                const allFriendsUsername = user[0].friends.map(friend => friend.username);
+                setExpectedFriends([username, allFriendsUsername]);
 
                 const friendsPosts = user[0].friends.map(friend => friend.posts);
                 let allFriendPosts = [];
@@ -50,7 +54,7 @@ function HomePage() {
             </section>
 
             <section className={styles['right-column']}>
-                <SuggestedFriend />
+                <SuggestedFriend expectedFriends={expectedFriends}/>
             </section>
         </Fragment>
     )
