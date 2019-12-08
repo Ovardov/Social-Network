@@ -19,7 +19,7 @@ function SuggestedFriend({ expectedFriends }) {
     return (
         <div className={styles.container}>
             <p>Suggested Friends</p>
-            {users &&<SuggestedList users={users} />}
+            {users && <SuggestedList users={users} />}
         </div>
     )
 }
