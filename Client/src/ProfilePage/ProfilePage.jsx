@@ -8,10 +8,12 @@ import EditProfilePage from './EditProfilePage/EditProfilePage';
 import userService from '../services/userService';
 import friends from '../friends';
 import styles from './profile-page.module.scss';
+import AddFriend from '../AddFriend/AddFriend';
 
 function ProfilePage(props) {
     const [showContentPage, setShowContentPage] = useState('Timeline');
     const [posts, setPosts] = useState([]);
+    const [friends, setFriends] = useState([]);
     const [userInfo, setUserInfo] = useState({});
     const { username } = props.match.params
 
@@ -20,11 +22,12 @@ function ProfilePage(props) {
     }
 
     useEffect(() => {
-        
+
 
         userService.loadUser(username)
             .then(user => {
                 setPosts(user[0].posts);
+                setFriends(user[0].friends);
                 setUserInfo({
                     username: user[0].username,
                     name: user[0].name,
@@ -72,12 +75,27 @@ function ProfilePage(props) {
                 </ul>
             </div>
 
+            <div className={styles['user-info']}>
+                <div className={styles['info-container']}>
+                    <div>{friends.length}</div>
+                    <span>Friends</span>
+                </div>
+                <div className={styles['info-container']}>
+                    <h3>{userInfo.name}</h3>
+                    <AddFriend />
+                </div>
+                <div className={styles['info-container']}>
+                    <div>{posts.length}</div>
+                    <span>Posts</span>
+                </div>
+            </div>
+
             <div className={styles.content}>
                 {showContentPage === 'Timeline' && <TimelinePage posts={posts} userInfo={userInfo} />}
-                {showContentPage === 'About' && <AboutPage userInfo={userInfo} setShowContentPage={setShowContentPage}/>}
+                {showContentPage === 'About' && <AboutPage userInfo={userInfo} setShowContentPage={setShowContentPage} />}
                 {showContentPage === 'Friends' && <FriendPage friends={friends} />}
                 {showContentPage === 'Gallery' && <GalleryPage posts={posts} />}
-                {showContentPage === 'Edit' && <EditProfilePage userInfo={userInfo} setUserInfo={setUserInfo} props={props} setShowContentPage={setShowContentPage}/>}
+                {showContentPage === 'Edit' && <EditProfilePage userInfo={userInfo} setUserInfo={setUserInfo} props={props} setShowContentPage={setShowContentPage} />}
             </div>
         </section>
     )
