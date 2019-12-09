@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import {UserContext} from '../App/App';
 import UserInfo from '../UserInfo/UserInfo';
 import Avatar from '../Avatar/Avatar';
 import postService from '../services/postService';
@@ -8,7 +9,7 @@ import Like from '../Like/Like';
 
 function renderComments(comments) {
     return comments.map(comment => {
-        return <section className={styles.comment}>
+        return <section key={comment._id} className={styles.comment}>
             <Avatar {...comment.author} />
             <p className={styles.description}>{comment.description}</p>
         </section>
@@ -18,6 +19,10 @@ function renderComments(comments) {
 function OpenedModal({ _id, date, author, image, description, likes, comments, setIsOpened }) {
     const postId = _id;
     const [createComment, setCreateComment] = useState('');
+
+    const { username } = useContext(UserContext);
+
+    const isFriends = author.friends.map(friend => friend.username === username)[0];    
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -40,10 +45,10 @@ function OpenedModal({ _id, date, author, image, description, likes, comments, s
 
             <section className={styles['post-info-container']}>
                 <section className={styles['post-info']}>
-                    <UserInfo className={styles.user} user={author} date={date} likes={likes} comments={comments} />
+                    <UserInfo className={styles.user} user={author} date={date} likes={likes} comments={comments} isFriends={isFriends} />
 
                     <SocialAnalytics likes={likes} comments={comments} />
-                    <Like id={postId}/> 
+                    <Like id={postId} />
                 </section>
 
                 <section className={styles.comments}>

@@ -9,7 +9,10 @@ module.exports = {
             query = { _id: id }
         }
 
-        models.Post.find(query).populate('author').populate([{ path: 'comments', populate: { path: 'author' } }]).sort({ date: -1 })
+        models.Post.find(query)
+            .populate([{ path: 'author', populate: { path: 'friends' } }])
+            .populate([{ path: 'comments', populate: { path: 'author' } }])
+            .sort({ date: -1 })
             .then((posts) => res.send(posts))
             .catch(next)
     },
@@ -55,7 +58,7 @@ module.exports = {
                 .catch(next);
         },
     },
-    
+
     delete: (req, res, next) => {
         const id = req.params.id;
 

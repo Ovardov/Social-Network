@@ -12,7 +12,8 @@ router.post('/login', userController.post.login);
 
 router.post('/logout', userController.post.logout);
 
-router.post('/add-friend', auth(), userController.post.addFriend);
+router.post('/add-friend/:id', auth(), userController.post.addFriend);
+router.post('/remove-friend/:id', auth(), userController.post.removeFriend);
 
 router.put('/:username', userController.put);
 

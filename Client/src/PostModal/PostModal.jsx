@@ -1,20 +1,9 @@
-import React, { useState, useEffect, Fragment } from 'react';
-import postService from '../services/postService';
+import React, { useState, Fragment } from 'react';
 import ClosedModal from './ClosedModal';
 import OpenedModal from './OpenedModal';
-import styles from './post-modal.module.scss';
 
-function PostModal({ id }) {
-    const [post, setPost] = useState({});
+function PostModal(post) {
     const [isOpened, setIsOpened] = useState(false);
-
-    useEffect(() => {
-        postService.loadPosts(id)
-            .then(post => {
-                setPost(post[0]);
-            })
-            .catch(err => console.log(err));
-    }, [id]);
 
     return (
         <Fragment>

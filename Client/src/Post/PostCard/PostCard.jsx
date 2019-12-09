@@ -28,7 +28,7 @@ class PostCard extends Component {
                 <main className={styles['post-container']}>
                     <section className={styles.description}>{description}</section>
 
-                    <PostModal id={_id} />
+                    <PostModal {...this.props}/>
 
                     <section className={styles['action-buttons']}>
                        <Like id={_id}/>

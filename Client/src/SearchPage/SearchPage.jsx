@@ -1,7 +1,7 @@
 import React from 'react';
 import Avatar from '../Avatar/Avatar';
 import styles from './search-page.module.scss';
-import AddFriend from '../AddFriend/AddFriend';
+import AddFriend from '../FriendStatus/FriendStatus';
 
 function renderUsers(users) {
     return users.map(user => {

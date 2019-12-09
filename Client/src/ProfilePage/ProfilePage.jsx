@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../App/App';
 import Avatar from '../Avatar/Avatar';
 import TimelinePage from '../Timeline/TimelinePage/TimelinePage';
 import AboutPage from '../About/AboutPage/AboutPage';
@@ -7,21 +8,26 @@ import GalleryPage from '../Gallery/GalleryPage/GalleryPage';
 import EditProfilePage from './EditProfilePage/EditProfilePage';
 import userService from '../services/userService';
 import styles from './profile-page.module.scss';
-import AddFriend from '../AddFriend/AddFriend';
+import FriendStatus from '../FriendStatus/FriendStatus';
 
 function ProfilePage(props) {
+    const profileUsername = props.match.params.username;
+
     const [showContentPage, setShowContentPage] = useState('Timeline');
     const [posts, setPosts] = useState([]);
     const [friends, setFriends] = useState([]);
     const [userInfo, setUserInfo] = useState({});
-    const { username } = props.match.params
+
+    const {username} = useContext(UserContext);
+
+    const isFriends = friends.map(friend => friend.username === username)[0];    
 
     const handleShowContentPage = (event) => {
         setShowContentPage(event.target.innerText);
     }
 
     useEffect(() => {
-        userService.loadUser(username)
+        userService.loadUser(profileUsername)
             .then(user => {
                 setPosts(user[0].posts);
                 setFriends(user[0].friends);
@@ -33,13 +39,14 @@ function ProfilePage(props) {
                     home: user[0].home,
                     work: user[0].work,
                     education: user[0].education,
-                    about: user[0].about
+                    about: user[0].about,
+                    id: user[0]._id
                 });
             })
             .catch(err => {
                 console.log(err);
             })
-    }, [username]);
+    }, [profileUsername]);
 
     return (
         <section className={styles.container}>
@@ -47,7 +54,7 @@ function ProfilePage(props) {
                 <img className={styles.cover} src="https://miro.medium.com/max/785/1*H-25KB7EbSHjv70HXrdl6w.png" alt="" />
 
                 <div className={styles['profile-picture']}>
-                    <Avatar username={userInfo.username} name={userInfo.name} profilePicture={userInfo.profilePicture} />
+                    <Avatar username={userInfo.profileUsername} name={userInfo.name} profilePicture={userInfo.profilePicture} />
                 </div>
             </div>
 
@@ -79,7 +86,7 @@ function ProfilePage(props) {
                 </div>
                 <div className={styles['info-container']}>
                     <h3>{userInfo.name}</h3>
-                    <AddFriend />
+                    <FriendStatus id={userInfo.id} isFriends={isFriends} />
                 </div>
                 <div className={styles['info-container']}>
                     <div>{posts.length}</div>

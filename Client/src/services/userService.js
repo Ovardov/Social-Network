@@ -47,14 +47,18 @@ const postService = {
             .catch(err => console.error(err));
     },
 
-    addFriend(data) {
-        return fetch(`http://localhost:3001/api/user/add-friend`, {
+    addFriend(id) {
+        return fetch(`http://localhost:3001/api/user/add-friend/${id}`, {
             method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
+            credentials: 'include'
+        })
+            .then(res => res.json())
+            .catch(err => console.error(err));
+    },
+
+    removeFriend(id) {
+        return fetch(`http://localhost:3001/api/user/remove-friend/${id}`, {
+            method: 'POST',
             credentials: 'include'
         })
             .then(res => res.json())

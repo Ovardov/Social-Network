@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Avatar from '../Avatar/Avatar';
-import AddFriend from '../AddFriend/AddFriend';
+import FriendStatus from '../FriendStatus/FriendStatus';
 import styles from './user-info.module.scss';
 
-function UserInfo({ user, date }) {
+function UserInfo({ user, date, isFriends }) {
     return (
         <section className={styles.container}>
             <Avatar username={user.username} name={user.name} profilePicture={user.profilePicture} />
@@ -15,7 +15,7 @@ function UserInfo({ user, date }) {
                     : <span className={styles['sub-info']}>{user.home}</span>
                 }
             </span>
-            <AddFriend id={user._id} />
+            <FriendStatus id={user._id} isFriends={isFriends}/>
         </section>
     )
 }

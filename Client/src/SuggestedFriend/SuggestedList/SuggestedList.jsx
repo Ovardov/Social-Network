@@ -4,7 +4,7 @@ import UserInfo from '../../UserInfo/UserInfo';
 
 function renderUsers(users) {
     return users.map(user => {
-        return <li><UserInfo user={user}/></li>
+        return <li key={user._id}><UserInfo user={user}/></li>
     });
 }
 

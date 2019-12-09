@@ -39,14 +39,28 @@ module.exports = {
 
     post: {
         addFriend: async (req, res, next) => {
-            const friendId = req.body.id;
+            const friendId = req.params.id;
             const authorId = req.user._id;
 
             try {
                 await models.User.updateOne({ _id: authorId }, { $push: { friends: friendId } })
                 await models.User.updateOne({ _id: friendId }, { $push: { friends: authorId } });
 
-                res.send(createdPost);
+                res.status(200);
+            } catch (e) {
+                next(e)
+            }
+        },
+
+        removeFriend: async (req, res, next) => {
+            const friendId = req.params.id;
+            const authorId = req.user._id;
+
+            try {
+                await models.User.updateOne({ _id: authorId }, { $pull: { friends: friendId } })
+                await models.User.updateOne({ _id: friendId }, { $pull: { friends: authorId } });
+
+                res.status(200);
             } catch (e) {
                 next(e)
             }
