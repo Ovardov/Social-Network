@@ -5,11 +5,11 @@ module.exports = {
         const { id } = req.query;
         let query = {};
 
-        if(id) {
-            query = {_id: id}
+        if (id) {
+            query = { _id: id }
         }
 
-        models.Post.find(query).populate('author').sort({ date: -1 })
+        models.Post.find(query).populate('author').populate([{ path: 'comments', populate: { path: 'author' } }]).sort({ date: -1 })
             .then((posts) => res.send(posts))
             .catch(next)
     },
@@ -30,14 +30,32 @@ module.exports = {
         }
     },
 
-    put: (req, res, next) => {
-        const id = req.params.id;
+    put: {
+        comment: async (req, res, next) => {
+            const { id } = req.params;
+            const { description } = req.body;
+            const authorId = req.user._id
 
-        models.Post.updateOne({ _id: id })
-            .then((updatedPost) => res.send(updatedPost))
-            .catch(next)
+            try {
+                const createdComment = await models.Comment.create({ author: authorId, description })
+                await models.Post.updateOne({ _id: id }, { $push: { comments: createdComment } });
+
+                res.send(createdComment);
+            } catch (e) {
+                next(e)
+            }
+        },
+
+        like: (req, res, next) => {
+            const { id } = req.params;
+            const authorId = req.user._id
+
+            models.Post.updateOne({ _id: id }, { $push: { likes: authorId } })
+                .then((updatedPost) => res.send(updatedPost))
+                .catch(next);
+        },
     },
-
+    
     delete: (req, res, next) => {
         const id = req.params.id;
 

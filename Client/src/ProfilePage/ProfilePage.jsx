@@ -6,7 +6,6 @@ import FriendPage from '../Friend/FriendPage/FriendPage';
 import GalleryPage from '../Gallery/GalleryPage/GalleryPage';
 import EditProfilePage from './EditProfilePage/EditProfilePage';
 import userService from '../services/userService';
-import friends from '../friends';
 import styles from './profile-page.module.scss';
 import AddFriend from '../AddFriend/AddFriend';
 
@@ -22,8 +21,6 @@ function ProfilePage(props) {
     }
 
     useEffect(() => {
-
-
         userService.loadUser(username)
             .then(user => {
                 setPosts(user[0].posts);

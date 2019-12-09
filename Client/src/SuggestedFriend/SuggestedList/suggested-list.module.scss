@@ -2,39 +2,10 @@
     padding-bottom: 0;
 
     & li {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 1em;
-
-        &>span:first-child {
-            width: 2.5em;
-            height: 2.5em;
-        }
-
+        
         &:not(:last-child) {
             border-bottom: 1px solid #E8E8E8;
         }
-
-        .info {
-            margin-left: 1em;
-            font-size: 0.8em;
-
-            .name,
-            .home {
-                display: block;
-            }
-
-            .name {
-                color: #000000;
-            }
-
-            .home {
-                color: var(--color-grey-main);
-            }
-        }
-
-
 
         button {
             padding: 0.5em;

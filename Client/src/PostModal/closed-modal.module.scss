@@ -1,0 +1,31 @@
+.image-container {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    border-radius: 0.5em;
+    width: 100%;
+    margin-bottom: 1em;
+
+    & a,
+    & img {
+        display: block;
+    }
+
+    &:after {
+        position: absolute;
+        content: '';
+        display: block;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 0.5em;
+    }
+
+    & img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+}

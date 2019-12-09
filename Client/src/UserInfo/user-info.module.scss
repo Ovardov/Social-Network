@@ -1,0 +1,30 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    background: #FFFFFF;
+
+    & span:first-child {
+        width: 2.5em;
+        height: 2.5em;
+    }
+
+    & .info {
+        margin-left: 1em;
+        font-size: 0.8em;
+
+        .name,
+        .sub-info {
+            display: block;
+        }
+
+        .name {
+            color: #000000;
+        }
+
+        .sub-info {
+            color: var(--color-grey-main);
+        }
+    }
+}

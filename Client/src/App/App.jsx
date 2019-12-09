@@ -9,7 +9,7 @@ import SearchPage from '../SearchPage/SearchPage';
 import userService from '../services/userService';
 import styles from './app.module.scss';
 
-export const UserContext = createContext({name: '', username: '', isLogged: false})
+export const UserContext = createContext({ name: '', username: '', isLogged: false })
 
 function App() {
   const [isLogged, setIsLogged] = useState(false);
@@ -19,19 +19,19 @@ function App() {
   useEffect(() => {
     userService.auth()
       .then(user => {
-        
-        if(user.hasOwnProperty('username')) {
+
+        if (user.hasOwnProperty('username')) {
           setIsLogged(true);
           setName(user.name);
           setUsername(user.username);
         }
       })
       .catch(err => console.log(err))
-      
+
   }, []);
 
   return (
-    <UserContext.Provider value={{isLogged, setIsLogged, name, setName, username, setUsername}}>
+    <UserContext.Provider value={{ isLogged, setIsLogged, name, setName, username, setUsername }}>
       <BrowserRouter >
         <div className={styles.site}>
           {isLogged === true && <Header />}
@@ -47,7 +47,7 @@ function App() {
           </main>
         </div>
       </BrowserRouter>
-      </UserContext.Provider>
+    </UserContext.Provider>
   );
 }
 
