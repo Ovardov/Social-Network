@@ -1,4 +1,5 @@
 import React, { useState, useEffect, createContext } from 'react';
+import { FadeLoader } from "react-spinners";
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Header from '../Header/Header';
 import HomePage from '../HomePage/HomePage';
@@ -15,6 +16,7 @@ function App() {
   const [isLogged, setIsLogged] = useState(false);
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     userService.auth()
@@ -28,12 +30,19 @@ function App() {
       })
       .catch(err => console.log(err))
 
+    setIsLoading(false);
   }, []);
 
   return (
     <UserContext.Provider value={{ isLogged, setIsLogged, name, setName, username, setUsername }}>
       <BrowserRouter >
         <div className={styles.site}>
+          {isLoading === true && (
+            <div className="loader">
+              <FadeLoader size={160} color={"#4080FF"} loading={isLoading} />
+            </div>
+          )}
+
           {isLogged === true && <Header />}
 
           <main className={isLogged === true ? styles['site-main'] : ""}>

@@ -21,14 +21,17 @@ module.exports = {
                     .then((users) => res.send(users))
                     .catch(next)
             } else {
-                models.User.find(query).populate('friends').populate('posts').sort({ _id: -1 })
+                models.User.find(query)
+                    .populate('friends')
+                    .populate([{ path: 'posts', populate: { path: 'author', populate: { path: 'friends' } } }])
+                    .sort({ _id: -1 })
                     .then((users) => res.send(users))
                     .catch(next)
             }
         },
 
         suggested: (req, res, next) => {
-            const {username} = req.query;
+            const { username } = req.query;
             const allUsernames = username.split(',')
 
             models.User.find({ username: { $nin: allUsernames } })

@@ -4,7 +4,7 @@ import styles from './friend-list.module.scss';
 
 function renderPosts(friends) {
     return friends.map(friend => {
-        return (<FriendCard key={friend.id} {...friend} />);
+        return (<FriendCard key={friend._id} {...friend} />);
     });
 }
 

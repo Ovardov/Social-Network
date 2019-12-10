@@ -1,7 +1,9 @@
 .site {
     max-width: var(--layout-main-width);
+    min-height: 100vh;
     margin: 0 auto;
     background: #F4F4F4;
+    position: relative;
 
     & .site-main {
         max-width: var(--layout-content-width);

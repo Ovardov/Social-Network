@@ -4,7 +4,7 @@ import OpenedModal from './OpenedModal';
 
 function PostModal(post) {
     const [isOpened, setIsOpened] = useState(false);
-
+    
     return (
         <Fragment>
             {isOpened === true

@@ -9,7 +9,7 @@ import SocialAnalytics from '../../SocialAnalytics/SocialAnalytics';
 
 class PostCard extends Component {
     render() {
-        const { _id, date, author, description, image, likes, comments } = this.props;
+        const { _id, date, author, description, likes, comments } = this.props;
 
         return (
             <section className={styles.container}>

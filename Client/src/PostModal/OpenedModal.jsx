@@ -16,7 +16,7 @@ function renderComments(comments) {
     });
 }
 
-function OpenedModal({ _id, date, author, image, description, likes, comments, setIsOpened }) {
+function OpenedModal({ _id, date, author, image, description, likes, comments, friends, setIsOpened }) {
     const postId = _id;
     const [createComment, setCreateComment] = useState('');
 

@@ -4,7 +4,7 @@ import styles from './gallery-list.module.scss';
 
 function renderPhotos(posts) {
     return posts.map(post => {
-        return (<GalleryCard key={post.id} {...post} />);
+        return (<GalleryCard key={post._id} {...post} />);
     });
 }
 

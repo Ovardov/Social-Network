@@ -8,9 +8,8 @@ function renderUsers(users, loggedUser) {
     return users.map(user => {
         const isFriends = user.friends ? user.friends.map(friend => friend.username === loggedUser)[0] : false;
 
-
         return <div key={user._id} className={styles['user-container']}>
-            <Avatar name={user.name} profilePicture={user.profilePicture} />
+            <Avatar username={user.username} name={user.name} profilePicture={user.profilePicture} />
 
             <div className={styles['user-info']}>
                 <p className={styles.name}>{user.name}</p>

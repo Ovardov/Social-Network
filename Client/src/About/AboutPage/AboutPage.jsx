@@ -2,20 +2,20 @@ import React from 'react';
 import AboutList from '../AboutList/AboutList';
 import styles from './about-page.module.scss';
 
-function AboutPage({ userInfo, setShowContentPage }) {
+function AboutPage({ user, setShowContentPage }) {
     return (
         <div className={styles.container}>
             <section className={styles['left-column']}>
-                <AboutList userInfo={userInfo} setShowContentPage={setShowContentPage} />
+                <AboutList user={user} setShowContentPage={setShowContentPage} />
             </section>
 
             <section className={styles['right-column']}>
                 <div className={styles.description}>
                     <h4>About Me</h4>
-                    <p>{userInfo.about ? `${userInfo.about}` : 'Add bio'}</p>
+                    <p>{user.about ? `${user.about}` : 'Add bio'}</p>
 
                     <button className={styles['action-container']} onClick={() => setShowContentPage('Edit')}>
-                        {userInfo.about ? <i className="fas fa-edit"></i> : <i className="fas fa-plus"></i>}
+                        {user.about ? <i className="fas fa-edit"></i> : <i className="fas fa-plus"></i>}
                     </button>
                 </div>
             </section>
