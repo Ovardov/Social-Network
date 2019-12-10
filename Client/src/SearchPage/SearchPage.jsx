@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { UserContext } from '../App/App';
 import Avatar from '../Avatar/Avatar';
 import styles from './search-page.module.scss';
-import AddFriend from '../FriendStatus/FriendStatus';
+import FriendStatus from '../FriendStatus/FriendStatus';
 
-function renderUsers(users) {
+function renderUsers(users, loggedUser) {
     return users.map(user => {
-        return <div className={styles['user-container']}>
+        const isFriends = user.friends.map(friend => friend.username === loggedUser)[0];
+
+        return <div key={user._id} className={styles['user-container']}>
             <Avatar name={user.name} profilePicture={user.profilePicture} />
 
             <div className={styles['user-info']}>
@@ -14,18 +17,19 @@ function renderUsers(users) {
                 <p className={styles.work}>Works at Google</p>
             </div>
 
-            <AddFriend id={user._id}/>
+            {user.username !== loggedUser && <FriendStatus id={user._id} isFriends={isFriends} />}
         </div>
     })
 }
 
 function SearchPage(props) {
     const { users } = props.history.location.state;
+    const { username } = useContext(UserContext);
 
     return (
         <div className={styles.container}>
             <div className={styles['user-list']}>
-                {users.length !== 0 ? renderUsers(users) : <p className={styles['no-users']}>No users found</p>}
+                {users.length !== 0 ? renderUsers(users, username) : <p className={styles['no-users']}>No users found</p>}
             </div>
         </div>
     )
