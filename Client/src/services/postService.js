@@ -2,7 +2,7 @@ const postService = {
     loadPosts: function (id) {
         let query = '';
 
-        if(id) {
+        if (id) {
             query = `?id=${id}`;
         }
 
@@ -26,7 +26,7 @@ const postService = {
             .catch(err => console.error(err));
     },
 
-    addComment: function(postId, data) {
+    addComment: function (postId, data) {
         return fetch(`http://localhost:3001/api/post/comment/${postId}`, {
             method: 'PUT',
             body: JSON.stringify(data),
@@ -39,9 +39,18 @@ const postService = {
             .catch(err => console.error(err));
     },
 
-    addLike: function(postId) {
+    addLike: function (postId) {
         return fetch(`http://localhost:3001/api/post/like/${postId}`, {
             method: 'PUT',
+            credentials: 'include'
+        })
+            .then(res => res.json())
+            .catch(err => console.error(err));
+    },
+
+    deletePost: function (postId) {
+        return fetch(`http://localhost:3001/api/post/${postId}`, {
+            method: 'DELETE',
             credentials: 'include'
         })
             .then(res => res.json())

@@ -4,7 +4,7 @@ import Avatar from '../Avatar/Avatar';
 import FriendStatus from '../FriendStatus/FriendStatus';
 import styles from './user-info.module.scss';
 
-function UserInfo({ user, date, isFriends }) {
+function UserInfo({ user, date, isFriends, isCreator }) {
     return (
         <section className={styles.container}>
             <Avatar username={user.username} name={user.name} profilePicture={user.profilePicture} />
@@ -15,7 +15,7 @@ function UserInfo({ user, date, isFriends }) {
                     : <span className={styles['sub-info']}>{user.home}</span>
                 }
             </span>
-            <FriendStatus id={user._id} isFriends={isFriends}/>
+            {!isCreator && <FriendStatus id={user._id} isFriends={isFriends} />}
         </section>
     )
 }

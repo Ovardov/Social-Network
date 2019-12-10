@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import {UserContext} from '../App/App';
+import { UserContext } from '../App/App';
 import UserInfo from '../UserInfo/UserInfo';
 import Avatar from '../Avatar/Avatar';
 import postService from '../services/postService';
@@ -22,7 +22,8 @@ function OpenedModal({ _id, date, author, image, description, likes, comments, s
 
     const { username } = useContext(UserContext);
 
-    const isFriends = author.friends.map(friend => friend.username === username)[0];    
+    const isCreator = author.username === username;
+    const isFriends = author.friends ? author.friends.map(friend => friend.username === username)[0] : false;
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -35,6 +36,11 @@ function OpenedModal({ _id, date, author, image, description, likes, comments, s
             .then(res => console.log(res));
     }
 
+    const handleDelete = () => {
+        postService.deletePost(postId)
+            .then((res) => console.log(res))
+    }
+
     return (
         <section className={styles.container} >
             <button className="button" onClick={() => setIsOpened(false)}>X</button>
@@ -45,10 +51,15 @@ function OpenedModal({ _id, date, author, image, description, likes, comments, s
 
             <section className={styles['post-info-container']}>
                 <section className={styles['post-info']}>
-                    <UserInfo className={styles.user} user={author} date={date} likes={likes} comments={comments} isFriends={isFriends} />
+                    <UserInfo className={styles.user} user={author} date={date} isFriends={isFriends} isCreator={isCreator} />
 
                     <SocialAnalytics likes={likes} comments={comments} />
                     <Like id={postId} />
+
+                    {isCreator && <button className={`button ${styles.button}`} onClick={handleDelete}>
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    }
                 </section>
 
                 <section className={styles.comments}>

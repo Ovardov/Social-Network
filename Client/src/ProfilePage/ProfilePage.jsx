@@ -20,7 +20,7 @@ function ProfilePage(props) {
 
     const {username} = useContext(UserContext);
 
-    const isFriends = friends.map(friend => friend.username === username)[0];    
+    const isFriends = friends ? friends.map(friend => friend.username === username)[0] : false;
 
     const handleShowContentPage = (event) => {
         setShowContentPage(event.target.innerText);
@@ -86,7 +86,7 @@ function ProfilePage(props) {
                 </div>
                 <div className={styles['info-container']}>
                     <h3>{userInfo.name}</h3>
-                    <FriendStatus id={userInfo.id} isFriends={isFriends} />
+                   {userInfo.username !== username && <FriendStatus id={userInfo.id} isFriends={isFriends} />}
                 </div>
                 <div className={styles['info-container']}>
                     <div>{posts.length}</div>

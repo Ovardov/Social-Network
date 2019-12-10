@@ -53,10 +53,16 @@
                 top: 5em;
             }
 
-            & > button:last-child {
+            & > button:first-of-type {
                 position: absolute;
                 top: 4em;
                 right: 1.75em;
+
+                & + button {
+                    position: absolute;
+                    top: 1em;
+                    right: 1.75em;
+                }
             }
         }
 

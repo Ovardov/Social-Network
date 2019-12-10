@@ -6,7 +6,8 @@ import FriendStatus from '../FriendStatus/FriendStatus';
 
 function renderUsers(users, loggedUser) {
     return users.map(user => {
-        const isFriends = user.friends.map(friend => friend.username === loggedUser)[0];
+        const isFriends = user.friends ? user.friends.map(friend => friend.username === loggedUser)[0] : false;
+
 
         return <div key={user._id} className={styles['user-container']}>
             <Avatar name={user.name} profilePicture={user.profilePicture} />

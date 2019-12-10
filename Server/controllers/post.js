@@ -40,7 +40,7 @@ module.exports = {
             const authorId = req.user._id
 
             try {
-                const createdComment = await models.Comment.create({ author: authorId, description })
+                const createdComment = await models.Comment.create({ author: authorId, post: id,  description })
                 await models.Post.updateOne({ _id: id }, { $push: { comments: createdComment } });
 
                 res.send(createdComment);
@@ -59,11 +59,16 @@ module.exports = {
         },
     },
 
-    delete: (req, res, next) => {
+    delete: async (req, res, next) => {
         const id = req.params.id;
 
-        models.Post.deleteOne({ _id: id })
-            .then((removedPost) => res.send(removedPost))
-            .catch(next)
+        try {
+            const removedPost = await models.Post.findOneAndDelete({ _id: id })
+            await models.Comment.deleteMany({post: id})
+            
+            res.send(removedPost);
+        } catch (e) {
+            next(e);
+        }
     }
 };
