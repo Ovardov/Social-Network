@@ -98,8 +98,16 @@ const postService = {
         })
             .then(res => res.status === 200 ? res.json() : res.text())
             .catch(err => console.error(err));
+    },
 
-    }
+    logout: function () {
+        return fetch(`http://localhost:3001/api/user/logout`, {
+            method: 'POST',
+            credentials: 'include'
+        })
+            .then(res => res.text())
+            .catch(err => console.error(err));
+    },
 }
 
 export default postService;

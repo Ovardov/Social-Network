@@ -6,9 +6,10 @@ import AboutPage from '../About/AboutPage/AboutPage';
 import FriendPage from '../Friend/FriendPage/FriendPage';
 import GalleryPage from '../Gallery/GalleryPage/GalleryPage';
 import EditProfilePage from './EditProfilePage/EditProfilePage';
+import FriendStatus from '../FriendStatus/FriendStatus';
+import Logout from '../Logout/Logout';
 import userService from '../services/userService';
 import styles from './profile-page.module.scss';
-import FriendStatus from '../FriendStatus/FriendStatus';
 
 function ProfilePage(props) {
     const profileUsername = props.match.params.username;
@@ -18,7 +19,7 @@ function ProfilePage(props) {
     const [friends, setFriends] = useState([]);
     const [userInfo, setUserInfo] = useState({});
 
-    const {username} = useContext(UserContext);
+    const { username } = useContext(UserContext);
 
     const isFriends = friends ? friends.map(friend => friend.username === username)[0] : false;
 
@@ -86,7 +87,7 @@ function ProfilePage(props) {
                 </div>
                 <div className={styles['info-container']}>
                     <h3>{userInfo.name}</h3>
-                   {userInfo.username !== username && <FriendStatus id={userInfo.id} isFriends={isFriends} />}
+                    {userInfo.username === username ? <Logout {...props} /> : <FriendStatus id={userInfo.id} isFriends={isFriends} />}
                 </div>
                 <div className={styles['info-container']}>
                     <div>{posts.length}</div>
