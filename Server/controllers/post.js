@@ -34,21 +34,6 @@ module.exports = {
     },
 
     put: {
-        comment: async (req, res, next) => {
-            const { id } = req.params;
-            const { description } = req.body;
-            const authorId = req.user._id
-
-            try {
-                const createdComment = await models.Comment.create({ author: authorId, post: id,  description })
-                await models.Post.updateOne({ _id: id }, { $push: { comments: createdComment } });
-
-                res.send(createdComment);
-            } catch (e) {
-                next(e)
-            }
-        },
-
         like: (req, res, next) => {
             const { id } = req.params;
             const authorId = req.user._id

@@ -16,6 +16,19 @@ module.exports = {
         }
     },
 
+    put: async (req, res, next) => {
+        const commentId = req.params.id;
+        const { description } = req.body;
+
+        try {
+           const updatedComment = await models.Comment.updateOne({ _id: commentId }, {description});
+
+            res.send(updatedComment);
+        } catch (e) {
+            next(e)
+        }
+    },
+
     delete: async (req, res, next) => {
         const id = req.params.id;
 

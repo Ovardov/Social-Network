@@ -1,44 +1,20 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { UserContext } from '../App/App';
 import UserInfo from '../UserInfo/UserInfo';
-import Avatar from '../Avatar/Avatar';
 import postService from '../services/postService';
 import commentService from '../services/commentService';
 import styles from './opened-modal.module.scss';
 import SocialAnalytics from '../SocialAnalytics/SocialAnalytics';
 import Like from '../Like/Like';
+import ActionComment from '../Comment/ActionComment/ActionComment';
+import CommentCard from '../Comment/CommentCard/CommentCard';
 
-function renderComments(comments, loggedUser, handleCommentDelete) {
-    return comments.map(comment => {
-        return <section key={comment._id} className={styles.comment}>
-            <Avatar {...comment.author} />
-            <p className={styles.description}>
-                {comment.description}
-                {loggedUser === comment.author.username && <button className="button" onClick={() => handleCommentDelete(comment._id)}>Delete</button>}
-            </p>
-        </section>
-    });
-}
-
-function OpenedModal({ _id, date, author, image, description, likes, comments, friends, setIsOpened }) {
+function OpenedModal({ _id, date, author, image, description, likes, comments, setIsOpened }) {
     const postId = _id;
-    const [createComment, setCreateComment] = useState('');
-
     const { username } = useContext(UserContext);
 
     const isCreator = author.username === username;
     const isFriends = author.friends ? author.friends.map(friend => friend.username === username)[0] : false;
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        const data = {
-            description: createComment
-        }
-
-        commentService.addComment(postId, data)
-            .then(res => console.log(res));
-    }
 
     const handlePostDelete = () => {
         postService.deletePost(postId)
@@ -47,8 +23,9 @@ function OpenedModal({ _id, date, author, image, description, likes, comments, f
 
     const handleCommentDelete = (commentId) => {
         commentService.deleteComment(commentId)
-            .then((res) => console.log(res))
+            .then((res) => console.log(res));
     }
+
 
     return (
         <section className={styles.container} >
@@ -65,26 +42,16 @@ function OpenedModal({ _id, date, author, image, description, likes, comments, f
                     <SocialAnalytics likes={likes} comments={comments} />
                     <Like id={postId} />
 
-                    {isCreator && <button className={`button ${styles.button}`} onClick={handlePostDelete}>
-                        <i class="fas fa-trash"></i>
-                    </button>
-                    }
+                    {isCreator && <button className={`button ${styles.button}`} onClick={handlePostDelete}><i class="fas fa-trash"></i></button>}
                 </section>
 
                 <section className={styles.comments}>
                     <section>
-                        {renderComments(comments, username, handleCommentDelete)}
+                        <CommentCard comments={comments} handleCommentDelete={handleCommentDelete} />
                     </section>
                 </section>
 
-                <section className={styles['create-comments']}>
-                    <Avatar {...author} />
-
-                    <form onSubmit={handleSubmit}>
-                        <textarea type="text" placeholder="Write a comment..." onChange={(e) => setCreateComment(e.target.value)} />
-                        <button type="submit" className="button">Send</button>
-                    </form>
-                </section>
+                <ActionComment id={postId} author={author} action="create" />
             </section>
         </section >
     )

@@ -24,6 +24,7 @@ module.exports = {
                 models.User.find(query)
                     .populate('friends')
                     .populate([{ path: 'posts', populate: { path: 'author', populate: { path: 'friends' } } }])
+                    .populate([{ path: 'posts', populate: { path: 'comments', populate: {path: 'author'} } }])
                     .sort({ _id: -1 })
                     .then((users) => res.send(users))
                     .catch(next)
