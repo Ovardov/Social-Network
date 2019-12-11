@@ -24,12 +24,15 @@
             font-size: 0.9em;
         }
 
-        & .more-info-container {
+        & .action-buttons {
             margin-left: auto;
 
-            & .more-info {
-                width: 1.5em;
-                height: auto;
+            & button {
+                font-size: 0.9em;
+
+                &:first-child {
+                    margin-right: 1em;
+                }
             }
         }
     }
@@ -50,7 +53,7 @@
             right: 1em;
             z-index: 10;
 
-            & > :not(:last-child) {
+            &> :not(:last-child) {
                 margin-right: 0.5em;
             }
 

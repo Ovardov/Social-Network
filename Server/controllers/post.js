@@ -34,6 +34,15 @@ module.exports = {
     },
 
     put: {
+        edit: (req, res, next) => {
+            const { id } = req.params;
+            const {description} = req.body;
+
+            models.Post.updateOne({_id: id}, {description})
+                .then(updatedPost => res.send(updatedPost))
+                .catch(next);
+        },
+
         like: (req, res, next) => {
             const { id } = req.params;
             const authorId = req.user._id
@@ -49,8 +58,10 @@ module.exports = {
 
         try {
             const removedPost = await models.Post.findOneAndDelete({ _id: id })
-            await models.Comment.deleteMany({post: id})
-            
+            await models.Comment.deleteMany({ post: id });
+            await models.User.updateOne({ _id: removedPost.author }, { $pull: { posts: removedPost._id } });
+
+
             res.send(removedPost);
         } catch (e) {
             next(e);

@@ -42,6 +42,19 @@ const postService = {
         })
             .then(res => res.json())
             .catch(err => console.error(err));
+    },
+
+    editPost: function (postId, data) {
+        return fetch(`http://localhost:3001/api/post/${postId}`, {
+            method: 'PUT',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        })
+            .then(res => res.json())
+            .catch(err => console.error(err));
     }
 }
 

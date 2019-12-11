@@ -16,16 +16,10 @@ function OpenedModal({ _id, date, author, image, description, likes, comments, s
     const isCreator = author.username === username;
     const isFriends = author.friends ? author.friends.map(friend => friend.username === username)[0] : false;
 
-    const handlePostDelete = () => {
-        postService.deletePost(postId)
-            .then((res) => console.log(res))
-    }
-
     const handleCommentDelete = (commentId) => {
         commentService.deleteComment(commentId)
             .then((res) => console.log(res));
     }
-
 
     return (
         <section className={styles.container} >
@@ -41,8 +35,6 @@ function OpenedModal({ _id, date, author, image, description, likes, comments, s
 
                     <SocialAnalytics likes={likes} comments={comments} />
                     <Like id={postId} />
-
-                    {isCreator && <button className={`button ${styles.button}`} onClick={handlePostDelete}><i class="fas fa-trash"></i></button>}
                 </section>
 
                 <section className={styles.comments}>
