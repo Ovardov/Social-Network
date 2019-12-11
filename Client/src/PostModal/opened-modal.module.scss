@@ -78,12 +78,12 @@
                 display: flex;
                 align-items: center;
                 background: #FFFFFF;
-
+                
                 &>span:first-of-type {
                     width: 2.5em;
                     height: 2.5em;
                 }
-
+                
                 & .description {
                     flex-grow: 1;
                     flex-shrink: 1;
@@ -91,6 +91,12 @@
                     border-radius: 0.3em;
                     padding: 0.5em;
                     margin-left: 1em;
+                    position: relative;
+                }
+
+                & button {
+                    position: absolute;
+                    right: 0.5em;
                 }
             }
         }

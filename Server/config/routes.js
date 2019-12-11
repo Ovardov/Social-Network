@@ -18,5 +18,7 @@ module.exports = (app) => {
 
     app.use('/api/post', router.post);
 
+    app.use('/api/comment', router.comment);
+
     app.use('*', (req, res, next) => res.send('Server Error'));
 };

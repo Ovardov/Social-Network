@@ -3,15 +3,19 @@ import { UserContext } from '../App/App';
 import UserInfo from '../UserInfo/UserInfo';
 import Avatar from '../Avatar/Avatar';
 import postService from '../services/postService';
+import commentService from '../services/commentService';
 import styles from './opened-modal.module.scss';
 import SocialAnalytics from '../SocialAnalytics/SocialAnalytics';
 import Like from '../Like/Like';
 
-function renderComments(comments) {
+function renderComments(comments, loggedUser, handleCommentDelete) {
     return comments.map(comment => {
         return <section key={comment._id} className={styles.comment}>
             <Avatar {...comment.author} />
-            <p className={styles.description}>{comment.description}</p>
+            <p className={styles.description}>
+                {comment.description}
+                {loggedUser === comment.author.username && <button className="button" onClick={() => handleCommentDelete(comment._id)}>Delete</button>}
+            </p>
         </section>
     });
 }
@@ -32,12 +36,17 @@ function OpenedModal({ _id, date, author, image, description, likes, comments, f
             description: createComment
         }
 
-        postService.addComment(postId, data)
+        commentService.addComment(postId, data)
             .then(res => console.log(res));
     }
 
-    const handleDelete = () => {
+    const handlePostDelete = () => {
         postService.deletePost(postId)
+            .then((res) => console.log(res))
+    }
+
+    const handleCommentDelete = (commentId) => {
+        commentService.deleteComment(commentId)
             .then((res) => console.log(res))
     }
 
@@ -56,7 +65,7 @@ function OpenedModal({ _id, date, author, image, description, likes, comments, f
                     <SocialAnalytics likes={likes} comments={comments} />
                     <Like id={postId} />
 
-                    {isCreator && <button className={`button ${styles.button}`} onClick={handleDelete}>
+                    {isCreator && <button className={`button ${styles.button}`} onClick={handlePostDelete}>
                         <i class="fas fa-trash"></i>
                     </button>
                     }
@@ -64,7 +73,7 @@ function OpenedModal({ _id, date, author, image, description, likes, comments, f
 
                 <section className={styles.comments}>
                     <section>
-                        {renderComments(comments)}
+                        {renderComments(comments, username, handleCommentDelete)}
                     </section>
                 </section>
 

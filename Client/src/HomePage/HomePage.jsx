@@ -54,11 +54,10 @@ function HomePage() {
             </section>
 
             <section className={styles['right-column']}>
-                <SuggestedFriend expectedFriends={expectedFriends}/>
+                <SuggestedFriend expectedFriends={expectedFriends} />
             </section>
         </Fragment>
     )
-
 }
 
 export default HomePage;

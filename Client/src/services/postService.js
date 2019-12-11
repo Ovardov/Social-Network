@@ -26,19 +26,6 @@ const postService = {
             .catch(err => console.error(err));
     },
 
-    addComment: function (postId, data) {
-        return fetch(`http://localhost:3001/api/post/comment/${postId}`, {
-            method: 'PUT',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            credentials: 'include'
-        })
-            .then(res => res.json())
-            .catch(err => console.error(err));
-    },
-
     addLike: function (postId) {
         return fetch(`http://localhost:3001/api/post/like/${postId}`, {
             method: 'PUT',
