@@ -25,7 +25,8 @@ const userSchema = new Schema({
     },
 
     coverPicture: {
-        type: Schema.Types.String
+        type: Schema.Types.String,
+        default: 'https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576172969/opgnesuo4zxittade6mq.png'
     },
 
     posts: [{

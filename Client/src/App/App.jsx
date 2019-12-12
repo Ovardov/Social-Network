@@ -27,6 +27,7 @@ function App() {
           setIsLogged(true);
           setName(user.name);
           setUsername(user.username);
+          setProfilePicture(user.profilePicture);
         }
       })
       .catch(err => console.log(err))

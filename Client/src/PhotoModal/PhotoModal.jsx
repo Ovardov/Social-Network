@@ -9,9 +9,9 @@ function PhotoModal({ images, isOpen, setIsOpen, photoIndex, setPhotoIndex }) {
             {isOpen && (
                 <Lightbox
                     mainSrc={images[photoIndex]}
-                    nextSrc={images[(photoIndex + 1) % images.length]}
-                    prevSrc={images[(photoIndex + images.length - 1) % images.length]}
                     onCloseRequest={() => setIsOpen(false)}
+                    nextSrc={images.length > 1 && images[(photoIndex + 1) % images.length]}
+                    prevSrc={images.length > 1 && images[(photoIndex + images.length - 1) % images.length]}
                     onMovePrevRequest={() => setPhotoIndex((photoIndex + images.length - 1) % images.length)}
                     onMoveNextRequest={() => setPhotoIndex((photoIndex + 1) % images.length)}
                 />

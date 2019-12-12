@@ -12,6 +12,7 @@ import Logout from '../Logout/Logout';
 import userService from '../services/userService';
 import styles from './profile-page.module.scss';
 import EditPicture from '../EditPicture/EditPicture';
+import PhotoModal from '../PhotoModal/PhotoModal';
 
 function ProfilePage(props) {
     const profileUsername = props.match.params.username;
@@ -19,6 +20,8 @@ function ProfilePage(props) {
     const [showContentPage, setShowContentPage] = useState('Timeline');
     const [user, setUser] = useState({});
     const [isLoading, setIsLoading] = useState(true);
+    const [isOpenProfilePicture, setIsOpenProfilePicture] = useState(false);
+    const [isOpenCoverPicture, setIsOpenCoverPicture] = useState(false);
 
     const { username } = useContext(UserContext);
 
@@ -53,15 +56,17 @@ function ProfilePage(props) {
                 <section className={styles.container}>
                     <div className={styles.photos}>
                         <div className={styles['cover-picture']}>
-                            <img className={styles.cover} src={user.coverPicture} alt="" />
+                            <img className={styles.cover} src={user.coverPicture} alt="" onClick={() => setIsOpenCoverPicture(true)}/>
                             <EditPicture username={user.username} action="coverPicture" />
+                            <PhotoModal images={[user.coverPicture]} isOpen={isOpenCoverPicture} setIsOpen={setIsOpenCoverPicture} photoIndex={0}/>
                         </div>
 
 
                         <div className={styles['profile-picture']}>
-                            <Avatar username={user.username} name={user.name} profilePicture={user.profilePicture} />
+                            <Avatar username={user.username} name={user.name} profilePicture={user.profilePicture} setIsOpen={setIsOpenProfilePicture}/>
 
                             <EditPicture username={user.username} action="profilePicture" />
+                            <PhotoModal images={[user.profilePicture]} isOpen={isOpenProfilePicture} setIsOpen={setIsOpenProfilePicture} photoIndex={0}/>
                         </div>
                     </div>
 
