@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import {UserContext} from '../App/App';
 import SiteTitle from '../SiteTitle/SiteTitle';
-import Navigation from '../Navigation/Navigation';
 import Search from '../Search/Search';
 import Avatar from '../Avatar/Avatar';
 import userService from '../services/userService';
@@ -34,7 +33,6 @@ function Header(props) {
         <header className={styles['site-header']}>
             <SiteTitle />
             <Search submit={handleSubmit} changeSet={setSearchName} />
-            <Navigation />
             <div className={styles['user-info']}>
                 <Avatar username={username} name={name} profilePicture="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1575099159/tjtegxh6a0adt5rwea9u.png" />
 

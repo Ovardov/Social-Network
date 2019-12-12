@@ -3,8 +3,8 @@
     display: flex;
     flex-wrap: wrap;
 
-    & .left-column>div:not(:last-child),
-    .right-column>div:not(:last-child) {
+    & .left-column>section:not(:last-child),
+    .right-column>section:not(:last-child) {
         margin-bottom: var(--spacing-layout-elements);
     }
 

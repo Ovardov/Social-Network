@@ -1,13 +1,15 @@
 import React from 'react';
 import PostList from '../../Post/PostList/PostList';
-import styles from './timeline-page.module.scss';
 import LastPhotos from '../../LastPhotos/LastPhotos';
+import LastFriends from '../../LastFriends/LastFriends';
+import styles from './timeline-page.module.scss';
 
-function TimelinePage({ posts, props }) {
+function TimelinePage({ friends, posts, props }) {
     return (
         <div className={styles.container}>
             <section className={styles['left-column']}>
                 <LastPhotos posts={posts} />
+                <LastFriends friends={friends} />
             </section>
 
             <section className={styles['right-column']}>

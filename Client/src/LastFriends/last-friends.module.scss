@@ -1,0 +1,28 @@
+.container {
+    border: 1px solid #E8E8E8;
+    border-radius: 0.3em;
+    background: #FFFFFF;
+
+        & p {
+            text-align: center;
+            padding: 1em;
+            border-bottom: 1px solid #E8E8E8
+        }
+
+        & > div:first-of-type {
+            grid-template-columns: repeat(3, 1fr);
+            padding: 1em;
+
+            & section:first-of-type {
+                padding: 0;
+
+                &:hover > div {
+                    border: none;
+                }
+
+                & > div {
+                    margin-bottom: 0;
+                }
+            }
+        }
+}

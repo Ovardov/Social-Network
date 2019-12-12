@@ -95,7 +95,7 @@ function ProfilePage(props) {
                     </div>
 
                     <div className={styles.content}>
-                        {showContentPage === 'Timeline' && <TimelinePage posts={user.posts} props={props}/>}
+                        {showContentPage === 'Timeline' && <TimelinePage friends={user.friends} posts={user.posts} props={props}/>}
                         {showContentPage === 'About' && <AboutPage user={user} setShowContentPage={setShowContentPage} />}
                         {showContentPage === 'Friends' && <FriendPage friends={user.friends} />}
                         {showContentPage === 'Gallery' && <GalleryPage posts={user.posts} />}

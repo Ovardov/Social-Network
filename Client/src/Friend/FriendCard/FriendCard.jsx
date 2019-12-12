@@ -4,21 +4,22 @@ import Avatar from '../../Avatar/Avatar';
 import styles from './friend-card.module.scss';
 
 
-function FriendCard({ name, profilePicture, home, username }) {
-
+function FriendCard({ name, profilePicture, home, username, lastFriends }) {
     return (
         <Link to={`/profile/${username}`}>
             <section className={styles.container}>
                 <div className={styles['image-container']}>
                     <Avatar name={name} profilePicture={profilePicture}></Avatar>
 
-                    <div className={styles['message-container']}>
-                        <i className="fas fa-user-circle message-icon"></i>
-                    </div>
+                    {lastFriends !== true && (
+                        <div className={styles['message-container']}>
+                            <i className="fas fa-user-circle message-icon"></i>
+                        </div>
+                    )}
                 </div>
 
-                <h5>{name}</h5>
-                <p>Lives in {home}</p>
+                {lastFriends !== true && <h5>{name}</h5>}
+                {lastFriends !== true && <p>Lives in {home}</p>}
             </section>
         </Link>
     )

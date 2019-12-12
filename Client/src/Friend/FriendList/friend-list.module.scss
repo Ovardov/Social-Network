@@ -1,6 +1,6 @@
-
 .friends-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 1em;
+    padding-bottom: 0;
 }
