@@ -3,13 +3,15 @@ import GaleryList from '../GalleryList/GalleryList';
 import PhotoModal from '../../PhotoModal/PhotoModal';
 
 function GalleryPage({ posts }) {
-    const images = posts.map(post => post.image)
+    const postsWithImage = posts.filter(post=> post.image);
+    const images = postsWithImage.map(post => post.image);
+
     const [isOpen, setIsOpen] = useState(false);
     const [photoIndex, setPhotoIndex] = useState(0);
 
     return (
         <Fragment>
-            <GaleryList posts={posts} setIsOpen={setIsOpen} setPhotoIndex={setPhotoIndex}/>
+            <GaleryList posts={postsWithImage} setIsOpen={setIsOpen} setPhotoIndex={setPhotoIndex}/>
             <PhotoModal isOpen={isOpen} images={images} setIsOpen={setIsOpen} photoIndex={photoIndex} setPhotoIndex={setPhotoIndex} />
         </Fragment>
     )
