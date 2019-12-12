@@ -11,6 +11,7 @@ import FriendStatus from '../FriendStatus/FriendStatus';
 import Logout from '../Logout/Logout';
 import userService from '../services/userService';
 import styles from './profile-page.module.scss';
+import EditPicture from '../EditPicture/EditPicture';
 
 function ProfilePage(props) {
     const profileUsername = props.match.params.username;
@@ -31,15 +32,15 @@ function ProfilePage(props) {
         userService.loadUser(profileUsername)
             .then(user => {
                 user[0].posts = user[0].posts.sort((a, b) => new Date(b.date) - new Date(a.date))
-                
+
                 setUser(user[0]);
                 setIsLoading(false);
             })
             .catch(err => {
                 console.log(err);
             })
-        }, [profileUsername]);
-        
+    }, [profileUsername]);
+
     return (
         <Fragment>
             {isLoading === true && (
@@ -51,10 +52,16 @@ function ProfilePage(props) {
             {isLoading === false && (
                 <section className={styles.container}>
                     <div className={styles.photos}>
-                        <img className={styles.cover} src="https://miro.medium.com/max/785/1*H-25KB7EbSHjv70HXrdl6w.png" alt="" />
+                        <div className={styles['cover-picture']}>
+                            <img className={styles.cover} src={user.coverPicture} alt="" />
+                            <EditPicture username={user.username} action="coverPicture" />
+                        </div>
+
 
                         <div className={styles['profile-picture']}>
                             <Avatar username={user.username} name={user.name} profilePicture={user.profilePicture} />
+
+                            <EditPicture username={user.username} action="profilePicture" />
                         </div>
                     </div>
 
@@ -95,7 +102,7 @@ function ProfilePage(props) {
                     </div>
 
                     <div className={styles.content}>
-                        {showContentPage === 'Timeline' && <TimelinePage friends={user.friends} posts={user.posts} props={props}/>}
+                        {showContentPage === 'Timeline' && <TimelinePage friends={user.friends} posts={user.posts} props={props} />}
                         {showContentPage === 'About' && <AboutPage user={user} setShowContentPage={setShowContentPage} />}
                         {showContentPage === 'Friends' && <FriendPage friends={user.friends} />}
                         {showContentPage === 'Gallery' && <GalleryPage posts={user.posts} />}

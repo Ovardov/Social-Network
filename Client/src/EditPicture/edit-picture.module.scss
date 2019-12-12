@@ -1,0 +1,28 @@
+.container {
+    background: #FF5F59;
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFFFFF;
+
+    &.cover {
+        top: 1em;
+        left: 1em;
+    }
+
+    &:hover {
+        background: #FFFFFF;
+        color: #FF5F59;
+        cursor: pointer;
+    }
+
+    &>input[type="file"] {
+        display: none;
+    }
+}

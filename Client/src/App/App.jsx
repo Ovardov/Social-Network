@@ -17,6 +17,7 @@ function App() {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     userService.auth()
@@ -26,6 +27,7 @@ function App() {
           setIsLogged(true);
           setName(user.name);
           setUsername(user.username);
+          setUser(user);
         }
       })
       .catch(err => console.log(err))
@@ -43,7 +45,7 @@ function App() {
             </div>
           )}
 
-          {isLogged === true && <Header />}
+          {isLogged === true && <Header user={user}/>}
 
           <main className={isLogged === true ? styles['site-main'] : ""}>
             <Switch>

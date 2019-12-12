@@ -24,6 +24,10 @@ const userSchema = new Schema({
         default: 'https://res.cloudinary.com/dxxq5xtsy/image/upload/v1575099159/tjtegxh6a0adt5rwea9u.png'
     },
 
+    coverPicture: {
+        type: Schema.Types.String
+    },
+
     posts: [{
         type: Schema.Types.ObjectId,
         ref: 'Post'
