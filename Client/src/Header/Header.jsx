@@ -10,7 +10,7 @@ import styles from './header.module.scss';
 function Header(props) {
     const [searchName, setSearchName] = useState('');
     const [users, setUsers] = useState([]);
-    const {user} = props;
+    const {username, name, profilePicture} = useContext(UserContext);
 
     useEffect(() => {
         userService.loadUser(null, searchName)
@@ -33,11 +33,11 @@ function Header(props) {
             <SiteTitle />
             <Search submit={handleSubmit} changeSet={setSearchName} />
             <div className={styles['user-info']}>
-                <Avatar username={user.username} name={user.name} profilePicture={user.profilePicture} />
+                <Avatar username={username} name={name} profilePicture={profilePicture} />
 
                 <div className={styles.description}>
-                    <Link to={`/profile/${user.username}`} className={styles.name}>{user.name}</Link>
-                    <Link to={`/profile/${user.username}`} className={styles['view-profile']}>View your profile</Link>
+                    <Link to={`/profile/${username}`} className={styles.name}>{name}</Link>
+                    <Link to={`/profile/${username}`} className={styles['view-profile']}>View your profile</Link>
                 </div>
             </div>
         </header>

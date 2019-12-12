@@ -11,7 +11,7 @@ function Login(props) {
     const [password, setLoginPassword] = useState('');
     const [errors, setErrors] = useState([]);
     
-    const { setIsLogged, setName, setUsername } = useContext(UserContext);
+    const { setIsLogged, setName, setUsername, setProfilePicture } = useContext(UserContext);
 
 
     const handleSubmit = (e) => {
@@ -28,6 +28,7 @@ function Login(props) {
                     setIsLogged(true);
                     setName(res.name);
                     setUsername(res.username);
+                    setProfilePicture(res.profilePicture)
 
                     props.history.push('/');
                 } else {

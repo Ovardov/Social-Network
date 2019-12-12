@@ -17,7 +17,7 @@ function App() {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState({});
+  const [profilePicture, setProfilePicture] = useState('');
 
   useEffect(() => {
     userService.auth()
@@ -27,7 +27,6 @@ function App() {
           setIsLogged(true);
           setName(user.name);
           setUsername(user.username);
-          setUser(user);
         }
       })
       .catch(err => console.log(err))
@@ -36,7 +35,7 @@ function App() {
   }, []);
 
   return (
-    <UserContext.Provider value={{ isLogged, setIsLogged, name, setName, username, setUsername }}>
+    <UserContext.Provider value={{ isLogged, setIsLogged, name, setName, username, setUsername, profilePicture, setProfilePicture }}>
       <BrowserRouter >
         <div className={styles.site}>
           {isLoading === true && (
@@ -45,7 +44,7 @@ function App() {
             </div>
           )}
 
-          {isLogged === true && <Header user={user}/>}
+          {isLogged === true && <Header />}
 
           <main className={isLogged === true ? styles['site-main'] : ""}>
             <Switch>
