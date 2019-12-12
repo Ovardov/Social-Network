@@ -9,6 +9,7 @@ import ProfilePage from '../ProfilePage/ProfilePage';
 import SearchPage from '../SearchPage/SearchPage';
 import userService from '../services/userService';
 import styles from './app.module.scss';
+import Loader from '../shared/hocs/Loader/Loader';
 
 export const UserContext = createContext({ name: '', username: '', isLogged: false })
 
@@ -39,11 +40,7 @@ function App() {
     <UserContext.Provider value={{ isLogged, setIsLogged, name, setName, username, setUsername, profilePicture, setProfilePicture }}>
       <BrowserRouter >
         <div className={styles.site}>
-          {isLoading === true && (
-            <div className="loader">
-              <FadeLoader size={160} color={"#4080FF"} loading={isLoading} />
-            </div>
-          )}
+          {isLoading === true && <Loader isLoading={isLoading} />}
 
           {isLogged === true && <Header />}
 

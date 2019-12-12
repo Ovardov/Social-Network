@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, UseState } from 'react';
 import { UserContext } from '../App/App';
 import Avatar from '../Avatar/Avatar';
 import styles from './search-page.module.scss';

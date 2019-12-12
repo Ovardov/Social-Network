@@ -15,6 +15,10 @@ function PostCard(props) {
     const { username } = useContext(UserContext);
     const [isEditing, setIsEditing] = useState(false);
 
+    const hoursWithMinutes = new Date(date).toLocaleTimeString();
+    const day = new Date(date).toDateString();
+    const formattedDate = `${hoursWithMinutes} - ${day}`;
+
     const handlePostDelete = () => {
         postService.deletePost(_id)
             .then(() => {
@@ -32,7 +36,7 @@ function PostCard(props) {
                         <Avatar {...author} />
                         <div className={styles['user-info']}>
                             <Link to={`/profile/${author.username}`}>{author.name}</Link>
-                            <span>{date}</span>
+                            <span>{formattedDate}</span>
                         </div>
 
                         {username === author.username && (

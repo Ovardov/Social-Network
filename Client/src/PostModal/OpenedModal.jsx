@@ -13,6 +13,10 @@ function OpenedModal({ _id, date, author, image, description, likes, comments, s
     const postId = _id;
     const { username } = useContext(UserContext);
 
+    const hoursWithMinutes = new Date(date).toLocaleTimeString();
+    const day = new Date(date).toDateString();
+    const formattedDate = `${hoursWithMinutes} - ${day}`;
+
     const isCreator = author.username === username;
     const isFriends = author.friends ? author.friends.map(friend => friend.username === username)[0] : false;
 
@@ -31,7 +35,7 @@ function OpenedModal({ _id, date, author, image, description, likes, comments, s
 
             <section className={styles['post-info-container']}>
                 <section className={styles['post-info']}>
-                    <UserInfo className={styles.user} user={author} date={date} isFriends={isFriends} isCreator={isCreator} />
+                    <UserInfo className={styles.user} user={author} date={formattedDate} isFriends={isFriends} isCreator={isCreator} />
 
                     <SocialAnalytics likes={likes} comments={comments} />
                     <Like id={postId} />

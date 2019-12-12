@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { withRouter, Link } from 'react-router-dom';
-import {UserContext} from '../App/App';
+import { UserContext } from '../App/App';
 import SiteTitle from '../SiteTitle/SiteTitle';
 import Search from '../Search/Search';
 import Avatar from '../Avatar/Avatar';
@@ -10,7 +10,7 @@ import styles from './header.module.scss';
 function Header(props) {
     const [searchName, setSearchName] = useState('');
     const [users, setUsers] = useState([]);
-    const {username, name, profilePicture} = useContext(UserContext);
+    const { username, name, profilePicture } = useContext(UserContext);
 
     useEffect(() => {
         userService.loadUser(null, searchName)
