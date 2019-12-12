@@ -1,11 +1,15 @@
 .container {
+    border: 1px solid #E8E8E8;
     border-radius: 0.3em;
     background: #FFFFFF;
-    border: 1px solid #E8E8E8;
 
     & p {
         text-align: center;
         padding: 1em;
         border-bottom: 1px solid #E8E8E8
+    }
+
+    & ul {
+        padding: 1em;
     }
 }

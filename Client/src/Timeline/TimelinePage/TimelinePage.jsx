@@ -1,13 +1,13 @@
 import React from 'react';
 import PostList from '../../Post/PostList/PostList';
-import Weather from '../../Weather/Weather';
 import styles from './timeline-page.module.scss';
+import LastPhotos from '../../LastPhotos/LastPhotos';
 
 function TimelinePage({ posts, props }) {
     return (
         <div className={styles.container}>
             <section className={styles['left-column']}>
-                <Weather />
+                <LastPhotos posts={posts} />
             </section>
 
             <section className={styles['right-column']}>

@@ -30,6 +30,8 @@ function ProfilePage(props) {
     useEffect(() => {
         userService.loadUser(profileUsername)
             .then(user => {
+                user[0].posts = user[0].posts.sort((a, b) => new Date(b.date) - new Date(a.date))
+                
                 setUser(user[0]);
                 setIsLoading(false);
             })
