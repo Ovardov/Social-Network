@@ -9,7 +9,7 @@ import userService from '../services/userService';
 import styles from './home-page.module.scss';
 
 
-function HomePage() {
+function HomePage(props) {
     const [posts, SetPosts] = useState([]);
     const { username } = useContext(UserContext);
     const [expectedFriends, setExpectedFriends] = useState([]);
@@ -49,7 +49,7 @@ function HomePage() {
             </section>
 
             <section className={styles['middle-column']}>
-                <CreatePost />
+                <CreatePost props={props}/>
                 <PostList posts={posts} />
             </section>
 

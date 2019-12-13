@@ -6,12 +6,12 @@ import Avatar from '../../Avatar/Avatar';
 import PostModal from '../../PostModal/PostModal';
 import Like from '../../Like/Like';
 import SocialAnalytics from '../../SocialAnalytics/SocialAnalytics';
-import postService from '../../services/postService';
 import styles from './post-card.module.scss';
 
 
 function PostCard(props) {
-    const { _id, date, author, description, likes, comments } = props;
+    const { _id, date, author, description, image, likes, comments, handlePostDelete, setUser, user } = props;
+
     const { username } = useContext(UserContext);
     const [isEditing, setIsEditing] = useState(false);
 
@@ -19,18 +19,10 @@ function PostCard(props) {
     const day = new Date(date).toDateString();
     const formattedDate = `${hoursWithMinutes} - ${day}`;
 
-    const handlePostDelete = () => {
-        postService.deletePost(_id)
-            .then(() => {
-                props.history.push(`/`);
-            })
-            .catch(err => console.log(err));
-    }
-
     return (
         <Fragment>
-            {isEditing === true && <EditPost postId={_id} oldValue={description} author={author} setIsEditing={setIsEditing} props={props}/>}
-            {isEditing === false &&(
+            {isEditing === true && <EditPost postId={_id} oldValue={description} author={author} setUser={setUser} user={user} setIsEditing={setIsEditing} props={props} />}
+            {isEditing === false && (
                 <section className={styles.container}>
                     <header className={styles['user-container']}>
                         <Avatar {...author} />
@@ -42,7 +34,7 @@ function PostCard(props) {
                         {username === author.username && (
                             <div className={styles['action-buttons']}>
                                 <button className="button" onClick={() => setIsEditing(true)}><i className="fas fa-edit"></i></button>
-                                <button className="button" onClick={handlePostDelete}><i className="fas fa-trash"></i></button>
+                                <button className="button" onClick={() => handlePostDelete(_id)}><i className="fas fa-trash"></i></button>
                             </div>
                         )}
                     </header>
@@ -50,7 +42,7 @@ function PostCard(props) {
                     <main className={styles['post-container']}>
                         <section className={styles.description}>{description}</section>
 
-                        <PostModal {...props} />
+                        {image && <PostModal {...props} />}
 
                         <section className={styles['action-buttons']}>
                             <Like id={_id} />

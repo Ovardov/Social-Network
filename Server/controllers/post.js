@@ -26,7 +26,7 @@ module.exports = {
                 const createdPost = await models.Post.create({ author: authorId, description, image })
                 await models.User.updateOne({ _id: authorId }, { $push: { posts: createdPost } });
 
-                res.send(createdPost);
+                res.status(200).send('Created Successfully');
             } catch (e) {
                 next(e)
             }
@@ -38,8 +38,8 @@ module.exports = {
             const { id } = req.params;
             const {description} = req.body;
 
-            models.Post.updateOne({_id: id}, {description})
-                .then(updatedPost => res.send(updatedPost))
+            models.Post.findOneAndUpdate({_id: id}, {description})
+                .then(() => res.status(200).send('Edited Successfully'))
                 .catch(next);
         },
 
@@ -62,7 +62,7 @@ module.exports = {
             await models.User.updateOne({ _id: removedPost.author }, { $pull: { posts: removedPost._id } });
 
 
-            res.send(removedPost);
+            res.status(200).send('Deleted Successfully');
         } catch (e) {
             next(e);
         }

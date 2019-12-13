@@ -14,7 +14,6 @@ const postSchema = new Schema({
 
     description: {
         type: Schema.Types.String,
-        required: true
     },
 
     image: {

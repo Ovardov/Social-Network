@@ -57,6 +57,10 @@
         & input[type="submit"] {
             width: 40%;
             padding: 0.05em 0.5em;
+
+            &:disabled {
+                cursor: not-allowed;
+            }
         }
     }
 }

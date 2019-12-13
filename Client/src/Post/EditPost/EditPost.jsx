@@ -3,21 +3,27 @@ import Avatar from '../../Avatar/Avatar';
 import styles from './edit-post.module.scss';
 import postService from '../../services/postService';
 
-function EditPost({ postId, oldValue, author, setIsEditing, props }) {
-    const [description, setDescription] = useState(oldValue);
+function EditPost({ postId, oldValue, author, setIsEditing, props, setUser, user }) {
+    const [newDescription, setNewDescription] = useState(oldValue);
 
 
     const submitPost = (e) => {
         e.preventDefault();
 
         const data = {
-            description
+            description: newDescription
         }
 
         postService.editPost(postId, data)
-            .then(() => {
-                setIsEditing(false);
-                props.history.push('/');
+            .then((res) => {
+                if (res === 'Edited Successfully') {
+                    user.posts.map(post => {
+                        return post._id === postId ? post.description = newDescription : ''
+                    });
+
+                    setIsEditing(false);
+                    setUser({ ...user })
+                }
             })
             .catch(err => console.log(err));
     }
@@ -28,7 +34,7 @@ function EditPost({ postId, oldValue, author, setIsEditing, props }) {
                 <p>
                     <Avatar username={author.username} name={author.name} profilePicture={author.profilePicture} />
 
-                    <textarea value={description} onChange={(e) => setDescription(e.target.value)}>{description}</textarea>
+                    <textarea value={newDescription} onChange={(e) => setNewDescription(e.target.value)}>{newDescription}</textarea>
                 </p>
 
                 <p>

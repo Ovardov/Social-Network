@@ -1,5 +1,4 @@
 import React, { useState, useEffect, createContext } from 'react';
-import { FadeLoader } from "react-spinners";
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Header from '../Header/Header';
 import HomePage from '../HomePage/HomePage';
@@ -9,7 +8,7 @@ import ProfilePage from '../ProfilePage/ProfilePage';
 import SearchPage from '../SearchPage/SearchPage';
 import userService from '../services/userService';
 import styles from './app.module.scss';
-import Loader from '../shared/hocs/Loader/Loader';
+import Loader from '../shared/Loader/Loader';
 
 export const UserContext = createContext({ name: '', username: '', isLogged: false })
 

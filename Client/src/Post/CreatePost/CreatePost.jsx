@@ -5,11 +5,13 @@ import postService from '../../services/postService';
 import cloudinaryService from '../../services/cloudinaryService';
 import styles from './create-post.module.scss';
 
-function CreatePost() {
+function CreatePost({props}) {
     const [description, setDescription] = useState('');
     const [file, setFile] = useState(null);
 
-    const {username, name} = useContext(UserContext);
+    const isDisabled = description.length === 0 && file === null;
+
+    const {username, name, profilePicture} = useContext(UserContext);
 
     const submitPost = async (e) => {
         e.preventDefault();
@@ -29,8 +31,11 @@ function CreatePost() {
             }
 
             postService.addPost(data)
-                .then(() => {
-                    alert('Added successfully');
+                .then((res) => {
+                    debugger;
+                    if(res === 'Created Successfully') {
+                        props.history.push(`/profile/${username}`);
+                    }
                 })
                 .catch(err => {
                     console.log(err);
@@ -44,7 +49,7 @@ function CreatePost() {
         <div className={styles.container}>
             <form onSubmit={submitPost}>
                 <p>
-                    <Avatar username={username} name={name} profilePicture="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1575099159/tjtegxh6a0adt5rwea9u.png" />
+                    <Avatar username={username} name={name} profilePicture={profilePicture} />
 
                     <textarea placeholder="Share what you are thinking here..." onChange={(e) => setDescription(e.target.value)}>{description}</textarea>
                 </p>
@@ -57,11 +62,11 @@ function CreatePost() {
 
                         <span className={styles.ready}>
                             {file && file.name}
-                            {file && <i class="fas fa-check-circle"></i>}
+                            {file && <i className="fas fa-check-circle"></i>}
                         </span>
                     </label>
 
-                    <input type="submit" value="POST" />
+                    <input type="submit" disabled={isDisabled} value="POST" />
                 </p>
             </form>
         </div>

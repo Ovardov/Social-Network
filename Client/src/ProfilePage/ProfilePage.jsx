@@ -57,7 +57,7 @@ function ProfilePage(props) {
                     <div className={styles.photos}>
                         <div className={styles['cover-picture']}>
                             <img className={styles.cover} src={user.coverPicture} alt="" onClick={() => setIsOpenCoverPicture(true)}/>
-                            <EditPicture username={user.username} action="coverPicture" />
+                            <EditPicture user={user} action="coverPicture" />
                             <PhotoModal images={[user.coverPicture]} isOpen={isOpenCoverPicture} setIsOpen={setIsOpenCoverPicture} photoIndex={0}/>
                         </div>
 
@@ -65,7 +65,7 @@ function ProfilePage(props) {
                         <div className={styles['profile-picture']}>
                             <Avatar username={user.username} name={user.name} profilePicture={user.profilePicture} setIsOpen={setIsOpenProfilePicture}/>
 
-                            <EditPicture username={user.username} action="profilePicture" />
+                            <EditPicture user={user} action="profilePicture" />
                             <PhotoModal images={[user.profilePicture]} isOpen={isOpenProfilePicture} setIsOpen={setIsOpenProfilePicture} photoIndex={0}/>
                         </div>
                     </div>
@@ -107,7 +107,7 @@ function ProfilePage(props) {
                     </div>
 
                     <div className={styles.content}>
-                        {showContentPage === 'Timeline' && <TimelinePage friends={user.friends} posts={user.posts} props={props} />}
+                        {showContentPage === 'Timeline' && <TimelinePage user={user} setUser={setUser} props={props} />}
                         {showContentPage === 'About' && <AboutPage user={user} setShowContentPage={setShowContentPage} />}
                         {showContentPage === 'Friends' && <FriendPage friends={user.friends} />}
                         {showContentPage === 'Gallery' && <GalleryPage posts={user.posts} />}

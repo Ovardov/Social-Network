@@ -22,7 +22,7 @@ function CoverPicture({handleChange, setField}) {
     )
 }
 
-function EditPicture({ username, action }) {
+function EditPicture({ action, user, setUser }) {
     const [field, setField] = useState('');
 
     const handleChange = async (file) => {
@@ -36,11 +36,11 @@ function EditPicture({ username, action }) {
             const imageUrl = res['secure_url'];
 
             const data = {
-                username,
+                username: user.username,
                 [field]: imageUrl
             }
 
-            await userService.update(data);
+           await userService.update(data);
 
         } catch (err) {
             console.log(err);
