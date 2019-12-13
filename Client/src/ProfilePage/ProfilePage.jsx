@@ -47,10 +47,6 @@ function ProfilePage(props) {
             })
     }, [profileUsername]);
 
-    
-    console.log(posts);
-    console.log(user);
-
     return (
         <Fragment>
             {isLoading === true && (
@@ -65,7 +61,7 @@ function ProfilePage(props) {
                         <div className={styles['cover-picture']}>
                             <img className={styles.cover} src={user.coverPicture} alt="" onClick={() => setIsOpenCoverPicture(true)} />
 
-                            {username === user.username && <EditPicture user={user} action="coverPicture" />}
+                            {username === user.username && <EditPicture user={user} setUser={setUser} action="coverPicture" />}
                             <PhotoModal images={[user.coverPicture]} isOpen={isOpenCoverPicture} setIsOpen={setIsOpenCoverPicture} photoIndex={0} />
                         </div>
 
@@ -73,7 +69,7 @@ function ProfilePage(props) {
                         <div className={styles['profile-picture']}>
                             <Avatar username={user.username} name={user.name} profilePicture={user.profilePicture} setIsOpen={setIsOpenProfilePicture} />
 
-                            {username === user.username && <EditPicture user={user.username} action="profilePicture" />}
+                            {username === user.username && <EditPicture user={user} setUser={setUser} action="profilePicture" />}
                             <PhotoModal images={[user.profilePicture]} isOpen={isOpenProfilePicture} setIsOpen={setIsOpenProfilePicture} photoIndex={0} />
                         </div>
                     </div>

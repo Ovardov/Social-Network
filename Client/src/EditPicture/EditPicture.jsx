@@ -4,7 +4,7 @@ import cloudinaryService from '../services/cloudinaryService';
 import styles from './edit-picture.module.scss';
 
 
-function ProfilePicture({handleChange, setField}) {
+function ProfilePicture({ handleChange, setField }) {
     return (
         <label className={styles.container} htmlFor="profile-picture-uploader">
             <i className="fas fa-plus"></i>
@@ -13,7 +13,7 @@ function ProfilePicture({handleChange, setField}) {
     )
 }
 
-function CoverPicture({handleChange, setField}) {
+function CoverPicture({ handleChange, setField }) {
     return (
         <label className={`${styles.container} ${styles.cover}`} htmlFor="cover-picture-uploader">
             <i className="fas fa-camera"></i>
@@ -40,8 +40,10 @@ function EditPicture({ action, user, setUser }) {
                 [field]: imageUrl
             }
 
-           await userService.update(data);
-
+           const userRes =  await userService.update(data);
+           if(userRes.nModified > 0) {
+               setUser({ ...user, [field]: imageUrl });
+           }
         } catch (err) {
             console.log(err);
         }

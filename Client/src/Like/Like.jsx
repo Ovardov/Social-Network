@@ -5,7 +5,6 @@ import styles from './like.module.scss';
 
 function Like({ id, likes, posts, setPosts }) {
     const { username } = useContext(UserContext);
-    debugger;
     let isLiked = likes.filter(like => like.username === username || like === username);
 
     const handleLike = () => {

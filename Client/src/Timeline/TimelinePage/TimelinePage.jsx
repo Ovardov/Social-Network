@@ -12,7 +12,7 @@ function TimelinePage({ user, posts, setPosts, props }) {
         postService.deletePost(id)
             .then((res) => {
                 if (res === 'Deleted Successfully') {
-                    const newPosts = user.posts.filter(post => post._id !== id);
+                    const newPosts = posts.filter(post => post._id !== id);
                     setPosts(newPosts);
                 }
             })
