@@ -12,6 +12,7 @@ module.exports = {
         models.Post.find(query)
             .populate([{ path: 'author', populate: { path: 'friends' } }])
             .populate([{ path: 'comments', populate: { path: 'author' } }])
+            .populate('likes')
             .sort({ date: -1 })
             .then((posts) => res.send(posts))
             .catch(next)
@@ -43,7 +44,7 @@ module.exports = {
                 .catch(next);
         },
 
-        like: (req, res, next) => {
+        addLike: (req, res, next) => {
             const { id } = req.params;
             const authorId = req.user._id
 
@@ -51,6 +52,15 @@ module.exports = {
                 .then((updatedPost) => res.send(updatedPost))
                 .catch(next);
         },
+
+        removeLike: (req, res, next) => {
+            const { id } = req.params;
+            const authorId = req.user._id
+
+            models.Post.updateOne({ _id: id }, { $pull: { likes: authorId } })
+                .then((updatedPost) => res.send(updatedPost))
+                .catch(next);
+        }
     },
 
     delete: async (req, res, next) => {

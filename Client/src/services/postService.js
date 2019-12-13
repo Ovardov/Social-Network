@@ -35,6 +35,15 @@ const postService = {
             .catch(err => console.error(err));
     },
 
+    removeLike: function (postId) {
+        return fetch(`http://localhost:3001/api/post/dislike/${postId}`, {
+            method: 'PUT',
+            credentials: 'include'
+        })
+            .then(res => res.json())
+            .catch(err => console.error(err));
+    },
+
     deletePost: function (postId) {
         return fetch(`http://localhost:3001/api/post/${postId}`, {
             method: 'DELETE',

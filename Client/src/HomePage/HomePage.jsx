@@ -10,20 +10,22 @@ import styles from './home-page.module.scss';
 
 
 function HomePage(props) {
-    const [posts, SetPosts] = useState([]);
+    const [posts, setPosts] = useState([]);
     const { username } = useContext(UserContext);
     const [expectedFriends, setExpectedFriends] = useState([]);
+    const [user, setUser] = useState({});
 
     useEffect(() => {
         async function fetchData() {
             try {
-                const user = await userService.loadUser(username);
+                const res = await userService.loadUser(username);
+                setUser(res[0]);
                 const posts = await postService.loadPosts();
 
-                const allFriendsUsername = user[0].friends.map(friend => friend.username);
+                const allFriendsUsername = res[0].friends.map(friend => friend.username);
                 setExpectedFriends([username, allFriendsUsername]);
 
-                const friendsPosts = user[0].friends.map(friend => friend.posts);
+                const friendsPosts = res[0].friends.map(friend => friend.posts);
                 let allFriendPosts = [];
 
                 for (let oneFriendPosts of friendsPosts) {
@@ -33,7 +35,7 @@ function HomePage(props) {
                 }
 
                 const postsForDashboard = posts.filter(post => allFriendPosts.includes(post._id));
-                SetPosts(postsForDashboard);
+                setPosts(postsForDashboard);
             } catch (e) {
                 console.log(e);
             }
@@ -50,7 +52,7 @@ function HomePage(props) {
 
             <section className={styles['middle-column']}>
                 <CreatePost props={props}/>
-                <PostList posts={posts} />
+                <PostList posts={posts} user={user} setPosts={setPosts}/>
             </section>
 
             <section className={styles['right-column']}>

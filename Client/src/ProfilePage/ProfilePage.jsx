@@ -19,6 +19,7 @@ function ProfilePage(props) {
 
     const [showContentPage, setShowContentPage] = useState('Timeline');
     const [user, setUser] = useState({});
+    const [posts, setPosts] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isOpenProfilePicture, setIsOpenProfilePicture] = useState(false);
     const [isOpenCoverPicture, setIsOpenCoverPicture] = useState(false);
@@ -34,8 +35,10 @@ function ProfilePage(props) {
     useEffect(() => {
         userService.loadUser(profileUsername)
             .then(user => {
-                user[0].posts = user[0].posts.sort((a, b) => new Date(b.date) - new Date(a.date))
+                const allPosts = user[0].posts.sort((a, b) => new Date(b.date) - new Date(a.date))
+                delete user[0].posts;
 
+                setPosts(allPosts);
                 setUser(user[0]);
                 setIsLoading(false);
             })
@@ -43,6 +46,10 @@ function ProfilePage(props) {
                 console.log(err);
             })
     }, [profileUsername]);
+
+    
+    console.log(posts);
+    console.log(user);
 
     return (
         <Fragment>
@@ -56,17 +63,18 @@ function ProfilePage(props) {
                 <section className={styles.container}>
                     <div className={styles.photos}>
                         <div className={styles['cover-picture']}>
-                            <img className={styles.cover} src={user.coverPicture} alt="" onClick={() => setIsOpenCoverPicture(true)}/>
-                            <EditPicture user={user} action="coverPicture" />
-                            <PhotoModal images={[user.coverPicture]} isOpen={isOpenCoverPicture} setIsOpen={setIsOpenCoverPicture} photoIndex={0}/>
+                            <img className={styles.cover} src={user.coverPicture} alt="" onClick={() => setIsOpenCoverPicture(true)} />
+
+                            {username === user.username && <EditPicture user={user} action="coverPicture" />}
+                            <PhotoModal images={[user.coverPicture]} isOpen={isOpenCoverPicture} setIsOpen={setIsOpenCoverPicture} photoIndex={0} />
                         </div>
 
 
                         <div className={styles['profile-picture']}>
-                            <Avatar username={user.username} name={user.name} profilePicture={user.profilePicture} setIsOpen={setIsOpenProfilePicture}/>
+                            <Avatar username={user.username} name={user.name} profilePicture={user.profilePicture} setIsOpen={setIsOpenProfilePicture} />
 
-                            <EditPicture user={user} action="profilePicture" />
-                            <PhotoModal images={[user.profilePicture]} isOpen={isOpenProfilePicture} setIsOpen={setIsOpenProfilePicture} photoIndex={0}/>
+                            {username === user.username && <EditPicture user={user.username} action="profilePicture" />}
+                            <PhotoModal images={[user.profilePicture]} isOpen={isOpenProfilePicture} setIsOpen={setIsOpenProfilePicture} photoIndex={0} />
                         </div>
                     </div>
 
@@ -101,16 +109,16 @@ function ProfilePage(props) {
                             {user.username === username ? <Logout {...props} /> : <FriendStatus id={user._id} isFriends={isFriends} />}
                         </div>
                         <div className={styles['info-container']}>
-                            <div>{user.posts.length}</div>
+                            <div>{posts.length}</div>
                             <span>Posts</span>
                         </div>
                     </div>
 
                     <div className={styles.content}>
-                        {showContentPage === 'Timeline' && <TimelinePage user={user} setUser={setUser} props={props} />}
+                        {showContentPage === 'Timeline' && <TimelinePage user={user} posts={posts} setPosts={setPosts} props={props} />}
                         {showContentPage === 'About' && <AboutPage user={user} setShowContentPage={setShowContentPage} />}
                         {showContentPage === 'Friends' && <FriendPage friends={user.friends} />}
-                        {showContentPage === 'Gallery' && <GalleryPage posts={user.posts} />}
+                        {showContentPage === 'Gallery' && <GalleryPage posts={posts} />}
                         {showContentPage === 'Edit' && <EditProfilePage user={user} setUser={setUser} props={props} setShowContentPage={setShowContentPage} />}
                     </div>
                 </section>

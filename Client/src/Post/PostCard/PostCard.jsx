@@ -10,7 +10,7 @@ import styles from './post-card.module.scss';
 
 
 function PostCard(props) {
-    const { _id, date, author, description, image, likes, comments, handlePostDelete, setUser, user } = props;
+    const { _id, date, author, description, image, likes, comments, handlePostDelete, setPosts, posts } = props;
 
     const { username } = useContext(UserContext);
     const [isEditing, setIsEditing] = useState(false);
@@ -21,7 +21,7 @@ function PostCard(props) {
 
     return (
         <Fragment>
-            {isEditing === true && <EditPost postId={_id} oldValue={description} author={author} setUser={setUser} user={user} setIsEditing={setIsEditing} props={props} />}
+            {isEditing === true && <EditPost postId={_id} oldValue={description} author={author} posts={posts} setPosts={setPosts} setIsEditing={setIsEditing} props={props} />}
             {isEditing === false && (
                 <section className={styles.container}>
                     <header className={styles['user-container']}>
@@ -45,7 +45,7 @@ function PostCard(props) {
                         {image && <PostModal {...props} />}
 
                         <section className={styles['action-buttons']}>
-                            <Like id={_id} />
+                            <Like id={_id} likes={likes} posts={posts} setPosts={setPosts} />
 
                             <a className={styles.button} >
                                 <i className="fas fa-comment"></i>

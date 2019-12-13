@@ -9,7 +9,7 @@ import Like from '../Like/Like';
 import ActionComment from '../Comment/ActionComment/ActionComment';
 import CommentCard from '../Comment/CommentCard/CommentCard';
 
-function OpenedModal({ _id, date, author, image, description, likes, comments, setIsOpened }) {
+function OpenedModal({ _id, date, author, image, description, likes, comments, setIsOpened, setPosts, posts }) {
     const postId = _id;
     const { username } = useContext(UserContext);
 
@@ -38,7 +38,7 @@ function OpenedModal({ _id, date, author, image, description, likes, comments, s
                     <UserInfo className={styles.user} user={author} date={formattedDate} isFriends={isFriends} isCreator={isCreator} />
 
                     <SocialAnalytics likes={likes} comments={comments} />
-                    <Like id={postId} />
+                    <Like id={postId} likes={likes} setPosts={setPosts} posts={posts} />
                 </section>
 
                 <section className={styles.comments}>

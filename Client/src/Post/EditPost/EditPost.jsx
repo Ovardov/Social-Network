@@ -3,7 +3,7 @@ import Avatar from '../../Avatar/Avatar';
 import styles from './edit-post.module.scss';
 import postService from '../../services/postService';
 
-function EditPost({ postId, oldValue, author, setIsEditing, props, setUser, user }) {
+function EditPost({ postId, oldValue, author, setIsEditing, props, setPosts, posts }) {
     const [newDescription, setNewDescription] = useState(oldValue);
 
 
@@ -17,12 +17,12 @@ function EditPost({ postId, oldValue, author, setIsEditing, props, setUser, user
         postService.editPost(postId, data)
             .then((res) => {
                 if (res === 'Edited Successfully') {
-                    user.posts.map(post => {
-                        return post._id === postId ? post.description = newDescription : ''
+                    const allPosts = posts.map(post => {
+                        return post._id === postId ? post = {...post, description: newDescription} : post;
                     });
 
                     setIsEditing(false);
-                    setUser({ ...user })
+                    setPosts(allPosts)
                 }
             })
             .catch(err => console.log(err));
