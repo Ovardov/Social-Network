@@ -32,7 +32,6 @@ function CreatePost({props}) {
 
             postService.addPost(data)
                 .then((res) => {
-                    debugger;
                     if(res === 'Created Successfully') {
                         props.history.push(`/profile/${username}`);
                     }
@@ -51,7 +50,7 @@ function CreatePost({props}) {
                 <p>
                     <Avatar username={username} name={name} profilePicture={profilePicture} />
 
-                    <textarea placeholder="Share what you are thinking here..." onChange={(e) => setDescription(e.target.value)}>{description}</textarea>
+                    <textarea placeholder="Share what you are thinking here..." onChange={(e) => setDescription(e.target.value)}></textarea>
                 </p>
 
                 <p>

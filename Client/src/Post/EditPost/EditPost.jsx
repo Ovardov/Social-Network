@@ -34,7 +34,7 @@ function EditPost({ postId, oldValue, author, setIsEditing, props, setPosts, pos
                 <p>
                     <Avatar username={author.username} name={author.name} profilePicture={author.profilePicture} />
 
-                    <textarea value={newDescription} onChange={(e) => setNewDescription(e.target.value)}>{newDescription}</textarea>
+                    <textarea value={newDescription} onChange={(e) => setNewDescription(e.target.value)}></textarea>
                 </p>
 
                 <p>

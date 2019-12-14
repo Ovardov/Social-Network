@@ -7,6 +7,7 @@ import PostList from '../Post/PostList/PostList';
 import postService from '../services/postService';
 import userService from '../services/userService';
 import styles from './home-page.module.scss';
+import Loader from '../shared/Loader/Loader';
 
 
 function HomePage(props) {
@@ -14,17 +15,19 @@ function HomePage(props) {
     const { username } = useContext(UserContext);
     const [expectedFriends, setExpectedFriends] = useState([]);
     const [user, setUser] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        async function fetchData() {
+        (async function() {
             try {
                 const res = await userService.loadUser(username);
                 setUser(res[0]);
                 const posts = await postService.loadPosts();
 
-                const allFriendsUsername = res[0].friends.map(friend => friend.username);
-                setExpectedFriends([username, allFriendsUsername]);
-
+                const expected = res[0].friends.map(friend => friend.username);
+                expected.push(res[0].username);
+                setExpectedFriends(expected);
+                
                 const friendsPosts = res[0].friends.map(friend => friend.posts);
                 let allFriendPosts = [];
 
@@ -36,27 +39,28 @@ function HomePage(props) {
 
                 const postsForDashboard = posts.filter(post => allFriendPosts.includes(post._id));
                 setPosts(postsForDashboard);
+                setIsLoading(false);
             } catch (e) {
                 console.log(e);
             }
-        }
-
-        fetchData();
+        })();
     }, [username]);
 
     return (
         <Fragment>
+            {isLoading === true && <Loader isLoading={isLoading}/>}
+
             <section className={styles['left-column']}>
                 <Weather />
             </section>
 
             <section className={styles['middle-column']}>
-                <CreatePost props={props}/>
-                <PostList posts={posts} props={props} user={user} setPosts={setPosts}/>
+                <CreatePost props={props} />
+                <PostList posts={posts} props={props} user={user} setPosts={setPosts} />
             </section>
 
             <section className={styles['right-column']}>
-                <SuggestedFriend props={props} expectedFriends={expectedFriends} />
+                <SuggestedFriend props={props} expectedFriends={expectedFriends}/>
             </section>
         </Fragment>
     )

@@ -13,6 +13,7 @@ import userService from '../services/userService';
 import styles from './profile-page.module.scss';
 import EditPicture from '../EditPicture/EditPicture';
 import PhotoModal from '../PhotoModal/PhotoModal';
+import Loader from '../shared/Loader/Loader';
 
 function ProfilePage(props) {
     let showContentPageFromProps = '';
@@ -54,11 +55,7 @@ function ProfilePage(props) {
 
     return (
         <Fragment>
-            {isLoading === true && (
-                <div className="loader">
-                    <FadeLoader size={160} color={"#4080FF"} loading={isLoading} />
-                </div>
-            )}
+            {isLoading === true && <Loader isLoading={isLoading} />}
 
             {isLoading === false && (
                 <section className={styles.container}>
