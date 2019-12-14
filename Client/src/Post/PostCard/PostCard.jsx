@@ -14,6 +14,7 @@ function PostCard(props) {
 
     const { username } = useContext(UserContext);
     const [isEditing, setIsEditing] = useState(false);
+    const [isOpened, setIsOpened] = useState(false);
 
     const hoursWithMinutes = new Date(date).toLocaleTimeString();
     const day = new Date(date).toDateString();
@@ -42,11 +43,14 @@ function PostCard(props) {
                     <main className={styles['post-container']}>
                         <section className={styles.description}>{description}</section>
 
-                        {image && <PostModal {...props} />}
+                        {(image || isOpened === true) ? <PostModal {...props} isOpened={isOpened} setIsOpened={setIsOpened}/> : null}
 
                         <section className={styles['action-buttons']}>
                             <Like id={_id} likes={likes} posts={posts} setPosts={setPosts} />
 
+                            <button className={styles.button} onClick={() => setIsOpened(true)}>
+                                <i className="fas fa-comment"></i>
+                            </button>
                         </section>
                     </main>
 

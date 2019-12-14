@@ -3,8 +3,8 @@ import ClosedModal from './ClosedModal';
 import OpenedModal from './OpenedModal';
 
 function PostModal(post) {
-    const [isOpened, setIsOpened] = useState(false);
-    
+    const {isOpened, setIsOpened} = post;
+
     return (
         <Fragment>
             {isOpened === true

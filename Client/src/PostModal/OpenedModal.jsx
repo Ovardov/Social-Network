@@ -22,23 +22,25 @@ function OpenedModal({ _id, date, author, image, description, likes, comments, s
     const handleCommentDelete = (commentId) => {
         commentService.deleteComment(commentId)
             .then((res) => {
-                if(res === 'Removed Successfully') {
+                if (res === 'Removed Successfully') {
                     const filteredComments = comments.filter(comment => comment._id !== commentId);
-                    
-                    const AllPosts = posts.map(post => post._id === postId ? {...post, comments: filteredComments} : {...post});
-                    
+
+                    const AllPosts = posts.map(post => post._id === postId ? { ...post, comments: filteredComments } : { ...post });
+
                     setPosts(AllPosts);
                 }
             });
     }
 
     return (
-        <section className={styles.container} >
+        <section className={image ? styles.container : styles['container-no-image']}>
             <button className="button" onClick={() => setIsOpened(false)}>X</button>
 
-            <section className={styles['image-container']}>
-                <img src={image} alt={description} />
-            </section>
+            {image && (
+                <section className={styles['image-container']}>
+                    <img src={image} alt={description} />
+                </section>
+            )}
 
             <section className={styles['post-info-container']}>
                 <section className={styles['post-info']}>

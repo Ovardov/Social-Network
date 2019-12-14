@@ -1,4 +1,5 @@
-.container {
+.container,
+.container-no-image {
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 100%;
@@ -73,5 +74,15 @@
         & .comments {
             margin-bottom: auto;
         }
+    }
+}
+
+.container-no-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & > .post-info-container {
+        width: 50%;
     }
 }

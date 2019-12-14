@@ -72,6 +72,8 @@
 
                 &:nth-child(2) {
                     background: var(--color-blue-main);
+                    border: 0;
+                    outline: none;
                 }
             }
         }
