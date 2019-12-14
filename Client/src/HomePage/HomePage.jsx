@@ -2,8 +2,8 @@ import React, { Fragment, useEffect, useState, useContext } from 'react';
 import { UserContext } from '../App/App';
 import Weather from '../Weather/Weather';
 import SuggestedFriend from '../SuggestedFriend/SuggestedFriend';
-import CreatePost from '../Post/CreatePost/CreatePost';
 import PostList from '../Post/PostList/PostList';
+import CreatePost from '../Post/CreatePost/CreatePost';
 import postService from '../services/postService';
 import userService from '../services/userService';
 import styles from './home-page.module.scss';
@@ -18,7 +18,7 @@ function HomePage(props) {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        (async function() {
+        (async function () {
             try {
                 const res = await userService.loadUser(username);
                 setUser(res[0]);
@@ -27,7 +27,7 @@ function HomePage(props) {
                 const expected = res[0].friends.map(friend => friend.username);
                 expected.push(res[0].username);
                 setExpectedFriends(expected);
-                
+
                 const friendsPosts = res[0].friends.map(friend => friend.posts);
                 let allFriendPosts = [];
 
@@ -46,9 +46,10 @@ function HomePage(props) {
         })();
     }, [username]);
 
+
     return (
         <Fragment>
-            {isLoading === true && <Loader isLoading={isLoading}/>}
+            {isLoading === true && <Loader isLoading={isLoading} />}
 
             <section className={styles['left-column']}>
                 <Weather />
@@ -60,9 +61,9 @@ function HomePage(props) {
             </section>
 
             <section className={styles['right-column']}>
-                <SuggestedFriend props={props} expectedFriends={expectedFriends}/>
+                <SuggestedFriend props={props} expectedFriends={expectedFriends} />
             </section>
-        </Fragment>
+        </Fragment >
     )
 }
 

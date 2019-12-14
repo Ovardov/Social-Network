@@ -13,9 +13,6 @@ function Header(props) {
     const [users, setUsers] = useState([]);
     const { username, name, profilePicture } = useContext(UserContext);
 
-    console.log(props);
-    const isNotFound = props.match.path === '*';
-
     useEffect(() => {
         userService.loadUser(null, searchName)
             .then(users => {
