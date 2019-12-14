@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PublicHomePage component should render correctly if user is not logged 1`] = `
+<section
+  className="container"
+>
+  <section
+    className="content"
+  >
+    <img
+      alt="Friends"
+      src="home-page.svg"
+    />
+    <section
+      className="info"
+    >
+      <h1
+        className="name"
+      >
+        Social Network
+      </h1>
+      <section
+        className="buttons"
+      >
+        <Link
+          className="button"
+          to="/register"
+        >
+          Register
+        </Link>
+        <Link
+          className="button"
+          to="/login"
+        >
+          Login
+        </Link>
+      </section>
+    </section>
+  </section>
+</section>
+`;

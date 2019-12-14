@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Weather component should render weather for Sofia 1`] = `
+<div
+  className="container"
+>
+  <section
+    className="search"
+  >
+    <form
+      className="container"
+      onSubmit={[Function]}
+    >
+      <p>
+        <input
+          name="search"
+          placeholder="Search"
+          type="text"
+        />
+      </p>
+      <button
+        type="submit"
+      >
+        <i
+          className="fas fa-search"
+        />
+      </button>
+    </form>
+  </section>
+  <section
+    className="information"
+  >
+    <p
+      className="temperature"
+    >
+      0
+       ℃
+    </p>
+    <p
+      className="icon"
+    >
+      
+    </p>
+    <p
+      className="location"
+    >
+      <i
+        className="fas fa-map-marker-alt"
+      />
+      Sofia
+    </p>
+    <p
+      className="date"
+    >
+      15/11/2019
+    </p>
+  </section>
+</div>
+`;
