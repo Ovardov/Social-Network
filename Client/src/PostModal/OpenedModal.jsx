@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../App/App';
 import UserInfo from '../UserInfo/UserInfo';
-import postService from '../services/postService';
 import commentService from '../services/commentService';
 import styles from './opened-modal.module.scss';
 import SocialAnalytics from '../SocialAnalytics/SocialAnalytics';

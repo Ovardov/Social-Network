@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import SuggestedList from './SuggestedList/SuggestedList';
 import userService from '../services/userService';
 import styles from './suggested-friend.module.scss';
-import Loader from '../shared/Loader/Loader';
 
 function SuggestedFriend({ expectedFriends, props }) {
     const [users, setUsers] = useState([]);

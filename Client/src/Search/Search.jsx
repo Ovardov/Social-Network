@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './search.module.scss';
 
-function Search({ submit, changeSet }) {
+function Search({ submit, changeSet, withoutButton }) {
     return (
         <form className={styles.container} onSubmit={submit}>
             <p>
@@ -11,9 +11,7 @@ function Search({ submit, changeSet }) {
                 }
             </p>
 
-            <button type="submit">
-                <i className="fas fa-search"></i>
-            </button>
+            {withoutButton !== true && <button type="submit"><i className="fas fa-search"></i></button>}
         </form>
     )
 }

@@ -47,9 +47,6 @@ function PostCard(props) {
                         <section className={styles['action-buttons']}>
                             <Like id={_id} likes={likes} posts={posts} setPosts={setPosts} />
 
-                            <a className={styles.button} >
-                                <i className="fas fa-comment"></i>
-                            </a>
                         </section>
                     </main>
 

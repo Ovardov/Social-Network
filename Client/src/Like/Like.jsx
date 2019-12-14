@@ -13,6 +13,8 @@ function Like({ id, likes, posts, setPosts }) {
                 posts.map(post => {
                     if (post._id === id) {
                         post.likes.push(username);
+                        
+                        return post;
                     }
                 })
 
@@ -26,6 +28,8 @@ function Like({ id, likes, posts, setPosts }) {
                 posts.map(post => {
                     if (post._id === id) {
                         post.likes = post.likes.filter(like => like.username !== username && like !== username);
+                        
+                        return post;
                     }
                 });
 

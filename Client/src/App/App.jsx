@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, withRouter } from 'react-router-dom';
 import Header from '../Header/Header';
 import HomePage from '../HomePage/HomePage';
 import PublicHomePage from '../HomePage/PublicHomePage/PublicHomePage';
@@ -9,8 +9,9 @@ import SearchPage from '../SearchPage/SearchPage';
 import userService from '../services/userService';
 import styles from './app.module.scss';
 import Loader from '../shared/Loader/Loader';
+import NotFound from '../NotFound/NotFound';
 
-export const UserContext = createContext({ name: '', username: '', isLogged: false })
+export const UserContext = createContext({ name: '', username: '', isLogged: false });
 
 function App() {
   const [isLogged, setIsLogged] = useState(false);
@@ -46,10 +47,11 @@ function App() {
           <main className={isLogged === true ? styles['site-main'] : ""}>
             <Switch>
               <Route exact path="/" component={isLogged === true ? HomePage : PublicHomePage} />
-              {isLogged === false && <Route path="/login" component={LoginRegisterPage} />}
-              {isLogged === false && <Route path="/register" component={LoginRegisterPage} />}
+              {isLogged === false && <Route exact path="/login" component={LoginRegisterPage} />}
+              {isLogged === false && <Route exact path="/register" component={LoginRegisterPage} />}
               {isLogged === true && <Route path="/profile/:username" component={ProfilePage} />}
-              {isLogged === true && <Route path="/search" component={SearchPage} />}
+              {isLogged === true && <Route exact path="/search" component={SearchPage} />}
+              <Route path="*" component={NotFound} />
             </Switch>
           </main>
         </div>

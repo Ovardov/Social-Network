@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, Fragment } from 'react';
-import { FadeLoader } from "react-spinners";
+import { Redirect } from 'react-router-dom';
 import { UserContext } from '../App/App';
 import Avatar from '../Avatar/Avatar';
 import TimelinePage from '../Timeline/TimelinePage/TimelinePage';
@@ -17,7 +17,7 @@ import Loader from '../shared/Loader/Loader';
 
 function ProfilePage(props) {
     let showContentPageFromProps = '';
-    if(props.location.state && props.location.state.hasOwnProperty('showContentPage')) {
+    if (props.location.state && props.location.state.hasOwnProperty('showContentPage')) {
         showContentPageFromProps = props.location.state.showContentPage;
     }
 
@@ -41,16 +41,18 @@ function ProfilePage(props) {
     useEffect(() => {
         userService.loadUser(profileUsername)
             .then(user => {
-                const allPosts = user[0].posts.sort((a, b) => new Date(b.date) - new Date(a.date))
-                delete user[0].posts;
+                if (user.length > 0) {
+                    const allPosts = user[0].posts.sort((a, b) => new Date(b.date) - new Date(a.date))
+                    delete user[0].posts;
 
-                setPosts(allPosts);
-                setUser(user[0]);
-                setIsLoading(false);
-            })
-            .catch(err => {
-                console.log(err);
-            })
+                    setPosts(allPosts);
+                    setUser(user[0]);
+                    setIsLoading(false);
+                } else {
+                    props.history.push('/');
+                }
+            });
+
     }, [profileUsername]);
 
     return (

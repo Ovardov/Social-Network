@@ -4,15 +4,15 @@ import styles from './social-analystics.module.scss'
 function SocialAnalytics({likes, comments}) {
     return (
         <section className={styles['social-container']}>
-            <a href="#" className={styles.like}>
+            <div className={styles.like}>
                 <i className="far fa-heart"></i>
                 {likes.length}
-            </a>
+            </div>
 
-            <a href="#" className={styles.comment}>
+            <div className={styles.comment}>
                 <i className="far fa-comment"></i>
                 {comments.length}
-            </a>
+            </div>
         </section>
     )
 }

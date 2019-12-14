@@ -1,4 +1,4 @@
-import React, { useContext, UseState } from 'react';
+import React, { useContext } from 'react';
 import { UserContext } from '../App/App';
 import Avatar from '../Avatar/Avatar';
 import styles from './search-page.module.scss';
@@ -13,8 +13,8 @@ function renderUsers(users, loggedUser, props) {
 
             <div className={styles['user-info']}>
                 <p className={styles.name}>{user.name}</p>
-                <p className={styles.home}>Lives in New York</p>
-                <p className={styles.work}>Works at Google</p>
+                <p className={styles.home}>Lives in {user.home}</p>
+                <p className={styles.work}>Works at {user.work}</p>
             </div>
 
             {user.username !== loggedUser && <FriendStatus props={props} id={user._id} isFriends={isFriends} />}

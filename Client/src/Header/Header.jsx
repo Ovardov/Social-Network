@@ -6,11 +6,15 @@ import Search from '../Search/Search';
 import Avatar from '../Avatar/Avatar';
 import userService from '../services/userService';
 import styles from './header.module.scss';
+import Loader from '../shared/Loader/Loader';
 
 function Header(props) {
     const [searchName, setSearchName] = useState('');
     const [users, setUsers] = useState([]);
     const { username, name, profilePicture } = useContext(UserContext);
+
+    console.log(props);
+    const isNotFound = props.match.path === '*';
 
     useEffect(() => {
         userService.loadUser(null, searchName)
@@ -31,7 +35,7 @@ function Header(props) {
     return (
         <header className={styles['site-header']}>
             <SiteTitle />
-            <Search submit={handleSubmit} changeSet={setSearchName} />
+            <Search submit={handleSubmit} changeSet={setSearchName}/>
             <div className={styles['user-info']}>
                 <Avatar username={username} name={name} profilePicture={profilePicture} />
 

@@ -1,16 +1,23 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import FriendList from '../FriendList/FriendList';
 import Search from '../../Search/Search';
+import userService from '../../services/userService';
 import styles from './friend-page.module.scss';
 
-function FriendPage({ friends }) {
+function FriendPage(props) {
+    const allFriends = props.friends;
+
+    const [searchName, setSearchName] = useState('');
+
+    const filteredFriends = allFriends.filter(friend => friend.username.toLowerCase().includes(searchName.toLowerCase()));
+  
     return (
         <Fragment>
             <div className={styles['search-container']}>
-                <Search />
+                <Search changeSet={setSearchName} withoutButton={true}/>
             </div>
 
-            <FriendList friends={friends} />
+            <FriendList friends={searchName === '' ? allFriends : filteredFriends} />
         </Fragment>
     )
 }
