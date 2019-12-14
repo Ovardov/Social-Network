@@ -22,7 +22,7 @@ const commentService = {
             },
             credentials: 'include'
         })
-            .then(res => res.json())
+            .then(res => res.text())
             .catch(err => console.error(err));
     },
 
@@ -31,7 +31,7 @@ const commentService = {
             method: 'DELETE',
             credentials: 'include'
         })
-            .then(res => res.json())
+            .then(res => res.text())
             .catch(err => console.error(err));
     }
 }

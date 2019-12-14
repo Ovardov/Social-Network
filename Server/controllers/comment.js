@@ -8,9 +8,9 @@ module.exports = {
 
         try {
             const createdComment = await models.Comment.create({ author: authorId, post: postId, description })
-            await models.Post.updateOne({ _id: postId }, { $push: { comments: createdComment } });
+            const updatedPost = await models.Post.findOneAndUpdate({ _id: postId }, { $push: { comments: createdComment } });
 
-            res.send(createdComment);
+            res.status(200).send(updatedPost);
         } catch (e) {
             next(e)
         }
@@ -21,9 +21,9 @@ module.exports = {
         const { description } = req.body;
 
         try {
-           const updatedComment = await models.Comment.updateOne({ _id: commentId }, {description});
+           await models.Comment.updateOne({ _id: commentId }, {description});
 
-            res.send(updatedComment);
+            res.status(200).send('Updated Successfully');
         } catch (e) {
             next(e)
         }
@@ -36,7 +36,7 @@ module.exports = {
             const removedComment = await models.Comment.findOneAndDelete({ _id: id })
             await models.Post.updateOne({ _id: removedComment.post._id }, { $pull: { comments: removedComment._id } })
 
-            res.send(removedComment);
+            res.status(200).send('Removed Successfully');
         } catch (e) {
             next(e);
         }

@@ -43,7 +43,7 @@ const postService = {
             },
             credentials: 'include'
         })
-            .then(res => res.json())
+            .then(res => res.text())
             .catch(err => console.error(err));
     },
 
@@ -52,7 +52,7 @@ const postService = {
             method: 'POST',
             credentials: 'include'
         })
-            .then(res => res.json())
+            .then(res => res.text())
             .catch(err => console.error(err));
     },
 
@@ -61,7 +61,7 @@ const postService = {
             method: 'POST',
             credentials: 'include'
         })
-            .then(res => res.json())
+            .then(res => res.text())
             .catch(err => console.error(err));
     },
 

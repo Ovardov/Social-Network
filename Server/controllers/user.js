@@ -51,7 +51,7 @@ module.exports = {
                 await models.User.updateOne({ _id: authorId }, { $push: { friends: friendId } })
                 await models.User.updateOne({ _id: friendId }, { $push: { friends: authorId } });
 
-                res.status(200);
+                res.status(200).send('Added Successfully');
             } catch (e) {
                 next(e)
             }
@@ -65,7 +65,7 @@ module.exports = {
                 await models.User.updateOne({ _id: authorId }, { $pull: { friends: friendId } })
                 await models.User.updateOne({ _id: friendId }, { $pull: { friends: authorId } });
 
-                res.status(200);
+                res.status(200).send('Removed Successfully');
             } catch (e) {
                 next(e)
             }
@@ -116,7 +116,7 @@ module.exports = {
         const data = req.body;
 
         models.User.updateOne({ username: data.username }, data)
-            .then((updatedUser) => res.send(updatedUser))
+            .then(() => res.status(200).send('Updated Successfully'))
             .catch(next);
     },
 

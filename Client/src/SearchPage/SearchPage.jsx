@@ -4,7 +4,7 @@ import Avatar from '../Avatar/Avatar';
 import styles from './search-page.module.scss';
 import FriendStatus from '../FriendStatus/FriendStatus';
 
-function renderUsers(users, loggedUser) {
+function renderUsers(users, loggedUser, props) {
     return users.map(user => {
         const isFriends = user.friends ? user.friends.map(friend => friend.username === loggedUser)[0] : false;
 
@@ -17,7 +17,7 @@ function renderUsers(users, loggedUser) {
                 <p className={styles.work}>Works at Google</p>
             </div>
 
-            {user.username !== loggedUser && <FriendStatus id={user._id} isFriends={isFriends} />}
+            {user.username !== loggedUser && <FriendStatus props={props} id={user._id} isFriends={isFriends} />}
         </div>
     })
 }
@@ -29,7 +29,7 @@ function SearchPage(props) {
     return (
         <div className={styles.container}>
             <div className={styles['user-list']}>
-                {users.length !== 0 ? renderUsers(users, username) : <p className={styles['no-users']}>No users found</p>}
+                {users.length !== 0 ? renderUsers(users, username, props) : <p className={styles['no-users']}>No users found</p>}
             </div>
         </div>
     )

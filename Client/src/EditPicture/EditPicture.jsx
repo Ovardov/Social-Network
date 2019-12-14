@@ -32,8 +32,8 @@ function EditPicture({ action, user, setUser }) {
         formData.append('upload_preset', 'accfphta');
 
         try {
-            const res = await cloudinaryService.uploadImage(formData);
-            const imageUrl = res['secure_url'];
+            const cloudinaryRes = await cloudinaryService.uploadImage(formData);
+            const imageUrl = cloudinaryRes['secure_url'];
 
             const data = {
                 username: user.username,
@@ -41,7 +41,8 @@ function EditPicture({ action, user, setUser }) {
             }
 
            const userRes =  await userService.update(data);
-           if(userRes.nModified > 0) {
+           
+           if(userRes === 'Updated Successfully') {
                setUser({ ...user, [field]: imageUrl });
            }
         } catch (err) {

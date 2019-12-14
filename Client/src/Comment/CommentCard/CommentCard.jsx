@@ -4,7 +4,7 @@ import Avatar from '../../Avatar/Avatar';
 import ActionComment from '../ActionComment/ActionComment';
 import styles from './comment-card.module.scss';
 
-function CommentCard({ comments, handleCommentDelete }) {
+function CommentCard({ comments, handleCommentDelete, posts, setPosts }) {
     const { username } = useContext(UserContext);
     const [isEditing, setIsEditing] = useState(false);
 
@@ -27,7 +27,7 @@ function CommentCard({ comments, handleCommentDelete }) {
                 </section>
 
                 {username === comment.author.username && isEditing === true && (
-                    <ActionComment id={comment._id} author={comment.author} action="edit" oldValue={comment.description} setIsEditing={setIsEditing} />
+                    <ActionComment id={comment._id} author={comment.author} action="edit" oldValue={comment.description} setIsEditing={setIsEditing} posts={posts} setPosts={setPosts}/>
                 )}
             </Fragment>
         )

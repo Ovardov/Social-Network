@@ -1,16 +1,27 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 import userService from '../services/userService';
+import { UserContext } from '../App/App';
 
-function FriendStatus({ id, isFriends }) {
+function FriendStatus({ id, isFriends, props }) {
+    const {username} =  useContext(UserContext);
+
     const handleAddFriend = () => {
         userService.addFriend(id)
-            .then((res) => console.log(res))
+            .then((res) => {
+                if(res === 'Added Successfully') {
+                    props.history.push({pathname: `/profile/${username}`, state: {showContentPage: 'Friends'}});
+                }
+            })
             .catch(err => console.log(err))
     }
 
     const handleRemoveFriend = () => {
         userService.removeFriend(id)
-            .then((res) => console.log(res))
+            .then((res) => {
+                if(res === 'Removed Successfully') {
+                    props.history.push({pathname: `/profile/${username}`, state: {showContentPage: 'Friends'}});
+                }
+            })
             .catch(err => console.log(err))
     }
 

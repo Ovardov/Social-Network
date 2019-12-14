@@ -15,9 +15,14 @@ import EditPicture from '../EditPicture/EditPicture';
 import PhotoModal from '../PhotoModal/PhotoModal';
 
 function ProfilePage(props) {
+    let showContentPageFromProps = '';
+    if(props.location.state && props.location.state.hasOwnProperty('showContentPage')) {
+        showContentPageFromProps = props.location.state.showContentPage;
+    }
+
     const profileUsername = props.match.params.username;
 
-    const [showContentPage, setShowContentPage] = useState('Timeline');
+    const [showContentPage, setShowContentPage] = useState(showContentPageFromProps || 'Timeline');
     const [user, setUser] = useState({});
     const [posts, setPosts] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -102,7 +107,7 @@ function ProfilePage(props) {
                         </div>
                         <div className={styles['info-container']}>
                             <h3>{user.name}</h3>
-                            {user.username === username ? <Logout {...props} /> : <FriendStatus id={user._id} isFriends={isFriends} />}
+                            {user.username === username ? <Logout {...props} /> : <FriendStatus props={props} id={user._id} isFriends={isFriends} />}
                         </div>
                         <div className={styles['info-container']}>
                             <div>{posts.length}</div>

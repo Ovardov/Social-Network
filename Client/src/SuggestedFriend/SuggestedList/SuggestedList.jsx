@@ -2,16 +2,16 @@ import React from 'react';
 import styles from './suggested-list.module.scss'
 import UserInfo from '../../UserInfo/UserInfo';
 
-function renderUsers(users) {
+function renderUsers(users, props) {
     return users.map(user => {
-        return <li key={user._id}><UserInfo user={user}/></li>
+        return <li key={user._id}><UserInfo props={props} user={user}/></li>
     });
 }
 
-function SuggestedList({ users }) {
+function SuggestedList({ users, props }) {
     return (
         <ul className={styles.list}>
-            {renderUsers(users)}
+            {renderUsers(users, props)}
         </ul>
     )
 }

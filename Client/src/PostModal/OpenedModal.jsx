@@ -9,7 +9,7 @@ import Like from '../Like/Like';
 import ActionComment from '../Comment/ActionComment/ActionComment';
 import CommentCard from '../Comment/CommentCard/CommentCard';
 
-function OpenedModal({ _id, date, author, image, description, likes, comments, setIsOpened, setPosts, posts }) {
+function OpenedModal({ _id, date, author, image, description, likes, comments, setIsOpened, setPosts, posts, props }) {
     const postId = _id;
     const { username } = useContext(UserContext);
 
@@ -22,7 +22,15 @@ function OpenedModal({ _id, date, author, image, description, likes, comments, s
 
     const handleCommentDelete = (commentId) => {
         commentService.deleteComment(commentId)
-            .then((res) => console.log(res));
+            .then((res) => {
+                if(res === 'Removed Successfully') {
+                    const filteredComments = comments.filter(comment => comment._id !== commentId);
+                    
+                    const AllPosts = posts.map(post => post._id === postId ? {...post, comments: filteredComments} : {...post});
+                    
+                    setPosts(AllPosts);
+                }
+            });
     }
 
     return (
@@ -35,7 +43,7 @@ function OpenedModal({ _id, date, author, image, description, likes, comments, s
 
             <section className={styles['post-info-container']}>
                 <section className={styles['post-info']}>
-                    <UserInfo className={styles.user} user={author} date={formattedDate} isFriends={isFriends} isCreator={isCreator} />
+                    <UserInfo className={styles.user} props={props} user={author} date={formattedDate} isFriends={isFriends} isCreator={isCreator} />
 
                     <SocialAnalytics likes={likes} comments={comments} />
                     <Like id={postId} likes={likes} setPosts={setPosts} posts={posts} />
@@ -43,11 +51,11 @@ function OpenedModal({ _id, date, author, image, description, likes, comments, s
 
                 <section className={styles.comments}>
                     <section>
-                        <CommentCard comments={comments} handleCommentDelete={handleCommentDelete} />
+                        <CommentCard comments={comments} posts={posts} setPosts={setPosts} handleCommentDelete={handleCommentDelete} />
                     </section>
                 </section>
 
-                <ActionComment id={postId} author={author} action="create" />
+                <ActionComment id={postId} author={author} action="create" posts={posts} setPosts={setPosts} />
             </section>
         </section >
     )

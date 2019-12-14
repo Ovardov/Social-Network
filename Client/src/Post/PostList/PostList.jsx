@@ -4,7 +4,7 @@ import styles from './post-list.module.scss';
 
 function renderPosts(posts, props, handlePostDelete, setPosts, user) {
     return posts.map(post => {
-        return (<PostCard key={post._id} {...post} posts={posts} setPosts={setPosts} {...props} handlePostDelete={handlePostDelete} user={user} />);
+        return (<PostCard key={post._id} {...post} posts={posts} setPosts={setPosts} props={props} handlePostDelete={handlePostDelete} user={user} />);
     });
 }
 

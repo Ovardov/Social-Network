@@ -3,7 +3,7 @@ import SuggestedList from './SuggestedList/SuggestedList';
 import userService from '../services/userService';
 import styles from './suggested-friend.module.scss';
 
-function SuggestedFriend({ expectedFriends }) {
+function SuggestedFriend({ expectedFriends, props }) {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
@@ -19,7 +19,7 @@ function SuggestedFriend({ expectedFriends }) {
     return (
         <div className={styles.container}>
             <p>Suggested Friends</p>
-            {users && <SuggestedList users={users} />}
+            {users && <SuggestedList props={props} users={users} />}
         </div>
     )
 }

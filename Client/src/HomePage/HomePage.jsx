@@ -52,11 +52,11 @@ function HomePage(props) {
 
             <section className={styles['middle-column']}>
                 <CreatePost props={props}/>
-                <PostList posts={posts} user={user} setPosts={setPosts}/>
+                <PostList posts={posts} props={props} user={user} setPosts={setPosts}/>
             </section>
 
             <section className={styles['right-column']}>
-                <SuggestedFriend expectedFriends={expectedFriends} />
+                <SuggestedFriend props={props} expectedFriends={expectedFriends} />
             </section>
         </Fragment>
     )
