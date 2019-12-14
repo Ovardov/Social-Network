@@ -18,17 +18,18 @@ function ActionComment({ id, action, oldValue, setIsEditing, posts, setPosts }) 
         if (action === 'create') {
             commentService.addComment(id, data)
                 .then(createdComment => {
+                    if (createdComment.hasOwnProperty('_id')) {
+                        const allPosts = posts.map(post => {
+                            if (post._id === id) {
+                                post.comments.push(createdComment);
+                            }
 
-                    const allPosts = posts.map(post => {
-                        if(post._id === id) {
-                            post.comments.push(createdComment);
-                        }
-                        
-                        return {...post};
-                    });
-                    
-                    setPosts(allPosts);
-                    setNewComment('');
+                            return { ...post };
+                        });
+
+                        setPosts(allPosts);
+                        setNewComment('');
+                    }
                 });
 
         } else if (action === 'edit') {
@@ -36,10 +37,10 @@ function ActionComment({ id, action, oldValue, setIsEditing, posts, setPosts }) 
                 .then(res => {
                     if (res === 'Updated Successfully') {
                         setIsEditing(false);
-                        
+
                         const allPosts = posts.map(post => {
-                            const updatedComments = post.comments.map(comment => comment._id === id ? {...comment, description: newComment} : comment);
-                            return {...post, comments: updatedComments};
+                            const updatedComments = post.comments.map(comment => comment._id === id ? { ...comment, description: newComment } : comment);
+                            return { ...post, comments: updatedComments };
                         });
 
                         setPosts(allPosts);
