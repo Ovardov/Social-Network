@@ -10,7 +10,8 @@ module.exports = {
             const createdComment = await models.Comment.create({ author: authorId, post: postId, description })
             const updatedPost = await models.Post.findOneAndUpdate({ _id: postId }, { $push: { comments: createdComment } });
 
-            res.status(200).send(updatedPost);
+            const comment = await models.Comment.findById(createdComment._id).populate('author');
+            res.status(200).send(comment);
         } catch (e) {
             next(e)
         }

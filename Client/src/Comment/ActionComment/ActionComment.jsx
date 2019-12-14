@@ -17,11 +17,18 @@ function ActionComment({ id, action, oldValue, setIsEditing, posts, setPosts }) 
 
         if (action === 'create') {
             commentService.addComment(id, data)
-                .then(updatedPost => {
+                .then(createdComment => {
 
-                    debugger;
-                    const allPosts = posts.map(post => post._id === updatedPost._id ? updatedPost : post);
+                    const allPosts = posts.map(post => {
+                        if(post._id === id) {
+                            post.comments.push(createdComment);
+                        }
+                        
+                        return {...post};
+                    });
+                    
                     setPosts(allPosts);
+                    setNewComment('');
                 });
 
         } else if (action === 'edit') {
@@ -46,8 +53,7 @@ function ActionComment({ id, action, oldValue, setIsEditing, posts, setPosts }) 
             <Avatar username={username} name={name} profilePicture={profilePicture} />
 
             <form onSubmit={handleSubmit}>
-                {action === 'create' && <textarea type="text" placeholder="Write a comment..." onChange={(e) => setNewComment(e.target.value)} />}
-                {action === 'edit' && <textarea type="text" value={newComment} onChange={(e) => setNewComment(e.target.value)} />}
+                <textarea type="text" value={newComment} placeholder={action === 'create' ? 'Write a comment...' : ''} onChange={(e) => setNewComment(e.target.value)} />
                 <button type="submit" className="button">Send</button>
             </form>
         </section>
