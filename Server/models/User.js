@@ -21,7 +21,7 @@ const userSchema = new Schema({
 
     profilePicture: {
         type: Schema.Types.String,
-        default: 'https://res.cloudinary.com/dxxq5xtsy/image/upload/v1575099159/tjtegxh6a0adt5rwea9u.png'
+        default: 'https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576362907/wwgwk4gyiu0y4y3ca729.png'
     },
 
     coverPicture: {
