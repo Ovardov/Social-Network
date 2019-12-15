@@ -1,4 +1,5 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useContext } from 'react';
+import { UserContext } from '../App/App';
 import userService from '../../services/userService';
 import cloudinaryService from '../../services/cloudinaryService';
 import styles from './edit-picture.module.scss';
@@ -24,6 +25,7 @@ function CoverPicture({ handleChange, setField }) {
 
 function EditPicture({ action, user, setUser }) {
     const [field, setField] = useState('');
+    const { setProfilePicture } = useContext(UserContext);
 
     const handleChange = async (file) => {
 
@@ -40,11 +42,15 @@ function EditPicture({ action, user, setUser }) {
                 [field]: imageUrl
             }
 
-           const userRes =  await userService.update(data);
-           
-           if(userRes === 'Updated Successfully') {
-               setUser({ ...user, [field]: imageUrl });
-           }
+            const userRes = await userService.update(data);
+
+            if (userRes === 'Updated Successfully') {
+                setUser({ ...user, [field]: imageUrl });
+
+                if (field === 'profilePicture') {
+                    setProfilePicture(imageUrl);
+                }
+            }
         } catch (err) {
             console.log(err);
         }

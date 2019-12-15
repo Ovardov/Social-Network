@@ -44,13 +44,13 @@ function Login(props) {
         <form className={styles.container} onSubmit={handleSubmit}>
             <Notification errors={errors} />
             <p>
-                <input type="text" id="log-in-username" onChange={(e) => setLoginUsername(e.target.value)} value={username} />
+                <input type="text" id="log-in-username" placeholder="Ovardov" onChange={(e) => setLoginUsername(e.target.value)} value={username} />
                 <label htmlFor="log-in-username">Username</label>
                 <i className="fas fa-user"></i>
             </p>
 
             <p>
-                <input type="password" id="log-in-password" onChange={(e) => setLoginPassword(e.target.value)} value={password}/>
+                <input type="password" id="log-in-password" placeholder="******" onChange={(e) => setLoginPassword(e.target.value)} value={password}/>
                 <label htmlFor="log-in-password">Password</label>
                 <i className="fas fa-lock"></i>
             </p>

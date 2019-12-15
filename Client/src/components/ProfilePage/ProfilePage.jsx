@@ -31,7 +31,8 @@ function ProfilePage(props) {
 
     const { username } = useContext(UserContext);
 
-    const isFriends = user && user.friends ? user.friends.map(friend => friend.username === username)[0] : false;
+    let isFriends = user && user.friends ? user.friends.map(friend => friend.username === username) : false;
+    isFriends = isFriends !== false ? isFriends.includes(true) : false
 
     const handleShowContentPage = (event) => {
         setShowContentPage(event.target.innerText);

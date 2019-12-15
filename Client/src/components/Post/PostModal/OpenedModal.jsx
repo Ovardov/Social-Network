@@ -17,8 +17,10 @@ function OpenedModal({ _id, date, author, image, description, likes, comments, s
     const formattedDate = `${hoursWithMinutes} - ${day}`;
 
     const isCreator = author.username === username;
-    const isFriends = author.friends ? author.friends.map(friend => friend.username === username)[0] : false;
+    let isFriends = author && author.friends ? author.friends.map(friend => friend.username === username) : false;
+    isFriends = isFriends !== false ? isFriends.includes(true) : false;
 
+    
     const handleCommentDelete = (commentId) => {
         commentService.deleteComment(commentId)
             .then((res) => {

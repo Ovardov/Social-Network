@@ -6,15 +6,16 @@ import FriendStatus from '../FriendStatus/FriendStatus';
 
 function renderUsers(users, loggedUser, props) {
     return users.map(user => {
-        const isFriends = user.friends ? user.friends.map(friend => friend.username === loggedUser)[0] : false;
+        let isFriends = user && user.friends ? user.friends.map(friend => friend.username === loggedUser) : false;
+        isFriends = isFriends !== false ? isFriends.includes(true) : false;
 
         return <div key={user._id} className={styles['user-container']}>
             <Avatar username={user.username} name={user.name} profilePicture={user.profilePicture} />
 
             <div className={styles['user-info']}>
                 <p className={styles.name}>{user.name}</p>
-                <p className={styles.home}>Lives in {user.home}</p>
-                <p className={styles.work}>Works at {user.work}</p>
+               {user.home && <p className={styles.home}>Lives in {user.home}</p>}
+               {user.work && <p className={styles.work}>Works at {user.work}</p>}
             </div>
 
             {user.username !== loggedUser && <FriendStatus props={props} id={user._id} isFriends={isFriends} />}

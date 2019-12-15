@@ -19,7 +19,7 @@ function FriendCard({ name, profilePicture, home, username, lastFriends }) {
                 </div>
 
                 {lastFriends !== true && <h5>{name}</h5>}
-                {lastFriends !== true && <p>Lives in {home}</p>}
+                {lastFriends !== true && home && <p>Lives in {home}</p>}
             </section>
         </Link>
     )

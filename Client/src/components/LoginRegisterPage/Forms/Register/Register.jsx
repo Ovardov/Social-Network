@@ -48,8 +48,8 @@ function Register(props) {
     return (
         <form className={styles.container} onSubmit={handleSubmit}>
             <Notification errors={errors} />
-            {step === 1 && <StepOne setFirstName={setFirstName} setLastName={setLastName} />}
-            {step === 2 && <StepTwo setUsername={setUsername} setPassword={setPassword} setRepeatPassoword={setRepeatPassoword} />}
+            {step === 1 && <StepOne setFirstName={setFirstName} setLastName={setLastName} firstName={firstName} lastName={lastName} />}
+            {step === 2 && <StepTwo username={username} setUsername={setUsername} setPassword={setPassword} setRepeatPassoword={setRepeatPassoword} />}
 
             <p className={styles['register-buttons']}>
                 {step === 2 && <button type="button" className="button" onClick={() => setStep(step - 1)}>Back</button>}

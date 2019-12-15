@@ -79,6 +79,7 @@ module.exports = {
                     res.send(createdUser);
                 })
                 .catch(err => {
+                    
                     err.code === 11000 ? res.status(401).send('Username is already taken!') : next(err)
                 });
         },
