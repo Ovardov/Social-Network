@@ -1,5 +1,34 @@
 # Social-Network
 
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="middle"> 
+        <img width="323px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372203/profile-page_ll4kvu.png" alt="Profile Page" />
+      </td>
+      <td align="center" valign="middle"> 
+        <img width="323px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372202/private-home-page_crynmr.png" alt="Home Page" />
+      </td>
+      <td align="center" valign="middle"> 
+        <img width="323px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372202/guest-home-page_rsqulo.png" alt="Guest Home Page" />
+      </td>
+      <td align="center" valign="middle"> 
+        <img width="323px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372202/gallery_oitukn.png" alt="Gallery Page" />
+      </td>
+      <td align="center" valign="middle"> 
+        <img width="323px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372202/friends_rxjq71.png" alt="Friends Page" />
+      </td>
+      <td align="center" valign="middle"> 
+        <img width="323px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372202/about_cmimmy.png" alt="About Page" />
+      </td>
+       <td align="center" valign="middle"> 
+        <img width="323px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372203/search_jpl3jw.png" alt="Search Page" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
 ## Table of Contents
 1. [Application Configurations](https://github.com/Ovardov/Social-Network#application-configurations)
 2. [Technology stack](https://github.com/Ovardov/Social-Network#technology-stack)
