@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FriendStatus component should render add button if is not friends 1`] = `
+<button
+  className="button add-friend"
+  onClick={[Function]}
+>
+  <i
+    className="fas fa-user-plus"
+  />
+  Remove Friend
+</button>
+`;
+
+exports[`FriendStatus component should render remove button if is friends 1`] = `
+<button
+  className="button add-friend"
+  onClick={[Function]}
+>
+  <i
+    className="fas fa-user-plus"
+  />
+  Remove Friend
+</button>
+`;

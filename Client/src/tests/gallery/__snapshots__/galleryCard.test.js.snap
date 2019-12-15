@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GalleryCard component should render correcly with given data 1`] = `
+<li
+  className="container"
+>
+  <button
+    className="image-container"
+    onClick={[Function]}
+    type="button"
+  >
+    <img
+      src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576368427/cxfz26hn4gxeg36cv56q.jpg"
+    />
+  </button>
+</li>
+`;
