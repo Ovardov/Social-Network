@@ -4,27 +4,27 @@
   <tbody>
     <tr>
       <td align="center" valign="middle"> 
-        <img width="400px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372203/profile-page_ll4kvu.png" alt="Profile Page" />
+        <img width="450px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372203/profile-page_ll4kvu.png" alt="Profile Page" />
       </td>
       <td align="center" valign="middle"> 
-        <img width="400px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372202/private-home-page_crynmr.png" alt="Home Page" />
+        <img width="450px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372202/private-home-page_crynmr.png" alt="Home Page" />
       </td>
       <td align="center" valign="middle"> 
-        <img width="400px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372202/guest-home-page_rsqulo.png" alt="Guest Home Page" />
+        <img width="450px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372202/guest-home-page_rsqulo.png" alt="Guest Home Page" />
+      </td>
+       <td align="center" valign="middle"> 
+        <img width="450px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372202/gallery_oitukn.png" alt="Gallery Page" />
       </td>
     </tr>
     <tr>
       <td align="center" valign="middle"> 
-        <img width="400px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372202/gallery_oitukn.png" alt="Gallery Page" />
+        <img width="450px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372202/friends_rxjq71.png" alt="Friends Page" />
       </td>
       <td align="center" valign="middle"> 
-        <img width="400px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372202/friends_rxjq71.png" alt="Friends Page" />
-      </td>
-      <td align="center" valign="middle"> 
-        <img width="400px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372202/about_cmimmy.png" alt="About Page" />
+        <img width="450px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372202/about_cmimmy.png" alt="About Page" />
       </td>
        <td align="center" valign="middle"> 
-        <img width="400px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372203/search_jpl3jw.png" alt="Search Page" />
+        <img width="450px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372203/search_jpl3jw.png" alt="Search Page" />
       </td>
     </tr>
   </tbody>
