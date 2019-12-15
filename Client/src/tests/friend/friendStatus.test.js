@@ -13,7 +13,7 @@ describe('FriendStatus component', () => {
 
     test('should render add button if is not friends', () => {
         const component = renderer.create(
-            <FriendStatus isFriends={true} />
+            <FriendStatus isFriends={false} />
         );
 
         expect(component.toJSON()).toMatchSnapshot();

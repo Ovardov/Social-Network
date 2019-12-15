@@ -8,7 +8,7 @@ exports[`FriendStatus component should render add button if is not friends 1`] =
   <i
     className="fas fa-user-plus"
   />
-  Remove Friend
+  Add Friend
 </button>
 `;
 
