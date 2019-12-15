@@ -29,10 +29,10 @@
       <td align="center" valign="middle"> 
         <img width="450px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576417977/comments_bsn85a.png" alt="Comments" />
       </td>
+    </tr>
+    <tr>
       <td align="center" valign="middle"> 
-        <img width="450px" src="<td align="center" valign="middle"> 
-        <img width="450px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372203/search_jpl3jw.png" alt="Search Page" />
-      </td>" alt="Photo Modal Gallery Page" />
+        <img width="450px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576417977/photo-modal_rmacce.png" alt="Photo Modal Gallery Page" />
       </td>
     </tr>
   </tbody>
