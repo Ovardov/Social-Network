@@ -46,7 +46,7 @@ npm start
 
 ## Routing
 Route | Description
-
+------|------------|
 / | Public or Private Home page
 /login | Login page
 /register | Register page
