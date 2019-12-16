@@ -18,13 +18,21 @@
     </tr>
     <tr>
       <td align="center" valign="middle"> 
-        <img width="450px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372202/friends_rxjq71.png" alt="Friends Page" />
+        <img width="450px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576500079/friends_mywxry.png" alt="Friends Page" />
       </td>
       <td align="center" valign="middle"> 
         <img width="450px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372202/about_cmimmy.png" alt="About Page" />
       </td>
        <td align="center" valign="middle"> 
         <img width="450px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372203/search_jpl3jw.png" alt="Search Page" />
+      </td>
+      <td align="center" valign="middle"> 
+        <img width="450px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576417977/comments_bsn85a.png" alt="Comments" />
+      </td>
+    </tr>
+    <tr>
+      <td align="center" valign="middle"> 
+        <img width="450px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576417977/photo-modal_rmacce.png" alt="Photo Modal Gallery Page" />
       </td>
     </tr>
   </tbody>
