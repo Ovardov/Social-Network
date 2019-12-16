@@ -10,8 +10,6 @@
     border: 1px solid #F4F4F4;
     border-radius: 0.3em;
     cursor: pointer;
-    height: 100%;
-
 
     &:hover:after {
         display: block;
@@ -36,13 +34,13 @@
         border-radius: 50%;
         margin-bottom: 0.5em;
 
-        & > span:first-child {
+        &>span:first-child {
             width: 5em;
             height: 5em;
         }
     }
 
-    &:hover > .image-container {
+    &:hover>.image-container {
         border-color: var(--color-blue-main);
     }
 
@@ -63,20 +61,27 @@
         background: var(--color-blue-main);
         border-radius: 50%;
 
-        & > i {
+        &>i {
             color: #FFFFFF;
         }
-        
+
     }
 
-    & h5 {
-        margin-bottom: 0;
-    }
+    & .info {
+        & h5 {
+            margin-bottom: 0;
+        }
 
-    & p {
-        padding-bottom: 0;
-        margin: 0;
-        font-size: 0.9rem;
-        color: var(--color-grey-main);
-    }   
+        & .scale {
+            margin-bottom: 1.1em;
+        }
+
+        & p {
+            text-align: center;
+            padding-bottom: 0;
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--color-grey-main);
+        }
+    }
 }

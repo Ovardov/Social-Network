@@ -18,8 +18,11 @@ function FriendCard({ name, profilePicture, home, username, lastFriends }) {
                     )}
                 </div>
 
-                {lastFriends !== true && <h5>{name}</h5>}
-                {lastFriends !== true && home && <p>Lives in {home}</p>}
+                <div className={styles.info}>
+                    {lastFriends !== true && <h5 className={home ? '' : styles.scale}>{name}</h5>}
+
+                    {lastFriends !== true && home && <p>Lives in {home}</p>}
+                </div>
             </section>
         </Link>
     )
