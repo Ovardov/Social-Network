@@ -1,12 +1,9 @@
-const env = process.env.NODE_ENV || 'development';
-
 const config = {
-    development: {
-        port: process.env.PORT || 3001,
-        dbURL: 'mongodb://localhost:27017/social-network',
-        authCookieName: 'auth-token'
-    },
-    production: {}
+  port: process.env.PORT || 3001,
+  dbURL: process.env.DB_URL,
+  authCookieName: process.env.Auth_Cookie_Name,
+  authCookieSecret: process.env.Auth_Cookie_Secret,
+  corsOrigin: process.env.CORS_Origin
 };
 
-module.exports = config[env];
+module.exports = config;

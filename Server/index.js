@@ -1,13 +1,16 @@
+require('dotenv').config();
+
 const config = require('./config/config');
 const dbConnection = require('./config/database');
+const expressConfig = require('./config/express');
+const routes = require('./config/routes');
 
 const app = require('express')();
 
 dbConnection().then(() => {
 
-    require('./config/express')(app);
-
-    require('./config/routes')(app);
+    expressConfig(app);
+    routes(app);
 
     app.use(function (err, req, res, next) {
         console.error(err);
