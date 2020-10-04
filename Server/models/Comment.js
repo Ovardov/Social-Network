@@ -1,20 +1,25 @@
 const { Schema, model } = require('mongoose');
 
 const commentSchema = new Schema({
-    author: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-    },
+  description: {
+    type: Schema.Types.String,
+    required: true
+  },
+  
+  author: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  },
 
-    description: {
-        type: Schema.Types.String,
-        required: true
-    },
-
-    post: {
-        type: Schema.Types.ObjectId,
-        ref: 'Post'
-    }
+  post: {
+    type: Schema.Types.ObjectId,
+    ref: 'Post'
+  },
+  
+  likes: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Like'
+  }]
 });
 
 module.exports = new model('Comment', commentSchema)

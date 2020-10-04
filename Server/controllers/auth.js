@@ -1,3 +1,4 @@
+const config = require('../config/config')
 
 module.exports = {
   get: (req, res) => {
