@@ -4,60 +4,43 @@ const saltRounds = 10;
 
 const userSchema = new Schema({
     username: {
-        type: Schema.Types.String,
+        type: String,
         unique: [true, 'Username is already taken!'],
         required: true
     },
-
     password: {
-        type: Schema.Types.String,
+        type: String,
         required: true
     },
-
-    name: {
-        type: Schema.Types.String,
+    firstName: {
+        type: String,
         required: true,
     },
-
+    lastName: {
+        type: String,
+        required: true,
+    },
+    about: String,
+    work: String,
+    education: String,
+    home: String,
+    relationshipStatus: String,
     profilePicture: {
-        type: Schema.Types.String,
-        default: 'https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576362907/wwgwk4gyiu0y4y3ca729.png'
+        type: 'ObjectId',
+        ref: 'Image'
     },
-
     coverPicture: {
-        type: Schema.Types.String,
-        default: 'https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576172969/opgnesuo4zxittade6mq.png'
+        type: 'ObjectId',
+        ref: 'Image'
     },
-
     posts: [{
-        type: Schema.Types.ObjectId,
+        type: 'ObjectId',
         ref: 'Post'
     }],
-
     friends: [{
-        type: Schema.Types.ObjectId,
+        type: 'ObjectId',
         ref: 'User'
-    }],
-
-    about: {
-        type: Schema.Types.String
-    },
-
-    work: {
-        type: Schema.Types.String
-    },
-
-    education: {
-        type: Schema.Types.String
-    },
-
-    home: {
-        type: Schema.Types.String
-    },
-
-    relationshipStatus: {
-        type: Schema.Types.String
-    }
+    }], 
 });
 
 userSchema.methods = {
