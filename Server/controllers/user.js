@@ -32,13 +32,25 @@ module.exports = {
       }
     },
 
-    suggested: (req, res, next) => {
-      const { username } = req.query;
-      const allUsernames = username.split(',')
+    suggested: async (req, res, next) => {
+      const token = req.cookies[config.authCookieName];
 
-      models.User.find({ username: { $nin: allUsernames } })
-        .then((users) => res.send(users))
-        .catch(next)
+      try {
+        const { id } = await utils.jwt.verifyToken(token);
+
+        const myFriendsRes = await models.User.findOne({ _id: id })
+          .select('friends');
+
+        const excludedUsers = [id, ...myFriendsRes.friends];
+
+        // To Do -> select profile image
+        const suggestedUserRes = await models.User.find({ _id: { $nin: excludedUsers } })
+          .select('firstName lastName home');
+
+        res.send(suggestedUserRes);
+      } catch (err) {
+        next(err);
+      }
     },
 
     logout: async (req, res, next) => {
@@ -56,7 +68,7 @@ module.exports = {
   post: {
     login: async (req, res, next) => {
       const { emailOrUsername, password } = req.body;
-      
+
       try {
         const user = await models.User.findOne({ $or: [{ email: emailOrUsername }, { username: emailOrUsername }] });
 

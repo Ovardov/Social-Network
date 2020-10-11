@@ -4,7 +4,7 @@ const { userController } = require('../controllers');
 
 router.get('/', userController.get.home);
 
-router.get('/suggested', userController.get.suggested)
+router.get('/suggested', auth(), userController.get.suggested)
 
 router.get('/logout', auth(), userController.get.logout);
 
