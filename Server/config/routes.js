@@ -3,7 +3,7 @@ const { authController } = require('../controllers')
 
 module.exports = (app) => {
 
-  app.get('/auth', authController.get);
+  app.get('/api/auth', authController.get);
 
   app.use('/api/user', router.user);
 

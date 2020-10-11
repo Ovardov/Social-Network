@@ -3,129 +3,170 @@ const config = require('../config/config');
 const utils = require('../utils');
 
 module.exports = {
-    get: {
-        home: (req, res, next) => {
-            const { username, limit, name } = req.query;
-            let query = {};
+  get: {
+    home: (req, res, next) => {
+      const { username, limit, name } = req.query;
+      let query = {};
 
-            if (username) {
-                query = { username }
-            }
+      if (username) {
+        query = { username }
+      }
 
-            if (name) {
-                query = { ...query, name: { $regex: name, $options: 'i' } };
-            }
+      if (name) {
+        query = { ...query, name: { $regex: name, $options: 'i' } };
+      }
 
-            if (limit) {
-                models.User.find(query).populate('friends').populate('posts').limit(+limit)
-                    .then((users) => res.send(users))
-                    .catch(next)
-            } else {
-                models.User.find(query)
-                    .populate('friends')
-                    .populate([{ path: 'posts', populate: { path: 'author', populate: { path: 'friends' } } }])
-                    .populate([{ path: 'posts', populate: { path: 'comments', populate: {path: 'author'} } }])
-                    .populate([{ path: 'posts', populate: { path: 'likes', populate: {path: 'author'} } }])
-                    .sort({ _id: -1 })
-                    .then((users) => res.send(users))
-                    .catch(next)
-            }
-        },
-
-        suggested: (req, res, next) => {
-            const { username } = req.query;
-            const allUsernames = username.split(',')
-
-            models.User.find({ username: { $nin: allUsernames } })
-                .then((users) => res.send(users))
-                .catch(next)
-        },
+      if (limit) {
+        models.User.find(query).populate('friends').populate('posts').limit(+limit)
+          .then((users) => res.send(users))
+          .catch(next)
+      } else {
+        models.User.find(query)
+          .populate('friends')
+          .populate([{ path: 'posts', populate: { path: 'author', populate: { path: 'friends' } } }])
+          .populate([{ path: 'posts', populate: { path: 'comments', populate: { path: 'author' } } }])
+          .populate([{ path: 'posts', populate: { path: 'likes', populate: { path: 'author' } } }])
+          .sort({ _id: -1 })
+          .then((users) => res.send(users))
+          .catch(next)
+      }
     },
 
-    post: {
-        addFriend: async (req, res, next) => {
-            const friendId = req.params.id;
-            const authorId = req.user._id;
+    suggested: (req, res, next) => {
+      const { username } = req.query;
+      const allUsernames = username.split(',')
 
-            try {
-                await models.User.updateOne({ _id: authorId }, { $push: { friends: friendId } })
-                await models.User.updateOne({ _id: friendId }, { $push: { friends: authorId } });
-
-                res.status(200).send('Added Successfully');
-            } catch (e) {
-                next(e)
-            }
-        },
-
-        removeFriend: async (req, res, next) => {
-            const friendId = req.params.id;
-            const authorId = req.user._id;
-
-            try {
-                await models.User.updateOne({ _id: authorId }, { $pull: { friends: friendId } })
-                await models.User.updateOne({ _id: friendId }, { $pull: { friends: authorId } });
-
-                res.status(200).send('Removed Successfully');
-            } catch (e) {
-                next(e)
-            }
-        },
-
-        register: (req, res, next) => {
-            const { username, password, name } = req.body;
-
-            models.User.create({ username, password, name })
-                .then((createdUser) => {
-                    res.send(createdUser);
-                })
-                .catch(err => {
-                    
-                    err.code === 11000 ? res.status(401).send('Username is already taken!') : next(err)
-                });
-        },
-
-        login: (req, res, next) => {
-            const { username, password } = req.body;
-
-            models.User.findOne({ username })
-                .then((user) => !!user ? Promise.all([user, user.matchPassword(password)]) : [null, null])
-                .then(([user, match]) => {
-                    if (!match) {
-                        res.status(401).send('Invalid username or password');
-                        return;
-                    }
-
-                    const token = utils.jwt.createToken({ id: user._id });
-                    res.cookie(config.authCookieName, token).send(user);
-                })
-                .catch(next);
-
-        },
-
-        logout: (req, res, next) => {
-            const token = req.cookies[config.authCookieName];
-
-            models.TokenBlacklist.create({ token })
-                .then(() => {
-                    res.clearCookie(config.authCookieName).send('Logout successfully!');
-                })
-                .catch(next);
-        }
+      models.User.find({ username: { $nin: allUsernames } })
+        .then((users) => res.send(users))
+        .catch(next)
     },
 
-    put: (req, res, next) => {
-        const data = req.body;
+    logout: async (req, res, next) => {
+      const token = req.cookies[config.authCookieName];
 
-        models.User.updateOne({ username: data.username }, data)
-            .then(() => res.status(200).send('Updated Successfully'))
-            .catch(next);
-    },
-
-    delete: (req, res, next) => {
-        const id = req.params.id;
-
-        models.User.deleteOne({ _id: id })
-            .then((removedUser) => res.send(removedUser))
-            .catch(next)
+      try {
+        await models.TokenBlacklist.create({ token });
+        res.clearCookie(config.authCookieName).send('Logout successfully!');
+      } catch (err) {
+        next(err);
+      }
     }
+  },
+
+  post: {
+    login: async (req, res, next) => {
+      const { emailOrUsername, password } = req.body;
+      
+      try {
+        const user = await models.User.findOne({ $or: [{ email: emailOrUsername }, { username: emailOrUsername }] });
+
+        if (!user) {
+          res.status(401).send('Invalid username or password. wrong email');
+          return;
+        }
+
+        const isMatched = await user.matchPassword(password);
+
+        if (!isMatched) {
+          res.status(401).send('Invalid username or password, isMatched');
+          return;
+        }
+
+        const token = utils.jwt.createToken({ id: user._id });
+        res.cookie(config.authCookieName, token, { httpOnly: true })
+          .status(200)
+          .end();
+      } catch (err) {
+        next(err)
+      }
+    },
+    register: async (req, res, next) => {
+      const { email, username, password, firstName, lastName } = req.body;
+
+      try {
+        const createdUser = await models.User.create({ email, username, password, firstName, lastName });
+
+        const token = utils.jwt.createToken({ id: createdUser._id });
+
+        res.cookie(config.authCookieName, token, { httpOnly: true })
+          .status(201)
+          .end();
+      } catch (err) {
+        if (err.code === 11000) {
+          // keyPattern: { username: 1 }
+          const errorField = Object.keys(err.keyPattern)[0]
+          const capitalizedErrorField = errorField.charAt(0).toUpperCase() + errorField.slice(1);
+
+          res.status(401).send(`${capitalizedErrorField} is already taken!`);
+        } else {
+          next(err)
+        }
+      }
+    },
+  },
+
+  put: {
+    addFriend: async (req, res, next) => {
+      const friendId = req.params.id;
+      const authorId = req.user._id;
+
+      try {
+        const friendRes = await models.User.findOneAndUpdate({ _id: friendId, friends: { $ne: authorId } }, { $push: { friends: authorId } }, { new: true })
+          .select('firstName lastName');
+
+        if (!friendRes) {
+          res.status(404).end();
+          return;
+        }
+
+        await models.User.updateOne({ _id: authorId, friends: { $ne: friendId } }, { $push: { friends: friendId } })
+
+        res.status(200).send(`Now, you are friend with ${friendRes.firstName} ${friendRes.lastName}.`);
+      } catch (e) {
+        next(e)
+      }
+    },
+    removeFriend: async (req, res, next) => {
+      const friendId = req.params.id;
+      const authorId = req.user._id;
+
+      try {
+        const friendRes = await models.User.findOneAndUpdate({ _id: friendId, friends: authorId }, { $pull: { friends: authorId } }, { new: true })
+          .select('firstName lastName');
+
+        if (!friendRes) {
+          res.status(404).end();
+          return;
+        }
+
+        await models.User.updateOne({ _id: authorId, friends: friendId }, { $pull: { friends: friendId } })
+
+        res.status(200).send(`Now, you are not friend with ${friendRes.firstName} ${friendRes.lastName}.`);
+      } catch (e) {
+        next(e)
+      }
+    },
+    update: (req, res, next) => {
+      const data = req.body;
+
+      models.User.updateOne({ username: data.username }, data)
+        .then(() => res.status(200).send('Updated Successfully'))
+        .catch(next);
+    },
+  },
+
+  delete: async (req, res, next) => {
+    const token = req.cookies[config.authCookieName];
+
+    try {
+      const { id } = await utils.jwt.verifyToken(token);
+
+      await models.User.deleteOne({ _id: id })
+      await models.TokenBlacklist.create({ token });
+
+      res.clearCookie(config.authCookieName).send('Deleted successfully!');
+    } catch (err) {
+      next(err);
+    }
+  }
 };
