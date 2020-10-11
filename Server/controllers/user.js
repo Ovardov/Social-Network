@@ -32,6 +32,23 @@ module.exports = {
       }
     },
 
+    myProfile: async (req, res, next) => {
+      const token = req.cookies[config.authCookieName];
+
+      try {
+        const { id } = await utils.jwt.verifyToken(token);
+
+        // Last 9 friends, last 9 photos
+        const userRes = await models.User.findOne({ _id: id })
+          .select('-password')
+          .populate('posts');
+
+        res.send(userRes);
+      } catch(err) {
+        next(err);
+      }
+    },
+
     suggested: async (req, res, next) => {
       const token = req.cookies[config.authCookieName];
 
@@ -52,7 +69,6 @@ module.exports = {
         next(err);
       }
     },
-
     logout: async (req, res, next) => {
       const token = req.cookies[config.authCookieName];
 

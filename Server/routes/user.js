@@ -3,6 +3,7 @@ const auth = require('../utils/auth');
 const { userController } = require('../controllers');
 
 router.get('/', userController.get.home);
+router.get('/me', userController.get.myProfile);
 
 router.get('/suggested', auth(), userController.get.suggested)
 
