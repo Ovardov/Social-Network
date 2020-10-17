@@ -39,31 +39,46 @@ module.exports = {
   },
 
   put: {
-    edit: (req, res, next) => {
+    edit: async (req, res, next) => {
       const { id } = req.params;
-      const { description } = req.body;
+      const { content } = req.body;
 
-      models.Post.findOneAndUpdate({ _id: id }, { description })
-        .then(() => res.status(200).send('Edited Successfully'))
-        .catch(next);
+      try {
+        await models.Post.findOneAndUpdate({ _id: id }, { content });
+        res.status(200).send('Edited Successfully!');
+      } catch (e) {
+        next(e);
+      }
     },
 
-    addLike: (req, res, next) => {
+    likePost: async (req, res, next) => {
       const { id } = req.params;
       const authorId = req.user._id
 
-      models.Post.updateOne({ _id: id }, { $push: { likes: authorId } })
-        .then((updatedPost) => res.send(updatedPost))
-        .catch(next);
+      try {
+        const createdLike = await models.Like.create({ post: id, likedBy: authorId });
+
+        await models.Post.updateOne({ _id: id }, { $push: { likes: createdLike._id } });
+
+        res.status(200).send('Liked Successfully!');
+      } catch (e) {
+        next(e);
+      }
     },
 
-    removeLike: (req, res, next) => {
+    unlikePost: async (req, res, next) => {
       const { id } = req.params;
       const authorId = req.user._id
 
-      models.Post.updateOne({ _id: id }, { $pull: { likes: authorId } })
-        .then((updatedPost) => res.send(updatedPost))
-        .catch(next);
+      try {
+        const removedLike = await models.Like.findOneAndDelete({ post: id, likedBy: authorId });
+
+        await models.Post.updateOne({ _id: id }, { $pull: { likes: removedLike._id } });
+
+        res.status(200).send('Unliked Successfully!');
+      } catch (e) {
+        next(e);
+      }
     }
   },
 
@@ -72,7 +87,7 @@ module.exports = {
 
     try {
       const removedPost = await models.Post.findOneAndDelete({ _id: id });
-      
+
       await models.Comment.deleteMany({ post: id });
       await models.Like.deleteMany({ post: id });
       await models.Image.findOneAndDelete({ _id: removedPost.image });
