@@ -7,7 +7,7 @@ const postSchema = new Schema({
     required: true,
   },
   content: String,
-  imageUrl: {
+  image: {
     type: 'ObjectId',
     ref: 'Image'
   },
@@ -26,6 +26,6 @@ const postSchema = new Schema({
     ref: 'Comment',
     default: []
   }]
-});
+}, { versionKey: false});
 
 module.exports = new model('Post', postSchema)

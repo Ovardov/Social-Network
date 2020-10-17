@@ -4,6 +4,7 @@ const utils = require('../utils');
 
 module.exports = {
   get: {
+    // To Do with new models
     home: (req, res, next) => {
       const { username, limit, name } = req.query;
       let query = {};
@@ -38,7 +39,7 @@ module.exports = {
       try {
         const { id } = await utils.jwt.verifyToken(token);
 
-        // Last 9 friends, last 9 photos
+        // To Do -> Last 9 friends, last 9 photos
         const userRes = await models.User.findOne({ _id: id })
           .select('-password')
           .populate('posts');
@@ -174,6 +175,7 @@ module.exports = {
         next(e)
       }
     },
+    // To Do with new models
     update: (req, res, next) => {
       const data = req.body;
 
