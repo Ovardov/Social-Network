@@ -185,18 +185,20 @@ module.exports = {
     },
   },
 
-  delete: async (req, res, next) => {
-    const token = req.cookies[config.authCookieName];
-
-    try {
-      const { id } = await utils.jwt.verifyToken(token);
-
-      await models.User.deleteOne({ _id: id })
-      await models.TokenBlacklist.create({ token });
-
-      res.clearCookie(config.authCookieName).send('Deleted successfully!');
-    } catch (err) {
-      next(err);
+  delete: {
+    removeMyAccount: async (req, res, next) => {
+      const token = req.cookies[config.authCookieName];
+      
+      try {
+        const { id } = await utils.jwt.verifyToken(token);
+        
+        await models.User.deleteOne({ _id: id })
+        await models.TokenBlacklist.create({ token });
+        
+        res.clearCookie(config.authCookieName).send('Deleted successfully!');
+      } catch (err) {
+        next(err);
+      }
     }
   }
 };

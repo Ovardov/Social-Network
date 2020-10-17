@@ -62,16 +62,18 @@ module.exports = {
     }
   },
 
-  delete: async (req, res, next) => {
-    const { id } = req.params;
+  delete: {
+    removeComment: async (req, res, next) => {
+      const { id } = req.params;
 
-    try {
-      const removedComment = await models.Comment.findOneAndDelete({ _id: id })
-      await models.Post.updateOne({ _id: removedComment.post }, { $pull: { comments: removedComment._id } })
+      try {
+        const removedComment = await models.Comment.findOneAndDelete({ _id: id })
+        await models.Post.updateOne({ _id: removedComment.post }, { $pull: { comments: removedComment._id } })
 
-      res.status(200).send('Removed Successfully!');
-    } catch (e) {
-      next(e);
+        res.status(200).send('Removed Successfully!');
+      } catch (e) {
+        next(e);
+      }
     }
   }
 };

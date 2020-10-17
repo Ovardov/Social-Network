@@ -19,6 +19,6 @@ router.put('/friend/remove/:id', auth(), userController.put.removeFriend);
 
 router.put('/:username', userController.put.update);
 
-router.delete('/', auth(), userController.delete);
+router.delete('/', auth(), userController.delete.removeMyAccount);
 
 module.exports = router;

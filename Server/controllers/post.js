@@ -82,21 +82,23 @@ module.exports = {
     }
   },
 
-  delete: async (req, res, next) => {
-    const id = req.params.id;
+  delete: {
+    removePost: async (req, res, next) => {
+      const id = req.params.id;
 
-    try {
-      const removedPost = await models.Post.findOneAndDelete({ _id: id });
+      try {
+        const removedPost = await models.Post.findOneAndDelete({ _id: id });
 
-      await models.Comment.deleteMany({ post: id });
-      await models.Like.deleteMany({ post: id });
-      await models.Image.findOneAndDelete({ _id: removedPost.image });
+        await models.Comment.deleteMany({ post: id });
+        await models.Like.deleteMany({ post: id });
+        await models.Image.findOneAndDelete({ _id: removedPost.image });
 
-      await models.User.updateOne({ _id: removedPost.author }, { $pull: { posts: removedPost._id } });
+        await models.User.updateOne({ _id: removedPost.author }, { $pull: { posts: removedPost._id } });
 
-      res.status(200).send('Deleted Successfully');
-    } catch (e) {
-      next(e);
+        res.status(200).send('Deleted Successfully');
+      } catch (e) {
+        next(e);
+      }
     }
   }
-};
+}
