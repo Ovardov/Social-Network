@@ -16,8 +16,9 @@ const commentSchema = new Schema({
   },
   likes: [{
     type: 'ObjectId',
-    ref: 'Like'
+    ref: 'Like',
+    default: []
   }]
-});
+}, { versionKey: false });
 
 module.exports = new model('Comment', commentSchema)
