@@ -1,13 +1,20 @@
+const { models } = require('mongoose');
 const config = require('../config/config')
 const utils = require('../utils')
 
 module.exports = {
-  get: (req, res) => {
+  get: async (req, res) => {
     const token = req.cookies[config.authCookieName];
+    
+    try {
+      const { id } = await utils.jwt.verifyToken(token);
 
-    utils.jwt.verifyToken(token)
-      .then(({ id }) => models.User.findById(id))
-      .then(user => res.send(user))
-      .catch(() => res.status(401).send('UNAUTHORIZED!'));
+      const user = await models.User.findById(id)
+        .select('username');
+
+      res.send(user);
+    } catch(e) {
+      res.status(401).send('UNAUTHORIZED!');
+    }
   }
 }
