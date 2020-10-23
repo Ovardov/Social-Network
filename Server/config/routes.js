@@ -1,9 +1,8 @@
 const router = require('../routes');
-const { authController } = require('../controllers')
 
 module.exports = (app) => {
 
-  app.get('/api/auth', authController.get);
+  app.use('/api/auth', router.auth);
 
   app.use('/api/user', router.user);
 

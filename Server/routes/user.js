@@ -7,13 +7,6 @@ router.get('/me', userController.get.myProfile);
 
 router.get('/suggested', auth(), userController.get.suggested)
 
-router.get('/logout', auth(), userController.get.logout);
-
-router.post('/register', userController.post.register);
-
-router.post('/login', userController.post.login);
-
-
 router.put('/friend/add/:id', auth(), userController.put.addFriend);
 router.put('/friend/remove/:id', auth(), userController.put.removeFriend);
 
