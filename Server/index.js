@@ -4,6 +4,7 @@ const config = require('./config/config');
 const dbConnection = require('./config/database');
 const expressConfig = require('./config/express');
 const routes = require('./config/routes');
+const socketConfig = require('./config/socket');
 
 const app = require('express')();
 
@@ -17,6 +18,9 @@ dbConnection().then(() => {
         res.status(500).send(err.message);
     });
 
-    app.listen(config.port, console.log(`Listening on port ${config.port}!`))
+    const server = app.listen(config.port, console.log(`Listening on port ${config.port}!`));
+    const io = require('socket.io')(server);
+
+    socketConfig(io, app);
 
 }).catch(console.error);
