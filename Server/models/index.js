@@ -4,6 +4,7 @@ const Post = require('./Post');
 const Comment = require('./Comment');
 const Like = require('./Like');
 const Image = require('./Image');
+const Conversation = require('./Conversation');
 const Message = require('./Message');
 
 module.exports = {
@@ -13,5 +14,6 @@ module.exports = {
     Comment,
     Like,
     Image,
+    Conversation,
     Message
 };

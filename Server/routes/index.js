@@ -2,12 +2,12 @@ const user = require('./user');
 const post = require('./post');
 const comment = require('./comment');
 const auth = require('./auth');
-const message = require('./message');
+const conversation = require('./conversation');
 
 module.exports = {
     user,
     post,
     comment,
     auth,
-    message
+    conversation
 };

@@ -12,8 +12,16 @@ module.exports = (io) => {
       })
     })
 
-    socket.on('message', async ({message, room}) => {
-      socket.to(room).emit('chat-message', message);
+    socket.on('message', async ({message, room, sender}) => {
+      try {
+        const createdMessage = await models.Message.create({ sender, message });
+        await models.Conversation.updateOne({ room }, { $push: { messages: createdMessage._id } }, { upsert: true });
+
+        socket.to(room).emit('chat', message);
+      } catch(err) {
+        console.log(err)
+        socket.to(room).emit('error', err);
+      }
     });
 
     socket.on('leave', (room) => {

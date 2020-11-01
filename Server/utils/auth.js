@@ -14,7 +14,7 @@ const auth = () => {
         throw new Error('blacklisted token');
       }
 
-      const user = await models.User.findById(data.id);
+      const user = await models.User.findById(data.id).select('email username');
 
       req.user = user;
       next();

@@ -1,20 +1,20 @@
 const { Schema, model } = require('mongoose');
 
 const messageSchema = Schema({
-  from: {
-    type: 'ObjectId',
-    ref: 'User',
-    required: true
-  },
-  to: {
+  sender: {
     type: 'ObjectId',
     ref: 'User',
     required: true
   },
   message: {
-    type: 'String',
+    type: String,
+    required: true
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
     required: true
   }
-}, { timestamps: true, versionKey: false });
+}, { versionKey: false });
 
 module.exports = new model('Message', messageSchema);
