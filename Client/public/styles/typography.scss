@@ -8,7 +8,9 @@
 
 html {
   box-sizing: border-box;
-  font: $font-size-body/1.5 $font-main, sans-serif;
+  font-family: $font-main, sans-serif;
+  line-height: 1.5;
+  font-size: $font-size-body;
 }
 
 @media (min-width: 600px) {
