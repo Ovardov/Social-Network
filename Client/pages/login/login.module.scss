@@ -1,0 +1,33 @@
+.header {
+  justify-self: flex-start;
+
+  .title {
+    margin-bottom: 0;
+    color: var(--theme-primary-color);
+    text-transform: uppercase;
+  }
+}
+
+.login-container {
+  width: 80%;
+  max-width: 600px;
+
+  .form {
+    margin-bottom: $spacing-layout-elements;
+  }
+
+  .social-container {
+    .social-description {
+      color: var(--theme-link-color);
+      text-align: center;
+    }
+  }
+}
+
+.additional-link-text {
+  padding-bottom: 0;
+
+  .link {
+    color: var(--theme-primary-color);
+  }
+}
