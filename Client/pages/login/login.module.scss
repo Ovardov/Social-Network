@@ -2,7 +2,6 @@
   justify-self: flex-start;
 
   .title {
-    margin-bottom: 0;
     color: var(--theme-primary-color);
     text-transform: uppercase;
   }
@@ -11,6 +10,10 @@
 .login-container {
   width: 80%;
   max-width: 600px;
+
+  @include bp(phone) {
+    width: 100%;
+  }
 
   .form {
     margin-bottom: $spacing-layout-elements;
@@ -26,6 +29,7 @@
 
 .additional-link-text {
   padding-bottom: 0;
+  margin-top: $spacing-layout-elements;
 
   .link {
     color: var(--theme-primary-color);
