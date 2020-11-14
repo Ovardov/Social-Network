@@ -1,8 +1,11 @@
+import { useRouter } from 'next/router'
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from './public-home.module.scss'
 
 const PublicHome = ({ children }) => {
+  const { pathname } = useRouter()
+
   return (
     <section className={styles.container}>
       <article className={styles.info}>
@@ -13,10 +16,10 @@ const PublicHome = ({ children }) => {
 
       <article className={styles.data}>
         <ul className={styles.links}>
-          <li><Link href='/login'><a className={`${styles.link} ${styles.selected}`}>Login</a></Link></li>
-          <li><Link href='/register'><a className={`${styles.link}`}>Register</a></Link></li>
+          <li><Link href='/login'><a className={`${styles.link} ${pathname === '/login' ? styles.selected : ''}`}>Login</a></Link></li>
+          <li><Link href='/register'><a className={`${styles.link} ${pathname === '/register' ? styles.selected : ''}`}>Register</a></Link></li>
         </ul>
-        
+
         {children}
       </article>
     </section>

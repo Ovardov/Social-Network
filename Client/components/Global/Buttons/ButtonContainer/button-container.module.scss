@@ -2,4 +2,12 @@
   display: grid;
   grid-gap: $spacing-layout-elements;
   align-items: center;
+
+  &.full-width {
+    width: 100%;
+  }
+
+  &.fit-content {
+    width: fit-content;
+  }
 }

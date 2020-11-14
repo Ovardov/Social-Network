@@ -4,10 +4,10 @@ import PublicHome from '../../components/PublicHome'
 import FormField from '../../components/Global/FormField'
 import PasswordField from '../../components/Global/FormField/PasswordField'
 import SocialButton from '../../components/Global/Buttons/SocialButton'
-import { loginValidationSchema } from '../../formValidators/login'
-import styles from './login.module.scss'
 import LoginButton from '../../components/Global/Buttons/LoginButton'
 import ButtonContainer from '../../components/Global/Buttons/ButtonContainer'
+import { loginValidationSchema } from '../../formValidators/login'
+import styles from './login.module.scss'
 
 const LoginPage = () => {
   return (
@@ -28,8 +28,8 @@ const LoginPage = () => {
         <div className={styles['social-container']}>
           <p className={styles['social-description']}>Easy login with</p>
 
-          <ButtonContainer columns={2}>
-            <SocialButton text="Google" icon="/images/google-icon.svg" />
+          <ButtonContainer columns={2} widthType="full-width">
+            <SocialButton text="" icon="/images/google-icon.svg" />
             <SocialButton text="Facebook" icon="images/facebook-icon.svg" />
           </ButtonContainer>
         </div>

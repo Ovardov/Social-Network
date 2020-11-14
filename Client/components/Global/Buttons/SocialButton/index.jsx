@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import globalButtonStyles from '../buttons.module.scss'
 import styles from './social-button.module.scss'
 
@@ -8,6 +9,11 @@ const SocialButton = ({ icon, text }) => {
       {text}
     </button>
   )
+}
+
+SocialButton.propTypes = {
+  icon: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired
 }
 
 export default SocialButton
