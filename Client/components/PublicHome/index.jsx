@@ -16,8 +16,8 @@ const PublicHome = ({ children }) => {
 
       <article className={styles.data}>
         <ul className={styles.links}>
-          <li><Link href='/login'><a className={`${styles.link} ${pathname === '/login' ? styles.selected : ''}`}>Login</a></Link></li>
-          <li><Link href='/register'><a className={`${styles.link} ${pathname === '/register' ? styles.selected : ''}`}>Register</a></Link></li>
+          <li><Link href='/login'><a className={`${styles.link} ${pathname === '/login' ? styles.selected : ''}`}>Log in</a></Link></li>
+          <li><Link href='/register'><a className={`${styles.link} ${pathname === '/register' ? styles.selected : ''}`}>Sign up</a></Link></li>
         </ul>
 
         {children}

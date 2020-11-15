@@ -5,6 +5,7 @@
   box-shadow: $box-shadow;
   outline: none;
   cursor: pointer;
+  font-weight: bold;
 
   &.color-primary {
     color: var(--theme-background-color);

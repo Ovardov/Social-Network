@@ -17,6 +17,27 @@
     justify-content: center;
     padding: $spacing-layout-elements;
 
+    &.info {
+      position: relative;
+
+      .image-container {
+        position: relative;
+        height: 30em;
+        width: 30em;
+        user-select: none;
+
+        @media screen and (min-width: 1024px) and (max-width: 1300px) {
+          width: 25em;
+          height: 25em;
+        }
+
+        @include bp(tablet) {
+          width: 20em;
+          height: 20em;
+        }
+      }
+    }
+
     &.data {
       flex-direction: column;
       justify-content: space-between;
@@ -66,27 +87,6 @@
               color: var(--theme-text-color);
             }
           }
-        }
-      }
-    }
-
-    &.info {
-      position: relative;
-
-      .image-container {
-        position: relative;
-        height: 30em;
-        width: 30em;
-        user-select: none;
-
-        @media screen and (min-width: 1024px) and (max-width: 1300px) {
-          width: 25em;
-          height: 25em;
-        }
-
-        @include bp(tablet) {
-          width: 20em;
-          height: 20em;
         }
       }
     }

@@ -10,4 +10,12 @@
   &.fit-content {
     width: fit-content;
   }
+
+  &.position-start {
+    margin-right: auto;
+  }
+
+  &.position-end {
+    margin-left: auto;
+  }
 }

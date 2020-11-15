@@ -7,23 +7,13 @@
   }
 }
 
-.login-container {
+.register-container {
   width: 80%;
   max-width: 600px;
+  margin-bottom: $spacing-layout-elements;
 
   @include bp(phone) {
     width: 100%;
-  }
-
-  .form {
-    margin-bottom: $spacing-layout-elements;
-  }
-
-  .social-container {
-    .social-description {
-      color: var(--theme-link-color);
-      text-align: center;
-    }
   }
 }
 

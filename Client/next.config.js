@@ -19,6 +19,9 @@ module.exports = withScss({
   cssLoaderOptions: {
     localIdentName: localIdentName
   },
+  images: {
+    domains: ['res.cloudinary.com']
+  },
 
   webpack(config, options) {
     config.plugins.push(new miniCssExtractPlugin())

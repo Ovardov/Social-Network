@@ -12,7 +12,7 @@ $spacing-layout-elements: 1.5em;
 $large-spacing-layout-elements: 3em;
 
 $border-radius: 0.3em;
-$box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+$box-shadow: 0 1px 4px rgba(26, 26, 67, 0.1);
 
 :root {
   --theme-primary-color: var(--blue-primary-color);
@@ -23,7 +23,7 @@ $box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
   --theme-link-color: var(--blue-link-color);
 
   // Blue theme
-  --blue-primary-color: #4080FF;
+  --blue-primary-color: #5469D4;
   // --blue-primary-color: #1B53F4;
   // --blue-primary-color: #379FF6;
   --blue-brighter-color: #E6F2FF;

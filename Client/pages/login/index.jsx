@@ -29,7 +29,7 @@ const LoginPage = () => {
           <p className={styles['social-description']}>Easy login with</p>
 
           <ButtonContainer columns={2} widthType="full-width">
-            <SocialButton text="" icon="/images/google-icon.svg" />
+            <SocialButton text="Google" icon="/images/google-icon.svg" />
             <SocialButton text="Facebook" icon="images/facebook-icon.svg" />
           </ButtonContainer>
         </div>
