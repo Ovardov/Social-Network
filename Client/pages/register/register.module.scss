@@ -11,6 +11,9 @@
   width: 80%;
   max-width: 600px;
   margin-bottom: $spacing-layout-elements;
+  padding: $spacing-layout-elements;
+  box-shadow: $form-box-shadow;
+  border-radius: $border-radius;
 
   @include bp(phone) {
     width: 100%;

@@ -4,12 +4,20 @@
   .title {
     color: var(--theme-primary-color);
     text-transform: uppercase;
+    margin: 1.2em 0 1em 0;
+
+    @media screen and (max-width:1300px) {
+      margin: 0 0 1em 0;
+    }
   }
 }
 
 .login-container {
   width: 80%;
   max-width: 600px;
+  padding: $spacing-layout-elements;
+  box-shadow: $form-box-shadow;
+  border-radius: $border-radius;
 
   @include bp(phone) {
     width: 100%;
