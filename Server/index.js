@@ -15,7 +15,7 @@ dbConnection().then(() => {
 
     app.use(function (err, req, res, next) {
         console.error(err);
-        res.status(500).send(err.message);
+        res.status(500).send('Server Error');
     });
 
     const server = app.listen(config.port, console.log(`Listening on port ${config.port}!`));

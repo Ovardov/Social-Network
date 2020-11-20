@@ -8,8 +8,22 @@ import LoginButton from '../../components/Global/Buttons/LoginButton'
 import ButtonContainer from '../../components/Global/Buttons/ButtonContainer'
 import { loginValidationSchema } from '../../formValidators/login'
 import styles from './login.module.scss'
+import { login } from '../../services/authService'
 
 const LoginPage = () => {
+
+  const onSubmitHandler = async(data) => {
+    try {
+      const finalData = {
+        emailOrUsername: data.email,
+        password: data.password
+      }
+      const res = await login(finalData)
+    } catch(err) {
+      console.error('Error while submit login form', err)
+    }
+  }
+
   return (
     <PublicHome>
       <header className={styles.header}>
@@ -17,7 +31,7 @@ const LoginPage = () => {
       </header>
 
       <div className={styles['login-container']}>
-        <Formik initialValues={{ email: '', password: '' }} validationSchema={loginValidationSchema}>
+        <Formik initialValues={{ email: '', password: '' }} validationSchema={loginValidationSchema} onSubmit={onSubmitHandler}>
           <Form className={styles.form}>
             <FormField type="email" name="email" label="Email" placeholder="ovardov7@gmail.com" />
             <PasswordField label="Password" name="password" showForgotPasswordLink={true} />
