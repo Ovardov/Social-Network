@@ -27,6 +27,17 @@ module.exports = {
       } catch (err) {
         next(err);
       }
+    },
+    facebookLogin: async (req, res, next) => {
+      try {
+        const userId = req.user._id;
+
+        const token = utils.jwt.createToken({ id: userId });
+        res.cookie(config.authCookieName, token, { httpOnly: true });
+        res.redirect(config.clientSuccessUrl);
+      } catch(err) {
+        next(err)
+      }
     }
   },
 
@@ -61,7 +72,8 @@ module.exports = {
       const { email, username, password, firstName, lastName } = req.body;
 
       try {
-        const createdUser = await models.User.create({ email, username, password, firstName, lastName });
+        const lowerCaseUsername = username.toLowerCase();
+        const createdUser = await models.User.create({ email, username: lowerCaseUsername, password, firstName, lastName });
 
         const token = utils.jwt.createToken({ id: createdUser._id });
 

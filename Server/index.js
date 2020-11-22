@@ -5,6 +5,7 @@ const dbConnection = require('./config/database');
 const expressConfig = require('./config/express');
 const routes = require('./config/routes');
 const socketConfig = require('./config/socket');
+const initPassport = require('./config/passport');
 
 const app = require('express')();
 
@@ -12,6 +13,7 @@ dbConnection().then(() => {
 
     expressConfig(app);
     routes(app);
+    initPassport();
 
     app.use(function (err, req, res, next) {
         console.error(err);

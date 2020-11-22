@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { Form, Formik } from 'formik'
 import PublicHome from '../../components/PublicHome'
@@ -11,8 +12,10 @@ import styles from './login.module.scss'
 import { login } from '../../services/authService'
 
 const LoginPage = () => {
+  const router = useRouter()
 
   const onSubmitHandler = async(data) => {
+
     try {
       const finalData = {
         emailOrUsername: data.email,
@@ -21,6 +24,15 @@ const LoginPage = () => {
       const res = await login(finalData)
     } catch(err) {
       console.error('Error while submit login form', err)
+    }
+  }
+
+  const onFacebookLogin = async () => {
+    try {
+      await 
+
+      router.push('/')
+    } catch(err) {
     }
   }
 
@@ -43,8 +55,8 @@ const LoginPage = () => {
           <p className={styles['social-description']}>Easy login with</p>
 
           <ButtonContainer columns={2} widthType="full-width">
-            <SocialButton text="Google" icon="/images/google-icon.svg" />
-            <SocialButton text="Facebook" icon="images/facebook-icon.svg" />
+            <SocialButton href="http://localhost:3001/api/auth/google" text="Google" icon="/images/google-icon.svg" />
+            <SocialButton href="http://localhost:3001/api/auth/facebook" text="Facebook" icon="images/facebook-icon.svg" />
           </ButtonContainer>
         </div>
       </div>

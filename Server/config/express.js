@@ -1,6 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const passport = require('passport');
 const config = require('./config');
 
 module.exports = (app) => {
@@ -14,4 +15,6 @@ module.exports = (app) => {
   app.use(express.json());
 
   app.use(cookieParser(config.authCookieSecret));
+
+  app.use(passport.initialize());
 };
