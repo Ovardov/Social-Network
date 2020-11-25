@@ -28,14 +28,16 @@ module.exports = {
         next(err);
       }
     },
-    facebookLogin: async (req, res, next) => {
+
+    socialLogin: async (req, res, next) => {
       try {
         const userId = req.user._id;
 
         const token = utils.jwt.createToken({ id: userId });
+
         res.cookie(config.authCookieName, token, { httpOnly: true });
-        res.redirect(config.clientSuccessUrl);
-      } catch(err) {
+        res.redirect(config.clientLoginSuccessRedirectUrl);
+      } catch (err) {
         next(err)
       }
     }
@@ -49,14 +51,14 @@ module.exports = {
         const user = await models.User.findOne({ $or: [{ email: emailOrUsername }, { username: emailOrUsername }] });
 
         if (!user) {
-          res.status(401).send('Invalid username or password. wrong email');
+          res.status(401).send('Invalid username or password');
           return;
         }
 
         const isMatched = await user.matchPassword(password);
 
         if (!isMatched) {
-          res.status(401).send('Invalid username or password, isMatched');
+          res.status(401).send('Invalid username or password');
           return;
         }
 
