@@ -15,6 +15,11 @@ const userSchema = new Schema({
   password: {
     type: String,
   },
+  providers: [{
+    type: String,
+    enum: ['email', 'facebook', 'google'],
+    required: true
+  }],
   firstName: {
     type: String,
     required: true,
@@ -44,7 +49,7 @@ const userSchema = new Schema({
     type: 'ObjectId',
     ref: 'User'
   }],
-}, { versionKey: false});
+}, { versionKey: false });
 
 userSchema.index({
   email: 1,

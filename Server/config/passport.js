@@ -4,7 +4,7 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const { facebookConfig, googleConfig } = require('./config');
 const models = require('../models');
 
-const saveUser = async (email, firstName, lastName, profilePictureUrl) => {
+const saveUser = async (email, firstName, lastName, profilePictureUrl, loginProvider) => {
   try {
     // check for user with same email
     const foundedUser = await models.User.findOne({ email });
@@ -30,7 +30,15 @@ const saveUser = async (email, firstName, lastName, profilePictureUrl) => {
 
       // Create user profile
       const createdProfilePicture = await models.Image.create({ imageUrl: profilePictureUrl });
-      await models.User.create({ email, username: generatedUsername, firstName, lastName, profilePicture: createdProfilePicture._id });
+
+      await models.User.create({ email, username: generatedUsername, providers: loginProvider, firstName, lastName, profilePicture: createdProfilePicture._id });
+
+      return;
+    }
+
+    // Add new social provider if current user doesn't have already
+    if (foundedUser.providers.indexOf(loginProvider) === -1) {
+      await models.User.updateOne({ email }, { $push: { providers: loginProvider } })
     }
 
   } catch (err) {
@@ -53,7 +61,7 @@ const initPassport = () => {
       const lastName = user._json.last_name;
       const profilePictureUrl = user._json.picture.data.url;
 
-      await saveUser(email, firstName, lastName, profilePictureUrl)
+      await saveUser(email, firstName, lastName, profilePictureUrl, 'facebook');
 
       return cb(null, user);
     } catch (err) {
@@ -71,7 +79,7 @@ const initPassport = () => {
       const lastName = user._json.family_name;
       const profilePictureUrl = user._json.picture;
 
-      await saveUser(email, firstName, lastName, profilePictureUrl)
+      await saveUser(email, firstName, lastName, profilePictureUrl, 'google');
 
       return cb(null, user);
     } catch (err) {

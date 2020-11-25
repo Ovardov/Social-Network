@@ -48,10 +48,16 @@ module.exports = {
       const { emailOrUsername, password } = req.body;
 
       try {
-        const user = await models.User.findOne({ $or: [{ email: emailOrUsername }, { username: emailOrUsername }] });
+        const user = await models.User.findOne({ $or: [{ email: emailOrUsername }, { username: emailOrUsername }] })
 
         if (!user) {
           res.status(401).send('Invalid username or password');
+          return;
+        }
+
+        //  If user do not have email account
+        if (user.providers.indexOf('email') === -1) {
+          res.status(401).send('Invalid login provider');
           return;
         }
 
@@ -75,7 +81,9 @@ module.exports = {
 
       try {
         const lowerCaseUsername = username.toLowerCase();
-        const createdUser = await models.User.create({ email, username: lowerCaseUsername, password, firstName, lastName });
+        const providers = ['email'];
+
+        const createdUser = await models.User.create({ email, username: lowerCaseUsername, providers, password, firstName, lastName });
 
         const token = utils.jwt.createToken({ id: createdUser._id });
 
