@@ -1,5 +1,5 @@
-import { useRouter } from 'next/router'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { Form, Formik } from 'formik'
 import PublicHome from '../../components/PublicHome'
 import FormField from '../../components/Global/FormField'
@@ -10,29 +10,24 @@ import ButtonContainer from '../../components/Global/Buttons/ButtonContainer'
 import { loginValidationSchema } from '../../formValidators/login'
 import styles from './login.module.scss'
 import { login } from '../../services/authService'
+import { authFacebookUrl, authGoogleUrl } from '../../utils/config'
 
 const LoginPage = () => {
   const router = useRouter()
 
-  const onSubmitHandler = async(data) => {
+  const onSubmitHandler = async (data) => {
 
     try {
       const finalData = {
         emailOrUsername: data.email,
         password: data.password
       }
-      const res = await login(finalData)
-    } catch(err) {
-      console.error('Error while submit login form', err)
-    }
-  }
-
-  const onFacebookLogin = async () => {
-    try {
-      await 
+      
+      await login(finalData)
 
       router.push('/')
-    } catch(err) {
+    } catch (err) {
+      console.error('Error while submit login form', err)
     }
   }
 
@@ -55,8 +50,8 @@ const LoginPage = () => {
           <p className={styles['social-description']}>Easy login with</p>
 
           <ButtonContainer columns={2} widthType="full-width">
-            <SocialButton href="http://localhost:3001/api/auth/google" text="Google" icon="/images/google-icon.svg" />
-            <SocialButton href="http://localhost:3001/api/auth/facebook" text="Facebook" icon="images/facebook-icon.svg" />
+            <SocialButton href={authGoogleUrl} text="Google" icon="/images/google-icon.svg" />
+            <SocialButton href={authFacebookUrl} text="Facebook" icon="images/facebook-icon.svg" />
           </ButtonContainer>
         </div>
       </div>

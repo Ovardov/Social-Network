@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import styles from './index.module.scss'
 
 const HomePage = () => {  
   useEffect(() => {
@@ -9,8 +10,18 @@ const HomePage = () => {
   }, [])
 
   return (
-    <div>
-      Home Page
+    <div className={styles.container}>
+      <section>
+
+      </section>
+
+      <section>
+
+      </section>
+
+      <section>
+        
+      </section>
     </div>
   )
 }

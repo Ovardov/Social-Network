@@ -6,11 +6,12 @@
   position: relative;
 
   .site-main {
-    max-width: $layout-content-width;
-    margin: $spacing-layout-elements auto 0 auto;
-    padding-bottom: $spacing-layout-elements;
-    display: flex;
-    flex-wrap: wrap;
-    flex-grow: 1;
+    width: $layout-content-width;
+    margin: 0 auto;
+    // margin: $spacing-layout-elements auto 0 auto;
+    // padding-bottom: $spacing-layout-elements;
+    // display: flex;
+    // flex-wrap: wrap;
+    // flex-grow: 1;
   }
 }
