@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Form, Formik } from 'formik'
@@ -7,13 +8,21 @@ import PasswordField from '../../components/Global/FormField/PasswordField'
 import SocialButton from '../../components/Global/Buttons/SocialButton'
 import LoginButton from '../../components/Global/Buttons/LoginButton'
 import ButtonContainer from '../../components/Global/Buttons/ButtonContainer'
+import { useAuth } from '../../hooks/useAuth'
 import { loginValidationSchema } from '../../formValidators/login'
-import styles from './login.module.scss'
 import { login } from '../../services/authService'
 import { authFacebookUrl, authGoogleUrl } from '../../utils/config'
+import styles from './login.module.scss'
 
 const LoginPage = () => {
   const router = useRouter()
+  const { isLogged, setIsLogged } = useAuth()
+
+  useEffect(() => {
+    if (isLogged) {
+      router.push('/')
+    }
+  }, [isLogged])
 
   const onSubmitHandler = async (data) => {
 
@@ -22,8 +31,9 @@ const LoginPage = () => {
         emailOrUsername: data.email,
         password: data.password
       }
-      
+
       await login(finalData)
+      setIsLogged(true)
 
       router.push('/')
     } catch (err) {

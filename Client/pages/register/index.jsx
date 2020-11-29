@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { Field, Form, Formik } from 'formik'
 import PublicHome from '../../components/PublicHome'
 import FormField from '../../components/Global/FormField'
@@ -7,11 +8,20 @@ import PasswordField from '../../components/Global/FormField/PasswordField'
 import Button from '../../components/Global/Buttons/Button'
 import ButtonContainer from '../../components/Global/Buttons/ButtonContainer'
 import PhotoUpload from '../../components/Global/PhotoUpload'
+import { useAuth } from '../../hooks/useAuth'
 import { loginValidationSchema } from '../../formValidators/login'
 import styles from './register.module.scss'
 
 const RegisterPage = () => {
+  const router = useRouter()
+  const { isLogged } = useAuth()
   const [step, setStep] = useState(1)
+
+  useEffect(() => {
+    if (isLogged) {
+      router.push('/')
+    }
+  }, [isLogged])
 
   return (
     <PublicHome>

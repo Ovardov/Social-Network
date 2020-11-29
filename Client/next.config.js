@@ -7,9 +7,9 @@ const styleLoaders = [
   {
     loader: 'sass-loader', options: {
       sassOptions: {
-        includePaths: [__dirname, '/public/styles/styles.scss']
+        includePaths: [__dirname, '/shared/styles/styles.scss']
       },
-      additionalData: '@import "./public/styles/styles.scss";',
+      additionalData: '@import "./shared/styles/styles.scss";',
     },
   },
 ]
