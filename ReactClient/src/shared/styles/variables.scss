@@ -1,0 +1,45 @@
+$font-size-body: 14px;
+$font-size-body-larger: 16px;
+$font-size-body-big: 18px;
+
+$font-main: 'Roboto';
+$font-headers: 'Balsamiq Sans';
+
+$layout-main-width: 100%;
+$layout-content-width: 80%;
+
+$spacing-layout-elements: 1.5em;
+$large-spacing-layout-elements: 3em;
+
+$border-radius: 0.3em;
+$box-shadow: 0 1px 4px rgba(26, 26, 67, 0.1);
+$form-box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;
+
+:root {
+  --theme-primary-color: var(--blue-primary-color);
+  --theme-brighter-color: var(--blue-brighter-color);
+  --theme-background-color: var(--blue-background-color);
+  --theme-background-darker-color: var(--blue-background-darker-color);
+  --theme-text-color: var(--blue-text-color);
+  --theme-link-color: var(--blue-link-color);
+
+  // Blue theme
+  --blue-primary-color: #5469D4;
+  // --blue-primary-color: #1B53F4;
+  // --blue-primary-color: #379FF6;
+  --blue-brighter-color: #E6F2FF;
+  --blue-background-color: #FFFFFF;
+  --blue-background-darker-color: #F7F8FA;
+  --blue-text-color: #000000;
+  --blue-link-color: #999999;
+
+  // Pink theme 
+  --pink-primary-color: #FF7474;
+  --pink-brighter-color: #FF7474;
+  --pink-background-color: #FFFFFF;
+  --pink-background-darker-color: #F7F8FA;
+  --pink-text-color: #000000;
+  --pink-link-color: #999999;
+
+  --color-error-main: #FF3F40;
+}

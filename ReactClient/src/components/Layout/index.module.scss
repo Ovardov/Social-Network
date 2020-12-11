@@ -1,0 +1,16 @@
+.site {
+  max-width: $layout-main-width;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: var(--theme-background-darker-color);
+  position: relative;
+
+  .site-main {
+    max-width: $layout-content-width;
+    margin: $spacing-layout-elements auto 0 auto;
+    padding-bottom: $spacing-layout-elements;
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 1;
+  }
+}
