@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom'
 // Components
 import ProtectedRoute from './ProtectedRoute'
 import Layout from '../../Layout'
+import LoginAndRegisterRoute from './LoginAndRegisterRoute'
 
 // Pages
 const PublicHomePage = loadable(() => import('../../../pages/Home/Public'), {
@@ -15,8 +16,7 @@ const Navigation = () => {
   return (
     <Layout>
       <Switch>
-        <Route path="/login" component={LoginPage} />
-        {/* <Route exact path="/" component={PublicHomePage} /> */}
+        <LoginAndRegisterRoute path="/login" Component={LoginPage} />
         <ProtectedRoute exact path="/" Component={PublicHomePage} />
       </Switch>
     </Layout>

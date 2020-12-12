@@ -4,14 +4,14 @@ import { Route, Redirect } from 'react-router-dom'
 import { useAuth } from '../../../../hooks/useAuth'
 
 
-const ProtectedRoute = ({ path, Component, ...props }) => {
+const LoginAndRegisterRoute = ({ path, Component, ...props }) => {
   const { isLogged } = useAuth()
 
   return (
     <Route path={path}>
-      {isLogged ? <Component {...props} /> : <Redirect to="/login" />}
+      {isLogged ? <Redirect to="/" /> : <Component {...props} />}
     </Route>
   )
 }
 
-export default ProtectedRoute
+export default LoginAndRegisterRoute

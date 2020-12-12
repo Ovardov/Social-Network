@@ -13,6 +13,11 @@ export default async (req, res, next) => {
       credentials: 'include',
     })
 
+    if(!userDataRes.ok) {
+      next()
+      return;
+    }
+    
     const userData = await userDataRes.json()
 
     req.user = userData
