@@ -1,7 +1,6 @@
 // Libraries
-import { useState, useEffect, createContext, useContext } from 'react'
+import { useState, createContext, useContext } from 'react'
 // Services
-import { checkAuth } from '../services/authService'
 
 const initialAuthContextState = {
   isLogged: false,
@@ -12,28 +11,13 @@ export const AuthContext = createContext(initialAuthContextState)
 
 export const useAuth = () => useContext(AuthContext)
 
-export const AuthProvider = ({ children }) => {
-  const [isLogged, setIsLogged] = useState(false)
-  const [isAuthLoading, setIsAuthLoading] = useState(true)
-
-  useEffect(() => {
-    const initData = async () => {
-      try {
-        // Verify that the current user is authenticated
-        await checkAuth()
-        setIsLogged(true);
-
-      } catch (err) {
-        console.error('Error while init auth data', err);
-      }
-
-      setIsAuthLoading(false)
-    }
-
-    initData()
-  }, [])
+export const AuthProvider = ({ children, userData }) => {
+  const [isLogged, setIsLogged] = useState(userData ? true : false)
+  const [user, setUser] = useState(userData || {})
 
   return (
-    <AuthContext.Provider value={{ isLogged, isAuthLoading, setIsLogged }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ isLogged, setIsLogged, user, setUser }}>
+      {children}
+    </AuthContext.Provider>
   )
 }

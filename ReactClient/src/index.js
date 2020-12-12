@@ -10,7 +10,7 @@ import App from './components/App/index'
 loadableReady(() => {
   hydrate(
     <BrowserRouter>
-      <App />
+      <App {...window.__STATE__} />
     </BrowserRouter>,
     document.getElementById('root')
   )

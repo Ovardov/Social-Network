@@ -1,5 +1,4 @@
 // Libraries
-import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Form, Formik } from 'formik'
 // Components
@@ -24,7 +23,7 @@ import googleIcon from '../../../public/images/google-icon.svg'
 import styles from './index.module.scss'
 
 const LoginPage = (props) => {
-  const { isLogged, setIsLogged } = useAuth()
+  const { setIsLogged } = useAuth()
 
   const onSubmitHandler = async (data) => {
     try {

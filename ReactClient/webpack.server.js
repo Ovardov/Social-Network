@@ -1,13 +1,17 @@
 const path = require('path')
 const nodeExternals = require('webpack-node-externals')
 const LoadableWebpackPlugin = require('@loadable/webpack-plugin')
-const { mode, commonStyleLoaders, commonRules, commonResolve } = require('./webpack.common')
+const {
+  mode,
+  commonStyleLoaders,
+  commonRules,
+  commonResolve,
+  commonPlugins,
+} = require('./webpack.common')
 
 const loadablePlugin = new LoadableWebpackPlugin()
 
-const serverStyleLoaders = [
-  { loader: 'isomorphic-style-loader' },
-];
+const serverStyleLoaders = [{ loader: 'isomorphic-style-loader' }]
 
 module.exports = {
   mode,
@@ -25,8 +29,9 @@ module.exports = {
       {
         test: /\.scss/,
         use: [...serverStyleLoaders, ...commonStyleLoaders],
-      }]
+      },
+    ],
   },
   resolve: commonResolve,
-  plugins: [loadablePlugin]
+  plugins: [...commonPlugins, loadablePlugin],
 }

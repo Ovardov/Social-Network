@@ -3,11 +3,11 @@
 // Components
 import Navigation from './Navigation'
 // Hooks
-import {AuthProvider} from '../../hooks/useAuth'
+import { AuthProvider } from '../../hooks/useAuth'
 
-const App = () => {
+const App = (props) => {
   return (
-    <AuthProvider>
+    <AuthProvider userData={props.user}>
       <Navigation />
     </AuthProvider>
   )

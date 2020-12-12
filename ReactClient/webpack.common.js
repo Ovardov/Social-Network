@@ -1,14 +1,20 @@
+const dotENVPlugin = require('dotenv-webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
-const isDevelopment = process.env.NODE_ENV === 'development'
+const mode = 'development'
+const isDevelopment = mode === 'development'
+
+const dotenvPlugin = new dotENVPlugin({
+  path: isDevelopment ? './.env.development' : './.env.production',
+})
 
 // To Do -> Remove duplicate styles from [name].css and main.css
 const miniCssExctractPlugin = new MiniCssExtractPlugin()
 const optimizeCssAssetsPlugin = new OptimizeCssAssetsPlugin()
 
 const commonStyleLoaders = [
-  {loader: MiniCssExtractPlugin.loader},
+  { loader: MiniCssExtractPlugin.loader },
   {
     loader: 'css-loader',
     options: {
@@ -45,5 +51,5 @@ module.exports = {
   commonResolve: {
     extensions: ['*', '.js', '.jsx'],
   },
-  commonPlugins: [miniCssExctractPlugin, optimizeCssAssetsPlugin],
+  commonPlugins: [dotenvPlugin, miniCssExctractPlugin, optimizeCssAssetsPlugin],
 }

@@ -7,7 +7,6 @@ export const get = async (path, headers, params) => {
     const res = await fetch(url, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json',
         ...headers,
       },
       credentials: 'include',

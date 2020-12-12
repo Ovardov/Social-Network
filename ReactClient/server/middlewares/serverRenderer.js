@@ -8,14 +8,13 @@ import { ChunkExtractor } from '@loadable/server'
 import App from '../../src/components/App'
 
 export default (req, res, next) => {
-
   // Get html template
   const indexFile = path.resolve(__dirname, '..', 'build', 'index.html')
 
   fs.readFile(indexFile, 'utf8', (err, htmlData) => {
     if (err) {
-      console.error('Something went wrong:', err);
-      return res.status(500).send('Something went wrong!');
+      console.error('Something went wrong:', err)
+      return res.status(500).send('Something went wrong!')
     }
 
     // Get all static files
@@ -25,14 +24,26 @@ export default (req, res, next) => {
     const extractor = new ChunkExtractor({ statsFile })
 
     // Prepared new html
-    const html = renderToString(extractor.collectChunks(
-      <StaticRouter location={req.originalUrl}>
-        <App />
-      </StaticRouter>)
+    const html = renderToString(
+      extractor.collectChunks(
+        <StaticRouter location={req.originalUrl}>
+          <App />
+        </StaticRouter>
+      )
+    )
+
+    const htmlWithState = htmlData.replace(
+      'window.__STATE__={}',
+      `window.__STATE__=${JSON.stringify({
+        user: req.user,
+      })}`
     )
 
     return res.send(
-      htmlData.replace('<div id="root"></div>', `<div id="root">${html}</div>`)
-    );
-  });
+      htmlWithState.replace(
+        '<div id="root"></div>',
+        `<div id="root">${html}</div>`
+      )
+    )
+  })
 }

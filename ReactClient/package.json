@@ -6,12 +6,11 @@
   "scripts": {
     "build:client-dev": "webpack --mode=development --watch",
     "build:client-prod": "webpack --mode=production",
-    "build:server-dev": "webpack --mode=development  --config webpack.server.js--watch",
+    "build:server-dev": "webpack --mode=development --config webpack.server.js --watch",
     "build:server-prod": "webpack --mode=production --config webpack.server.js",
-    "build:dev": "npm run build:client-dev && npm run build:server-dev",
     "build:prod": "npm run build:client-prod && npm run build:server-prod",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "ssr:start": "set NODE_ENV=development && nodemon ./server-build/index.js"
+    "ssr:start": "nodemon ./server-build/index.js"
   },
   "author": "",
   "license": "ISC",
@@ -19,6 +18,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "formik": "^2.2.6",
+    "node-fetch": "^2.6.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
