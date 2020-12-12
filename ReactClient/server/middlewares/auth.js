@@ -21,7 +21,6 @@ export default async (req, res, next) => {
     const userData = await userDataRes.json()
 
     req.user = userData
-    console.log(userData)
     next()
   } catch (e) {
     console.error('Error while authorize user', e)

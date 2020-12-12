@@ -1,5 +1,5 @@
 // Libraries
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { Form, Formik } from 'formik'
 // Components
 import PublicHome from '../../components/PublicHome'
@@ -22,8 +22,9 @@ import googleIcon from '../../../public/images/google-icon.svg'
 // Styles
 import styles from './index.module.scss'
 
-const LoginPage = (props) => {
+const LoginPage = () => {
   const { setIsLogged } = useAuth()
+  const history = useHistory()
 
   const onSubmitHandler = async (data) => {
     try {
@@ -35,7 +36,7 @@ const LoginPage = (props) => {
       await login(finalData)
       setIsLogged(true)
 
-      props.history.push('/')
+      history.push('/')
     } catch (err) {
       console.error('Error while submit login form', err)
     }
@@ -51,6 +52,8 @@ const LoginPage = (props) => {
         <Formik
           initialValues={{ email: '', password: '' }}
           validationSchema={loginValidationSchema}
+          validateOnChange={true}
+          validateOnBlur={true}
           onSubmit={onSubmitHandler}
         >
           <Form className={styles.form}>
