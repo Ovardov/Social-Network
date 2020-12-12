@@ -1,6 +1,7 @@
 const { models } = require('mongoose');
-const config = require('../config/config')
-const utils = require('../utils')
+const config = require('../config/config');
+const jwt = require('../utils/jwt');
+const { buildValidationModelErrors, buildValidationUniqueErrors } = require('../utils/errorHandling');
 
 module.exports = {
   get: {
@@ -8,10 +9,9 @@ module.exports = {
       const token = req.cookies[config.authCookieName];
 
       try {
-        const { id } = await utils.jwt.verifyToken(token);
+        const { id } = await jwt.verifyToken(token);
 
-        const user = await models.User.findById(id)
-          .select('username');
+        const user = await models.User.findById(id).select('username');
 
         res.send(user);
       } catch (e) {
@@ -33,14 +33,14 @@ module.exports = {
       try {
         const userId = req.user._id;
 
-        const token = utils.jwt.createToken({ id: userId });
+        const token = jwt.createToken({ id: userId });
 
         res.cookie(config.authCookieName, token, { httpOnly: true });
         res.redirect(config.clientLoginSuccessRedirectUrl);
       } catch (err) {
-        next(err)
+        next(err);
       }
-    }
+    },
   },
 
   post: {
@@ -48,7 +48,9 @@ module.exports = {
       const { emailOrUsername, password } = req.body;
 
       try {
-        const user = await models.User.findOne({ $or: [{ email: emailOrUsername }, { username: emailOrUsername }] })
+        const user = await models.User.findOne({
+          $or: [{ email: emailOrUsername }, { username: emailOrUsername }],
+        });
 
         if (!user) {
           res.status(401).send('Invalid username or password');
@@ -68,12 +70,13 @@ module.exports = {
           return;
         }
 
-        const token = utils.jwt.createToken({ id: user._id });
-        res.cookie(config.authCookieName, token, { httpOnly: true })
+        const token = jwt.createToken({ id: user._id });
+        res
+          .cookie(config.authCookieName, token, { httpOnly: true })
           .status(200)
           .end();
       } catch (err) {
-        next(err)
+        next(err);
       }
     },
     register: async (req, res, next) => {
@@ -83,24 +86,38 @@ module.exports = {
         const lowerCaseUsername = username.toLowerCase();
         const providers = ['email'];
 
-        const createdUser = await models.User.create({ email, username: lowerCaseUsername, providers, password, firstName, lastName });
+        const createdUser = await models.User.create({
+          email,
+          username: lowerCaseUsername,
+          providers,
+          password,
+          firstName,
+          lastName,
+        });
 
-        const token = utils.jwt.createToken({ id: createdUser._id });
+        const token = jwt.createToken({ id: createdUser._id });
 
-        res.cookie(config.authCookieName, token, { httpOnly: true })
+        res
+          .cookie(config.authCookieName, token, { httpOnly: true })
           .status(201)
           .end();
       } catch (err) {
-        if (err.code === 11000) {
-          // keyPattern: { username: 1 }
-          const errorField = Object.keys(err.keyPattern)[0]
-          const capitalizedErrorField = errorField.charAt(0).toUpperCase() + errorField.slice(1);
+          if (err.code === 11000) {
+            // Build user unique fields errors
+            const errors = buildValidationUniqueErrors(err);
 
-          res.status(401).send(`${capitalizedErrorField} is already taken!`);
-        } else {
-          next(err)
-        }
-      }
+            res.status(401).send(errors);
+
+          } else if (err.name === 'ValidationError') {
+            // Build user fields errors
+            const errors = buildValidationModelErrors(err);
+
+            // Send all user fields errors
+            res.status(401).send(errors);
+          } else {
+            next(err)
+          }
+      } 
     },
-  }
+  },
 }
