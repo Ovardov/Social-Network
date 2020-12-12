@@ -1,13 +1,4 @@
-const path = require('path')
-const HTMLWebpackPlugin = require('html-webpack-plugin')
-
-const isDevelopment = process.env === 'development';
-
-const htmlPlugin = new HTMLWebpackPlugin({
-  favicon: path.resolve(__dirname, 'public/images/favicon.ico'),
-  template: './public/index.html',
-  filename: './index.html'
-})
+const isDevelopment = process.env.NODE_ENV === 'development';
 
 const commonStyleLoaders = [
   {
@@ -28,6 +19,8 @@ const commonStyleLoaders = [
 ]
 
 module.exports = {
+  mode: 'development',
+  isDevelopment,
   commonStyleLoaders,
   commonRules: [{
     test: /\.(js|jsx)$/,
@@ -40,5 +33,4 @@ module.exports = {
   commonResolve: {
     extensions: ['*', '.js', '.jsx']
   },
-  commonPlugins: [htmlPlugin]
 }

@@ -1,0 +1,22 @@
+.login-button {
+  padding: 0.7em 1.3em;
+  width: 100%;
+  position: relative;
+
+  .icon {
+    position: absolute;
+    right: 1.1em;
+    top: 0.7em;
+    width: 24px;
+    height: 24px;
+    background: #FFF;
+    -webkit-mask: url('../../../../../public/images/arrow-right.svg') no-repeat center;
+    mask: url('../../../../../public/images/arrow-right.svg') no-repeat center;
+  }
+
+  &:hover {
+    .icon {
+      background: var(--theme-primary-color);
+    }
+  }
+}

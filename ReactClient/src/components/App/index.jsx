@@ -1,13 +1,15 @@
 // Libraries
-import { BrowserRouter as Router } from 'react-router-dom'
+
 // Components
 import Navigation from './Navigation'
+// Hooks
+import {AuthProvider} from '../../hooks/useAuth'
 
 const App = () => {
   return (
-    <Router>
+    <AuthProvider>
       <Navigation />
-    </Router>
+    </AuthProvider>
   )
 }
 
