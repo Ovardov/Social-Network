@@ -1,0 +1,31 @@
+.header {
+  justify-self: flex-start;
+
+  .title {
+    color: var(--theme-primary-color);
+    text-transform: uppercase;
+  }
+}
+
+.register-container {
+  width: 80%;
+  max-width: 600px;
+  margin-bottom: $md-spacing;
+  padding: $md-spacing;
+  box-shadow: $form-box-shadow;
+  border-radius: $border-radius;
+
+  @include bp(phone) {
+    width: 100%;
+  }
+}
+
+.additional-link-text {
+  padding-bottom: 0;
+  margin-top: $md-spacing;
+
+  .link {
+    color: var(--theme-primary-color);
+    text-decoration: underline;
+  }
+}

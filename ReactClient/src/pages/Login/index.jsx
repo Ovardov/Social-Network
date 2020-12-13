@@ -14,7 +14,7 @@ import { useAuth } from '../../hooks/useAuth'
 // Services
 import { login } from '../../services/authService'
 // Form Validators
-import { loginValidationSchema } from '../../formValidators/login'
+import { loginValidationSchema } from '../../formValidators/auth'
 // Utils
 import { authFacebookUrl, authGoogleUrl } from '../../utils/config'
 // Images
@@ -73,7 +73,7 @@ const LoginPage = () => {
             <Field
               type="email"
               name="email"
-              label="email"
+              label="Email"
               placeholder="ovardov7@gmail.com"
               component={InputField}
              />

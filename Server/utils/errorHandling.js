@@ -1,26 +1,50 @@
 const buildValidationModelErrors = (mongooseError) => {
-  const errors = {};
+  const errors = []
 
   // Loop to get all field errors
-  for([fieldName, fieldValue] of Object.entries(mongooseError.errors)) {
-    errors[fieldName] = fieldValue.message;
+  for ([fieldName, fieldValue] of Object.entries(mongooseError.errors)) {
+    const currentError = {
+      message: fieldValue.message,
+      code: fieldName,
+    }
+
+    errors.push(currentError)
   }
 
-  return errors
+  return { errors }
 }
 
 const buildValidationUniqueErrors = (mongooseError) => {
-  const errors = {};
+  const errors = []
 
-   // Loop to get all field errors
-   for(fieldName in mongooseError.keyPattern) {
-    errors[fieldName] = `User with current ${fieldName} is already registered!`;
+  // Loop to get all field errors
+  for (fieldName in mongooseError.keyPattern) {
+    const currentError = {
+      message: `User with current ${fieldName} is already registered!`,
+      code: fieldName,
+    }
+
+    errors.push(currentError)
   }
 
-  return errors;
+  return { errors }
+}
+
+const buildCustomError = (code, message) => {
+  const errors = []
+
+  const error = {
+    code,
+    message,
+  }
+
+  errors.push(error)
+
+  return { errors }
 }
 
 module.exports = {
   buildValidationModelErrors,
-  buildValidationUniqueErrors
+  buildValidationUniqueErrors,
+  buildCustomError
 }

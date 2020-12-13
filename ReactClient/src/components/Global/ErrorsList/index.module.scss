@@ -1,0 +1,24 @@
+.container {
+  border: 1px solid var(--theme-error-color);
+  border-radius: $border-radius;
+  padding: $xs-spacing $md-spacing $xs-spacing $md-spacing;
+  background: var(--theme-error-brighter-color);
+  margin-bottom: $md-spacing;
+  position: relative;
+
+  .error {
+    position: relative;
+    padding-left: $md-spacing;
+
+    .error-icon {
+      position: absolute;
+      left: 0;
+      top: 0.1em;
+      width: 24px;
+      height: 24px;
+      background: var(--theme-error-color);
+      -webkit-mask: url('../../../../public/images/error-icon.svg') no-repeat center;
+      mask: url('../../../../public/images/error-icon.svg') no-repeat center;
+    }
+  }
+}

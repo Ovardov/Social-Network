@@ -11,12 +11,14 @@ const PublicHomePage = loadable(() => import('../../../pages/Home/Public'), {
   ssr: true,
 })
 const LoginPage = loadable(() => import('../../../pages/Login'), { ssr: true })
+const RegisterPage = loadable(() => import('../../../pages/Register'), { ssr: true })
 
 const Navigation = () => {
   return (
     <Layout>
       <Switch>
         <LoginAndRegisterRoute path="/login" Component={LoginPage} />
+        <LoginAndRegisterRoute path="/register" Component={RegisterPage} />
         <ProtectedRoute exact path="/" Component={PublicHomePage} />
       </Switch>
     </Layout>

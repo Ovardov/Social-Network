@@ -17,6 +17,8 @@ const getAlt = (type) => {
 }
 
 const PasswordField = ({ field, form, label, showForgotPasswordLink }) => {
+  const fieldError = form.errors[field.name]
+
   const [type, setType] = useState('password')
 
   const onClickImageHandler = () =>
@@ -40,7 +42,7 @@ const PasswordField = ({ field, form, label, showForgotPasswordLink }) => {
       <span className={styles['input-container']}>
         <Field
           className={`${styles.input} ${
-            form.errors[field.name] ? styles['error-border'] : ''
+            fieldError ? styles['error-border'] : ''
           }`}
           type={type}
           placeholder="********"
@@ -55,12 +57,7 @@ const PasswordField = ({ field, form, label, showForgotPasswordLink }) => {
         />
       </span>
 
-      <ErrorMessage
-        render={(message) => (
-          <span className={styles.error}>{message ? message : ''}</span>
-        )}
-        name={field.name}
-      />
+      {fieldError && <span className={styles.error}>{fieldError}</span>}
     </p>
   )
 }

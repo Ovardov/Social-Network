@@ -28,7 +28,7 @@
 
   .input {
     width: 100%;
-    padding: 0.6em 1.3em;
+    padding: 0.6em $md-spacing;
     margin: 0.3em 0;
     background: var(--theme-background-color);
     border: 1px solid var(--theme-link-color);
@@ -48,6 +48,6 @@
 
   .error {
     color: var(--theme-error-color);
-    font-size: 0.9em;
+    font-size: 0.85em;
   }
 }

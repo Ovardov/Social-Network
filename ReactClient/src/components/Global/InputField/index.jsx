@@ -6,13 +6,15 @@ import PropTypes from 'prop-types'
 import styles from './input-field.module.scss'
 
 const InputField = ({ type, label, placeholder, field, form }) => {
+  const fieldError = form.errors[field.name]
+
   return (
     <p className={styles.container}>
       <label htmlFor={field.name}>{label}</label>
 
       <Field
         className={`${styles.input} ${
-          form.errors[field.name] ? styles['error-border'] : ''
+          fieldError ? styles['error-border'] : ''
         }`}
         type={type}
         name={field.name}
@@ -20,12 +22,9 @@ const InputField = ({ type, label, placeholder, field, form }) => {
         {...field}
       />
 
-      <ErrorMessage
-        render={(message) => (
-          <span className={styles.error}>{message || ''}</span>
-        )}
-        name={field.name}
-      />
+      {fieldError && (
+        <span className={styles.error}>{fieldError}</span>
+      )}
     </p>
   )
 }
