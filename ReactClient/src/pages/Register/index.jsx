@@ -41,7 +41,7 @@ const RegisterPage = () => {
     try {
       await register(data)
       setIsLogged(true)
-
+ 
       history.push('/')
     } catch (err) {
       setErrors(JSON.parse(err.message).errors)

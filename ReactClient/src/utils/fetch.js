@@ -64,3 +64,38 @@ export const post = async (path, data, headers) => {
     throw new Error(err.message)
   }
 }
+
+export const postFormData = async (path, formData, headers) => {
+  const url = baseUrl + path
+
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        // 'Content-Type': 'multipart/form-data',
+        ...headers,
+      },
+      credentials: 'include',
+    })
+
+    const contentTypes = res.headers.get('Content-Type')
+
+    const isDataIsJSON =
+      contentTypes && contentTypes.includes('application/json')
+
+    const resData = isDataIsJSON ? res.json() : res.text()
+
+    if (!res.ok) {
+      const errorData = await resData
+
+      const errors = isDataIsJSON ? JSON.stringify(errorData) : errorData
+
+      throw new Error(errors)
+    }
+
+    return resData
+  } catch (err) {
+    throw new Error(err.message)
+  }
+}
