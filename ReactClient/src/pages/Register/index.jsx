@@ -66,13 +66,14 @@ const RegisterPage = () => {
             email: '',
             password: '',
             repeatPassword: '',
+            profilePicture: null
           }}
           validateOnChange={false}
           validateOnBlur={false}
           // Step is start from 1
           validationSchema={registerValidationSchema[step - 1]}
           onSubmit={handleSubmit}
-          render={({ validateForm }) => (
+          render={({ validateForm, setFieldValue }) => (
             <Form className={styles.form}>
               {step === 1 && (
                 <>
@@ -124,7 +125,7 @@ const RegisterPage = () => {
 
               {step === 3 && (
                 <>
-                  <Field component={PhotoUpload} />
+                  <Field name="profilePicture" setFieldValue={setFieldValue} component={PhotoUpload} />
                 </>
               )}
 
