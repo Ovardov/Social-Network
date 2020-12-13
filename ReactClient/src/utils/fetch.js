@@ -12,15 +12,18 @@ export const get = async (path, headers, params) => {
       credentials: 'include',
     })
 
-    if (!res.ok) {
-      throw new Error(res.statusText)
-    }
-
     const contentTypes = res.headers.get('Content-Type')
 
-    return contentTypes && contentTypes.includes('application/json')
+    const resData = contentTypes && contentTypes.includes('application/json')
       ? res.json()
       : res.text()
+
+      if (!res.ok) {
+        const errorData = await resData
+        throw new Error(errorData)
+      }
+
+      return resData;
   } catch (err) {
     throw new Error(err.message)
   }
@@ -40,15 +43,18 @@ export const post = async (path, data, headers) => {
       credentials: 'include',
     })
 
-    if (!res.ok) {
-      throw new Error(res.statusText)
-    }
-
     const contentTypes = res.headers.get('Content-Type')
 
-    return contentTypes && contentTypes.includes('application/json')
+    const resData = contentTypes && contentTypes.includes('application/json')
       ? res.json()
       : res.text()
+
+      if (!res.ok) {
+        const errorData = await resData
+        throw new Error(errorData)
+      }
+
+      return resData;
   } catch (err) {
     throw new Error(err.message)
   }

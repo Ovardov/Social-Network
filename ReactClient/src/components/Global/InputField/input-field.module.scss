@@ -40,9 +40,14 @@
     &:focus {
       border-color: var(--theme-primary-color);
     }
+
+    &.error-border {
+      border-color: var(--theme-error-color);
+    }
   }
 
   .error {
-    color: var(--color-error-main);
+    color: var(--theme-error-color);
+    font-size: 0.9em;
   }
 }

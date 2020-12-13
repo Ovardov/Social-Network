@@ -4,10 +4,10 @@
   .title {
     color: var(--theme-primary-color);
     text-transform: uppercase;
-    margin: 1.2em 0 1em 0;
+    margin: 1.2em 0 $sm-spacing 0;
 
     @media screen and (max-width:1300px) {
-      margin: 0 0 1em 0;
+      margin: 0 0 $sm-spacing 0;
     }
   }
 }
@@ -15,7 +15,7 @@
 .login-container {
   width: 80%;
   max-width: 600px;
-  padding: $spacing-layout-elements;
+  padding: $md-spacing;
   box-shadow: $form-box-shadow;
   border-radius: $border-radius;
 
@@ -23,8 +23,28 @@
     width: 100%;
   }
 
+  .error-container {
+    border: 1px solid var(--theme-error-color);
+    border-radius: $border-radius;
+    padding: $xs-spacing $md-spacing $xs-spacing 3em;
+    background: var(--theme-error-brighter-color);
+    margin-bottom: $md-spacing;
+    position: relative;
+
+    .error-icon {
+      position: absolute;
+      left: 1em;
+      top: 0.55em;
+      width: 24px;
+      height: 24px;
+      background: var(--theme-error-color);
+      -webkit-mask: url('../../../public/images/error-icon.svg') no-repeat center;
+      mask: url('../../../public/images/error-icon.svg') no-repeat center;
+    }
+  }
+
   .form {
-    margin-bottom: $spacing-layout-elements;
+    margin-bottom: $md-spacing;
   }
 
   .social-container {
@@ -37,7 +57,7 @@
 
 .additional-link-text {
   padding-bottom: 0;
-  margin-top: $spacing-layout-elements;
+  margin-top: $md-spacing;
 
   .link {
     color: var(--theme-primary-color);

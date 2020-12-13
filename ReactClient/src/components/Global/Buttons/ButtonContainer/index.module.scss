@@ -1,6 +1,6 @@
 .container {
   display: grid;
-  grid-gap: $spacing-layout-elements;
+  grid-gap: $md-spacing;
   align-items: center;
 
   &.full-width {

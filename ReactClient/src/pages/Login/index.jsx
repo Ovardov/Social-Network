@@ -1,10 +1,11 @@
 // Libraries
+import { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import { Form, Formik } from 'formik'
+import { Field, Form, Formik } from 'formik'
 // Components
 import PublicHome from '../../components/PublicHome'
-import FormField from '../../components/Global/FormField'
-import PasswordField from '../../components/Global/FormField/PasswordField'
+import InputField from '../../components/Global/InputField'
+import PasswordField from '../../components/Global/InputField/PasswordField'
 import SocialButton from '../../components/Global/Buttons/SocialButton'
 import LoginButton from '../../components/Global/Buttons/LoginButton'
 import ButtonContainer from '../../components/Global/Buttons/ButtonContainer'
@@ -23,9 +24,11 @@ import googleIcon from '../../../public/images/google-icon.svg'
 import styles from './index.module.scss'
 
 const LoginPage = () => {
+  const [error, setError] = useState(false)
   const { setIsLogged } = useAuth()
   const history = useHistory()
 
+  // Login handler
   const onSubmitHandler = async (data) => {
     try {
       const finalData = {
@@ -38,6 +41,7 @@ const LoginPage = () => {
 
       history.push('/')
     } catch (err) {
+      setError(err.message)
       console.error('Error while submit login form', err)
     }
   }
@@ -49,31 +53,43 @@ const LoginPage = () => {
       </header>
 
       <div className={styles['login-container']}>
+        {/* Error Box */}
+        {error && (
+          <p className={styles['error-container']}>
+            <span className={styles['error-icon']}></span>
+            {error}
+          </p>
+        )}
+
+        {/* Form */}
         <Formik
           initialValues={{ email: '', password: '' }}
           validationSchema={loginValidationSchema}
-          validateOnChange={true}
-          validateOnBlur={true}
+          validateOnChange={false}
+          validateOnBlur={false}
           onSubmit={onSubmitHandler}
         >
           <Form className={styles.form}>
-            <FormField
+            <Field
               type="email"
               name="email"
-              label="Email"
+              label="email"
               placeholder="ovardov7@gmail.com"
-            />
+              component={InputField}
+             />
 
-            <PasswordField
+            <Field
               label="Password"
               name="password"
               showForgotPasswordLink={true}
+              component={PasswordField}
             />
 
             <LoginButton />
           </Form>
         </Formik>
 
+        {/* Social login buttons */}
         <div className={styles['social-container']}>
           <p className={styles['social-description']}>Easy login with</p>
 
@@ -92,6 +108,7 @@ const LoginPage = () => {
         </div>
       </div>
 
+      {/* Register link */}
       <p className={styles['additional-link-text']}>
         Don't have an account yet?{' '}
         <Link to="/register" className={styles.link}>

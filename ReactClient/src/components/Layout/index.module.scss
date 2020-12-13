@@ -7,8 +7,8 @@
 
   .site-main {
     max-width: $layout-content-width;
-    margin: $spacing-layout-elements auto 0 auto;
-    padding-bottom: $spacing-layout-elements;
+    margin: $md-spacing auto 0 auto;
+    padding-bottom: $md-spacing;
     display: flex;
     flex-wrap: wrap;
     flex-grow: 1;

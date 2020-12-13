@@ -6,7 +6,7 @@ import { ErrorMessage, Field } from 'formik'
 import visibilityIcon from '../../../../../public/images/visibility.svg'
 import visibilityOffIcon from '../../../../../public/images/visibility-off.svg'
 // Styles
-import styles from '../form-field.module.scss'
+import styles from '../input-field.module.scss'
 
 const getIcon = (type) => {
   return type === 'password' ? visibilityIcon : visibilityOffIcon
@@ -16,7 +16,7 @@ const getAlt = (type) => {
   return type === 'password' ? 'Visibility On' : 'Visibility Off'
 }
 
-const FormField = ({ label, name, showForgotPasswordLink }) => {
+const PasswordField = ({ field, form, label, showForgotPasswordLink }) => {
   const [type, setType] = useState('password')
 
   const onClickImageHandler = () =>
@@ -25,7 +25,7 @@ const FormField = ({ label, name, showForgotPasswordLink }) => {
   return (
     <p className={`${styles.container} ${styles['type-password']}`}>
       <span className={styles['label-container']}>
-        <label htmlFor={name}>{label}</label>
+        <label htmlFor={field.name}>{label}</label>
 
         {showForgotPasswordLink && (
           <Link
@@ -39,10 +39,12 @@ const FormField = ({ label, name, showForgotPasswordLink }) => {
 
       <span className={styles['input-container']}>
         <Field
-          className={styles.input}
+          className={`${styles.input} ${
+            form.errors[field.name] ? styles['error-border'] : ''
+          }`}
           type={type}
-          name={name}
           placeholder="********"
+          {...field}
         />
 
         <img
@@ -57,10 +59,10 @@ const FormField = ({ label, name, showForgotPasswordLink }) => {
         render={(message) => (
           <span className={styles.error}>{message ? message : ''}</span>
         )}
-        name={name}
+        name={field.name}
       />
     </p>
   )
 }
 
-export default FormField
+export default PasswordField

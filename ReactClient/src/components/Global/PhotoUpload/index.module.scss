@@ -7,13 +7,13 @@
   border: 1px solid var(--theme-link-color);
   border-radius: $border-radius;
   background: var(--theme-background-color);
-  padding: $spacing-layout-elements;
-  margin-bottom: $spacing-layout-elements;
+  padding: $md-spacing;
+  margin-bottom: $md-spacing;
   position: relative;
 
   .edit-container {
     position: relative;
-    margin-bottom: $spacing-layout-elements;
+    margin-bottom: $md-spacing;
     padding: 0.3em;
     border: 1px solid var(--theme-link-color);
     border-radius: 50%;

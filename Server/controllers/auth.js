@@ -53,7 +53,7 @@ module.exports = {
         });
 
         if (!user) {
-          res.status(401).send('Invalid username or password');
+          res.status(401).send('Invalid email or password');
           return;
         }
 
@@ -66,7 +66,7 @@ module.exports = {
         const isMatched = await user.matchPassword(password);
 
         if (!isMatched) {
-          res.status(401).send('Invalid username or password');
+          res.status(401).send('Invalid email or password');
           return;
         }
 
