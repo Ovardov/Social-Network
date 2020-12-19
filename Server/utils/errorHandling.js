@@ -20,8 +20,10 @@ const buildValidationUniqueErrors = (mongooseError) => {
   // Loop to get all field errors
   for (fieldName in mongooseError.keyPattern) {
     const currentError = {
-      message: `User with current ${fieldName} is already registered!`,
-      code: fieldName,
+      value: mongooseError.keyValue[fieldName],
+      msg: `User with current ${fieldName} is already registered!`,
+      param: fieldName,
+      location: 'body'
     }
 
     errors.push(currentError)
