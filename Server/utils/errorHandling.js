@@ -1,20 +1,4 @@
-const buildValidationModelErrors = (mongooseError) => {
-  const errors = []
-
-  // Loop to get all field errors
-  for ([fieldName, fieldValue] of Object.entries(mongooseError.errors)) {
-    const currentError = {
-      message: fieldValue.message,
-      code: fieldName,
-    }
-
-    errors.push(currentError)
-  }
-
-  return { errors }
-}
-
-const buildValidationUniqueErrors = (mongooseError) => {
+export const buildValidationUniqueErrors = (mongooseError) => {
   const errors = []
 
   // Loop to get all field errors
@@ -32,21 +16,15 @@ const buildValidationUniqueErrors = (mongooseError) => {
   return { errors }
 }
 
-const buildCustomError = (code, message) => {
+export const buildCustomError = (message) => {
   const errors = []
 
   const error = {
-    code,
-    message,
+    msg: message,
+    location: 'catch'
   }
 
   errors.push(error)
 
   return { errors }
-}
-
-module.exports = {
-  buildValidationModelErrors,
-  buildValidationUniqueErrors,
-  buildCustomError
 }
