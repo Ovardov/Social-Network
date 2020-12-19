@@ -20,7 +20,9 @@ export const buildCustomError = (message) => {
   const errors = []
 
   const error = {
+    value: '',
     msg: message,
+    param: '',
     location: 'catch'
   }
 
