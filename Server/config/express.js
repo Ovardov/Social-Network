@@ -1,20 +1,24 @@
-const express = require('express');
-const cookieParser = require('cookie-parser');
-const cors = require('cors');
-const passport = require('passport');
-const config = require('./config');
+// Libraries
+import { urlencoded, json } from 'express';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import passportInitialize from 'passport/lib/middleware/initialize';
+// Config
+import {corsOrigin, authCookieSecret} from './config';
 
-module.exports = (app) => {
-  app.use(cors({
-    origin: config.corsOrigin,
-    credentials: true
-  }));
+export const initExpress = (app) => {
+  app.use(
+    cors({
+      origin: corsOrigin,
+      credentials: true,
+    })
+  );
 
-  app.use(express.urlencoded({ extended: true }));
+  app.use(urlencoded({ extended: true }));
 
-  app.use(express.json());
+  app.use(json());
 
-  app.use(cookieParser(config.authCookieSecret));
+  app.use(cookieParser(authCookieSecret));
 
-  app.use(passport.initialize());
-};
+  app.use(passportInitialize());
+}

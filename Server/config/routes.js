@@ -1,15 +1,16 @@
-const router = require('../routes');
+// Router
+import { routes } from '../routes';
 
-module.exports = (app) => {
-  app.use('/api/auth', router.auth);
+export const initRoutes = (app) => {
+  app.use('/api/auth', routes.auth);
 
-  app.use('/api/user', router.user);
+  app.use('/api/user', routes.user);
 
-  app.use('/api/post', router.post);
+  app.use('/api/post', routes.post);
 
-  app.use('/api/comment', router.comment);
+  app.use('/api/comment', routes.comment);
 
-  app.use('/api/conversation', router.conversation)
+  app.use('/api/conversation', routes.conversation)
 
   app.use('*', (req, res, next) => res.status(404).end());
 };

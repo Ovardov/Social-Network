@@ -1,13 +1,13 @@
-const user = require('./user');
-const post = require('./post');
-const comment = require('./comment');
-const auth = require('./auth');
-const conversation = require('./conversation');
+import user from './user'
+import post from './post'
+import comment from './comment'
+import auth from './auth'
+import conversation from './conversation'
 
-module.exports = {
-    user,
-    post,
-    comment,
-    auth,
-    conversation
-};
+export const routes = {
+  user,
+  post,
+  comment,
+  auth,
+  conversation,
+}

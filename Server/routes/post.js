@@ -1,6 +1,11 @@
-const router = require('express').Router();
-const { auth } = require('../utils');
-const { postController } = require('../controllers');
+// Libraries
+import {Router} from 'express';
+// Controllers
+import { postController } from '../controllers';
+// Utils
+import {auth} from '../utils';
+
+const router = Router();
 
 router.get('/', auth(), postController.get);
 
@@ -12,4 +17,4 @@ router.put('/unlike/:id', auth(), postController.put.unlikePost);
 
 router.delete('/:id', auth(), postController.delete.removePost);
 
-module.exports = router;
+export default router;

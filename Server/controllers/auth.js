@@ -1,12 +1,17 @@
-const { models } = require('mongoose');
-const config = require('../config/config');
-const jwt = require('../utils/jwt');
-const { buildValidationModelErrors, buildValidationUniqueErrors } = require('../utils/errorHandling');
+// Libraries
+import { models } from 'mongoose';
+import { validationResult } from 'express-validator';
+import { uploader as cloudinaryUploader } from 'cloudinary/lib/v2';
+// Utils
+import jwt from '../utils/jwt';
+import { buildValidationUniqueErrors } from '../utils/errorHandling';
+// Config
+import {authCookieName, clientLoginSuccessRedirectUrl} from '../config/config';
 
 module.exports = {
   get: {
     checkAuth: async (req, res) => {
-      const token = req.cookies[config.authCookieName];
+      const token = req.cookies[authCookieName];
 
       try {
         const { id } = await jwt.verifyToken(token);
@@ -19,11 +24,11 @@ module.exports = {
       }
     },
     logout: async (req, res, next) => {
-      const token = req.cookies[config.authCookieName];
+      const token = req.cookies[authCookieName];
 
       try {
         await models.TokenBlacklist.create({ token });
-        res.clearCookie(config.authCookieName).send('Logout successfully!');
+        res.clearCookie(authCookieName).send('Logout successfully!');
       } catch (err) {
         next(err);
       }
@@ -35,8 +40,8 @@ module.exports = {
 
         const token = jwt.createToken({ id: userId });
 
-        res.cookie(config.authCookieName, token, { httpOnly: true });
-        res.redirect(config.clientLoginSuccessRedirectUrl);
+        res.cookie(authCookieName, token, { httpOnly: true });
+        res.redirect(clientLoginSuccessRedirectUrl);
       } catch (err) {
         next(err);
       }
@@ -71,8 +76,9 @@ module.exports = {
         }
 
         const token = jwt.createToken({ id: user._id });
+
         res
-          .cookie(config.authCookieName, token, { httpOnly: true })
+          .cookie(authCookieName, token, { httpOnly: true })
           .status(200)
           .end();
       } catch (err) {
@@ -81,11 +87,31 @@ module.exports = {
     },
     register: async (req, res, next) => {
       const { email, username, password, firstName, lastName } = req.body;
+      // Profile picture
+      const { file } = req;
 
       try {
         const lowerCaseUsername = username.toLowerCase();
         const providers = ['email'];
 
+        // Check for data errors
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+          return res.status(400).send({ errors: errors.array() });
+        }
+
+        // Upload profile picture to cloudinary
+        const uploadedProfilePicture = await cloudinaryUploader.upload(
+          file.path
+        );
+
+        // Create image
+        const createdImage = await models.Image.create({
+          imageUrl: uploadedProfilePicture.url,
+        });
+
+        // Create user
         const createdUser = await models.User.create({
           email,
           username: lowerCaseUsername,
@@ -93,31 +119,27 @@ module.exports = {
           password,
           firstName,
           lastName,
+          profilePicture: createdImage._id,
         });
 
+        // Create auth token
         const token = jwt.createToken({ id: createdUser._id });
 
+        // Send auth token
         res
-          .cookie(config.authCookieName, token, { httpOnly: true })
+          .cookie(authCookieName, token, { httpOnly: true })
           .status(201)
           .end();
       } catch (err) {
-          if (err.code === 11000) {
-            // Build user unique fields errors
-            const errors = buildValidationUniqueErrors(err);
+        if (err.code === 11000) {
+          // Build user unique fields errors
+          const errors = buildValidationUniqueErrors(err);
 
-            res.status(401).send(errors);
-
-          } else if (err.name === 'ValidationError') {
-            // Build user fields errors
-            const errors = buildValidationModelErrors(err);
-
-            // Send all user fields errors
-            res.status(401).send(errors);
-          } else {
-            next(err)
-          }
-      } 
+          res.status(401).send(errors);
+        } else {
+          next(err);
+        }
+      }
     },
   },
 }

@@ -1,9 +1,21 @@
-const router = require('express').Router();
-const passport = require('passport');
-const { auth } = require('../utils');
-const { authController } = require('../controllers');
-const { clientFailureUrl, clientLoginFailureRedirectUrl } = require('../config/config');
+// Libraries
+import express from 'express';
+import multer from 'multer';
+import passport from 'passport';
+// Controllers
+import { authController } from '../controllers';
+// Utils
+import { auth } from '../utils';
+// Config
+import { clientLoginFailureRedirectUrl }from '../config/config';
+// Validators
+import { registerDataValidators } from '../validators/auth';
 
+
+const upload = multer({ storage: multer.diskStorage({})} );
+const router = express.Router();
+
+// GET Routes
 router.get('/', authController.get.checkAuth);
 router.get('/logout', auth(), authController.get.logout);
 
@@ -16,7 +28,8 @@ router.get('/google', passport.authenticate('google', { scope: ['profile', 'emai
 router.get('/google/callback', passport.authenticate('google', { failureRedirect: clientLoginFailureRedirectUrl }), authController.get.socialLogin);
 
 
-router.post('/register', authController.post.register);
+// POST routes
+router.post('/register', upload.single('profilePicture'), registerDataValidators, authController.post.register);
 router.post('/login', authController.post.login);
 
-module.exports = router;
+export default router

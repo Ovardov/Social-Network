@@ -1,10 +1,19 @@
-const passport = require('passport');
-const FacebookStrategy = require('passport-facebook').Strategy;
-const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-const { facebookConfig, googleConfig } = require('./config');
-const models = require('../models');
+// Libraries
+import passport from 'passport/lib';
+import { Strategy as FacebookStrategy } from 'passport-facebook';
+import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
+// Config
+import { facebookConfig, googleConfig } from './config';
+// Modles
+import models from '../models';
 
-const saveUser = async (email, firstName, lastName, profilePictureUrl, loginProvider) => {
+const saveUser = async (
+  email,
+  firstName,
+  lastName,
+  profilePictureUrl,
+  loginProvider
+) => {
   try {
     // check for user with same email
     const foundedUser = await models.User.findOne({ email });
@@ -14,40 +23,57 @@ const saveUser = async (email, firstName, lastName, profilePictureUrl, loginProv
       let generatedUsername = email.split('@')[0].toLowerCase();
 
       // check users count with generated username
-      const usersCountWithGeneratedUsername = await models.User.countDocuments({ username: { '$regex': generatedUsername } });
+      const usersCountWithGeneratedUsername = await models.User.countDocuments({
+        username: { $regex: generatedUsername },
+      });
 
       if (usersCountWithGeneratedUsername > 1) {
-        generatedUsername = `${generatedUsername}${usersCountWithGeneratedUsername}`;
+        generatedUsername = `${generatedUsername}${usersCountWithGeneratedUsername}`
       }
 
-      let foundedUserWithGeneratedUsername = await models.User.findOne({ username: generatedUsername });
+      let foundedUserWithGeneratedUsername = await models.User.findOne({
+        username: generatedUsername,
+      });
 
       // Add "1" in after username when generated username exist
       while (foundedUserWithGeneratedUsername) {
         generatedUsername += '1';
-        foundedUserWithGeneratedUsername = await models.User.findOne({ username: generatedUsername });
+
+        foundedUserWithGeneratedUsername = await models.User.findOne({
+          username: generatedUsername,
+        });
       }
 
       // Create user profile
-      const createdProfilePicture = await models.Image.create({ imageUrl: profilePictureUrl });
+      const createdProfilePicture = await models.Image.create({
+        imageUrl: profilePictureUrl,
+      });
 
-      await models.User.create({ email, username: generatedUsername, providers: loginProvider, firstName, lastName, profilePicture: createdProfilePicture._id });
+      await models.User.create({
+        email,
+        username: generatedUsername,
+        providers: loginProvider,
+        firstName,
+        lastName,
+        profilePicture: createdProfilePicture._id,
+      });
 
-      return;
+      return
     }
 
     // Add new social provider if current user doesn't have already
     if (foundedUser.providers.indexOf(loginProvider) === -1) {
-      await models.User.updateOne({ email }, { $push: { providers: loginProvider } })
+      await models.User.updateOne(
+        { email },
+        { $push: { providers: loginProvider } }
+      );
     }
-
   } catch (err) {
     throw new Error(err);
   }
 }
 
-const initPassport = () => {
-
+export const initPassport = () => {
   passport.serializeUser((user, cb) => cb(null, user));
   passport.deserializeUser((userObject, cb) => cb(null, userObject));
 
@@ -56,7 +82,9 @@ const initPassport = () => {
       const userData = user._json;
 
       // get profile data from facebook
-      const email = Array.isArray(userData.email) ? userData.email[0] : userData.email;
+      const email = Array.isArray(userData.email)
+        ? userData.email[0]
+        : userData.email
       const firstName = user._json.first_name;
       const lastName = user._json.last_name;
       const profilePictureUrl = user._json.picture.data.url;
@@ -67,14 +95,16 @@ const initPassport = () => {
     } catch (err) {
       return cb(err, null);
     }
-  };
+  }
 
   const googleCallback = async (accessToken, refreshToken, user, cb) => {
     try {
       const userData = user._json;
 
       // get profile data from google
-      const email = Array.isArray(userData.email) ? userData.email[0] : userData.email;
+      const email = Array.isArray(userData.email)
+        ? userData.email[0]
+        : userData.email
       const firstName = user._json.given_name;
       const lastName = user._json.family_name;
       const profilePictureUrl = user._json.picture;
@@ -90,5 +120,3 @@ const initPassport = () => {
   passport.use(new FacebookStrategy(facebookConfig, facebookCallback));
   passport.use(new GoogleStrategy(googleConfig, googleCallback));
 }
-
-module.exports = initPassport

@@ -1,8 +1,12 @@
-const router = require('express').Router();
+// Libraries
+import {Router} from 'express';
+// Controllers
+import { conversationController } from '../controllers';
+// Utils
+import {auth} from '../utils';
 
-const { auth } = require('../utils');
-const { conversationController } = require('../controllers');
+const router = Router();
 
 router.get('/:room/messages', auth(), conversationController.get.getAllMessages);
 
-module.exports = router;
+export default router;

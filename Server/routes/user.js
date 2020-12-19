@@ -1,6 +1,11 @@
-const router = require('express').Router();
-const auth = require('../utils/auth');
-const { userController } = require('../controllers');
+// Libraries
+import {Router} from 'express';
+// Controllers
+import { userController } from '../controllers';
+// Utils
+import {auth} from '../utils';
+
+const router = Router();
 
 router.get('/', auth(), userController.get.home);
 router.get('/me', auth(), userController.get.myProfile);
@@ -14,4 +19,4 @@ router.put('/', auth(), userController.put.update);
 
 router.delete('/', auth(), userController.delete.removeMyAccount);
 
-module.exports = router;
+export default router;
