@@ -16,7 +16,8 @@ module.exports = {
       try {
         const { id } = await jwt.verifyToken(token);
 
-        const user = await models.User.findById(id).select('username');
+        const user = await models.User.findById(id).select(['firstName', 'lastName', 'username', 'profilePicture'])
+          .populate('profilePicture');
 
         res.send(user);
       } catch (e) {
