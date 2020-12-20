@@ -3,10 +3,10 @@ import { models } from 'mongoose';
 import { validationResult } from 'express-validator';
 import { uploader as cloudinaryUploader } from 'cloudinary/lib/v2';
 // Utils
-import jwt from '../utils/jwt';
-import { buildValidationUniqueErrors } from '../utils/errorHandling';
+import { jwt } from '../utils';
+import { buildCustomError, buildValidationUniqueErrors } from '../utils/errorHandling';
 // Config
-import {authCookieName, clientLoginSuccessRedirectUrl} from '../config/config';
+import { authCookieName, clientLoginSuccessRedirectUrl } from '../config/config';
 
 module.exports = {
   get: {
@@ -51,28 +51,39 @@ module.exports = {
 
   post: {
     login: async (req, res, next) => {
-      const { emailOrUsername, password } = req.body;
+      const { email, password } = req.body;
 
       try {
-        const user = await models.User.findOne({
-          $or: [{ email: emailOrUsername }, { username: emailOrUsername }],
-        });
+        // Check for data errors
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+          return res.status(400).send({ errors: errors.array() });
+        }
+        
+        const user = await models.User.findOne({ email });
 
         if (!user) {
-          res.status(401).send('Invalid email or password');
+          const errors = buildCustomError('Invalid email or password!');
+
+          res.status(401).send(errors);
           return;
         }
 
         //  If user do not have email account
         if (user.providers.indexOf('email') === -1) {
-          res.status(401).send('Invalid login provider');
+          const errors = buildCustomError('Invalid login provider!');
+
+          res.status(401).send(errors);
           return;
         }
 
         const isMatched = await user.matchPassword(password);
 
         if (!isMatched) {
-          res.status(401).send('Invalid email or password');
+          const errors = buildCustomError('Invalid email or password!');
+
+          res.status(401).send(errors);
           return;
         }
 

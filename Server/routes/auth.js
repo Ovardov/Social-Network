@@ -9,7 +9,7 @@ import { auth } from '../utils';
 // Config
 import { clientLoginFailureRedirectUrl }from '../config/config';
 // Validators
-import { registerDataValidators } from '../validators/auth';
+import { registerDataValidator, loginDataValidator } from '../validators/auth';
 
 
 const upload = multer({ storage: multer.diskStorage({})} );
@@ -29,7 +29,7 @@ router.get('/google/callback', passport.authenticate('google', { failureRedirect
 
 
 // POST routes
-router.post('/register', upload.single('profilePicture'), registerDataValidators, authController.post.register);
-router.post('/login', authController.post.login);
+router.post('/register', upload.single('profilePicture'), registerDataValidator, authController.post.register);
+router.post('/login', loginDataValidator, authController.post.login);
 
 export default router
