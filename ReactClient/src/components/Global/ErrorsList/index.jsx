@@ -9,15 +9,17 @@ import PropTypes from 'prop-types'
 
 // Utils
 
+// Images
+import ErrorIcon from '../../../../public/images/error-icon.svg'
 // Styles
 import styles from './index.module.scss'
 
 
 const renderErrors = (errors) => {
-  return errors.map(({ code, message }) => (
-    <li key={code} className={styles.error}>
-      <span className={styles['error-icon']}></span>
-      {message}
+  return errors.map(({ code, msg }, index) => (
+    <li key={msg + index} className={styles.error}>
+      <ErrorIcon className={styles['error-icon']}/>
+      {msg}
     </li>
   ))
 }

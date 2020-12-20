@@ -13,12 +13,10 @@
     .error-icon {
       position: absolute;
       left: 0;
-      top: 0.1em;
+      top: 0;
       width: 24px;
       height: 24px;
-      background: var(--theme-error-color);
-      -webkit-mask: url('../../../../public/images/error-icon.svg') no-repeat center;
-      mask: url('../../../../public/images/error-icon.svg') no-repeat center;
+      fill: var(--theme-error-color);
     }
   }
 }

@@ -9,6 +9,7 @@ import PasswordField from '../../components/Global/InputField/PasswordField'
 import SocialButton from '../../components/Global/Buttons/SocialButton'
 import LoginButton from '../../components/Global/Buttons/LoginButton'
 import ButtonContainer from '../../components/Global/Buttons/ButtonContainer'
+import ErrorsList from '../../components/Global/ErrorsList'
 // Hooks
 import { useAuth } from '../../hooks/useAuth'
 // Services
@@ -24,7 +25,7 @@ import googleIcon from '../../../public/images/google-icon.png'
 import styles from './index.module.scss'
 
 const LoginPage = () => {
-  const [error, setError] = useState(false)
+  const [errors, setErrors] = useState(false)
   const { setIsLogged } = useAuth()
   const history = useHistory()
 
@@ -32,7 +33,7 @@ const LoginPage = () => {
   const onSubmitHandler = async (data) => {
     try {
       const finalData = {
-        emailOrUsername: data.email,
+        email: data.email,
         password: data.password,
       }
 
@@ -41,7 +42,8 @@ const LoginPage = () => {
 
       history.push('/')
     } catch (err) {
-      setError(err.message)
+      // To Do -> Custom error builder
+      setErrors(JSON.parse(err.message).errors)
       console.error('Error while submit login form', err)
     }
   }
@@ -53,13 +55,8 @@ const LoginPage = () => {
       </header>
 
       <div className={styles['login-container']}>
-        {/* Error Box */}
-        {error && (
-          <p className={styles['error-container']}>
-            <span className={styles['error-icon']}></span>
-            {error}
-          </p>
-        )}
+        {/* Errors Box */}
+        {errors.length > 0 && <ErrorsList errors={errors} />}
 
         {/* Form */}
         <Formik
@@ -76,7 +73,7 @@ const LoginPage = () => {
               label="Email"
               placeholder="ovardov7@gmail.com"
               component={InputField}
-             />
+            />
 
             <Field
               label="Password"
