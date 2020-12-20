@@ -115,7 +115,8 @@ module.exports = {
 
         // Upload profile picture to cloudinary
         const uploadedProfilePicture = await cloudinaryUploader.upload(
-          file.path
+          file.path,
+          {quality: 50, width: 1024, height: 1024, crop: "limit"}
         );
 
         // Create image
