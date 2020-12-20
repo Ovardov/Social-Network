@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 // Images
 import profilePlaceholderImage from '../../../../public/images/profile-placeholder.png'
-import addIcon from '../../../../public/images/add-icon.svg'
+import AddIcon from '../../../../public/images/add-icon.svg'
 // Styles
 import styles from './index.module.scss'
 
@@ -43,7 +43,7 @@ const PhotoUpload = ({ field, form, setFieldValue }) => {
         </span>
 
         <span className={styles['edit-icon']}>
-          <img className={styles['edit-icon']} src={addIcon} />
+          <AddIcon/>
         </span>
       </span>
 

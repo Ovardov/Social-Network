@@ -5,17 +5,18 @@ import PropTypes from 'prop-types'
 import globalButtonStyles from '../buttons.module.scss'
 import styles from './index.module.scss'
 
-const SocialButton = ({ icon, text, href }) => {
+const SocialButton = ({ iconSrc, iconAlt, text, href }) => {
   return (
     <a href={href} className={`${globalButtonStyles.button} ${styles['social-button']}`}>
-      <img className={styles.icon} src={icon} />
+      <img loading="lazy" className={styles.icon} src={iconSrc} alt={iconAlt} />
       {text}
     </a>
   )
 }
 
 SocialButton.propTypes = {
-  icon: PropTypes.string.isRequired,
+  iconSrc: PropTypes.string.isRequired,
+  iconAlt: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   href: PropTypes.string.isRequired
 }

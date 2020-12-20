@@ -3,18 +3,10 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ErrorMessage, Field } from 'formik'
 // Images
-import visibilityIcon from '../../../../../public/images/visibility.svg'
-import visibilityOffIcon from '../../../../../public/images/visibility-off.svg'
+import VisibilityIcon from '../../../../../public/images/visibility.svg'
+import VisibilityOffIcon from '../../../../../public/images/visibility-off.svg'
 // Styles
 import styles from '../input-field.module.scss'
-
-const getIcon = (type) => {
-  return type === 'password' ? visibilityIcon : visibilityOffIcon
-}
-
-const getAlt = (type) => {
-  return type === 'password' ? 'Visibility On' : 'Visibility Off'
-}
 
 const PasswordField = ({ field, form, label, showForgotPasswordLink }) => {
   const fieldError = form.errors[field.name]
@@ -49,12 +41,17 @@ const PasswordField = ({ field, form, label, showForgotPasswordLink }) => {
           {...field}
         />
 
-        <img
-          onClick={onClickImageHandler}
-          className={styles.image}
-          src={getIcon(type)}
-          alt={getAlt(type)}
-        />
+        {type === 'password' ? (
+          <VisibilityIcon
+            onClick={onClickImageHandler}
+            className={styles.image}
+          />
+        ) : (
+          <VisibilityOffIcon
+            onClick={onClickImageHandler}
+            className={styles.image}
+          />
+        )}
       </span>
 
       {fieldError && <span className={styles.error}>{fieldError}</span>}

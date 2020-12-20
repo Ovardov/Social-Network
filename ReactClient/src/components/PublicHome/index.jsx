@@ -2,7 +2,7 @@
 import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 // Images
-import homePageImage from '../../../public/images/home-page.svg'
+import HomePageImage from '../../../public/images/home-page.svg'
 // Styles
 import styles from './index.module.scss'
 
@@ -14,7 +14,7 @@ const PublicHome = ({ children }) => {
     <section className={styles.container}>
       <article className={styles.info}>
         <div className={styles['image-container']}>
-          <img loading="lazy" src={homePageImage} alt="Friends" />
+          <HomePageImage className={styles.image}/>
         </div>
       </article>
 

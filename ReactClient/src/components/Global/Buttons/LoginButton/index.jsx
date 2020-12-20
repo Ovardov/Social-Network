@@ -1,5 +1,7 @@
 // Libraries
 import React from 'react'
+// Images
+import ArrowIcon from '../../../../../public/images/arrow-right.svg'
 // Styles
 import globalButtonStyles from '../buttons.module.scss'
 import styles from './index.module.scss'
@@ -11,7 +13,7 @@ const LoginButton = () => {
       className={`${globalButtonStyles.button} ${globalButtonStyles['color-primary']} ${styles['login-button']}`}
     >
       Login
-      <span className={styles.icon}></span>
+      <ArrowIcon className={styles.icon }/>
     </button>
   )
 }

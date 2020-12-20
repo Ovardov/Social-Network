@@ -44,8 +44,15 @@ module.exports = {
       use: ['babel-loader'],
     },
     {
-      test: /\.(jpe?g|gif|png|svg)$/i,
+      test: /\.(jpe?g|gif|png)$/i,
       use: ['url-loader'],
+    },
+    {
+      test: /\.(svg)$/i,
+      use: [
+        { loader: 'babel-loader' },
+        { loader: 'react-svg-loader', options: { jsx: true } },
+      ],
     },
   ],
   commonResolve: {

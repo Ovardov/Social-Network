@@ -38,8 +38,8 @@
       width: 24px;
       height: 24px;
       background: var(--theme-error-color);
-      -webkit-mask: url('../../../public/images/error-icon.svg') no-repeat center;
-      mask: url('../../../public/images/error-icon.svg') no-repeat center;
+      -webkit-mask: url('../../../public/images/error-icon.svg?encoding=base64') no-repeat center;
+      mask: url('../../../public/images/error-icon.svg?encoding=base64') no-repeat center;
     }
   }
 

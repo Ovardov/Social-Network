@@ -6,17 +6,15 @@
   .icon {
     position: absolute;
     right: 1.1em;
-    top: 0.7em;
+    top: 0.8em;
     width: 24px;
     height: 24px;
-    background: #FFF;
-    -webkit-mask: url('../../../../../public/images/arrow-right.svg') no-repeat center;
-    mask: url('../../../../../public/images/arrow-right.svg') no-repeat center;
+    fill: var(--theme-background-color);
   }
 
   &:hover {
     .icon {
-      background: var(--theme-primary-color);
+      fill: var(--theme-primary-color);
     }
   }
 }

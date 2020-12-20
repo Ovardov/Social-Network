@@ -26,6 +26,104 @@
         width: 30em;
         user-select: none;
 
+        .image {
+          :global(.st0) {
+            opacity: 0.18;
+          }
+
+          :global(.st1) {
+            fill: #ADBEC4;
+          }
+
+          :global(.st2) {
+            fill: #3D70B2;
+          }
+
+          :global(.st3) {
+            fill: #EF6E4B;
+          }
+
+          :global(.st4) {
+            fill: #FF8B66;
+          }
+
+          :global(.st5) {
+            fill: #CFD8DC;
+          }
+
+          :global(.st6) {
+            fill: #DB614D;
+          }
+
+          :global(.st7) {
+            fill: #1A4850;
+          }
+
+          :global(.st8) {
+            fill: #FFFFFF;
+          }
+
+          :global(.st9) {
+            fill: #164353;
+          }
+
+          :global(.st10) {
+            fill: #205260;
+          }
+
+          :global(.st11) {
+            fill: #0C476B;
+          }
+
+          :global(.st12) {
+            fill: #105E99;
+          }
+
+          :global(.st13) {
+            fill: #5EE5D1;
+          }
+
+          :global(.st14) {
+            fill: #3ACCB6;
+          }
+
+          :global(.st15) {
+            fill: #41D6C3;
+          }
+
+          :global(.st16) {
+            fill: #24A088;
+          }
+
+          :global(.st17) {
+            fill: #31BCA4;
+          }
+
+          :global(.st18) {
+            fill: #225866;
+          }
+
+          :global(.st19) {
+            fill: #8BBDDB;
+          }
+
+          :global(.st20) {
+            fill: #6097B2;
+          }
+
+          :global(.st21) {
+            fill: #3E6575;
+          }
+
+          :global(.st22) {
+            fill: #0A3D56;
+          }
+
+          :global(.st23) {
+            fill: #13BC9C;
+          }
+        }
+
         @media screen and (min-width: 1024px) and (max-width: 1300px) {
           width: 25em;
           height: 25em;
@@ -71,7 +169,7 @@
         }
 
 
-        @media screen and (min-width: 1024px) and (max-width: 1300px) {
+        @media screen and (min-width: 1024px) and (max-width: 1430px) {
           left: 0;
           right: unset;
 

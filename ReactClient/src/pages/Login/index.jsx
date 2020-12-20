@@ -18,8 +18,8 @@ import { loginValidationSchema } from '../../formValidators/auth'
 // Utils
 import { authFacebookUrl, authGoogleUrl } from '../../utils/config'
 // Images
-import facebookIcon from '../../../public/images/facebook-icon.svg'
-import googleIcon from '../../../public/images/google-icon.svg'
+import facebookIcon from '../../../public/images/facebook-icon.png'
+import googleIcon from '../../../public/images/google-icon.png'
 // Styles
 import styles from './index.module.scss'
 
@@ -97,12 +97,14 @@ const LoginPage = () => {
             <SocialButton
               href={authGoogleUrl}
               text="Google"
-              icon={googleIcon}
+              iconSrc={googleIcon}
+              iconAlt="Google Icon"
             />
             <SocialButton
               href={authFacebookUrl}
               text="Facebook"
-              icon={facebookIcon}
+              iconSrc={facebookIcon}
+              iconAlt="Facebook Icon"
             />
           </ButtonContainer>
         </div>

@@ -1,0 +1,89 @@
+.slider {
+  width: 80%;
+  max-width: 600px;
+  height: 1em;
+  background: var(--theme-background-color);
+  border-radius: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  padding: 0;
+  box-shadow: $box-shadow;
+
+  @include bp(tablet) {
+    margin-bottom: 1.7em;
+  }
+
+  @include bp(phone) {
+    width: 100%;
+  }
+
+  .progress-track,
+  .progress-bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 0.4em;
+    z-index: 1;
+  }
+
+  .progress-track {
+    width: 100%;
+    background: var(--theme-background-darker-color);
+  }
+
+  .progress-bar {
+    background: var(--theme-primary-color);
+    z-index: 2;
+    transition: width 0.5s ease-in-out;
+
+    &.step-1 {
+      width: 0;
+    }
+
+    &.step-2 {
+      width: 50%;
+    }
+
+    &.step-3 {
+      width: 100%;
+    }
+  }
+
+
+  .slide {
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    border: 1px solid var(--theme-link-color);
+    background: var(--theme-background-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    transition: all 0.5s ease-in-out;
+
+    &.filled {
+      border-color: var(--theme-primary-color);
+
+      .icon {
+        fill: var(--theme-primary-color);
+      }
+    }
+
+    &.active {
+      background: var(--theme-primary-color);
+      border-color: var(--theme-primary-color);
+
+      .icon {
+        fill: var(--theme-background-color);
+      }
+    }
+
+    .icon {
+      transition: fill 0.5s ease-in-out;
+      fill: var(--theme-link-color);
+    }
+  }
+}
