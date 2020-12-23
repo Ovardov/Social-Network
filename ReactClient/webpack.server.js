@@ -11,7 +11,7 @@ const {
 
 const loadablePlugin = new LoadableWebpackPlugin()
 
-const serverStyleLoaders = [{ loader: 'isomorphic-style-loader' }]
+const serverStyleLoaders = []
 
 module.exports = {
   mode,

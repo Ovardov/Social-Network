@@ -1,27 +1,26 @@
 // Libraries
 import loadable from '@loadable/component'
-import { Route, Switch } from 'react-router-dom'
+import { Switch } from 'react-router-dom'
 // Components
 import ProtectedRoute from './ProtectedRoute'
-import Layout from '../../Layout'
 import LoginAndRegisterRoute from './LoginAndRegisterRoute'
 
 // Pages
-const PublicHomePage = loadable(() => import('../../../pages/Home/Public'), {
+const HomePage = loadable(() => import('../../../pages/Home'), {
   ssr: true,
 })
 const LoginPage = loadable(() => import('../../../pages/Login'), { ssr: true })
-const RegisterPage = loadable(() => import('../../../pages/Register'), { ssr: true })
+const RegisterPage = loadable(() => import('../../../pages/Register'), {
+  ssr: true,
+})
 
 const Navigation = () => {
   return (
-    <Layout>
-      <Switch>
-        <LoginAndRegisterRoute path="/login" Component={LoginPage} />
-        <LoginAndRegisterRoute path="/register" Component={RegisterPage} />
-        <ProtectedRoute exact path="/" Component={PublicHomePage} />
-      </Switch>
-    </Layout>
+    <Switch>
+      <LoginAndRegisterRoute path="/login" Component={LoginPage} />
+      <LoginAndRegisterRoute path="/register" Component={RegisterPage} />
+      <ProtectedRoute exact path="/" Component={HomePage} />
+    </Switch>
   )
 }
 

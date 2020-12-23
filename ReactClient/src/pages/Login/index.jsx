@@ -8,7 +8,7 @@ import InputField from '../../components/Global/InputField'
 import PasswordField from '../../components/Global/InputField/PasswordField'
 import SocialButton from '../../components/Global/Buttons/SocialButton'
 import LoginButton from '../../components/Global/Buttons/LoginButton'
-import ButtonContainer from '../../components/Global/Buttons/ButtonContainer'
+import ButtonContainer from '../../components/Global/Buttons/ButtonContainers'
 import ErrorsList from '../../components/Global/ErrorsList'
 // Hooks
 import { useAuth } from '../../hooks/useAuth'

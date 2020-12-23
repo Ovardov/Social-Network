@@ -1,5 +1,7 @@
 const path = require('path')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 const {
   mode,
@@ -15,7 +17,18 @@ const htmlPlugin = new HTMLWebpackPlugin({
   filename: './index.html',
 })
 
-const clientStyleLoaders = []
+// To Do -> Remove duplicate styles from [name].css and main.css
+const miniCssExctractPlugin = new MiniCssExtractPlugin()
+const optimizeCssAssetsPlugin = new OptimizeCssAssetsPlugin()
+
+const clientStyleLoaders = [
+  {
+    loader: MiniCssExtractPlugin.loader,
+    options: {
+      esModule: false,
+    },
+  },
+]
 
 module.exports = {
   mode,
@@ -39,5 +52,10 @@ module.exports = {
     ],
   },
   resolve: commonResolve,
-  plugins: [...commonPlugins, htmlPlugin],
+  plugins: [
+    ...commonPlugins,
+    miniCssExctractPlugin,
+    optimizeCssAssetsPlugin,
+    htmlPlugin,
+  ],
 }

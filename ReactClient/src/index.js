@@ -4,7 +4,7 @@ import { hydrate } from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 import { loadableReady } from '@loadable/component'
 // Components
-import App from './components/App/index'
+import App from './components/App'
 
 // Wait all scripts to load
 loadableReady(() => {

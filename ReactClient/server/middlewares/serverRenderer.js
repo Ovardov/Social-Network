@@ -1,10 +1,11 @@
+// Libraries
 import path from 'path'
 import fs from 'fs'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { StaticRouter } from 'react-router-dom'
 import { ChunkExtractor } from '@loadable/server'
-
+// Components
 import App from '../../src/components/App'
 
 export default (req, res, next) => {
@@ -39,11 +40,11 @@ export default (req, res, next) => {
       })}`
     )
 
-    return res.send(
-      htmlWithState.replace(
-        '<div id="root"></div>',
-        `<div id="root">${html}</div>`
-      )
+    const htmlWithData = htmlWithState.replace(
+      '<div id="root"></div>',
+      `<div id="root">${html}</div>`
     )
+
+    return res.send(htmlWithData)
   })
 }
