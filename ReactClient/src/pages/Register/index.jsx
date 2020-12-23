@@ -1,5 +1,5 @@
 // Libraries
-import React, { useState, useEffect } from 'react'
+import React, { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { Field, Form, Formik } from 'formik'
 // Components
@@ -23,6 +23,20 @@ import styles from './index.module.scss'
 const RegisterPage = () => {
   const [step, setStep] = useState(1)
   const [errors, setErrors] = useState([])
+
+  const header = useMemo(() => {
+    if (step === 1) {
+      return 'Tell us more about you.'
+    }
+
+    if (step === 2) {
+      return 'Secure your account.'
+    }
+
+    if (step === 3) {
+      return 'Upload a profile picture.'
+    }
+  }, [step])
 
   const handleNextStep = async (validateForm) => {
     try {
@@ -57,15 +71,7 @@ const RegisterPage = () => {
 
       <section className={styles['register-container']}>
         <header>
-          {step === 1 && (
-            <h1 className={styles['step-info']}>Tell us more about you.</h1>
-          )}
-          {step === 2 && (
-            <h1 className={styles['step-info']}>Secure your account.</h1>
-          )}
-          {step === 3 && (
-            <h1 className={styles['step-info']}>Upload a profile picture.</h1>
-          )}
+          <h1 className={styles['step-info']}>{header}</h1>
         </header>
 
         <div className={styles['form-container']}>

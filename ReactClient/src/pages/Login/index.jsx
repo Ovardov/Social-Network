@@ -42,7 +42,7 @@ const LoginPage = () => {
 
       history.push('/')
     } catch (err) {
-      // To Do -> Custom error builder
+      // To Do -> Custom error builder   
       setErrors(JSON.parse(err.message).errors)
       console.error('Error while submit login form', err)
     }

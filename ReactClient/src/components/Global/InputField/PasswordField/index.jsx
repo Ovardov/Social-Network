@@ -38,6 +38,7 @@ const PasswordField = ({ field, form, label, showForgotPasswordLink }) => {
           }`}
           type={type}
           placeholder="********"
+          autoComplete="on"
           {...field}
         />
 

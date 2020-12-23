@@ -8,7 +8,7 @@ import AddIcon from '../../../../public/images/add-icon.svg'
 import styles from './index.module.scss'
 
 const PhotoUpload = ({ field, form, setFieldValue }) => {
-  const [imageUrl, setImageUrl] = useState(null)
+  const [imageUrl, setImageUrl] = useState(field.value ? URL.createObjectURL(field.value) : null)
   const imageError = form.errors[field.name]
 
   const handleChangePhoto = (e) => {
@@ -43,12 +43,14 @@ const PhotoUpload = ({ field, form, setFieldValue }) => {
         </span>
 
         <span className={styles['edit-icon']}>
-          <AddIcon/>
+          <AddIcon />
         </span>
       </span>
 
       <p className={styles.message}>
-        {imageError ? imageError : 'Only images with a size lower than 3MB are allowed'}.
+        {imageError
+          ? imageError
+          : 'Only images with a size lower than 3MB are allowed.'}
       </p>
 
       <input
