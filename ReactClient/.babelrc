@@ -4,6 +4,8 @@
     [ "@babel/preset-react", { "runtime": "automatic" } ]
   ],
   "plugins": [
-    "@loadable/babel-plugin"
+    "@loadable/babel-plugin",
+    // When true, class properties are compiled to use an assignment expression instead of Object.defineProperty
+    ["@babel/plugin-proposal-class-properties", { "loose": true }]
   ]
 }
