@@ -1,5 +1,7 @@
 // Libraries
 import React, { useCallback } from 'react'
+// Components
+import Icon from '../../Global/Icon'
 // Images
 import PersonIcon from '../../../../public/images/person-icon.svg'
 import LockIcon from '../../../../public/images/lock-icon.svg'

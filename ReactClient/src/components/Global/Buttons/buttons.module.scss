@@ -13,22 +13,20 @@
   }
 
   &.color-primary {
-    color: var(--theme-background-color);
+    color: var(--theme-primary-font-color);
     background: var(--theme-primary-color);
 
     &:hover:not(:disabled) {
-      background: var(--theme-background-color);
-      color: var(--theme-primary-color);
+      background: var(--theme-primary-darker-color);
     }
   }
 
   &.color-secondary {
-    color: var(--theme-primary-color);
-    background: var(--theme-background-color);
+    color: var(--theme-secondary-font-color);
+    background: var(--theme-secondary-color);
 
     &:hover:not(:disabled) {
-      background: var(--theme-primary-color);
-      color: var(--theme-background-color);
+      background: var(--theme-secondary-darker-color);
     }
   }
 }

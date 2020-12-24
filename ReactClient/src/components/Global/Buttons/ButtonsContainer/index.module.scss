@@ -3,19 +3,23 @@
   grid-gap: $md-spacing;
   align-items: center;
 
+  // Width Type
   &.full-width {
     width: 100%;
   }
 
+  // Width Type
   &.fit-content {
     width: fit-content;
   }
 
-  &.position-start {
+  // Position
+  &.start {
     margin-right: auto;
   }
 
-  &.position-end {
+  // Position
+  &.end {
     margin-left: auto;
   }
 }

@@ -6,7 +6,7 @@ $font-main: 'Open Sans';
 $font-headers: 'Balsamiq Sans';
 
 $layout-main-width: 100%;
-$layout-content-width: 80%;
+$layout-content-width: 90%;
 
 $xs-spacing: 0.5em;
 $sm-spacing: 1em;
@@ -20,38 +20,77 @@ $avatar-box-shadow: rgba(0, 0, 0, 0.03) 0px 0px 3px inset;
 $form-box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;
 
 :root {
+  // Primary Color
   --theme-primary-color: var(--blue-primary-color);
-  --theme-brighter-color: var(--blue-brighter-color);
+  --theme-primary-lighter-color: var(--blue-primary-lighter-color);
+  --theme-primary-darker-color: var(--blue-primary-darker-color);
+  --theme-primary-font-color: var(--blue-primary-font-color);
+
+   // Secondary Colors
+   --theme-secondary-color: var(--blue-secondary-color);
+   --theme-primary-lighter-color: var(--blue-secondary-lighter-color);
+   --theme-secondary-darker-color: var(--blue-secondary-darker-color);
+   --theme-secondary-font-color: var(--blue-secondary-font-color);
+ 
+
   --theme-background-color: var(--blue-background-color);
   --theme-background-darker-color: var(--blue-background-darker-color);
   --theme-border-color: var(--blue-border-color);
+  --theme-border-darker-color: var(--blue-border-darker-color);
   --theme-text-color: var(--blue-text-color);
   --theme-link-color: var(--blue-link-color);
   --theme-error-color: var(--blue-error-color);
-  --theme-error-brighter-color: var(--blue-error-brighter-color);
+  --theme-error-lighter-color: var(--blue-error-lighter-color);
 
   // Blue theme
   // --blue-primary-color: #5469D4;
-  --blue-primary-color: #1DA1F2;
   // --blue-primary-color: #1B53F4;
   // --blue-primary-color: #379FF6;
-  --blue-brighter-color: #E6F2FF;
-  --blue-background-color: #FFFFFF;
-  --blue-background-darker-color: #F7F8FA;
-  --blue-border-color: #EBEEF0;
-  --blue-text-color: #222222;
-  --blue-link-color: #222222;
-  --blue-error-color: #FF3F40;
-  --blue-error-brighter-color: #FCEAEB;
+
+  // Primary Colors
+  --blue-primary-color: rgba(29, 161, 242, 1);
+  --blue-primary-lighter-color: rgba(29, 161, 242, 0.1);
+  --blue-primary-darker-color: rgba(26, 145, 218, 1);
+  --blue-primary-font-color:  rgba(255, 255, 255, 1);
+
+
+  // Secondary Colors
+  --blue-secondary-color: rgba(255, 255, 255, 1);
+  --blue-primary-lighter-color: rgba(255, 255, 255, 1);
+  --blue-secondary-darker-color: rgba(29, 161, 242, 0.1);
+  --blue-secondary-font-color: rgba(29, 161, 242, 1);
+
+
+  // Util Colors
+  --blue-background-color: rgba(255, 255, 255, 1);
+  --blue-background-darker-color: rgba(247, 248, 250, 1);
+  --blue-border-color: rgba(235, 238, 240, 1);
+  --blue-border-darker-color: rgba(153, 153, 153, 1);
+  --blue-text-color: rgba(34, 34, 34, 1);
+  --blue-link-color: rgba(34, 34, 34, 1);
+  --blue-error-color: rgba(255, 63, 64, 1);
+  --blue-error-lighter-color: rgba(255, 63, 64, 0.1);
 
   // Pink theme 
-  --pink-primary-color: #FF7474;
-  --pink-brighter-color: #FF7474;
+  // Primary Color
+  --pink-primary-color: rgba(255, 116, 116, 1);
+  --pink-primary-lighter-color: rgba(255, 116, 116, 0.1);
+  --pink-primary-darker-color: rgba(230, 91, 91, 1);
+  --pink-primary-font-color:  rgba(255, 255, 255, 1);
+
+  // Secondary Colors
+  --pink-secondary-color: rgba(255, 255, 255, 1);
+  --pink-primary-lighter-color: rgba(255, 255, 255, 1);
+  --pink-secondary-darker-color: rgba(255, 116, 116, 0.1);
+  --pink-secondary-font-color: rgba(255, 116, 116, 1);
+
+  // Util Colors
   --pink-background-color: #FFFFFF;
   --pink-background-darker-color: #F7F8FA;
-  --blue-border-color: #EBEEF0;
-  --pink-text-color: #222222;
-  --pink-link-color: #999999;
-  --pink-error-color: #FF3F40;
-  --pink-error-brighter-color: #FCEAEB;
+  --pink-border-color: rgba(235, 238, 240, 1);
+  --pink-border-darker-color: rgba(153, 153, 153, 1);
+  --pink-text-color: rgba(34, 34, 34, 1);
+  --pink-link-color: rgba(34, 34, 34, 1);
+  --pink-error-color: rgba(255, 63, 64, 1);
+  --pink-error-lighter-color: rgba(255, 63, 64, 0.1);
 }

@@ -4,11 +4,16 @@ import PropTypes from 'prop-types'
 // Styles
 import styles from './index.module.scss'
 
-const ButtonContainers = ({ columns, widthType, position, children }) => {
+const ButtonContainers = ({
+  columns,
+  widthType,
+  position,
+  children,
+}) => {
   return (
     <div
       className={`${styles.container} ${widthType ? styles[widthType] : ''} ${
-        position ? styles[`positon-${position}`] : ''
+        position ? styles[position] : ''
       }`}
       style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}
     >

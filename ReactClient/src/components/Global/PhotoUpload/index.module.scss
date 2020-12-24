@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  border: 1px solid var(--theme-link-color);
+  border: 1px solid var(--theme-border-darker-color);
   border-radius: $border-radius;
   background: var(--theme-background-color);
   padding: $md-spacing;
@@ -15,7 +15,7 @@
     position: relative;
     margin-bottom: $md-spacing;
     padding: 0.3em;
-    border: 1px solid var(--theme-link-color);
+    border: 1px solid var(--theme-border-darker-color);
     border-radius: 50%;
 
     .avatar {
@@ -36,7 +36,7 @@
     }
 
     .edit-icon {
-      background: var(--theme-link-color);
+      background: var(--theme-border-darker-color);
       width: 2em;
       height: 2em;
       border-radius: 50%;
@@ -50,7 +50,7 @@
   }
 
   .message {
-    color: var(--theme-link-color);
+    color: var(--theme-text-color);
     font-size: 0.8em;
     padding-bottom: 0;
 

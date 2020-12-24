@@ -7,7 +7,7 @@ import PublicHome from '../../components/PublicHome'
 import InputField from '../../components/Global/InputField'
 import PasswordField from '../../components/Global/InputField/PasswordField'
 import Button from '../../components/Global/Buttons/Button'
-import ButtonContainer from '../../components/Global/Buttons/ButtonContainers'
+import ButtonsContainer from '../../components/Global/Buttons/ButtonsContainer'
 import PhotoUpload from '../../components/Global/PhotoUpload'
 import ErrorsList from '../../components/Global/ErrorsList'
 import MultiStepSlider from '../../components/Register/MultistepSlider'
@@ -152,7 +152,7 @@ const RegisterPage = () => {
                   </>
                 )}
 
-                <ButtonContainer
+                <ButtonsContainer
                   columns={step === 1 ? 1 : 2}
                   widthType="full-width"
                   position="end"
@@ -169,7 +169,7 @@ const RegisterPage = () => {
                     <Button
                       type="button"
                       text="Next"
-                      color="secondary"
+                      color="primary"
                       onClickHandler={() => handleNextStep(validateForm)}
                     />
                   )}
@@ -177,7 +177,7 @@ const RegisterPage = () => {
                   {step === 3 && (
                     <Button type="submit" text="Register" color="primary" />
                   )}
-                </ButtonContainer>
+                </ButtonsContainer>
               </Form>
             )}
           />

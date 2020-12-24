@@ -56,7 +56,7 @@
     width: 2em;
     height: 2em;
     border-radius: 50%;
-    border: 1px solid var(--theme-link-color);
+    border: 1px solid var(--theme-border-darker-color);
     background: var(--theme-background-color);
     display: flex;
     align-items: center;
@@ -83,7 +83,9 @@
 
     .icon {
       transition: fill 0.5s ease-in-out;
-      fill: var(--theme-link-color);
+      fill: var(--theme-border-darker-color);
+      width: 18px;
+      height: 18px;
     }
   }
 }

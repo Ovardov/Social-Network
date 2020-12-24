@@ -9,7 +9,7 @@ const InputField = ({ type, label, placeholder, field, form }) => {
   const fieldError = form.errors[field.name]
 
   return (
-    <p className={styles.container}>
+    <div className={styles.container}>
       <label htmlFor={field.name}>{label}</label>
 
       <Field
@@ -25,7 +25,7 @@ const InputField = ({ type, label, placeholder, field, form }) => {
       {fieldError && (
         <span className={styles.error}>{fieldError}</span>
       )}
-    </p>
+    </div>
   )
 }
 
