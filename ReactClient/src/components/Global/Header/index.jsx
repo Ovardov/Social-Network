@@ -24,7 +24,7 @@ const renderPages = (pages, pathname) => {
     return (
       <li key={url} className={styles['list-item']}>
         <Link to={url} className={`${styles.link} ${isSelected ? styles.selected : ''}`}>
-          {Icon && url !== '/profile' && <Icon Component={IconComponent} hasHoverEffect={false} />}
+          {Icon && url !== '/profile' && <Icon Component={IconComponent} size="md" hasHoverEffect={false} />}
           {url === '/profile' && <Avatar size="sm" imageSrc={avatar} imageAlt={name} />}
 
           <span className={styles.name}>{name}</span>
@@ -62,7 +62,7 @@ const Header = () => {
     <header className={styles.header}>
       <h1 className={styles.title}>
         <Link to="/" className={styles['title-link']}>
-          <Icon Component={HomeIcon} hasHoverEffect={true} isSelected={true}/>
+          <Icon Component={HomeIcon} size="md" hasHoverEffect={true} isSelected={true}/>
         </Link>
       </h1>
 

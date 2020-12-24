@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   &.with-hover-effect {
     padding: $xs-spacing;
     transition: all 0.2s ease-in-out;
@@ -18,17 +18,28 @@
   }
 
   .icon {
-    width: 36px;
-    height: 36px;
     fill: var(--theme-text-color);
 
     &.selected {
       fill: var(--theme-primary-color);
     }
 
-    @include bp(phone) {
-      width: 24px;
-      height: 24px;
+    &.size-sm {
+      width: 30px;
+      height: 30px;
+    }
+
+    &.size-md {
+      width: 36px;
+      height: 36px;
+    }
+
+    &.size-sm,
+    &.size-md {
+      @include bp(phone) {
+        width: 24px;
+        height: 24px;
+      }
     }
   }
 }
