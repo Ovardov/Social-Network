@@ -3,6 +3,7 @@ import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 // Components
 import Avatar from '../Avatar'
+import Icon from '../Icon'
 // Hooks
 import { useAuth } from '../../../hooks/useAuth'
 // Services
@@ -17,11 +18,13 @@ import MessagesIcon from '../../../../public/images/messages-icon.svg'
 import styles from './index.module.scss'
 
 const renderPages = (pages, pathname) => {
-  return pages.map(({ url, name, Icon, avatar }) => {
+  return pages.map(({ url, name, IconComponent, avatar }) => {
+    const isSelected = pathname === url
+
     return (
       <li key={url} className={styles['list-item']}>
-        <Link to={url} className={`${styles.link} ${pathname === url ? styles.selected : ''}`}>
-          {Icon && url !== '/profile' && <Icon className={styles.icon} />}
+        <Link to={url} className={`${styles.link} ${isSelected ? styles.selected : ''}`}>
+          {Icon && url !== '/profile' && <Icon Component={IconComponent} hasHoverEffect={false} />}
           {url === '/profile' && <Avatar size="sm" imageSrc={avatar} imageAlt={name} />}
 
           <span className={styles.name}>{name}</span>
@@ -40,26 +43,26 @@ const Header = () => {
     {
       url: '/',
       name: 'Home',
-      Icon: HomeIcon,
+      IconComponent: HomeIcon,
     },
     {
       url: '/messages',
       name: 'Messages',
-      Icon: MessagesIcon,
+      IconComponent: MessagesIcon,
     },
     {
       url: '/profile',
       name: user.fullName,
       avatar: user.profilePicture.imageUrl,
-      Icon: '',
+      IconComponent: '',
     },
   ]
 
   return (
     <header className={styles.header}>
       <h1 className={styles.title}>
-        <Link to="/" className={styles.link}>
-          <HomeIcon className={styles.icon}/>
+        <Link to="/" className={styles['title-link']}>
+          <Icon Component={HomeIcon} hasHoverEffect={true} isSelected={true}/>
         </Link>
       </h1>
 

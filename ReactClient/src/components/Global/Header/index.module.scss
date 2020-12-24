@@ -13,24 +13,29 @@
   }
 
   // Common styles
-  .link,
-  .icon {
-    transition: all 0.2s ease-in-out;
-  }
-
-  // Common styles
   .title,
   .list-item {
     padding: 0.3em 0;
   }
 
   // Common styles
+  .title-link,
   .link {
     display: flex;
     align-items: center;
-    padding: $xs-spacing;
+  }
+
+  // Common styles
+  .link,
+  svg {
+    transition: all 0.2s ease-in-out;
+  }
+
+  // Common styles
+  .link {
     color: var(--theme-text-color);
     word-break: break-all;
+    padding: $xs-spacing;
 
     @include bp(phone) {
       width: fit-content;
@@ -43,19 +48,8 @@
       background: var(--theme-brighter-color);
       color: var(--theme-primary-color);
 
-      .icon {
+      svg {
         fill: var(--theme-primary-color);
-      }
-    }
-
-    .icon {
-      width: 36px;
-      height: 36px;
-      fill: var(--theme-text-color);
-
-      @include bp(phone) {
-        width: 24px;
-        height: 24px;
       }
     }
   }
@@ -68,10 +62,6 @@
 
     @include bp(phone) {
       display: none;
-    }
-
-    .link {
-      border-radius: 50%;
     }
   }
 
@@ -93,7 +83,6 @@
       }
 
       .list-item {
-
         @include bp(phone) {
           width: fit-content;
           margin: 0 auto;
