@@ -7,17 +7,18 @@
   cursor: pointer;
   font-weight: bold;
 
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
   &.color-primary {
     color: var(--theme-background-color);
     background: var(--theme-primary-color);
 
-    &:hover {
+    &:hover:not(:disabled) {
       background: var(--theme-background-color);
       color: var(--theme-primary-color);
-
-      .icon {
-        background-color: var(--theme-primary-color);
-      }
     }
   }
 
@@ -25,13 +26,9 @@
     color: var(--theme-primary-color);
     background: var(--theme-background-color);
 
-    &:hover {
+    &:hover:not(:disabled) {
       background: var(--theme-primary-color);
       color: var(--theme-background-color);
-  
-      .icon {
-        background-color: var(--theme-background-color);
-      }
     }
   }
 }
