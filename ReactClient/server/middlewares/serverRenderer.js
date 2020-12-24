@@ -14,8 +14,8 @@ export default (req, res, next) => {
 
   fs.readFile(indexFile, 'utf8', (err, htmlData) => {
     if (err) {
-      console.error('Something went wrong:', err)
-      return res.status(500).send('Something went wrong!')
+      console.error('Not Found', err)
+      return res.status(404).end();
     }
 
     // Get all static files

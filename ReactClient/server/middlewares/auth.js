@@ -15,7 +15,7 @@ export default async (req, res, next) => {
 
     if(!userDataRes.ok) {
       next()
-      return;
+      return
     }
     
     const userData = await userDataRes.json()
