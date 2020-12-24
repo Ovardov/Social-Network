@@ -1,9 +1,19 @@
 .site {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  position: relative;
+  margin: 0 auto;
   max-width: $layout-main-width;
   min-height: 100vh;
-  margin: 0 auto;
-  background: var(--theme-background-darker-color);
-  position: relative;
+  background: var(--theme-background-color);
+
+  @include bp(desktop-small) {
+    grid-template-columns: 1fr 100%;
+  }
+
+  @include bp(phone) {
+    grid-template-columns: 1fr;
+  }
 
   .site-main {
     max-width: $layout-content-width;

@@ -1,11 +1,12 @@
 // Libraries
-import { Link } from 'react-router-dom'
+import React from 'react'
+// Styles
 import styles from './index.module.scss'
 
 const HomePage = () => {
   return (
     <div className={styles.test}>
-      <Link to="/login">test</Link>
+      Hello World
     </div>
   )
 }

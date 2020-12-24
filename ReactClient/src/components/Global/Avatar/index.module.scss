@@ -1,0 +1,16 @@
+.avatar {
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  box-shadow: $avatar-box-shadow;
+
+  &.size-sm {
+    width: 36px;
+    height: 36px;
+
+    @include bp(phone) {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}

@@ -2,7 +2,7 @@ $font-size-body: 14px;
 $font-size-body-larger: 16px;
 $font-size-body-big: 18px;
 
-$font-main: 'Roboto';
+$font-main: 'Open Sans';
 $font-headers: 'Balsamiq Sans';
 
 $layout-main-width: 100%;
@@ -16,6 +16,7 @@ $xl-spacing: 3em;
 
 $border-radius: 0.3em;
 $box-shadow: 0 1px 4px rgba(26, 26, 67, 0.1);
+$avatar-box-shadow: rgba(0, 0, 0, 0.03) 0px 0px 3px inset;
 $form-box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;
 
 :root {
@@ -23,18 +24,21 @@ $form-box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0
   --theme-brighter-color: var(--blue-brighter-color);
   --theme-background-color: var(--blue-background-color);
   --theme-background-darker-color: var(--blue-background-darker-color);
+  --theme-border-color: var(--blue-border-color);
   --theme-text-color: var(--blue-text-color);
   --theme-link-color: var(--blue-link-color);
   --theme-error-color: var(--blue-error-color);
   --theme-error-brighter-color: var(--blue-error-brighter-color);
 
   // Blue theme
-  --blue-primary-color: #5469D4;
+  // --blue-primary-color: #5469D4;
+  --blue-primary-color: #1DA1F2;
   // --blue-primary-color: #1B53F4;
   // --blue-primary-color: #379FF6;
   --blue-brighter-color: #E6F2FF;
   --blue-background-color: #FFFFFF;
   --blue-background-darker-color: #F7F8FA;
+  --blue-border-color: #EBEEF0;
   --blue-text-color: #222222;
   --blue-link-color: #222222;
   --blue-error-color: #FF3F40;
@@ -45,6 +49,7 @@ $form-box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0
   --pink-brighter-color: #FF7474;
   --pink-background-color: #FFFFFF;
   --pink-background-darker-color: #F7F8FA;
+  --blue-border-color: #EBEEF0;
   --pink-text-color: #222222;
   --pink-link-color: #999999;
   --pink-error-color: #FF3F40;
