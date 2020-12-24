@@ -49,7 +49,7 @@ const Header = () => {
     },
     {
       url: '/profile',
-      name: 'Aleksandar Ovardov',
+      name: user.fullName,
       avatar: user.profilePicture.imageUrl,
       Icon: '',
     },
