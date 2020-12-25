@@ -8,7 +8,7 @@ import InputField from '../../components/Global/InputField'
 import PasswordField from '../../components/Global/InputField/PasswordField'
 import SocialButton from '../../components/Global/Buttons/SocialButton'
 import LoginButton from '../../components/Global/Buttons/LoginButton'
-import ButtonContainer from '../../components/Global/Buttons/ButtonContainers'
+import ButtonsContainer from '../../components/Global/Buttons/ButtonsContainer'
 import ErrorsList from '../../components/Global/ErrorsList'
 // Hooks
 import { useAuth } from '../../hooks/useAuth'
@@ -26,7 +26,7 @@ import styles from './index.module.scss'
 
 const LoginPage = () => {
   const [errors, setErrors] = useState(false)
-  const { setIsLogged } = useAuth()
+  const { setIsLogged, setUser } = useAuth()
   const history = useHistory()
 
   // Login handler
@@ -37,7 +37,8 @@ const LoginPage = () => {
         password: data.password,
       }
 
-      await login(finalData)
+      const userData = await login(finalData)
+      setUser(userData)
       setIsLogged(true)
 
       history.push('/')
@@ -90,7 +91,7 @@ const LoginPage = () => {
         <div className={styles['social-container']}>
           <p className={styles['social-description']}>Easy login with</p>
 
-          <ButtonContainer columns={2} widthType="full-width">
+          <ButtonsContainer columns={2} widthType="full-width">
             <SocialButton
               href={authGoogleUrl}
               text="Google"
@@ -103,7 +104,7 @@ const LoginPage = () => {
               iconSrc={facebookIcon}
               iconAlt="Facebook Icon"
             />
-          </ButtonContainer>
+          </ButtonsContainer>
         </div>
       </div>
 

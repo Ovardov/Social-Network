@@ -61,7 +61,8 @@ module.exports = {
           return res.status(400).send({ errors: errors.array() });
         }
         
-        const user = await models.User.findOne({ email });
+        const user = await models.User.findOne({ email })
+          .populate('profilePicture')
 
         if (!user) {
           const errors = buildCustomError('Invalid email or password!');
@@ -89,10 +90,18 @@ module.exports = {
 
         const token = jwt.createToken({ id: user._id });
 
+        const responseData = {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          fullName: user.fullName,
+          profilePicture: user.profilePicture,
+          username: user.username
+        }
+
         res
           .cookie(authCookieName, token, { httpOnly: true })
           .status(200)
-          .end();
+          .send(responseData);
       } catch (err) {
         next(err);
       }
