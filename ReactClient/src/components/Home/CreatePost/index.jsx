@@ -16,7 +16,7 @@ import { createPostValidationSchema } from '../../../formValidators/post'
 // Styles
 import styles from './index.module.scss'
 
-const CreatePost = ({ onSubmit }) => {
+const CreatePost = ({ onSubmit, isLoading }) => {
   const { user } = useAuth()
 
   return (
@@ -73,6 +73,7 @@ const CreatePost = ({ onSubmit }) => {
                   <Button
                     type="submit"
                     disabled={!isValid}
+                    isLoading={isLoading}
                     text="Submit"
                     color="primary"
                   />
@@ -88,6 +89,7 @@ const CreatePost = ({ onSubmit }) => {
 
 CreatePost.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 }
 
 export default CreatePost

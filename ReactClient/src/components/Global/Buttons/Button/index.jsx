@@ -1,10 +1,12 @@
 // Libraries
 import React from 'react'
 import PropTypes from 'prop-types'
+// Components
+import Loader from '../../Loader'
 // Styles
 import globalButtonStyles from '../buttons.module.scss'
 
-const Button = ({ type, disabled, text, color, onClickHandler }) => {
+const Button = ({ type, disabled, isLoading, text, color, onClickHandler }) => {
   const buttonOnClickHandler = onClickHandler
     ? { onClick: onClickHandler }
     : null
@@ -12,13 +14,16 @@ const Button = ({ type, disabled, text, color, onClickHandler }) => {
   return (
     <button
       type={type}
-      disabled={disabled}
+      disabled={disabled || isLoading}
       className={`${globalButtonStyles.button} ${
         globalButtonStyles[`color-${color}`]
       }`}
       {...buttonOnClickHandler}
     >
-      {text}
+      {isLoading && <Loader type="local" color="background" />}
+      <span className={isLoading ? globalButtonStyles['hidden-text'] : ''}>
+        {text}
+      </span>
     </button>
   )
 }
@@ -26,6 +31,7 @@ const Button = ({ type, disabled, text, color, onClickHandler }) => {
 Button.propTypes = {
   type: PropTypes.string.isRequired,
   disabled: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool,
   text: PropTypes.string.isRequired,
   color: PropTypes.oneOf(['primary', 'secondary']).isRequired,
   onClickHandler: PropTypes.func,

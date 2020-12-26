@@ -1,0 +1,55 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+
+  &.local {
+    position: absolute;
+  }
+
+  &.global {
+    position: fixed;
+  }
+
+  .loader {
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+    animation: load infinite linear 1s;
+
+    &.color-primary {
+      border: 5px solid var(--theme-primary-color);
+    }
+
+    &.color-background {
+      border: 5px solid var(--theme-background-color);
+    }
+
+    &.color-primary,
+    &.color-background {
+      border-top: 5px solid transparent;
+
+    }
+
+  }
+}
+
+@keyframes load {
+  0% {
+    transform: rotate(0);
+  }
+
+  50% {
+    transform: rotate(180deg);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
