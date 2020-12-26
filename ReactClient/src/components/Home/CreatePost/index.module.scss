@@ -1,0 +1,29 @@
+.container {
+  background: var(--theme-background-color);
+  border-radius: $border-radius;
+  border: 1px solid var(--theme-border-color);
+
+  .form {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: $xs-spacing $sm-spacing;
+
+    .form-content {
+      display: flex;
+      flex-direction: column;
+      margin-left: $xs-spacing;
+      width: 100%;
+
+      .form-action {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-gap: $md-spacing;
+        align-items: center;
+        border-top: 1px solid var(--theme-border-color);
+        margin-top: $xs-spacing;
+        padding-top: $xs-spacing;
+      }
+    }
+  }
+}
