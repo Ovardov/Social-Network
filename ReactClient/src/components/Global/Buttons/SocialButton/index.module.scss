@@ -1,7 +1,4 @@
 .social-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-weight: bold;
   padding: 0.7em 1.3em;
   background: var(--theme-secondary-color);
@@ -9,13 +6,7 @@
   border-color: var(--theme-link-color);
   width: 100%;
   border-radius: 0.5em;
-
-  .icon {
-    width: 32px;
-    height: 32px;
-    margin-right: 0.3em;
-
-  }
+  position: relative;
 
   &:hover {
     border-color: var(--theme-primary-color);
@@ -23,5 +14,23 @@
     .icon {
       background: transparent;
     }
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+
+  .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 0.3em;
   }
 }

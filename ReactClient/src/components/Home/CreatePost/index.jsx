@@ -72,7 +72,7 @@ const CreatePost = ({ onSubmit, isLoading }) => {
                 >
                   <Button
                     type="submit"
-                    disabled={!isValid}
+                    disabled={!isValid || !isLoading}
                     isLoading={isLoading}
                     text="Submit"
                     color="primary"

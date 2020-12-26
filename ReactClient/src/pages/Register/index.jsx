@@ -23,6 +23,7 @@ import styles from './index.module.scss'
 const RegisterPage = () => {
   const [step, setStep] = useState(1)
   const [errors, setErrors] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
 
   const header = useMemo(() => {
     if (step === 1) {
@@ -53,6 +54,8 @@ const RegisterPage = () => {
   }
 
   const handleSubmit = async (data) => {
+    setIsLoading(true)
+
     try {
       await register(data)
       setIsLogged(true)
@@ -61,6 +64,7 @@ const RegisterPage = () => {
     } catch (err) {
       // To Do -> Custom error builder
       setErrors(JSON.parse(err.message).errors)
+      setIsLoading(false)
       console.error('Error while submit login form', err)
     }
   }
@@ -162,6 +166,7 @@ const RegisterPage = () => {
                       type="button"
                       text="Back"
                       color="secondary"
+                      disabled={isLoading}
                       onClickHandler={() => setStep(step - 1)}
                     />
                   )}
@@ -170,12 +175,19 @@ const RegisterPage = () => {
                       type="button"
                       text="Next"
                       color="primary"
+                      disabled={false}
                       onClickHandler={() => handleNextStep(validateForm)}
                     />
                   )}
 
                   {step === 3 && (
-                    <Button type="submit" text="Register" color="primary" />
+                    <Button
+                      type="submit"
+                      text="Register"
+                      color="primary"
+                      disabled={isLoading}
+                      isLoading={isLoading}
+                    />
                   )}
                 </ButtonsContainer>
               </Form>

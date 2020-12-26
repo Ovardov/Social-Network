@@ -25,12 +25,17 @@ import googleIcon from '../../../public/images/google-icon.png'
 import styles from './index.module.scss'
 
 const LoginPage = () => {
-  const [errors, setErrors] = useState([])
   const { setIsLogged, setUser } = useAuth()
   const history = useHistory()
+  const [errors, setErrors] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [isDisabled, setIsDisabled] = useState(false)
 
   // Login handler
   const onSubmitHandler = async (data) => {
+    setIsLoading(true)
+    setIsDisabled(true)
+
     try {
       const finalData = {
         email: data.email,
@@ -45,6 +50,10 @@ const LoginPage = () => {
     } catch (err) {
       // To Do -> Custom error builder
       setErrors(JSON.parse(err.message).errors)
+
+      setIsLoading(false)
+      setIsDisabled(false)
+
       console.error('Error while submit login form', err)
     }
   }
@@ -83,7 +92,7 @@ const LoginPage = () => {
               component={PasswordField}
             />
 
-            <LoginButton />
+            <LoginButton disabled={isDisabled} isLoading={isLoading} />
           </Form>
         </Formik>
 
@@ -97,12 +106,16 @@ const LoginPage = () => {
               text="Google"
               iconSrc={googleIcon}
               iconAlt="Google Icon"
+              setIsDisabled={setIsDisabled}
+              disabled={isDisabled}
             />
             <SocialButton
               href={authFacebookUrl}
               text="Facebook"
               iconSrc={facebookIcon}
               iconAlt="Facebook Icon"
+              setIsDisabled={setIsDisabled}
+              disabled={isDisabled}
             />
           </ButtonsContainer>
         </div>

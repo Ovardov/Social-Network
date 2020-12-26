@@ -14,13 +14,19 @@ const Button = ({ type, disabled, isLoading, text, color, onClickHandler }) => {
   return (
     <button
       type={type}
-      disabled={disabled || isLoading}
+      disabled={disabled}
       className={`${globalButtonStyles.button} ${
         globalButtonStyles[`color-${color}`]
       }`}
       {...buttonOnClickHandler}
     >
-      {isLoading && <Loader type="local" color="background" />}
+      {isLoading && (
+        <Loader
+          type="local"
+          // Set loader color, that is opposite the button color
+          color={color === 'primary' ? 'background' : 'primary'}
+        />
+      )}
       <span className={isLoading ? globalButtonStyles['hidden-text'] : ''}>
         {text}
       </span>
