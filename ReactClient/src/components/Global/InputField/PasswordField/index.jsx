@@ -1,7 +1,9 @@
 // Libraries
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ErrorMessage, Field } from 'formik'
+import { Field } from 'formik'
+// Components
+import CommonErrorMessage from '../../CommonErrorMessage'
 // Images
 import VisibilityIcon from '../../../../../public/images/visibility.svg'
 import VisibilityOffIcon from '../../../../../public/images/visibility-off.svg'
@@ -17,7 +19,7 @@ const PasswordField = ({ field, form, label, showForgotPasswordLink }) => {
     setType((prevType) => (prevType === 'password' ? 'text' : 'password'))
 
   return (
-    <p className={`${styles.container} ${styles['type-password']}`}>
+    <div className={`${styles.container} ${styles['type-password']}`}>
       <span className={styles['label-container']}>
         <label htmlFor={field.name}>{label}</label>
 
@@ -55,8 +57,8 @@ const PasswordField = ({ field, form, label, showForgotPasswordLink }) => {
         )}
       </span>
 
-      {fieldError && <span className={styles.error}>{fieldError}</span>}
-    </p>
+      {fieldError && <CommonErrorMessage errorMessage={fieldError}/>}
+    </div>
   )
 }
 

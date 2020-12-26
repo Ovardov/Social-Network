@@ -1,7 +1,9 @@
 // Libraries
 import React from 'react'
-import { ErrorMessage, Field } from 'formik'
+import { Field } from 'formik'
 import PropTypes from 'prop-types'
+// Components
+import CommonErrorMessage from '../CommonErrorMessage'
 // Styles
 import styles from './input-field.module.scss'
 
@@ -22,9 +24,7 @@ const InputField = ({ type, label, placeholder, field, form }) => {
         {...field}
       />
 
-      {fieldError && (
-        <span className={styles.error}>{fieldError}</span>
-      )}
+      {fieldError && <CommonErrorMessage errorMessage={fieldError} />}
     </div>
   )
 }
