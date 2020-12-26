@@ -45,7 +45,7 @@
     &.selected,
     &:hover,
     &:focus {
-      background: var(--theme-brighter-color);
+      background: var(--theme-primary-lighter-color);
       color: var(--theme-primary-color);
 
       svg {

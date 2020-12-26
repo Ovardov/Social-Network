@@ -28,7 +28,7 @@ $form-box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0
 
    // Secondary Colors
    --theme-secondary-color: var(--blue-secondary-color);
-   --theme-primary-lighter-color: var(--blue-secondary-lighter-color);
+   --theme-secondary-lighter-color: var(--blue-secondary-lighter-color);
    --theme-secondary-darker-color: var(--blue-secondary-darker-color);
    --theme-secondary-font-color: var(--blue-secondary-font-color);
  
@@ -56,7 +56,7 @@ $form-box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0
 
   // Secondary Colors
   --blue-secondary-color: rgba(255, 255, 255, 1);
-  --blue-primary-lighter-color: rgba(255, 255, 255, 1);
+  --blue-secondary-lighter-color: rgba(255, 255, 255, 1);
   --blue-secondary-darker-color: rgba(29, 161, 242, 0.1);
   --blue-secondary-font-color: rgba(29, 161, 242, 1);
 
@@ -80,7 +80,7 @@ $form-box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0
 
   // Secondary Colors
   --pink-secondary-color: rgba(255, 255, 255, 1);
-  --pink-primary-lighter-color: rgba(255, 255, 255, 1);
+  --pink-secondary-lighter-color: rgba(255, 255, 255, 1);
   --pink-secondary-darker-color: rgba(255, 116, 116, 0.1);
   --pink-secondary-font-color: rgba(255, 116, 116, 1);
 

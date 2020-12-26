@@ -53,7 +53,7 @@ const Header = () => {
     {
       url: '/profile',
       name: user.fullName,
-      avatar: user.profilePicture.imageUrl,
+      avatar: user.profilePicture ? user.profilePicture.imageUrl : null,
       IconComponent: '',
     },
   ]
