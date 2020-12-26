@@ -1,14 +1,15 @@
 .site {
   display: grid;
   grid-template-columns: 1fr 3fr;
+  grid-gap: $sm-spacing;
   position: relative;
   margin: 0 auto;
-  max-width: $layout-main-width;
+  max-width: $layout-content-width;
   min-height: 100vh;
   background: var(--theme-background-color);
 
   @include bp(desktop-small) {
-    grid-template-columns: 1fr 100%;
+    grid-template-columns: auto 1fr;
   }
 
   @include bp(phone) {
@@ -16,11 +17,6 @@
   }
 
   .site-main {
-    max-width: $layout-content-width;
-    margin: $md-spacing auto 0 auto;
-    padding-bottom: $md-spacing;
-    display: flex;
-    flex-wrap: wrap;
-    flex-grow: 1;
+    padding: $sm-spacing 0;
   }
 }
