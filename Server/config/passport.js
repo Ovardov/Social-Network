@@ -1,7 +1,7 @@
 // Libraries
-import passport from 'passport/lib';
-import { Strategy as FacebookStrategy } from 'passport-facebook';
-import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
+import passport from 'passport';
+import PassportFacebookStrategy from 'passport-facebook';
+import PassportGoogleStrategy from 'passport-google-oauth20';
 // Config
 import { facebookConfig, googleConfig } from './config';
 // Modles
@@ -16,7 +16,8 @@ const saveUser = async (
 ) => {
   try {
     // check for user with same email
-    const foundedUser = await models.User.findOne({ email });
+    const foundedUser = await models.User.findOne({ email })
+      .select('providers')
 
     if (!foundedUser) {
       // Get all symbols before @ from email
@@ -49,7 +50,7 @@ const saveUser = async (
         imageUrl: profilePictureUrl,
       });
 
-      await models.User.create({
+      const createdUser = await models.User.create({
         email,
         username: generatedUsername,
         providers: loginProvider,
@@ -58,7 +59,7 @@ const saveUser = async (
         profilePicture: createdProfilePicture._id,
       });
 
-      return
+      return createdUser._id;
     }
 
     // Add new social provider if current user doesn't have already
@@ -68,6 +69,8 @@ const saveUser = async (
         { $push: { providers: loginProvider } }
       );
     }
+
+    return foundedUser._id;
   } catch (err) {
     throw new Error(err);
   }
@@ -89,9 +92,9 @@ export const initPassport = () => {
       const lastName = user._json.last_name;
       const profilePictureUrl = user._json.picture.data.url;
 
-      await saveUser(email, firstName, lastName, profilePictureUrl, 'facebook');
-
-      return cb(null, user);
+      const userId = await saveUser(email, firstName, lastName, profilePictureUrl, 'facebook');
+      
+      return cb(null, { _id: userId });
     } catch (err) {
       return cb(err, null);
     }
@@ -109,13 +112,16 @@ export const initPassport = () => {
       const lastName = user._json.family_name;
       const profilePictureUrl = user._json.picture;
 
-      await saveUser(email, firstName, lastName, profilePictureUrl, 'google');
+      const userId = await saveUser(email, firstName, lastName, profilePictureUrl, 'google');
 
-      return cb(null, user);
+      return cb(null, { _id: userId });
     } catch (err) {
       return cb(err, null);
     }
   }
+
+  const FacebookStrategy = PassportFacebookStrategy.Strategy;
+  const GoogleStrategy = PassportGoogleStrategy.Strategy;
 
   passport.use(new FacebookStrategy(facebookConfig, facebookCallback));
   passport.use(new GoogleStrategy(googleConfig, googleCallback));

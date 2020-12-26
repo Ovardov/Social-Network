@@ -2,7 +2,7 @@
 import { urlencoded, json } from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import passportInitialize from 'passport/lib/middleware/initialize';
+import passport from 'passport';
 // Config
 import {corsOrigin, authCookieSecret} from './config';
 
@@ -20,5 +20,5 @@ export const initExpress = (app) => {
 
   app.use(cookieParser(authCookieSecret));
 
-  app.use(passportInitialize());
+  app.use(passport.initialize());
 }
