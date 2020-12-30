@@ -1,6 +1,6 @@
-$font-size-body: 14px;
-$font-size-body-larger: 16px;
-$font-size-body-big: 18px;
+$font-size-body-small: 14px;
+$font-size-body-medium: 16px;
+$font-size-body-large: 18px;
 
 $font-main: 'Open Sans';
 $font-headers: 'Balsamiq Sans';
@@ -17,7 +17,8 @@ $xl-spacing: 3em;
 $border-radius: 0.3em;
 $box-shadow: 0 1px 4px rgba(26, 26, 67, 0.1);
 $avatar-box-shadow: rgba(0, 0, 0, 0.03) 0px 0px 3px inset;
-$form-box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;
+$form-box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px,
+rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;
 
 :root {
   // Primary Color
@@ -26,18 +27,22 @@ $form-box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0
   --theme-primary-darker-color: var(--blue-primary-darker-color);
   --theme-primary-font-color: var(--blue-primary-font-color);
 
-   // Secondary Colors
-   --theme-secondary-color: var(--blue-secondary-color);
-   --theme-secondary-lighter-color: var(--blue-secondary-lighter-color);
-   --theme-secondary-darker-color: var(--blue-secondary-darker-color);
-   --theme-secondary-font-color: var(--blue-secondary-font-color);
- 
+  // Secondary Colors
+  --theme-secondary-color: var(--blue-secondary-color);
+  --theme-secondary-lighter-color: var(--blue-secondary-lighter-color);
+  --theme-secondary-darker-color: var(--blue-secondary-darker-color);
+  --theme-secondary-font-color: var(--blue-secondary-font-color);
+
+  //  Social Network Colors
+  --theme-like-color: #FF3F40;
+  --theme-comment-color: #4080FF;
 
   --theme-background-color: var(--blue-background-color);
   --theme-background-darker-color: var(--blue-background-darker-color);
   --theme-border-color: var(--blue-border-color);
   --theme-border-darker-color: var(--blue-border-darker-color);
   --theme-text-color: var(--blue-text-color);
+  --theme-text-darker-color: var(--blue-text-darker-color);
   --theme-link-color: var(--blue-link-color);
   --theme-error-color: var(--blue-error-color);
   --theme-error-lighter-color: var(--blue-error-lighter-color);
@@ -51,7 +56,7 @@ $form-box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0
   --blue-primary-color: rgba(29, 161, 242, 1);
   --blue-primary-lighter-color: rgba(29, 161, 242, 0.1);
   --blue-primary-darker-color: rgba(26, 145, 218, 1);
-  --blue-primary-font-color:  rgba(255, 255, 255, 1);
+  --blue-primary-font-color: rgba(255, 255, 255, 1);
 
 
   // Secondary Colors
@@ -67,6 +72,7 @@ $form-box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0
   --blue-border-color: rgba(235, 238, 240, 1);
   --blue-border-darker-color: rgba(153, 153, 153, 1);
   --blue-text-color: rgba(34, 34, 34, 1);
+  --blue-text-darker-color: rgba(34, 34, 34, 0.6);
   --blue-link-color: rgba(34, 34, 34, 1);
   --blue-error-color: rgba(255, 63, 64, 1);
   --blue-error-lighter-color: rgba(255, 63, 64, 0.1);
@@ -76,7 +82,7 @@ $form-box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0
   --pink-primary-color: rgba(255, 116, 116, 1);
   --pink-primary-lighter-color: rgba(255, 116, 116, 0.1);
   --pink-primary-darker-color: rgba(230, 91, 91, 1);
-  --pink-primary-font-color:  rgba(255, 255, 255, 1);
+  --pink-primary-font-color: rgba(255, 255, 255, 1);
 
   // Secondary Colors
   --pink-secondary-color: rgba(255, 255, 255, 1);
@@ -90,6 +96,7 @@ $form-box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px, rgba(0, 0, 0, 0.12) 0
   --pink-border-color: rgba(235, 238, 240, 1);
   --pink-border-darker-color: rgba(153, 153, 153, 1);
   --pink-text-color: rgba(34, 34, 34, 1);
+  --pink-text-darker-color: rgba(34, 34, 34, 0.6);
   --pink-link-color: rgba(34, 34, 34, 1);
   --pink-error-color: rgba(255, 63, 64, 1);
   --pink-error-lighter-color: rgba(255, 63, 64, 0.1);

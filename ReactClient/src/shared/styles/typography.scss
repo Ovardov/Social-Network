@@ -15,18 +15,24 @@ html {
   font-family: $font-main, sans-serif;
   line-height: 1.5;
   font-weight: normal;
-  font-size: $font-size-body;
+  font-size: $font-size-body-small;
 }
 
 @media (min-width: 600px) {
   html {
-    font-size: $font-size-body-larger;
+    font-size: $font-size-body-small;
   }
 }
 
 @media (min-width: 1024px) {
   html {
-    font-size: $font-size-body-big;
+    font-size: $font-size-body-medium;
+  }
+}
+
+@media (min-width: 1920px) {
+  html {
+    font-size: $font-size-body-large;
   }
 }
 

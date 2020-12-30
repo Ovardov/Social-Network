@@ -1,7 +1,8 @@
 .container {
+  margin-bottom: $lg-spacing;
   background: var(--theme-background-color);
-  border-radius: $border-radius;
   border: 1px solid var(--theme-border-color);
+  border-radius: $border-radius;
 
   .form {
     height: 100%;
@@ -12,7 +13,7 @@
     .form-content {
       display: flex;
       flex-direction: column;
-      margin-left: $xs-spacing;
+      margin-left: $sm-spacing;
       width: 100%;
 
       .form-action {

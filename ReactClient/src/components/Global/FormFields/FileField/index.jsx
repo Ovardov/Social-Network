@@ -24,6 +24,7 @@ const FileField = ({ form, field }) => {
           <Icon
             Component={InsertPhotoIcon}
             size="sm"
+            color="text"
             hasHoverEffect={true}
             isSelected={true}
           />

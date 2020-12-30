@@ -18,10 +18,56 @@
   }
 
   .icon {
-    fill: var(--theme-text-color);
 
-    &.selected {
+    &.color-primary {
       fill: var(--theme-primary-color);
+
+      &.selected {
+        fill: var(--theme-primary-color);
+      }
+    }
+
+    &.color-secondary {
+      fill: var(--theme-secondary-color);
+
+      &.selected {
+        fill: var(--theme-primary-color);
+      }
+    }
+
+    &.color-text {
+      fill: var(--theme-text-color);
+
+      &.selected {
+        fill: var(--theme-primary-color);
+      }
+    }
+
+    &.color-background {
+      fill: var(--theme-background-color);
+
+      &.selected {
+        fill: var(--theme-primary-color);
+      }
+    }
+
+    &.color-like {
+      fill: var(--theme-like-color);
+    }
+
+    &.color-comment {
+      fill: var(--theme-comment-color);
+    }
+
+
+    &.size-xs {
+      width: 24px;
+      height: 24px;
+
+      @include bp(phone) {
+        width: 18px;
+        height: 18px;
+      }
     }
 
     &.size-sm {
