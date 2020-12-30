@@ -1,0 +1,138 @@
+.container {
+  margin-bottom: $md-spacing;
+  padding: $xs-spacing $sm-spacing;
+  background: var(--theme-background-color);
+  border: 1px solid var(--theme-border-color);
+  border-radius: $border-radius;
+
+  .header,
+  .post-data {
+    margin-bottom: $sm-spacing;
+  }
+
+  // Author info
+  .header {
+    display: flex;
+    align-items: center;
+
+    .author {
+      margin-left: $sm-spacing;
+
+      .name {
+        font-size: 1rem;
+        margin-bottom: 0.1em;
+        padding-bottom: 0;
+        font-family: $font-main, sans-serif;
+      }
+
+      .date {
+        padding-bottom: 0;
+        color: var(--theme-text-darker-color);
+      }
+    }
+  }
+
+  // Post info
+  .post-data {
+    position: relative;
+
+    .content {
+      padding-bottom: $sm-spacing;
+    }
+
+    .action-buttons-list {
+      display: flex;
+      align-items: center;
+      position: absolute;
+      bottom: -1.75em;
+      right: $xs-spacing;
+      padding-bottom: 0;
+
+      // Like and comment buttons
+      .action-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: $sm-spacing;
+        border: 1px solid var(--theme-background-color);
+        border-radius: 50%;
+        background: var(--theme-background-color);
+        cursor: pointer;
+
+        &:hover {
+          svg {
+            fill: var(--theme-background-color)
+          }
+        }
+
+        &:not(:last-child) {
+          margin-right: $xs-spacing;
+        }
+
+        // Like button styles
+        &.like-button {
+          border-color: var(--theme-like-color);
+
+          &:hover {
+            background: var(--theme-like-color);
+          }
+        }
+
+        // Comment button styles
+        &.comment-button {
+          border-color: var(--theme-comment-color);
+
+          &:hover {
+            background: var(--theme-comment-color);
+          }
+        }
+      }
+
+      // Status styles
+      &.status-liked {
+        background: var(--theme-like-color);
+      }
+
+      &.status-commented {
+        background: var(--theme-comment-color);
+      }
+    }
+  }
+
+  // Post reactions info
+  .footer {
+    .icons-list {
+      display: flex;
+      align-items: center;
+      padding-bottom: 0;
+
+      .icon {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        &:hover {
+          .likes {
+            color: var(--theme-like-color);
+            text-decoration: underline var(--theme-like-color);
+          }
+
+          .comments {
+            color: var(--theme-comment-color);
+            text-decoration: underline var(--theme-comment-color);
+          }
+        }
+
+        &:not(:last-child) {
+          margin-right: $sm-spacing;
+        }
+
+        // All likes and reactions
+        .likes,
+        .comments {
+          margin-left: $xs-spacing;
+        }
+      }
+    }
+  }
+}

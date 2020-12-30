@@ -7,8 +7,10 @@ import ErrorsList from '../../components/Global/ErrorsList'
 import { createPost } from '../../services/postService'
 // Styles
 import styles from './index.module.scss'
+import PostList from '../../components/Home/PostList'
 
 const HomePage = () => {
+  const [posts, setPosts] = useState([{ id: 1 }])
   const [errors, setErrors] = useState([])
   const [isLoading, setIsLoading] = useState(false)
 
@@ -28,11 +30,13 @@ const HomePage = () => {
   }
 
   return (
-    <div className={styles.test}>
+    <div className={styles.container}>
       {/* Errors Box */}
       {errors.length > 0 && <ErrorsList errors={errors} />}
 
       <CreatePost onSubmit={handleCreatePost} isLoading={isLoading} />
+
+      <PostList posts={posts} />
     </div>
   )
 }
