@@ -14,12 +14,12 @@ const RegisterPage = loadable(() => import('../../../pages/Register'), {
   ssr: true,
 })
 
-const Navigation = () => {
+const Navigation = ({ postData }) => {
   return (
     <Switch>
       <LoginAndRegisterRoute path="/login" Component={LoginPage} />
       <LoginAndRegisterRoute path="/register" Component={RegisterPage} />
-      <ProtectedRoute exact path="/" Component={HomePage} />
+      <ProtectedRoute exact path="/" Component={HomePage} postData={postData} />
     </Switch>
   )
 }

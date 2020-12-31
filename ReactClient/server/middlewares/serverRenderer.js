@@ -15,7 +15,7 @@ export default (req, res, next) => {
   fs.readFile(indexFile, 'utf8', (err, htmlData) => {
     if (err) {
       console.error('Not Found', err)
-      return res.status(404).end();
+      return res.status(404).end()
     }
 
     // Get all static files
@@ -37,6 +37,7 @@ export default (req, res, next) => {
       'window.__STATE__={}',
       `window.__STATE__=${JSON.stringify({
         user: req.user,
+        posts: req.posts,
       })}`
     )
 

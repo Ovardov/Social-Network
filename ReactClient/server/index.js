@@ -2,13 +2,14 @@ import path from 'path'
 import express from 'express'
 import serverRenderer from './middlewares/serverRenderer'
 import auth from './middlewares/auth'
+import getPosts from './middlewares/getPosts'
 
 const PORT = process.env.PORT || 3000
 
 const app = express()
 const router = express.Router()
 
-router.use('^/$', auth, serverRenderer)
+router.use('^/$', auth, getPosts, serverRenderer)
 
 // Serve static files from build folder
 router.use(express.static(path.resolve(__dirname, '..', 'build')))

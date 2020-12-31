@@ -9,8 +9,8 @@ import { createPost } from '../../services/postService'
 import styles from './index.module.scss'
 import PostList from '../../components/Home/PostList'
 
-const HomePage = () => {
-  const [posts, setPosts] = useState([{ id: 1 }])
+const HomePage = ({ postData }) => {
+  const [posts, setPosts] = useState(postData || [])
   const [errors, setErrors] = useState([])
   const [isLoading, setIsLoading] = useState(false)
 

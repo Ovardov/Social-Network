@@ -1,6 +1,5 @@
 // Libraries
-import React from 'react'
-import { useAuth } from '../../../hooks/useAuth'
+import React, { useMemo } from 'react'
 // Components
 import Avatar from '../../Global/Avatar'
 import Icon from '../../Global/Icon'
@@ -10,7 +9,7 @@ import Image from '../../Global/Image'
 // Services
 
 // Utils
-
+import { getTimeDifference } from '../../../utils/date'
 // Images
 import LikeOutlinedIcon from '../../../../public/images/like-outlined-icon.svg'
 import LikeFilledIcon from '../../../../public/images/like-filled-icon.svg'
@@ -19,8 +18,10 @@ import CommentFilledIcon from '../../../../public/images/comment-filled-icon.svg
 // Styles
 import styles from './index.module.scss'
 
-const PostCard = () => {
-  const { user } = useAuth()
+const PostCard = ({ author, content, image, likes, comments, createdAt }) => {
+  const timeDifference = useMemo(() => getTimeDifference(createdAt), [
+    createdAt,
+  ])
 
   return (
     <article className={styles.container}>
@@ -28,25 +29,29 @@ const PostCard = () => {
       <header className={styles.header}>
         <Avatar
           size="md"
-          imageSrc={user.profilePicture.imageUrl}
-          imageAlt={user.fullName}
+          imageSrc={
+            author.profilePicture ? author.profilePicture.imageUrl : null
+          }
+          imageAlt={author.fullName}
         />
 
         <div className={styles.author}>
-          <h2 className={styles.name}>Aleksandar Ovardov</h2>
-          <p className={styles.date}>1h</p>
+          <h2 className={styles.name}>{author.fullName}</h2>
+          <p className={styles.date}>{timeDifference}</p>
         </div>
       </header>
 
       {/* Post Info */}
       <div className={styles['post-data']}>
-        <p className={styles.content}>Parisian bridge</p>
+        {content && <p className={styles.content}>{content}</p>}
 
-        <Image
-          aspectRatio="16-9"
-          imageSrc="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576368325/zvvcpghqi0vukceaz763.jpg"
-          imageAlt="Test"
-        />
+        {image && (
+          <Image
+            aspectRatio="16-9"
+            imageSrc={image.imageUrl}
+            imageAlt={content || ''}
+          />
+        )}
 
         {/* Like and comment buttons */}
         <ul className={styles['action-buttons-list']}>
@@ -69,12 +74,16 @@ const PostCard = () => {
           <li className={styles.icon}>
             <Icon size="xs" color="like" Component={LikeFilledIcon} />
 
-            <span className={`${styles.likes}`}>3</span>
+            <span className={`${styles.likes}`}>
+              {likes ? likes.length : 0}
+            </span>
           </li>
           <li className={styles.icon}>
             <Icon size="xs" color="comment" Component={CommentFilledIcon} />
 
-            <span className={styles.comments}>3</span>
+            <span className={styles.comments}>
+              {comments ? comments.length : 0}
+            </span>
           </li>
         </ul>
       </footer>

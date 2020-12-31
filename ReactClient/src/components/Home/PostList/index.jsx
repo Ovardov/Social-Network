@@ -1,5 +1,5 @@
 // Libraries
-import React from 'react'
+import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 // Components
 import PostCard from '../PostCard'
@@ -14,15 +14,23 @@ import styles from './index.module.scss'
 
 const renderPosts = (posts) => {
   return posts.map((post) => {
-    return <PostCard key={post.id} />
+    return (
+      post.author &&
+      post.author.username &&
+      post.author.fullName && (
+        <PostCard key={post.createdAt + post.author.username} {...post} />
+      )
+    )
   })
 }
 
 const PostList = ({ posts }) => {
+  const memoizedRenderPosts = useCallback(() => renderPosts(posts), [posts])
+
   return (
     <div className={styles.container}>
       {posts.length > 0 ? (
-        renderPosts(posts)
+        memoizedRenderPosts()
       ) : (
         <p className={styles.message}>Welcome to Social Network</p>
       )}
