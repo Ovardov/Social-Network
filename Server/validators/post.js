@@ -4,8 +4,8 @@ import { check, param } from 'express-validator';
 import { checkImage } from './file';
 
 // Get post schema
-export const getPostDataValidator = [
-  param('id').optional().isMongoId().withMessage('Please select a valid post'),
+export const getOnePostDataValidator = [
+  param('id').exists().isMongoId().withMessage('Please select a valid post'),
 ];
 
 // Create post schema

@@ -7,14 +7,15 @@ import { postController } from '../controllers';
 import { auth } from '../utils';
 // Validators
 import {
-  getPostDataValidator,
+  getOnePostDataValidator,
   createPostDataValidator,
 } from '../validators/post';
 
 const upload = multer({ storage: multer.diskStorage({}) });
 const router = Router();
 
-router.get('/:id?', auth(), getPostDataValidator, postController.get);
+router.get('/', auth(), postController.get.getAllPosts);
+router.get('/:id', auth(), getOnePostDataValidator, postController.get.getOnePost);
 
 router.post(
   '/',

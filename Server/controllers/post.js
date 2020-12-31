@@ -5,52 +5,108 @@ import { uploader as cloudinaryUploader } from 'cloudinary/lib/v2';
 import models from '../models';
 
 module.exports = {
-  // To Do with new models
-  get: (req, res, next) => {
-    const { id } = req.params;
-    let query = {};
+  get: {
+    getOnePost: (req, res, next) => {
+      const { id } = req.params;
 
-    // Check for data errors
-    const errors = validationResult(req);
+      // Check for data errors
+      const errors = validationResult(req);
 
-    if (!errors.isEmpty()) {
-      return res.status(400).send({ errors: errors.array() });
-    }
+      if (!errors.isEmpty()) {
+        return res.status(400).send({ errors: errors.array() });
+      }
 
-    // Build query
-    if (id) {
-      query = { _id: id };
-    }
+      const query = { _id: id };
 
-    models.Post.find(query)
-      .populate('image')
-      .populate([
-        {
-          path: 'author',
-          select: ['firstName', 'lastName', 'fullName', 'username'],
-        },
-      ])
-      .populate([
-        {
-          path: 'comments',
-          populate: {
+      models.Post.find(query)
+        .populate('image')
+        .populate([
+          {
             path: 'author',
-            select: ['firstName', 'lastName', 'fullName', 'username'],
+            select: [
+              'firstName',
+              'lastName',
+              'fullName',
+              'username',
+              'profilePicture',
+            ],
+            populate: 'profilePicture',
           },
-        },
-      ])
-      .populate([
-        {
-          path: 'comments',
-          populate: {
-            path: 'likedBy',
-            select: ['firstName', 'lastName', 'fullName', 'username'],
+        ])
+        .populate([
+          {
+            path: 'comments',
+            populate: {
+              path: 'author',
+              select: ['firstName', 'lastName', 'fullName', 'username'],
+            },
           },
-        },
-      ])
-      .sort({ createdAt: -1 })
-      .then((posts) => res.send(posts))
-      .catch(next);
+        ])
+        .populate([
+          {
+            path: 'likes',
+            populate: {
+              path: 'likedBy',
+              select: ['firstName', 'lastName', 'fullName', 'username'],
+            },
+          },
+        ])
+        .sort({ createdAt: -1 })
+        .then((post) => res.send(post))
+        .catch(next);
+    },
+    getAllPosts: async (req, res, next) => {
+      const userId = req.user._id;
+
+      try {
+        // Get my friends
+        const { friends: myFriends } = await models.User.findOne({
+          _id: userId,
+        }).select('friends');
+
+        // Get all my friends'posts and all my posts, sorted by created date in descending
+        const posts = await models.Post.find({
+          author: { $in: [...myFriends, userId] },
+        })
+          .populate('image')
+          .populate([
+            {
+              path: 'author',
+              select: [
+                'firstName',
+                'lastName',
+                'fullName',
+                'username',
+                'profilePicture',
+              ],
+              populate: 'profilePicture',
+            },
+          ])
+          .populate([
+            {
+              path: 'comments',
+              populate: {
+                path: 'author',
+                select: ['firstName', 'lastName', 'fullName', 'username'],
+              },
+            },
+          ])
+          .populate([
+            {
+              path: 'likes',
+              populate: {
+                path: 'likedBy',
+                select: ['firstName', 'lastName', 'fullName', 'username'],
+              },
+            },
+          ])
+          .sort({ createdAt: -1 });
+
+        res.send(posts);
+      } catch (err) {
+        next(err);
+      }
+    },
   },
 
   post: {
