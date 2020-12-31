@@ -7,18 +7,48 @@ import models from '../models';
 module.exports = {
   // To Do with new models
   get: (req, res, next) => {
-    const { id } = req.query;
+    const { id } = req.params;
     let query = {};
 
+    // Check for data errors
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).send({ errors: errors.array() });
+    }
+
+    // Build query
     if (id) {
       query = { _id: id };
     }
 
     models.Post.find(query)
-      .populate([{ path: 'author', populate: { path: 'friends' } }])
-      .populate([{ path: 'comments', populate: { path: 'author' } }])
-      .populate('likes')
-      .sort({ date: -1 })
+      .populate('image')
+      .populate([
+        {
+          path: 'author',
+          select: ['firstName', 'lastName', 'fullName', 'username'],
+        },
+      ])
+      .populate([
+        {
+          path: 'comments',
+          populate: {
+            path: 'author',
+            select: ['firstName', 'lastName', 'fullName', 'username'],
+          },
+        },
+      ])
+      .populate([
+        {
+          path: 'comments',
+          populate: {
+            path: 'likedBy',
+            select: ['firstName', 'lastName', 'fullName', 'username'],
+          },
+        },
+      ])
+      .sort({ createdAt: -1 })
       .then((posts) => res.send(posts))
       .catch(next);
   },
