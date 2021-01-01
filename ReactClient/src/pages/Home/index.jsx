@@ -6,7 +6,7 @@ import ErrorsList from '../../components/Global/ErrorsList'
 // Hooks
 import { useAuth } from '../../hooks/useAuth'
 // Services
-import { createPost, likePost } from '../../services/postService'
+import { createPost, likePost, unlikePost } from '../../services/postService'
 // Styles
 import styles from './index.module.scss'
 import PostList from '../../components/Home/PostList'
@@ -65,6 +65,31 @@ const HomePage = ({ postData }) => {
     }
   }
 
+  const unlikePostHandler = async (postId) => {
+    try {
+      await unlikePost(postId)
+
+      const { username } = user
+
+      // Remove my like from post
+      const postsWithRemovedLike = posts.map((post) => {
+        if (post._id === postId) {
+          const postWithRemovedMyLike = post.likes.filter(
+            (like) => like.likedBy.username !== username
+          )
+          
+          post.likes = postWithRemovedMyLike
+        }
+
+        return post
+      })
+
+      setPosts([...postsWithRemovedLike])
+    } catch (err) {
+      console.log(errors)
+    }
+  }
+
   return (
     <div className={styles.container}>
       {/* Errors Box */}
@@ -72,7 +97,11 @@ const HomePage = ({ postData }) => {
 
       <CreatePost onSubmit={createPostHandler} isLoading={isLoading} />
 
-      <PostList posts={posts} likePostHandler={likePostHandler} />
+      <PostList
+        posts={posts}
+        likePostHandler={likePostHandler}
+        unlikePostHandler={unlikePostHandler}
+      />
     </div>
   )
 }

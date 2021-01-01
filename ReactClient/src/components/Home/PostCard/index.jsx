@@ -27,6 +27,7 @@ const PostCard = ({
   comments,
   createdAt,
   likePostHandler,
+  unlikePostHandler,
 }) => {
   const { user } = useAuth()
 
@@ -42,7 +43,7 @@ const PostCard = ({
     }
 
     return false
-  }, [likes])
+  }, [likes.length])
 
   return (
     <article className={styles.container}>
@@ -80,9 +81,10 @@ const PostCard = ({
             className={`${styles['action-button']} ${styles['like-button']} ${
               isLikedByMe ? styles['status-liked'] : ''
             }`}
-            // To Do => Unlike post
             onClick={async () =>
-              isLikedByMe ? () => {} : await likePostHandler(postId)
+              isLikedByMe
+                ? await unlikePostHandler(postId)
+                : await likePostHandler(postId)
             }
           >
             <Icon size="xs" color="like" Component={LikeOutlinedIcon} />

@@ -10,6 +10,10 @@ export const createPost = async (data) => {
   return postFormData('/post', formData)
 }
 
-export const likePost = async(postId) => {
+export const likePost = async (postId) => {
   return put(`/post/like/${postId}`)
+}
+
+export const unlikePost = async (postId) => {
+  return put(`/post/unlike/${postId}`)
 }

@@ -34,9 +34,13 @@ rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;
   --theme-secondary-font-color: var(--blue-secondary-font-color);
 
   //  Social Network Colors
-  --theme-like-color: #FF3F40;
-  --theme-comment-color: #4080FF;
+  --theme-like-color: rgba(255, 63, 64, 1);
+  --theme-like-lighter-color: rgba(255, 63, 64, 0.1);
+  --theme-comment-color: rgba(64, 128, 255, 1);
+  --theme-comment-lighter-color: rgba(64, 128, 255, 0.1);
 
+
+  // Utill colors
   --theme-background-color: var(--blue-background-color);
   --theme-background-darker-color: var(--blue-background-darker-color);
   --theme-border-color: var(--blue-border-color);

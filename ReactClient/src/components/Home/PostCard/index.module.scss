@@ -59,25 +59,8 @@
         background: var(--theme-background-color);
         cursor: pointer;
 
-        &.status-liked,
-        &.status-commented,
-        &:hover {
-          svg {
-            fill: var(--theme-background-color)
-          }
-        }
-
         &:not(:last-child) {
           margin-right: $xs-spacing;
-        }
-
-        // Status styles
-        &.status-liked {
-          background: var(--theme-like-color);
-        }
-
-        &.status-commented {
-          background: var(--theme-comment-color);
         }
 
         // Like button styles
@@ -85,7 +68,7 @@
           border-color: var(--theme-like-color);
 
           &:hover {
-            background: var(--theme-like-color);
+            background: var(--theme-like-lighter-color);
           }
         }
 
@@ -94,12 +77,29 @@
           border-color: var(--theme-comment-color);
 
           &:hover {
-            background: var(--theme-comment-color);
+            background: var(--theme-comment-lighter-color);
           }
+        }
+
+        // Status styles
+        &.status-liked,
+        &.status-commented {
+          svg {
+            fill: var(--theme-background-color)
+          }
+        }
+        
+        &.status-liked {
+          background: var(--theme-like-color) !important;
+        }
+
+        &.status-commented {
+          background: var(--theme-comment-color) !important;
         }
       }
     }
   }
+
 
   // Post reactions info
   .footer {

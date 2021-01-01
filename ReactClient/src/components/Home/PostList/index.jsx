@@ -12,7 +12,7 @@ import PostCard from '../PostCard'
 // Styles
 import styles from './index.module.scss'
 
-const PostList = ({ posts, likePostHandler }) => {
+const PostList = ({ posts, likePostHandler, unlikePostHandler }) => {
   // Memoized posts
   const renderPosts = useMemo(() => {
     return posts.map((post) => {
@@ -21,6 +21,7 @@ const PostList = ({ posts, likePostHandler }) => {
           key={post.createdAt + post.author.username}
           {...post}
           likePostHandler={likePostHandler}
+          unlikePostHandler={unlikePostHandler}
         />
       )
     })
@@ -39,6 +40,7 @@ const PostList = ({ posts, likePostHandler }) => {
 PostList.propTypes = {
   posts: PropTypes.array.isRequired,
   likePostHandler: PropTypes.func.isRequired,
+  unlikePostHandler: PropTypes.func.isRequired,
 }
 
 export default PostList
