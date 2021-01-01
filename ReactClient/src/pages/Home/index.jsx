@@ -61,7 +61,7 @@ const HomePage = ({ postData }) => {
 
       setPosts([...postsWithAdditionalLike])
     } catch (err) {
-      console.log(errors)
+      console.log("Error while liking post", err)
     }
   }
 
@@ -86,7 +86,7 @@ const HomePage = ({ postData }) => {
 
       setPosts([...postsWithRemovedLike])
     } catch (err) {
-      console.log(errors)
+      console.log("Error while unliking post", err)
     }
   }
 
