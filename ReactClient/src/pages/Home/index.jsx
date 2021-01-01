@@ -3,18 +3,22 @@ import React, { useState } from 'react'
 // Components
 import CreatePost from '../../components/Home/CreatePost'
 import ErrorsList from '../../components/Global/ErrorsList'
+// Hooks
+import { useAuth } from '../../hooks/useAuth'
 // Services
-import { createPost } from '../../services/postService'
+import { createPost, likePost } from '../../services/postService'
 // Styles
 import styles from './index.module.scss'
 import PostList from '../../components/Home/PostList'
 
 const HomePage = ({ postData }) => {
+  const { user } = useAuth()
+
   const [posts, setPosts] = useState(postData || [])
   const [errors, setErrors] = useState([])
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleCreatePost = async (data, { resetForm }) => {
+  const createPostHandler = async (data, { resetForm }) => {
     setIsLoading(true)
 
     try {
@@ -29,14 +33,46 @@ const HomePage = ({ postData }) => {
     setIsLoading(false)
   }
 
+  const likePostHandler = async (postId) => {
+    try {
+      await likePost(postId)
+
+      const { firstName, lastName, fullName, _id, username } = user
+
+      const newLike = {
+        post: postId,
+        likedBy: {
+          firstName,
+          lastName,
+          fullName,
+          username,
+          _id,
+        },
+      }
+
+      // Save new like in post
+      const postsWithAdditionalLike = posts.map((post) => {
+        if (post._id === postId) {
+          post.likes.push(newLike)
+        }
+
+        return post
+      })
+
+      setPosts([...postsWithAdditionalLike])
+    } catch (err) {
+      console.log(errors)
+    }
+  }
+
   return (
     <div className={styles.container}>
       {/* Errors Box */}
       {errors.length > 0 && <ErrorsList errors={errors} />}
 
-      <CreatePost onSubmit={handleCreatePost} isLoading={isLoading} />
+      <CreatePost onSubmit={createPostHandler} isLoading={isLoading} />
 
-      <PostList posts={posts} />
+      <PostList posts={posts} likePostHandler={likePostHandler} />
     </div>
   )
 }

@@ -5,7 +5,7 @@ import Avatar from '../../Global/Avatar'
 import Icon from '../../Global/Icon'
 import Image from '../../Global/Image'
 // Hooks
-
+import { useAuth } from '../../../hooks/useAuth'
 // Services
 
 // Utils
@@ -18,10 +18,31 @@ import CommentFilledIcon from '../../../../public/images/comment-filled-icon.svg
 // Styles
 import styles from './index.module.scss'
 
-const PostCard = ({ author, content, image, likes, comments, createdAt }) => {
+const PostCard = ({
+  _id: postId,
+  author,
+  content,
+  image,
+  likes,
+  comments,
+  createdAt,
+  likePostHandler,
+}) => {
+  const { user } = useAuth()
+
   const timeDifference = useMemo(() => getTimeDifference(createdAt), [
     createdAt,
   ])
+
+  const isLikedByMe = useMemo(() => {
+    for (const like of likes) {
+      if (like.likedBy.username === user.username) {
+        return true
+      }
+    }
+
+    return false
+  }, [likes])
 
   return (
     <article className={styles.container}>
@@ -56,7 +77,13 @@ const PostCard = ({ author, content, image, likes, comments, createdAt }) => {
         {/* Like and comment buttons */}
         <ul className={styles['action-buttons-list']}>
           <li
-            className={`${styles['action-button']} ${styles['like-button']} ${styles['status-liked']}`}
+            className={`${styles['action-button']} ${styles['like-button']} ${
+              isLikedByMe ? styles['status-liked'] : ''
+            }`}
+            // To Do => Unlike post
+            onClick={async () =>
+              isLikedByMe ? () => {} : await likePostHandler(postId)
+            }
           >
             <Icon size="xs" color="like" Component={LikeOutlinedIcon} />
           </li>

@@ -1,5 +1,5 @@
 // Libraries
-import React, { useCallback } from 'react'
+import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 // Components
 import PostCard from '../PostCard'
@@ -12,26 +12,24 @@ import PostCard from '../PostCard'
 // Styles
 import styles from './index.module.scss'
 
-const renderPosts = (posts) => {
-  return posts.map((post) => {
-    return (
-      post.author &&
-      post.author.username &&
-      post.author.fullName && (
-        <PostCard key={post.createdAt + post.author.username} {...post} />
+const PostList = ({ posts, likePostHandler }) => {
+  // Memoized posts
+  const renderPosts = useMemo(() => {
+    return posts.map((post) => {
+      return (
+        <PostCard
+          key={post.createdAt + post.author.username}
+          {...post}
+          likePostHandler={likePostHandler}
+        />
       )
-    )
-  })
-}
-
-const PostList = ({ posts }) => {
-  const memoizedRenderPosts = useCallback(() => renderPosts(posts), [posts])
+    })
+  }, [posts])
 
   return (
     <div className={styles.container}>
-      {posts.length > 0 ? (
-        memoizedRenderPosts()
-      ) : (
+      {posts.length > 0 && renderPosts}
+      {posts.length === 0 && (
         <p className={styles.message}>Welcome to Social Network</p>
       )}
     </div>
@@ -40,6 +38,7 @@ const PostList = ({ posts }) => {
 
 PostList.propTypes = {
   posts: PropTypes.array.isRequired,
+  likePostHandler: PropTypes.func.isRequired,
 }
 
 export default PostList

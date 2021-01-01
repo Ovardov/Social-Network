@@ -59,6 +59,8 @@
         background: var(--theme-background-color);
         cursor: pointer;
 
+        &.status-liked,
+        &.status-commented,
         &:hover {
           svg {
             fill: var(--theme-background-color)
@@ -67,6 +69,15 @@
 
         &:not(:last-child) {
           margin-right: $xs-spacing;
+        }
+
+        // Status styles
+        &.status-liked {
+          background: var(--theme-like-color);
+        }
+
+        &.status-commented {
+          background: var(--theme-comment-color);
         }
 
         // Like button styles
@@ -86,15 +97,6 @@
             background: var(--theme-comment-color);
           }
         }
-      }
-
-      // Status styles
-      &.status-liked {
-        background: var(--theme-like-color);
-      }
-
-      &.status-commented {
-        background: var(--theme-comment-color);
       }
     }
   }

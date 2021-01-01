@@ -99,3 +99,38 @@ export const postFormData = async (path, formData, headers) => {
     throw new Error(err.message)
   }
 }
+
+export const put = async (path, data, headers) => {
+  const url = baseUrl + path
+
+  try {
+    const res = await fetch(url, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+        ...headers,
+      },
+      credentials: 'include',
+    })
+
+    const contentTypes = res.headers.get('Content-Type')
+
+    const isDataIsJSON =
+      contentTypes && contentTypes.includes('application/json')
+
+    const resData = isDataIsJSON ? res.json() : res.text()
+
+    if (!res.ok) {
+      const errorData = await resData
+
+      const errors = isDataIsJSON ? JSON.stringify(errorData) : errorData
+
+      throw new Error(errors)
+    }
+
+    return resData
+  } catch (err) {
+    throw new Error(err.message)
+  }
+}
