@@ -1,0 +1,46 @@
+.container {
+  position: relative;
+
+  .action-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .options {
+    position: absolute;
+    top: $xl-spacing;
+    right: $sm-spacing;
+    z-index: 100;
+    background: var(--theme-background-color);
+    box-shadow: $box-shadow;
+    border: 1px solid var(--theme-border-color);
+    border-radius: $border-radius;
+    padding-bottom: 0;
+
+    .option {
+      display: flex;
+      align-items: center;
+      padding: $xs-spacing;
+      cursor: pointer;
+
+      &:not(:last-child) {
+        border-bottom: 1px solid var(--theme-border-color);
+      }
+
+      &:hover {
+        background: var(--theme-primary-lighter-color);
+      }
+
+      .icon-container {
+        margin-right: $xs-spacing;
+      }
+
+      .name {
+        width: 100%;
+        text-align: right;
+      }
+    }
+  }
+}

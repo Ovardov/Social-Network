@@ -4,6 +4,7 @@ import React, { useMemo } from 'react'
 import Avatar from '../../Global/Avatar'
 import Icon from '../../Global/Icon'
 import Image from '../../Global/Image'
+import Dropdown from '../../Global/Dropdown'
 // Hooks
 import { useAuth } from '../../../hooks/useAuth'
 // Services
@@ -15,6 +16,7 @@ import LikeOutlinedIcon from '../../../../public/images/like-outlined-icon.svg'
 import LikeFilledIcon from '../../../../public/images/like-filled-icon.svg'
 import CommentOutlinedIcon from '../../../../public/images/comment-outlined-icon.svg'
 import CommentFilledIcon from '../../../../public/images/comment-filled-icon.svg'
+import EditIcon from '../../../../public/images/edit-icon.svg'
 // Styles
 import styles from './index.module.scss'
 
@@ -30,6 +32,15 @@ const PostCard = ({
   unlikePostHandler,
 }) => {
   const { user } = useAuth()
+
+  const dropdownOptions = [
+    {
+      id: 1,
+      onClickHandler: () => {},
+      name: 'Edit',
+      optionIcon: EditIcon
+    },
+  ]
 
   const timeDifference = useMemo(() => getTimeDifference(createdAt), [
     createdAt,
@@ -61,6 +72,10 @@ const PostCard = ({
           <h2 className={styles.name}>{author.fullName}</h2>
           <p className={styles.date}>{timeDifference}</p>
         </div>
+
+        <div className={styles['dropdown-container']}>
+          <Dropdown options={dropdownOptions} />
+        </div>
       </header>
 
       {/* Post Info */}
@@ -87,12 +102,12 @@ const PostCard = ({
                 : await likePostHandler(postId)
             }
           >
-            <Icon size="xs" color="like" Component={LikeOutlinedIcon} />
+            <Icon size="sm" color="like" Component={LikeOutlinedIcon} />
           </li>
           <li
             className={`${styles['action-button']} ${styles['comment-button']} ${styles['status-commented']}`}
           >
-            <Icon size="xs" color="comment" Component={CommentOutlinedIcon} />
+            <Icon size="sm" color="comment" Component={CommentOutlinedIcon} />
           </li>
         </ul>
       </div>
@@ -101,14 +116,14 @@ const PostCard = ({
       <footer className={styles.footer}>
         <ul className={styles['icons-list']}>
           <li className={styles.icon}>
-            <Icon size="xs" color="like" Component={LikeFilledIcon} />
+            <Icon size="sm" color="like" Component={LikeFilledIcon} />
 
             <span className={`${styles.likes}`}>
               {likes ? likes.length : 0}
             </span>
           </li>
           <li className={styles.icon}>
-            <Icon size="xs" color="comment" Component={CommentFilledIcon} />
+            <Icon size="sm" color="comment" Component={CommentFilledIcon} />
 
             <span className={styles.comments}>
               {comments ? comments.length : 0}

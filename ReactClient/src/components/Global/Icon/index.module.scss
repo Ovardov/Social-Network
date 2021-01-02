@@ -59,29 +59,33 @@
       fill: var(--theme-comment-color);
     }
 
-
     &.size-xs {
+      width: 18px;
+      height: 18px;
+    }
+
+    &.size-sm {
       width: 24px;
       height: 24px;
-
+      
       @include bp(phone) {
         width: 18px;
         height: 18px;
       }
     }
 
-    &.size-sm {
+    &.size-md {
       width: 30px;
       height: 30px;
     }
 
-    &.size-md {
+    &.size-lg {
       width: 36px;
       height: 36px;
     }
 
-    &.size-sm,
-    &.size-md {
+    &.size-md,
+    &.size-lg {
       @include bp(phone) {
         width: 24px;
         height: 24px;

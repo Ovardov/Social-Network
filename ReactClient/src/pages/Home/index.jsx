@@ -33,7 +33,7 @@ const HomePage = ({ postData }) => {
     setIsLoading(false)
   }
 
-  const likePostHandler = async (postId) => {
+    const likePostHandler = async (postId) => {
     try {
       await likePost(postId)
 

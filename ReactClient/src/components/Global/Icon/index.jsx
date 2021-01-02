@@ -23,7 +23,7 @@ const Icon = ({ Component, size, color, hasHoverEffect, isSelected }) => {
         className={`${styles.icon} ${styles[`size-${size}`]} ${
           styles[`color-${color}`]
         } ${isSelected ? styles.selected : ''}`}
-        {...(size === 'sm' ? { shapeRendering: 'crispEdges' } : '')}
+        {...(size === 'xs' ? { shapeRendering: 'crispEdges' } : '')}
       />
     </span>
   )
@@ -31,7 +31,7 @@ const Icon = ({ Component, size, color, hasHoverEffect, isSelected }) => {
 
 Icon.proptypes = {
   Component: PropTypes.elementType.isRequired,
-  size: PropTypes.oneOf(['sm', 'md', 'lg']).isRequired,
+  size: PropTypes.oneOf(['xs', 'sm', 'md', 'lg']).isRequired,
   color: PropTypes.oneOf([
     'primary',
     'secondary',
