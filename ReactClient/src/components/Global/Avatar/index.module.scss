@@ -5,8 +5,8 @@
   box-shadow: $avatar-box-shadow;
 
   &.size-sm {
-    width: 36px;
-    height: 36px;
+    width: 30px;
+    height: 30px;
 
     @include bp(phone) {
       width: 24px;

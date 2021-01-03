@@ -4,12 +4,18 @@
   grid-gap: $sm-spacing;
   position: relative;
   margin: 0 auto;
-  max-width: $layout-content-width;
+  width: 90%;
+  max-width: 1600px;
   min-height: 100vh;
   background: var(--theme-background-color);
 
   @include bp(desktop-small) {
     grid-template-columns: auto 1fr;
+  }
+
+  @include bp(tablet) {
+    width: 100%;
+    padding: 0 $md-spacing;
   }
 
   @include bp(phone) {

@@ -48,7 +48,7 @@
       display: flex;
       align-items: center;
       position: absolute;
-      bottom: -1.75em;
+      bottom: -1.56em;
       right: $xs-spacing;
       padding-bottom: 0;
 
@@ -57,7 +57,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: $sm-spacing;
+        padding: 0.75em;
         border: 1px solid var(--theme-background-color);
         border-radius: 50%;
         background: var(--theme-background-color);
@@ -92,7 +92,7 @@
             fill: var(--theme-background-color)
           }
         }
-        
+
         &.status-liked {
           background: var(--theme-like-color) !important;
         }

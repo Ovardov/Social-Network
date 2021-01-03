@@ -1,6 +1,7 @@
 .header {
   max-width: 20em;
   justify-self: flex-end;
+  background: var(--theme-background-color);
 
   @include bp(phone) {
     position: fixed;
@@ -10,6 +11,7 @@
     max-width: unset;
     padding-bottom: env(safe-area-inset-bottom);
     border-top: 1px solid var(--theme-border-color);
+    z-index: 1000;
   }
 
   // Common styles

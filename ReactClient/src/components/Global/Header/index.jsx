@@ -30,7 +30,7 @@ const renderPages = (pages, pathname) => {
           {Icon && url !== '/profile' && (
             <Icon
               Component={IconComponent}
-              size="lg"
+              size="md"
               color="text"
               hasHoverEffect={false}
             />
@@ -76,7 +76,7 @@ const Header = () => {
         <Link to="/" className={styles['title-link']}>
           <Icon
             Component={HomeIcon}
-            size="lg"
+            size="md"
             color="primary"
             hasHoverEffect={true}
             isSelected={true}
