@@ -3,13 +3,14 @@ import React, { useState } from 'react'
 // Components
 import CreatePost from '../../components/Home/CreatePost'
 import ErrorsList from '../../components/Global/ErrorsList'
+import PostList from '../../components/Home/PostList'
+import SearchBox from '../../components/Global/SearchBox'
 // Hooks
 import { useAuth } from '../../hooks/useAuth'
 // Services
 import { createPost, likePost, unlikePost } from '../../services/postService'
 // Styles
 import styles from './index.module.scss'
-import PostList from '../../components/Home/PostList'
 
 const HomePage = ({ postData }) => {
   const { user } = useAuth()
@@ -33,7 +34,7 @@ const HomePage = ({ postData }) => {
     setIsLoading(false)
   }
 
-    const likePostHandler = async (postId) => {
+  const likePostHandler = async (postId) => {
     try {
       await likePost(postId)
 
@@ -61,7 +62,7 @@ const HomePage = ({ postData }) => {
 
       setPosts([...postsWithAdditionalLike])
     } catch (err) {
-      console.log("Error while liking post", err)
+      console.log('Error while liking post', err)
     }
   }
 
@@ -77,7 +78,7 @@ const HomePage = ({ postData }) => {
           const postWithRemovedMyLike = post.likes.filter(
             (like) => like.likedBy.username !== username
           )
-          
+
           post.likes = postWithRemovedMyLike
         }
 
@@ -86,22 +87,28 @@ const HomePage = ({ postData }) => {
 
       setPosts([...postsWithRemovedLike])
     } catch (err) {
-      console.log("Error while unliking post", err)
+      console.log('Error while unliking post', err)
     }
   }
 
   return (
     <div className={styles.container}>
-      {/* Errors Box */}
-      {errors.length > 0 && <ErrorsList errors={errors} />}
+      <section>
+        {/* Errors Box */}
+        {errors.length > 0 && <ErrorsList errors={errors} />}
 
-      <CreatePost onSubmit={createPostHandler} isLoading={isLoading} />
+        <CreatePost onSubmit={createPostHandler} isLoading={isLoading} />
 
-      <PostList
-        posts={posts}
-        likePostHandler={likePostHandler}
-        unlikePostHandler={unlikePostHandler}
-      />
+        <PostList
+          posts={posts}
+          likePostHandler={likePostHandler}
+          unlikePostHandler={unlikePostHandler}
+        />
+      </section>
+
+      <section>
+        <SearchBox />
+      </section>
     </div>
   )
 }

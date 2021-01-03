@@ -1,0 +1,26 @@
+.field-container {
+  display: flex;
+  align-items: center;
+  background: var(--theme-border-color);
+  border: 1px solid var(--theme-border-color);
+  border-radius: 2em;
+  padding: 0 $xs-spacing;
+
+  &.touched {
+    border-color: var(--theme-primary-color);
+    background: var(--theme-background-color);
+  }
+
+  .input-field {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: $xs-spacing;
+    user-select: none;
+  }
+
+  .reset-button {
+    cursor: pointer;
+  }
+}

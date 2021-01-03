@@ -12,7 +12,7 @@ import PropTypes from 'prop-types'
 // Styles
 import styles from './index.module.scss'
 
-const Icon = ({ Component, size, color, hasHoverEffect, isSelected }) => {
+const Icon = ({ Component, alt, size, color, hasHoverEffect, isSelected }) => {
   return (
     <span
       className={`${styles['icon-container']} ${
@@ -20,6 +20,7 @@ const Icon = ({ Component, size, color, hasHoverEffect, isSelected }) => {
       }`}
     >
       <Component
+        alt={alt}
         className={`${styles.icon} ${styles[`size-${size}`]} ${
           styles[`color-${color}`]
         } ${isSelected ? styles.selected : ''}`}
@@ -31,6 +32,7 @@ const Icon = ({ Component, size, color, hasHoverEffect, isSelected }) => {
 
 Icon.proptypes = {
   Component: PropTypes.elementType.isRequired,
+  alt: PropTypes.string,
   size: PropTypes.oneOf(['xs', 'sm', 'md', 'lg']).isRequired,
   color: PropTypes.oneOf([
     'primary',
