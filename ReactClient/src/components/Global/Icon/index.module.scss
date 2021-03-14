@@ -2,21 +2,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
+  outline: none;
+  
   &.with-hover-effect {
     padding: $xs-spacing;
     transition: all 0.2s ease-in-out;
     border-radius: 50%;
-
+    
     &:hover {
       background: var(--theme-primary-lighter-color);
-
+      
       .icon {
         fill: var(--theme-primary-color);
       }
     }
   }
-
+  
   .icon {
     &.color-primary {
       fill: var(--theme-primary-color);

@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.4);
+
+  .content {
+    position: relative;
+    padding: $md-spacing $lg-spacing;
+    background: var(--theme-background-color);
+    border: 1px solid var(--theme-border-color);
+    border-radius: $border-radius;
+    min-width: 450px;
+
+    @include bp(phone) {
+      width: 90%;
+      margin: 0 auto;
+      min-width: unset;
+    }
+  }
+}
