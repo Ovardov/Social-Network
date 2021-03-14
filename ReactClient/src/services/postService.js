@@ -1,4 +1,4 @@
-import { postFormData, put } from '../utils/fetch'
+import { postFormData, put, deleteRequest } from '../utils/fetch'
 
 export const createPost = async (data) => {
   const formData = new FormData()
@@ -8,6 +8,10 @@ export const createPost = async (data) => {
   })
 
   return postFormData('/post', formData)
+}
+
+export const deletePost = async (id) => {
+  return deleteRequest(`/post/${id}`);
 }
 
 export const likePost = async (postId) => {

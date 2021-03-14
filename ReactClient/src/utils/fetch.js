@@ -92,3 +92,16 @@ export const put = async (path, data, headers) => {
     throw new Error(err.message)
   }
 }
+
+export const deleteRequest = async (path, headers) => {
+  try {
+    const url = baseUrl + path
+
+    const resData = await makeRequest(url, 'DELETE', {}, headers)
+
+    return resData
+  } catch (err) {
+    throw new Error(err.message)
+  }
+}
+

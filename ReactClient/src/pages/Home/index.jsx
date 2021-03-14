@@ -8,7 +8,7 @@ import SearchBox from '../../components/Global/SearchBox'
 // Hooks
 import { useAuth } from '../../hooks/useAuth'
 // Services
-import { createPost, likePost, unlikePost } from '../../services/postService'
+import { createPost, deletePost, likePost, unlikePost } from '../../services/postService'
 // Styles
 import styles from './index.module.scss'
 
@@ -32,6 +32,20 @@ const HomePage = ({ postData }) => {
     }
 
     setIsLoading(false)
+  }
+
+  const deletePostHandler = async(id) => {
+    try {
+      await deletePost(id)
+
+      // Remove deleted post from all posts
+      const newPosts = posts.filter(post => post._id !== id)
+      setPosts(newPosts)
+    } catch(err) {
+      // To Do -> Custom error builder
+      setErrors(JSON.parse(err.message).errors)
+      console.log(errors)
+    }
   }
 
   const likePostHandler = async (postId) => {
@@ -103,6 +117,7 @@ const HomePage = ({ postData }) => {
           posts={posts}
           likePostHandler={likePostHandler}
           unlikePostHandler={unlikePostHandler}
+          deletePostHandler={deletePostHandler}
         />
       </section>
 

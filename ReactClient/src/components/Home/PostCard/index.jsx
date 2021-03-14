@@ -17,6 +17,7 @@ import LikeFilledIcon from '../../../../public/images/like-filled-icon.svg'
 import CommentOutlinedIcon from '../../../../public/images/comment-outlined-icon.svg'
 import CommentFilledIcon from '../../../../public/images/comment-filled-icon.svg'
 import EditIcon from '../../../../public/images/edit-icon.svg'
+import DeleteIcon from '../../../../public/images/delete-icon.svg'
 // Styles
 import styles from './index.module.scss'
 
@@ -30,6 +31,7 @@ const PostCard = ({
   createdAt,
   likePostHandler,
   unlikePostHandler,
+  deletePostHandler
 }) => {
   const { user } = useAuth()
 
@@ -40,6 +42,12 @@ const PostCard = ({
       name: 'Edit',
       optionIcon: EditIcon
     },
+    {
+      id: 2,
+      onClickHandler: () => deletePostHandler(postId),
+      name: 'Delete',
+      optionIcon: DeleteIcon
+    }
   ]
 
   const timeDifference = useMemo(() => getTimeDifference(createdAt), [
