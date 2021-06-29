@@ -15,7 +15,7 @@ const serverStyleLoaders = []
 
 module.exports = {
   mode,
-  entry: './server/index.js',
+  entry: './server/index.ts',
   target: 'node',
   externals: [nodeExternals()],
   output: {

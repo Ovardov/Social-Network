@@ -32,12 +32,13 @@ const clientStyleLoaders = [
 
 module.exports = {
   mode,
-  entry: './src/index.js',
+  entry: './src/index.tsx',
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
     publicPath: '/',
   },
+  devtool: 'inline-source-map',
   devServer: {
     historyApiFallback: true,
     hot: true,

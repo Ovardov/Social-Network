@@ -32,9 +32,9 @@ module.exports = {
   commonStyleLoaders,
   commonRules: [
     {
-      test: /\.(js|jsx)$/,
+      test: /\.(js|ts|jsx|tsx)$/,
+      use: 'babel-loader',
       exclude: /node_modules/,
-      use: ['babel-loader'],
     },
     {
       test: /\.(jpe?g|gif|png)$/i,
@@ -44,12 +44,12 @@ module.exports = {
       test: /\.(svg)$/i,
       use: [
         { loader: 'babel-loader' },
-        { loader: 'react-svg-loader', options: { jsx: true } },
+        { loader: 'react-svg-loader', options: { tsx: true } },
       ],
     },
   ],
   commonResolve: {
-    extensions: ['*', '.js', '.jsx'],
+    extensions: ['.js', '.ts', '.tsx'],
   },
   commonPlugins: [dotenvPlugin],
 }

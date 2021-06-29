@@ -1,11 +1,13 @@
 {
   "presets": [
     [ "@babel/preset-env", { "targets": { "node": "current" } } ],
-    [ "@babel/preset-react", { "runtime": "automatic" } ]
+    [ "@babel/preset-react", { "runtime": "automatic" } ],
+    ["@babel/preset-typescript", { "allExtensions": true, "isTSX": true }]
   ],
   "plugins": [
     "@loadable/babel-plugin",
     // When true, class properties are compiled to use an assignment expression instead of Object.defineProperty
-    ["@babel/plugin-proposal-class-properties", { "loose": true }]
+    [ "@babel/plugin-proposal-class-properties", { "loose": true } ],
+    [ "@babel/plugin-transform-typescript", { "extensions": "ts"} ]
   ]
 }
