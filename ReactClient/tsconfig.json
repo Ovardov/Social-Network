@@ -12,7 +12,8 @@
     "isolatedModules": true
   },
   "include": [
-    "./src/types/",
-    "./server/types/",
+    "./src/declaration.d.ts",
+    "./src/index.d.ts",
+    "./server/index.d.ts",
   ],
 }
