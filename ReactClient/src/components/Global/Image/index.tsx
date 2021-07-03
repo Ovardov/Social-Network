@@ -1,9 +1,9 @@
 // Libraries
-import React, { FC } from 'react'
+import React, { FC } from 'react';
 // Images
-import CloseIcon from '../../../../public/images/close-icon.svg'
+import CloseIcon from '../../../../public/images/close-icon.svg';
 // Styles
-import styles from './index.module.scss'
+import styles from './index.module.scss';
 
 export type Image = {
   aspectRatio: '16-9' | '4-3' | '1-1',
@@ -12,10 +12,10 @@ export type Image = {
   removeImageHandler?: () => void,
 }
 
-const Image: FC<Image> = ({ aspectRatio, imageSrc, imageAlt, removeImageHandler }) => {
+const Image: FC<Image> = ({ aspectRatio, imageSrc, imageAlt, removeImageHandler, }) => {
   const aspectRatioClassName = aspectRatio
     ? `aspect-ratio-${aspectRatio}`
-    : 'aspect-ratio-16-9'
+    : 'aspect-ratio-16-9';
 
   return (
     <div
@@ -32,7 +32,7 @@ const Image: FC<Image> = ({ aspectRatio, imageSrc, imageAlt, removeImageHandler 
 
       <img className={styles.image} src={imageSrc} alt={imageAlt} />
     </div>
-  )
-}
+  );
+};
 
-export default Image
+export default Image;

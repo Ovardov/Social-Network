@@ -1,7 +1,7 @@
 // Libraries
-import React, { useMemo, FC } from 'react'
+import React, { useMemo, FC } from 'react';
 // Components
-import PostCard from '../PostCard'
+import PostCard from '../PostCard';
 // Hooks
 
 // Services
@@ -9,10 +9,10 @@ import PostCard from '../PostCard'
 // Utils
 
 // Styles
-import styles from './index.module.scss'
+import styles from './index.module.scss';
 
 // ToDo - Remove Any type
-const PostList: FC<any> = ({ posts, likePostHandler, unlikePostHandler, deletePostHandler }) => {
+const PostList: FC<any> = ({ posts, likePostHandler, unlikePostHandler, deletePostHandler, }) => {
   // Memoized posts
   const renderPosts = useMemo(() => {
     return posts.map((post: any) => {
@@ -24,9 +24,9 @@ const PostList: FC<any> = ({ posts, likePostHandler, unlikePostHandler, deletePo
           unlikePostHandler={unlikePostHandler}
           deletePostHandler={deletePostHandler}
         />
-      )
-    })
-  }, [posts])
+      );
+    });
+  }, [posts]);
 
   return (
     <div className={styles.container}>
@@ -35,7 +35,7 @@ const PostList: FC<any> = ({ posts, likePostHandler, unlikePostHandler, deletePo
         <p className={styles.message}>Welcome to Social Network</p>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default PostList
+export default PostList;

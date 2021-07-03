@@ -20,7 +20,7 @@ export const setAuthAction = (user: User_): ISetAuth => {
     type: SET_AUTH,
     payload: {
       user,
-      isAuthenticated: true
-    }
-  }
-}
+      isAuthenticated: true,
+    },
+  };
+};

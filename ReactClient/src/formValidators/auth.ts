@@ -1,5 +1,5 @@
-import * as Yup from 'yup'
-import { nameRegex, passwordRegex, usernameRegex } from '../utils/regex'
+import * as Yup from 'yup';
+import { nameRegex, passwordRegex, usernameRegex } from '../utils/regex';
 
 // Login schema
 export const loginValidationSchema = Yup.object({
@@ -10,7 +10,7 @@ export const loginValidationSchema = Yup.object({
       passwordRegex,
       'Password must have minimum eight characters, at least one uppercase letter, one lowercase letter and one number'
     ),
-})
+});
 
 // Register schema
 const firstStepRegisterValidationSchema = Yup.object({
@@ -26,7 +26,7 @@ const firstStepRegisterValidationSchema = Yup.object({
       usernameRegex,
       'Username must have 3-25 characters and can contains only latin alphabets, numbers, and symbols .-_'
     ),
-})
+});
 
 const secondStepRegisterValidationSchema = Yup.object({
   email: Yup.string()
@@ -41,7 +41,7 @@ const secondStepRegisterValidationSchema = Yup.object({
   repeatPassword: Yup.string()
     .required('Repeat password is required')
     .oneOf([Yup.ref('password')], 'Passwords must match'),
-})
+});
 
 const thirdStepRegisterValidationSchema = Yup.object({
   profilePicture: Yup.mixed()
@@ -53,10 +53,10 @@ const thirdStepRegisterValidationSchema = Yup.object({
     .test('fileType', 'Allowed file types are .jpeg, .jpg, .png', (image) =>
       ['image/jpeg', 'image/png'].includes(image.type)
     ),
-})
+});
 
 export const registerValidationSchema = [
   firstStepRegisterValidationSchema,
   secondStepRegisterValidationSchema,
-  thirdStepRegisterValidationSchema,
-]
+  thirdStepRegisterValidationSchema
+];

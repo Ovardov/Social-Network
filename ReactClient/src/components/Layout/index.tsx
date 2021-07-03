@@ -1,18 +1,18 @@
 // Libraries
-import React, { FC } from 'react'
+import React, { FC } from 'react';
 // Components
-import Header from '../Global/Header'
+import Header from '../Global/Header';
 // Styles
-import styles from './layout.module.scss'
+import styles from './layout.module.scss';
 
-const Layout: FC = ({ children }) => {
+const Layout: FC = ({ children, }) => {
   return (
     <div className={styles.site} >
       <Header />
 
       <main className={styles['site-main']}>{children}</main>
     </div>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;

@@ -1,4 +1,4 @@
-import { postFormData, put, deleteRequest } from '../utils/fetch'
+import { postFormData, put, deleteRequest } from '../utils/fetch';
 
 export const createPost = async (data: Object) => {
   const formData = new FormData();

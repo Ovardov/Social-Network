@@ -1,11 +1,11 @@
 // Libraries
-import React, { FC } from 'react'
+import React, { FC } from 'react';
 // Images
-import defaultProfilePicture from '../../../../public/images/profile-placeholder.png'
+import defaultProfilePicture from '../../../../public/images/profile-placeholder.png';
 // Models
-import { Size } from '../../../utils/models'
+import { Size } from '../../../utils/models';
 // Styles
-import styles from './index.module.scss'
+import styles from './index.module.scss';
 
 interface Props {
   size: Size,
@@ -13,7 +13,7 @@ interface Props {
   imageAlt: string
 }
 
-const Avatar: FC<Props> = ({ size, imageSrc, imageAlt }) => {
+const Avatar: FC<Props> = ({ size, imageSrc, imageAlt, }) => {
   return (
     <img
       className={`${styles.avatar} ${styles[`size-${size}`]}`}
@@ -21,7 +21,7 @@ const Avatar: FC<Props> = ({ size, imageSrc, imageAlt }) => {
       src={imageSrc ? imageSrc : defaultProfilePicture}
       alt={imageAlt}
     />
-  )
-}
+  );
+};
 
-export default Avatar
+export default Avatar;

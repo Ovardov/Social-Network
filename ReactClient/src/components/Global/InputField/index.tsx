@@ -1,12 +1,12 @@
 // Libraries
-import React, { FC, HTMLProps } from 'react'
-import { Field, FieldProps } from 'formik'
+import React, { FC, HTMLProps } from 'react';
+import { Field, FieldProps } from 'formik';
 // Components
-import CommonErrorMessage from '../CommonErrorMessage'
+import CommonErrorMessage from '../CommonErrorMessage';
 // Styles
-import styles from './input-field.module.scss'
+import styles from './input-field.module.scss';
 
-const InputField: FC<FieldProps & HTMLProps<HTMLInputElement>> = ({ type, label, placeholder, field, form }) => {
+const InputField: FC<FieldProps & HTMLProps<HTMLInputElement>> = ({ type, label, placeholder, field, form, }) => {
   const fieldError = form.errors[field.name] as string;
 
   return (
@@ -23,7 +23,7 @@ const InputField: FC<FieldProps & HTMLProps<HTMLInputElement>> = ({ type, label,
 
       {fieldError && <CommonErrorMessage errorMessage={fieldError} />}
     </div>
-  )
-}
+  );
+};
 
-export default InputField
+export default InputField;

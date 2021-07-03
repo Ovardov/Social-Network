@@ -7,7 +7,7 @@ import Navigation from './Navigation';
 import store from '../../redux';
 
 // ToDo -> Remove any type
-const App: FC<any> = ({ user, posts }) => {
+const App: FC<any> = ({ user, posts, }) => {
   return (
     <Provider store={store}>
       <Navigation user={user} postData={posts} />

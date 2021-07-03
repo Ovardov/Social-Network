@@ -1,4 +1,4 @@
-import { post, postFormData } from '../utils/fetch'
+import { post, postFormData } from '../utils/fetch';
 
 export const login = async (data: Object) => {
   return post('/auth/login', data);

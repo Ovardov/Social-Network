@@ -1,13 +1,13 @@
 // Libraries
-import React, { useCallback, Component, FC} from 'react'
+import React, { useCallback, Component, FC} from 'react';
 // Components
-import Icon from '../../Global/Icon'
+import Icon from '../../Global/Icon';
 // Images
-import PersonIcon from '../../../../public/images/person-icon.svg'
-import LockIcon from '../../../../public/images/lock-icon.svg'
-import InsertPhotoIcon from '../../../../public/images/insert-photo-icon.svg'
+import PersonIcon from '../../../../public/images/person-icon.svg';
+import LockIcon from '../../../../public/images/lock-icon.svg';
+import InsertPhotoIcon from '../../../../public/images/insert-photo-icon.svg';
 // Styles
-import styles from './multi-step-slider.module.scss'
+import styles from './multi-step-slider.module.scss';
 
 interface Props {
   step: number
@@ -15,7 +15,7 @@ interface Props {
 
 const renderSlides = (slideIconComponents: Component[], step: number) => {
   return slideIconComponents.map((IconComponent: Component, index: number) => {
-    const iconPosition = index + 1
+    const iconPosition = index + 1;
 
     return (
       <li
@@ -26,18 +26,18 @@ const renderSlides = (slideIconComponents: Component[], step: number) => {
       >
         <IconComponent className={styles.icon} />
       </li>
-    )
-  })
-}
+    );
+  });
+};
 
-const MultiStepSlider: FC<Props> = ({ step }) => {
+const MultiStepSlider: FC<Props> = ({ step, }) => {
   // Define Icon components
-  const slideIconComponents = [PersonIcon, LockIcon, InsertPhotoIcon]
+  const slideIconComponents = [PersonIcon, LockIcon, InsertPhotoIcon];
 
   // Memoize render funcion
   const renderAllSlides = useCallback(() => {
-    return renderSlides(slideIconComponents, step)
-  }, [slideIconComponents, step])
+    return renderSlides(slideIconComponents, step);
+  }, [slideIconComponents, step]);
 
   return (
     <ul className={styles.slider}>
@@ -46,7 +46,7 @@ const MultiStepSlider: FC<Props> = ({ step }) => {
 
       {renderAllSlides()}
     </ul>
-  )
-}
+  );
+};
 
-export default MultiStepSlider
+export default MultiStepSlider;

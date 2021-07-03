@@ -1,14 +1,14 @@
 // Libraries
-import React, { FC } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import React, { FC } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 // Images
-import HomePageImage from '../../../public/images/home-page.svg'
+import HomePageImage from '../../../public/images/home-page.svg';
 // Styles
-import styles from './index.module.scss'
+import styles from './index.module.scss';
 
-const PublicHome: FC = ({ children }) => {
-  const history = useHistory()
-  const { pathname } = history.location
+const PublicHome: FC = ({ children, }) => {
+  const history = useHistory();
+  const { pathname, } = history.location;
 
   return (
     <section className={styles.container}>
@@ -22,7 +22,7 @@ const PublicHome: FC = ({ children }) => {
         <ul className={styles.links}>
           <li>
             <Link
-              to="/login"
+              to='/login'
               className={`${styles.link} ${pathname === '/login' ? styles.selected : ''
                 }`}
             >
@@ -31,7 +31,7 @@ const PublicHome: FC = ({ children }) => {
           </li>
           <li>
             <Link
-              to="/register"
+              to='/register'
               className={`${styles.link} ${pathname === '/register' ? styles.selected : ''
                 }`}
             >
@@ -43,7 +43,7 @@ const PublicHome: FC = ({ children }) => {
         {children}
       </article>
     </section>
-  )
-}
+  );
+};
 
-export default PublicHome
+export default PublicHome;

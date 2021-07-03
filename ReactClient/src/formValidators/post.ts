@@ -1,5 +1,5 @@
-import * as Yup from 'yup'
-import { fileSchemaValidation } from './file'
+import * as Yup from 'yup';
+import { fileSchemaValidation } from './file';
 
 // Login schema
 export const createPostValidationSchema = Yup.object({
@@ -9,4 +9,4 @@ export const createPostValidationSchema = Yup.object({
     then: Yup.string().required('You have to add content or image'),
   }),
   file: fileSchemaValidation(),
-})
+});

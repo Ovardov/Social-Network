@@ -1,64 +1,64 @@
 // Libraries
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { Link, useHistory } from 'react-router-dom'
-import { Field, Form, Formik } from 'formik'
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
+import { Field, Form, Formik } from 'formik';
 // Components
-import PublicHome from '../../components/PublicHome'
-import InputField from '../../components/Global/InputField'
-import PasswordField from '../../components/Global/InputField/PasswordField'
-import SocialButton from '../../components/Global/Buttons/SocialButton'
-import LoginButton from '../../components/Global/Buttons/LoginButton'
-import ButtonsContainer from '../../components/Global/Buttons/ButtonsContainer'
-import ErrorsList from '../../components/Global/ErrorsList'
+import PublicHome from '../../components/PublicHome';
+import InputField from '../../components/Global/InputField';
+import PasswordField from '../../components/Global/InputField/PasswordField';
+import SocialButton from '../../components/Global/Buttons/SocialButton';
+import LoginButton from '../../components/Global/Buttons/LoginButton';
+import ButtonsContainer from '../../components/Global/Buttons/ButtonsContainer';
+import ErrorsList from '../../components/Global/ErrorsList';
 // Services
-import { login } from '../../services/authService'
+import { login } from '../../services/authService';
 // Form Validators
-import { loginValidationSchema } from '../../formValidators/auth'
+import { loginValidationSchema } from '../../formValidators/auth';
 // Utils
-import { authFacebookUrl, authGoogleUrl } from '../../utils/config'
+import { authFacebookUrl, authGoogleUrl } from '../../utils/config';
 // Images
-import facebookIcon from '../../../public/images/facebook-icon.png'
-import googleIcon from '../../../public/images/google-icon.png'
+import facebookIcon from '../../../public/images/facebook-icon.png';
+import googleIcon from '../../../public/images/google-icon.png';
 // Styles
-import styles from './index.module.scss'
-import { setAuthAction } from '../../redux/actions/Auth'
-import User_ from '../../models/User'
+import styles from './index.module.scss';
+import { setAuthAction } from '../../redux/actions/Auth';
+import User_ from '../../models/User';
 
 const LoginPage = () => {
-  const history = useHistory()
-  const [errors, setErrors] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
-  const [isDisabled, setIsDisabled] = useState(false)
-  const dispatch = useDispatch()
+  const history = useHistory();
+  const [errors, setErrors] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
+  const dispatch = useDispatch();
 
   // Login handler
   // ToDo -> Remove Any type
   const onSubmitHandler = async (data: any) => {
-    setIsLoading(true)
-    setIsDisabled(true)
+    setIsLoading(true);
+    setIsDisabled(true);
 
     try {
       const finalData = {
         email: data.email,
         password: data.password,
-      }
+      };
 
       // ToDo -> Make api with types
       const userData = await login(finalData) as User_;
-      dispatch(setAuthAction(userData))
+      dispatch(setAuthAction(userData));
 
-      history.push('/')
+      history.push('/');
     } catch (err) {
       // To Do -> Custom error builder
-      setErrors(JSON.parse(err.message).errors)
+      setErrors(JSON.parse(err.message).errors);
 
-      setIsLoading(false)
-      setIsDisabled(false)
+      setIsLoading(false);
+      setIsDisabled(false);
 
-      console.error('Error while submit login form', err)
+      console.error('Error while submit login form', err);
     }
-  }
+  };
 
   return (
     <PublicHome>
@@ -72,7 +72,7 @@ const LoginPage = () => {
 
         {/* Form */}
         <Formik
-          initialValues={{ email: '', password: '' }}
+          initialValues={{ email: '', password: '', }}
           validationSchema={loginValidationSchema}
           validateOnChange={false}
           validateOnBlur={false}
@@ -80,16 +80,16 @@ const LoginPage = () => {
         >
           <Form className={styles.form}>
             <Field
-              type="email"
-              name="email"
-              label="Email"
-              placeholder="ovardov7@gmail.com"
+              type='email'
+              name='email'
+              label='Email'
+              placeholder='ovardov7@gmail.com'
               component={InputField}
             />
 
             <Field
-              label="Password"
-              name="password"
+              label='Password'
+              name='password'
               showForgotPasswordLink={true}
               component={PasswordField}
             />
@@ -102,20 +102,20 @@ const LoginPage = () => {
         <div className={styles['social-container']}>
           <p className={styles['social-description']}>Easy login with</p>
 
-          <ButtonsContainer columns={2} widthType="full-width">
+          <ButtonsContainer columns={2} widthType='full-width'>
             <SocialButton
               href={authGoogleUrl}
-              text="Google"
+              text='Google'
               iconSrc={googleIcon}
-              iconAlt="Google Icon"
+              iconAlt='Google Icon'
               setIsDisabled={setIsDisabled}
               disabled={isDisabled}
             />
             <SocialButton
               href={authFacebookUrl}
-              text="Facebook"
+              text='Facebook'
               iconSrc={facebookIcon}
-              iconAlt="Facebook Icon"
+              iconAlt='Facebook Icon'
               setIsDisabled={setIsDisabled}
               disabled={isDisabled}
             />
@@ -126,12 +126,12 @@ const LoginPage = () => {
       {/* Register link */}
       <p className={styles['additional-link-text']}>
         Don't have an account yet?{' '}
-        <Link to="/register" className={styles.link}>
+        <Link to='/register' className={styles.link}>
           Create an account
         </Link>
       </p>
     </PublicHome>
-  )
-}
+  );
+};
 
-export default LoginPage
+export default LoginPage;

@@ -1,27 +1,27 @@
 // Libraries
-import React, { useMemo, FC } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useMemo, FC } from 'react';
+import { useSelector } from 'react-redux';
 // Components
-import Avatar from '../../Global/Avatar'
-import Icon from '../../Global/Icon'
-import Image from '../../Global/Image'
-import Dropdown from '../../Global/Dropdown'
+import Avatar from '../../Global/Avatar';
+import Icon from '../../Global/Icon';
+import Image from '../../Global/Image';
+import Dropdown from '../../Global/Dropdown';
 // Services
 
 // Utils
-import { getTimeDifference } from '../../../utils/date'
+import { getTimeDifference } from '../../../utils/date';
 // Images
-import LikeOutlinedIcon from '../../../../public/images/like-outlined-icon.svg'
-import LikeFilledIcon from '../../../../public/images/like-filled-icon.svg'
-import CommentOutlinedIcon from '../../../../public/images/comment-outlined-icon.svg'
-import CommentFilledIcon from '../../../../public/images/comment-filled-icon.svg'
-import EditIcon from '../../../../public/images/edit-icon.svg'
-import DeleteIcon from '../../../../public/images/delete-icon.svg'
+import LikeOutlinedIcon from '../../../../public/images/like-outlined-icon.svg';
+import LikeFilledIcon from '../../../../public/images/like-filled-icon.svg';
+import CommentOutlinedIcon from '../../../../public/images/comment-outlined-icon.svg';
+import CommentFilledIcon from '../../../../public/images/comment-filled-icon.svg';
+import EditIcon from '../../../../public/images/edit-icon.svg';
+import DeleteIcon from '../../../../public/images/delete-icon.svg';
 // Models
-import { AppState as AppState_ } from '../../../redux'
-import { AuthState as AuthState_ } from '../../../redux/actions/Auth'
+import { AppState as AppState_ } from '../../../redux';
+import { AuthState as AuthState_ } from '../../../redux/actions/Auth';
 // Styles
-import styles from './index.module.scss'
+import styles from './index.module.scss';
 
 // ToDo -> Remove any type
 const PostCard: FC = ({
@@ -34,45 +34,46 @@ const PostCard: FC = ({
   createdAt,
   likePostHandler,
   unlikePostHandler,
-  deletePostHandler
+  deletePostHandler,
 }: any) => {
-  const { authState: { user } } = useSelector<AppState_, { authState: AuthState_ }>(state => ({ authState: state.authState }));
+  const { authState: { user, }, } = useSelector<AppState_, { authState: AuthState_ }>(state => ({ authState: state.authState, }));
 
   const dropdownOptions = [
     {
       id: 1,
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
       onClickHandler: () => {},
       name: 'Edit',
-      optionIcon: EditIcon
+      optionIcon: EditIcon,
     },
     {
       id: 2,
       onClickHandler: () => deletePostHandler(postId),
       name: 'Delete',
-      optionIcon: DeleteIcon
+      optionIcon: DeleteIcon,
     }
-  ]
+  ];
 
   const timeDifference = useMemo(() => getTimeDifference(createdAt), [
-    createdAt,
-  ])
+    createdAt
+  ]);
 
   const isLikedByMe = useMemo(() => {
     for (const like of likes) {
       if (like.likedBy.username === user.username) {
-        return true
+        return true;
       }
     }
 
-    return false
-  }, [likes.length])
+    return false;
+  }, [likes.length]);
 
   return (
     <article className={styles.container}>
       {/* Author info */}
       <header className={styles.header}>
         <Avatar
-          size="md"
+          size='md'
           imageSrc={
             author.profilePicture ? author.profilePicture.imageUrl : null
           }
@@ -95,7 +96,7 @@ const PostCard: FC = ({
 
         {image && (
           <Image
-            aspectRatio="16-9"
+            aspectRatio='16-9'
             imageSrc={image.imageUrl}
             imageAlt={content || ''}
           />
@@ -111,12 +112,12 @@ const PostCard: FC = ({
                 : await likePostHandler(postId)
             }
           >
-            <Icon size="sm" color="like" Component={LikeOutlinedIcon} alt='Like Icon' />
+            <Icon size='sm' color='like' Component={LikeOutlinedIcon} alt='Like Icon' />
           </li>
           <li
             className={`${styles['action-button']} ${styles['comment-button']} ${styles['status-commented']}`}
           >
-            <Icon size="sm" color="comment" Component={CommentOutlinedIcon} alt='Comment Icon' />
+            <Icon size='sm' color='comment' Component={CommentOutlinedIcon} alt='Comment Icon' />
           </li>
         </ul>
       </div>
@@ -125,14 +126,14 @@ const PostCard: FC = ({
       <footer className={styles.footer}>
         <ul className={styles['icons-list']}>
           <li className={styles.icon}>
-            <Icon size="sm" color="like" Component={LikeFilledIcon} alt='Like Icon' />
+            <Icon size='sm' color='like' Component={LikeFilledIcon} alt='Like Icon' />
 
             <span className={`${styles.likes}`}>
               {likes ? likes.length : 0}
             </span>
           </li>
           <li className={styles.icon}>
-            <Icon size="sm" color="comment" Component={CommentFilledIcon} alt='Comment Icon' />
+            <Icon size='sm' color='comment' Component={CommentFilledIcon} alt='Comment Icon' />
 
             <span className={styles.comments}>
               {comments ? comments.length : 0}
@@ -141,7 +142,7 @@ const PostCard: FC = ({
         </ul>
       </footer>
     </article>
-  )
-}
+  );
+};
 
-export default PostCard
+export default PostCard;

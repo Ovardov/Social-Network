@@ -1,10 +1,10 @@
 // Libraries
-import React, { FC } from 'react'
+import React, { FC } from 'react';
 // Styles
-import styles from './index.module.scss'
+import styles from './index.module.scss';
 
 interface Props {
-  columns: Number
+  columns: number
   widthType: 'full-width' | 'fit-content'
   position?: 'start' | 'end'
 }
@@ -13,11 +13,11 @@ const ButtonContainers: FC<Props> = ({ columns, widthType, position, children, }
   return (
     <div
       className={`${styles.container} ${widthType ? styles[widthType] : ''} ${position ? styles[position] : ''}`}
-      style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}
+      style={{ gridTemplateColumns: `repeat(${columns}, 1fr)`, }}
     >
       {children}
     </div>
-  )
-}
+  );
+};
 
-export default ButtonContainers
+export default ButtonContainers;

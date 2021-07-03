@@ -1,15 +1,15 @@
 // Libraries
-import React, {FC} from 'react'
-import { Link } from 'react-router-dom'
+import React, {FC} from 'react';
+import { Link } from 'react-router-dom';
 // Styles
-import globalButtonStyles from '../buttons.module.scss'
+import globalButtonStyles from '../buttons.module.scss';
 
 interface Props {
   href: string
   text: string
   color: 'primary' | 'secondary'
 }
-const GlobalLink: FC<Props> = ({ href, text, color }) => {
+const GlobalLink: FC<Props> = ({ href, text, color, }) => {
   return (
     <Link
       className={`${globalButtonStyles.button} ${
@@ -19,7 +19,7 @@ const GlobalLink: FC<Props> = ({ href, text, color }) => {
     >
       {text}
     </Link>
-  )
-}
+  );
+};
 
-export default GlobalLink
+export default GlobalLink;

@@ -1,7 +1,7 @@
 // Libraries
-import React, { FC } from 'react'
+import React, { FC } from 'react';
 // Styles
-import styles from './index.module.scss'
+import styles from './index.module.scss';
 
 export type Icon = {
   Component: typeof React.Component
@@ -12,7 +12,7 @@ export type Icon = {
   isSelected?: boolean
 }
 
-const Icon: FC<Icon> = ({ Component, alt, size, color, hasHoverEffect, isSelected }) => {
+const Icon: FC<Icon> = ({ Component, alt, size, color, hasHoverEffect, isSelected, }) => {
   return (
     <span
       className={`${styles['icon-container']} ${hasHoverEffect ? styles['with-hover-effect'] : ''}`}
@@ -20,10 +20,10 @@ const Icon: FC<Icon> = ({ Component, alt, size, color, hasHoverEffect, isSelecte
       <Component
         alt={alt}
         className={`${styles.icon} ${styles[`size-${size}`]} ${styles[`color-${color}`]} ${isSelected ? styles.selected : ''}`}
-        {...(size === 'xs' ? { shapeRendering: 'crispEdges' } : '')}
+        {...(size === 'xs' ? { shapeRendering: 'crispEdges', } : '')}
       />
     </span>
-  )
-}
+  );
+};
 
-export default Icon
+export default Icon;

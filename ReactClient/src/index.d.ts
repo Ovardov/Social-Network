@@ -1,4 +1,4 @@
-import User_ from './models/User'
+import User_ from './models/User';
 export interface Object {
   [key: string]: string
 }

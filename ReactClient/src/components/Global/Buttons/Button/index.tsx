@@ -1,9 +1,9 @@
 // Libraries
-import React, { FC } from 'react'
+import React, { FC } from 'react';
 // Components
-import Loader from '../../Loader'
+import Loader from '../../Loader';
 // Styles
-import globalButtonStyles from '../buttons.module.scss'
+import globalButtonStyles from '../buttons.module.scss';
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement>{
   isLoading?: boolean
@@ -12,10 +12,10 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement>{
   onClickHandler?: () => void
 }
 
-const Button: FC<Props> = ({ type, disabled, isLoading, text, color, onClickHandler }) => {
+const Button: FC<Props> = ({ type, disabled, isLoading, text, color, onClickHandler, }) => {
   const buttonOnClickHandler = onClickHandler
-    ? { onClick: onClickHandler }
-    : null
+    ? { onClick: onClickHandler, }
+    : null;
 
   return (
     <button
@@ -28,7 +28,7 @@ const Button: FC<Props> = ({ type, disabled, isLoading, text, color, onClickHand
     >
       {isLoading && (
         <Loader
-          type="local"
+          type='local'
           // Set loader color, that is opposite the button color
           color={color === 'primary' ? 'background' : 'primary'}
         />
@@ -37,7 +37,7 @@ const Button: FC<Props> = ({ type, disabled, isLoading, text, color, onClickHand
         {text}
       </span>
     </button>
-  )
-}
+  );
+};
 
-export default Button
+export default Button;

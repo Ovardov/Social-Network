@@ -1,10 +1,10 @@
 // Libraries
-import React, { useState, FC } from 'react'
+import React, { useState, FC } from 'react';
 // Components
-import Loader from '../../Loader'
+import Loader from '../../Loader';
 // Styles
-import globalButtonStyles from '../buttons.module.scss'
-import styles from './index.module.scss'
+import globalButtonStyles from '../buttons.module.scss';
+import styles from './index.module.scss';
 
 interface Props {
   iconSrc: string,
@@ -23,12 +23,12 @@ const SocialButton: FC<Props> = ({
   disabled,
   setIsDisabled,
 }) => {
-  const [isLocalLoading, setIsLocalLoading] = useState(false)
+  const [isLocalLoading, setIsLocalLoading] = useState(false);
 
   const handleOnClick = () => {
-    setIsLocalLoading(true)
-    setIsDisabled(true)
-  }
+    setIsLocalLoading(true);
+    setIsDisabled(true);
+  };
 
   return (
     <a
@@ -36,13 +36,13 @@ const SocialButton: FC<Props> = ({
       href={href}
       onClick={handleOnClick}
     >
-      {isLocalLoading && <Loader type="local" color="primary" />}
+      {isLocalLoading && <Loader type='local' color='primary' />}
 
       <span
         className={`${styles.content} ${isLocalLoading ? globalButtonStyles['hidden-text'] : ''}`}
       >
         <img
-          loading="lazy"
+          loading='lazy'
           className={styles.icon}
           src={iconSrc}
           alt={iconAlt}
@@ -50,7 +50,7 @@ const SocialButton: FC<Props> = ({
         {text}
       </span>
     </a>
-  )
-}
+  );
+};
 
-export default SocialButton
+export default SocialButton;

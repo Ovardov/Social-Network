@@ -1,45 +1,45 @@
 // Libraries
-import React, { FC } from 'react'
-import { useSelector } from 'react-redux'
-import { Formik, Field, Form } from 'formik'
+import React, { FC } from 'react';
+import { useSelector } from 'react-redux';
+import { Formik, Field, Form } from 'formik';
 // Components
-import Avatar from '../../Global/Avatar'
-import ButtonsContainer from '../../Global/Buttons/ButtonsContainer'
-import Button from '../../Global/Buttons/Button'
-import TextAreaField from '../../Global/InputField/TextareaField'
-import FileField from '../../Global/FormFields/FileField'
-import Image from '../../Global/Image'
+import Avatar from '../../Global/Avatar';
+import ButtonsContainer from '../../Global/Buttons/ButtonsContainer';
+import Button from '../../Global/Buttons/Button';
+import TextAreaField from '../../Global/InputField/TextareaField';
+import FileField from '../../Global/FormFields/FileField';
+import Image from '../../Global/Image';
 // Form Validators
-import { createPostValidationSchema } from '../../../formValidators/post'
+import { createPostValidationSchema } from '../../../formValidators/post';
 // Models
-import { AppState as AppState_ } from '../../../redux'
-import { AuthState as AuthState_ } from '../../../redux/actions/Auth'
+import { AppState as AppState_ } from '../../../redux';
+import { AuthState as AuthState_ } from '../../../redux/actions/Auth';
 // Styles
-import styles from './index.module.scss'
+import styles from './index.module.scss';
 
 interface Props {
   // ToDo -> Remove Any types
-  onSubmit: (data: any, { resetForm }: any) => Promise<void>
+  onSubmit: (data: any, { resetForm, }: any) => Promise<void>
   isLoading: boolean
 }
 
-const CreatePost: FC<Props> = ({ onSubmit, isLoading }) => {
-  const { authState: { user } } = useSelector<AppState_, { authState: AuthState_ }>(state => ({ authState: state.authState }));
+const CreatePost: FC<Props> = ({ onSubmit, isLoading, }) => {
+  const { authState: { user, }, } = useSelector<AppState_, { authState: AuthState_ }>(state => ({ authState: state.authState, }));
 
   return (
     <div className={styles.container}>
       <Formik
-        initialValues={{ content: '', image: null }}
+        initialValues={{ content: '', image: null, }}
         validationSchema={createPostValidationSchema}
         validateOnMount={true}
         validateOnChange={true}
         validateOnBlur={true}
         onSubmit={onSubmit}
       >
-        {({ values, errors, isValid, setFieldValue }) => (
+        {({ values, errors, isValid, setFieldValue, }) => (
           <Form className={styles.form}>
             <Avatar
-              size="md"
+              size='md'
               imageSrc={
                 user.profilePicture ? user.profilePicture.imageUrl : null
               }
@@ -50,8 +50,8 @@ const CreatePost: FC<Props> = ({ onSubmit, isLoading }) => {
               <div>
                 {/* Content Field */}
                 <Field
-                  name="content"
-                  placeholder="Share what you are thinking here..."
+                  name='content'
+                  placeholder='Share what you are thinking here...'
                   rows={2}
                   component={TextAreaField}
                 />
@@ -60,7 +60,7 @@ const CreatePost: FC<Props> = ({ onSubmit, isLoading }) => {
                 {values.image && !errors.image && (
                   <Image
                     removeImageHandler={() => setFieldValue('image', null)}
-                    aspectRatio="16-9"
+                    aspectRatio='16-9'
                     imageSrc={URL.createObjectURL(values.image)}
                     imageAlt={values.content}
                   />
@@ -69,20 +69,20 @@ const CreatePost: FC<Props> = ({ onSubmit, isLoading }) => {
 
               <div className={styles['form-action']}>
                 {/* Input type file */}
-                <Field name="image" component={FileField} />
+                <Field name='image' component={FileField} />
 
                 {/* Submit button */}
                 <ButtonsContainer
                   columns={1}
-                  widthType="fit-content"
-                  position="end"
+                  widthType='fit-content'
+                  position='end'
                 >
                   <Button
-                    type="submit"
+                    type='submit'
                     disabled={!isValid || isLoading}
                     isLoading={isLoading}
-                    text="Submit"
-                    color="primary"
+                    text='Submit'
+                    color='primary'
                   />
                 </ButtonsContainer>
               </div>
@@ -91,7 +91,7 @@ const CreatePost: FC<Props> = ({ onSubmit, isLoading }) => {
         )}
       </Formik>
     </div>
-  )
-}
+  );
+};
 
-export default CreatePost
+export default CreatePost;
