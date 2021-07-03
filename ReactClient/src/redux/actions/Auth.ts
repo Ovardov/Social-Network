@@ -1,8 +1,7 @@
 import { Action as Action_ } from 'redux';
+import { SET_AUTH } from '../actionTypes';
 
 import User_ from './../../models/User';
-
-export const SET_AUTH = 'SET_AUTH';
 
 export type AuthState = {
   isAuthenticated: boolean
@@ -10,7 +9,7 @@ export type AuthState = {
 }
 
 export interface ISetAuth extends Action_<typeof SET_AUTH> {
-  payload: AuthState
+  authState: AuthState
 }
 
 export type AuthActions = ISetAuth;
@@ -18,7 +17,7 @@ export type AuthActions = ISetAuth;
 export const setAuthAction = (user: User_): ISetAuth => {
   return {
     type: SET_AUTH,
-    payload: {
+    authState: {
       user,
       isAuthenticated: true,
     },

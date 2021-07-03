@@ -1,5 +1,6 @@
 import { Reducer as Reducer_ } from 'redux';
-import { AuthState as AuthState_, AuthActions as AuthActions_, SET_AUTH } from '../actions/Auth';
+import { AuthState as AuthState_, AuthActions as AuthActions_ } from '../actions/Auth';
+import { SET_AUTH } from './../actionTypes';
 import User_ from '../../models/User';
 
 export const authReducer: Reducer_<AuthState_, AuthActions_> = (
@@ -8,7 +9,7 @@ export const authReducer: Reducer_<AuthState_, AuthActions_> = (
 ) => {
   switch (action.type) {
     case SET_AUTH: {
-      return { ...action.payload, };
+      return { ...action.authState, };
     }
     default: {
       return state;

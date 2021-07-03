@@ -8,6 +8,8 @@ import ProtectedRoute from './ProtectedRoute';
 import LoginAndRegisterRoute from './LoginAndRegisterRoute';
 // Redux
 import { setAuthAction } from '../../../redux/actions/Auth';
+import { setPostsAction } from '../../../redux/actions/Posts';
+import { ExternalState as ExternalState_ } from '../../../global';
 
 // Pages
 const HomePage = loadable(() => import('../../../pages/Home'), {
@@ -19,12 +21,15 @@ const RegisterPage = loadable(() => import('../../../pages/Register'), {
 });
 
 // ToDo -> Remove any type
-const Navigation: FC<any> = ({ user, postData, }) => {
+const Navigation: FC<ExternalState_> = ({ user, posts, }) => {
   const dispatch = useDispatch();
-
   useEffect(() => {
     if(user) {
       dispatch(setAuthAction(user));
+    }
+
+    if(posts?.length > 0) {
+      dispatch(setPostsAction(posts));
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -34,7 +39,7 @@ const Navigation: FC<any> = ({ user, postData, }) => {
     <Switch>
       <LoginAndRegisterRoute path='/login' Component={LoginPage} />
       <LoginAndRegisterRoute path='/register' Component={RegisterPage} />
-      <ProtectedRoute exact path='/' Component={HomePage} postData={postData} />
+      <ProtectedRoute exact path='/' Component={HomePage} />
     </Switch>
   );
 };

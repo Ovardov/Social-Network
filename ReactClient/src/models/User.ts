@@ -1,4 +1,4 @@
-import { Image } from './../components/Global/Image/index';
+import Image_ from './Image';
 
 export default class User {
   id: string;
@@ -6,5 +6,5 @@ export default class User {
   firstName: string;
   lastName: string;
   fullName?: string;
-  profilePicture: Image;
+  profilePicture: Image_;
 }

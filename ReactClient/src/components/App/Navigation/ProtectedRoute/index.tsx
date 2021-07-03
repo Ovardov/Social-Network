@@ -12,11 +12,16 @@ import { AuthState as AuthState_ } from '../../../../redux/actions/Auth';
 interface Props extends RouteProps {
   path: string,
   Component: LoadableComponent<any>
-  postData: any
 }
 
 const ProtectedRoute: FC<Props> = ({ path, Component, ...props }) => {
-  const { authState: { isAuthenticated, }, } = useSelector<AppState_, { authState: AuthState_ }>(state => ({ authState: state.authState, }));
+  const {
+    authState: { isAuthenticated, },
+  } = useSelector<AppState_, {
+    authState: AuthState_,
+  }>(state => ({
+    authState: state.authState,
+  }));
 
   return (
     <Route path={path}>

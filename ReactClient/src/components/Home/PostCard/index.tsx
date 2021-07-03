@@ -6,8 +6,6 @@ import Avatar from '../../Global/Avatar';
 import Icon from '../../Global/Icon';
 import Image from '../../Global/Image';
 import Dropdown from '../../Global/Dropdown';
-// Services
-
 // Utils
 import { getTimeDifference } from '../../../utils/date';
 // Images
@@ -20,11 +18,12 @@ import DeleteIcon from '../../../../public/images/delete-icon.svg';
 // Models
 import { AppState as AppState_ } from '../../../redux';
 import { AuthState as AuthState_ } from '../../../redux/actions/Auth';
+import Post_ from '../../../models/Post';
 // Styles
 import styles from './index.module.scss';
 
 // ToDo -> Remove any type
-const PostCard: FC = ({
+const PostCard: FC<Post_> = ({
   _id: postId,
   author,
   content,
@@ -32,10 +31,7 @@ const PostCard: FC = ({
   likes,
   comments,
   createdAt,
-  likePostHandler,
-  unlikePostHandler,
-  deletePostHandler,
-}: any) => {
+}) => {
   const { authState: { user, }, } = useSelector<AppState_, { authState: AuthState_ }>(state => ({ authState: state.authState, }));
 
   const dropdownOptions = [
@@ -48,7 +44,8 @@ const PostCard: FC = ({
     },
     {
       id: 2,
-      onClickHandler: () => deletePostHandler(postId),
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      onClickHandler: () => {},
       name: 'Delete',
       optionIcon: DeleteIcon,
     }
@@ -58,6 +55,7 @@ const PostCard: FC = ({
     createdAt
   ]);
 
+  // ToDo -> In server
   const isLikedByMe = useMemo(() => {
     for (const like of likes) {
       if (like.likedBy.username === user.username) {
@@ -66,7 +64,7 @@ const PostCard: FC = ({
     }
 
     return false;
-  }, [likes.length]);
+  }, [likes, user.username]);
 
   return (
     <article className={styles.container}>
@@ -106,11 +104,11 @@ const PostCard: FC = ({
         <ul className={styles['action-buttons-list']}>
           <li
             className={`${styles['action-button']} ${styles['like-button']} ${isLikedByMe ? styles['status-liked'] : ''}`}
-            onClick={async () =>
-              isLikedByMe
-                ? await unlikePostHandler(postId)
-                : await likePostHandler(postId)
-            }
+            // onClick={async () =>
+            //   isLikedByMe
+            //     ? await unlikePostHandler(postId)
+            //     : await likePostHandler(postId)
+            // }
           >
             <Icon size='sm' color='like' Component={LikeOutlinedIcon} alt='Like Icon' />
           </li>

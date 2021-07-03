@@ -1,21 +1,25 @@
 import User_ from './models/User';
+import Post_ from './models/Post';
+
 export interface Object {
   [key: string]: string
 }
 
-// ToDo -> Remove any
 declare namespace Express {
   export interface Request {
-    user?: any
+    user?: User_,
+    posts?: Post_[]
   }
 }
 
-// ToDo -> Remove Object
+export type ExternalState = {
+  user: User_,
+  posts: Post_[]
+}
+
 declare global {
-  export interface Window {
-    __STATE__: {
-      user: User_
-    },
+  interface Window {
+    __STATE__: ExternalState,
     __REDUX_DEVTOOLS_EXTENSION__: () => void
   }
 }

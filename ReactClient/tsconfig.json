@@ -12,8 +12,9 @@
     "isolatedModules": true
   },
   "include": [
-    "./src/declaration.d.ts",
-    "./src/index.d.ts",
-    "./server/index.d.ts",
+    "./src/"
   ],
+  "exclude": [
+    "./node_modules"
+  ]
 }

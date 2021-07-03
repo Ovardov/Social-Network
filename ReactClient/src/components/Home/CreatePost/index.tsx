@@ -1,5 +1,5 @@
 // Libraries
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Formik, Field, Form } from 'formik';
 // Components
@@ -17,14 +17,20 @@ import { AuthState as AuthState_ } from '../../../redux/actions/Auth';
 // Styles
 import styles from './index.module.scss';
 
-interface Props {
-  // ToDo -> Remove Any types
-  onSubmit: (data: any, { resetForm, }: any) => Promise<void>
-  isLoading: boolean
-}
 
-const CreatePost: FC<Props> = ({ onSubmit, isLoading, }) => {
-  const { authState: { user, }, } = useSelector<AppState_, { authState: AuthState_ }>(state => ({ authState: state.authState, }));
+const CreatePost: FC = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const {
+    authState: { user, },
+  } = useSelector<AppState_, {
+    authState: AuthState_
+  }>(state => ({
+    authState: state.authState,
+  }));
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  const onSubmit = () => { };
 
   return (
     <div className={styles.container}>

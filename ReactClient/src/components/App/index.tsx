@@ -5,12 +5,12 @@ import { Provider } from 'react-redux';
 import Navigation from './Navigation';
 // Redux
 import store from '../../redux';
+import { ExternalState as ExternalState_ } from '../../global';
 
-// ToDo -> Remove any type
-const App: FC<any> = ({ user, posts, }) => {
+const App: FC<ExternalState_> = ({ user, posts, }) => {
   return (
     <Provider store={store}>
-      <Navigation user={user} postData={posts} />
+      <Navigation user={user} posts={posts} />
     </Provider>
   );
 };
