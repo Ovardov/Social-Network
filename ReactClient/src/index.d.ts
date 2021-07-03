@@ -1,3 +1,4 @@
+import User_ from './models/User'
 export interface Object {
   [key: string]: string
 }
@@ -12,6 +13,9 @@ declare namespace Express {
 // ToDo -> Remove Object
 declare global {
   export interface Window {
-    __STATE__: Object;
+    __STATE__: {
+      user: User_
+    },
+    __REDUX_DEVTOOLS_EXTENSION__: () => void
   }
 }

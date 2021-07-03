@@ -1,16 +1,17 @@
 // Libraries
 import React, { FC } from 'react';
+import { Provider } from 'react-redux';
 // Components
 import Navigation from './Navigation';
-// Hooks
-import { AuthProvider } from '../../hooks/useAuth';
+// Redux
+import store from '../../redux';
 
 // ToDo -> Remove any type
-const App: FC<any> = ({ ...props }) => {
+const App: FC<any> = ({ user, posts }) => {
   return (
-    <AuthProvider userData={props?.user}>
-      <Navigation postData={props?.posts} />
-    </AuthProvider>
+    <Provider store={store}>
+      <Navigation user={user} postData={posts} />
+    </Provider>
   );
 };
 

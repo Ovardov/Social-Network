@@ -1,5 +1,6 @@
 // Libraries
 import React, { FC } from 'react'
+import { useSelector } from 'react-redux'
 import { Formik, Field, Form } from 'formik'
 // Components
 import Avatar from '../../Global/Avatar'
@@ -8,10 +9,11 @@ import Button from '../../Global/Buttons/Button'
 import TextAreaField from '../../Global/InputField/TextareaField'
 import FileField from '../../Global/FormFields/FileField'
 import Image from '../../Global/Image'
-// Hooks
-import { useAuth } from '../../../hooks/useAuth'
 // Form Validators
 import { createPostValidationSchema } from '../../../formValidators/post'
+// Models
+import { AppState as AppState_ } from '../../../redux'
+import { AuthState as AuthState_ } from '../../../redux/actions/Auth'
 // Styles
 import styles from './index.module.scss'
 
@@ -22,7 +24,7 @@ interface Props {
 }
 
 const CreatePost: FC<Props> = ({ onSubmit, isLoading }) => {
-  const { user } = useAuth()
+  const { authState: { user } } = useSelector<AppState_, { authState: AuthState_ }>(state => ({ authState: state.authState }));
 
   return (
     <div className={styles.container}>

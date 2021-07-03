@@ -1,5 +1,6 @@
 // Libraries
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { Field, Form, Formik } from 'formik'
 // Components
@@ -10,8 +11,6 @@ import SocialButton from '../../components/Global/Buttons/SocialButton'
 import LoginButton from '../../components/Global/Buttons/LoginButton'
 import ButtonsContainer from '../../components/Global/Buttons/ButtonsContainer'
 import ErrorsList from '../../components/Global/ErrorsList'
-// Hooks
-import { useAuth } from '../../hooks/useAuth'
 // Services
 import { login } from '../../services/authService'
 // Form Validators
@@ -23,13 +22,15 @@ import facebookIcon from '../../../public/images/facebook-icon.png'
 import googleIcon from '../../../public/images/google-icon.png'
 // Styles
 import styles from './index.module.scss'
+import { setAuthAction } from '../../redux/actions/Auth'
+import User_ from '../../models/User'
 
 const LoginPage = () => {
-  const { setIsLogged, setUser } = useAuth()
   const history = useHistory()
   const [errors, setErrors] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [isDisabled, setIsDisabled] = useState(false)
+  const dispatch = useDispatch()
 
   // Login handler
   // ToDo -> Remove Any type
@@ -43,9 +44,9 @@ const LoginPage = () => {
         password: data.password,
       }
 
-      const userData = await login(finalData)
-      setUser(userData)
-      setIsLogged(true)
+      // ToDo -> Make api with types
+      const userData = await login(finalData) as User_;
+      dispatch(setAuthAction(userData))
 
       history.push('/')
     } catch (err) {

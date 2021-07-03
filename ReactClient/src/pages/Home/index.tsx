@@ -1,19 +1,22 @@
 // Libraries
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 // Components
 import CreatePost from '../../components/Home/CreatePost'
 import ErrorsList from '../../components/Global/ErrorsList'
 import PostList from '../../components/Home/PostList'
 import SearchBox from '../../components/Global/SearchBox'
-// Hooks
-import { useAuth } from '../../hooks/useAuth'
 // Services
 import { createPost, deletePost, likePost, unlikePost } from '../../services/postService'
+// Models
+import { AppState as AppState_ } from '../../redux'
+import { AuthState as AuthState_ } from '../../redux/actions/Auth'
 // Styles
 import styles from './index.module.scss'
 
 const HomePage = ({ postData }: any) => {
-  const { user } = useAuth()
+  const { authState: { user } } = useSelector<AppState_, { authState: AuthState_ }>(state => ({ authState: state.authState }));
+
 
   const [posts, setPosts] = useState(postData || [])
   const [errors, setErrors] = useState([])
@@ -35,7 +38,7 @@ const HomePage = ({ postData }: any) => {
     setIsLoading(false)
   }
 
-  const deletePostHandler = async(id: string) => {
+  const deletePostHandler = async (id: string) => {
     try {
       await deletePost(id)
 
@@ -43,7 +46,7 @@ const HomePage = ({ postData }: any) => {
       // ToDo -> Remove ANY type
       const newPosts = posts.filter((post: any) => post._id !== id)
       setPosts(newPosts)
-    } catch(err) {
+    } catch (err) {
       // To Do -> Custom error builder
       setErrors(JSON.parse(err.message).errors)
       console.log(errors)

@@ -1,10 +1,13 @@
 // Libraries
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import loadable from '@loadable/component'
 import { Switch } from 'react-router-dom'
 // Components
 import ProtectedRoute from './ProtectedRoute'
 import LoginAndRegisterRoute from './LoginAndRegisterRoute'
+// Redux
+import { setAuthAction } from '../../../redux/actions/Auth'
 
 // Pages
 const HomePage = loadable(() => import('../../../pages/Home'), {
@@ -16,7 +19,16 @@ const RegisterPage = loadable(() => import('../../../pages/Register'), {
 })
 
 // ToDo -> Remove any type
-const Navigation: FC<any> = ({ postData }) => {
+const Navigation: FC<any> = ({ user, postData }) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if(user) {
+      dispatch(setAuthAction(user));
+    }
+  }, [])
+
+  console.log(dispatch)
   return (
     <Switch>
       <LoginAndRegisterRoute path="/login" Component={LoginPage} />

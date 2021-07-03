@@ -1,12 +1,11 @@
 // Libraries
 import React, { useMemo, FC } from 'react'
+import { useSelector } from 'react-redux'
 // Components
 import Avatar from '../../Global/Avatar'
 import Icon from '../../Global/Icon'
 import Image from '../../Global/Image'
 import Dropdown from '../../Global/Dropdown'
-// Hooks
-import { useAuth } from '../../../hooks/useAuth'
 // Services
 
 // Utils
@@ -18,6 +17,9 @@ import CommentOutlinedIcon from '../../../../public/images/comment-outlined-icon
 import CommentFilledIcon from '../../../../public/images/comment-filled-icon.svg'
 import EditIcon from '../../../../public/images/edit-icon.svg'
 import DeleteIcon from '../../../../public/images/delete-icon.svg'
+// Models
+import { AppState as AppState_ } from '../../../redux'
+import { AuthState as AuthState_ } from '../../../redux/actions/Auth'
 // Styles
 import styles from './index.module.scss'
 
@@ -34,12 +36,12 @@ const PostCard: FC = ({
   unlikePostHandler,
   deletePostHandler
 }: any) => {
-  const { user } = useAuth()
+  const { authState: { user } } = useSelector<AppState_, { authState: AuthState_ }>(state => ({ authState: state.authState }));
 
   const dropdownOptions = [
     {
       id: 1,
-      onClickHandler: () => { },
+      onClickHandler: () => {},
       name: 'Edit',
       optionIcon: EditIcon
     },

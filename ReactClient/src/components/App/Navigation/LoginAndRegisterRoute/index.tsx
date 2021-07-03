@@ -1,9 +1,11 @@
 // Libraries
 import { LoadableComponent } from '@loadable/component'
 import React, { FC } from 'react'
+import { useSelector } from 'react-redux'
 import { Route, Redirect } from 'react-router-dom'
-// Hooks
-import { useAuth } from '../../../../hooks/useAuth'
+// Models
+import { AppState as AppState_ } from '../../../../redux'
+import { AuthState as AuthState_ } from '../../../../redux/actions/Auth'
 
 interface Props {
   path: string,
@@ -11,11 +13,11 @@ interface Props {
 }
 
 const LoginAndRegisterRoute: FC<Props> = ({ path, Component, ...props }) => {
-  const { isLogged } = useAuth()
+  const { authState: { isAuthenticated } } = useSelector<AppState_, { authState: AuthState_ }>(state => ({ authState: state.authState }));
 
   return (
     <Route path={path}>
-      {isLogged ? <Redirect to="/" /> : <Component {...props} />}
+      {isAuthenticated ? <Redirect to="/" /> : <Component {...props} />}
     </Route>
   )
 }

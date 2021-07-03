@@ -1,14 +1,16 @@
 // Libraries
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 // Components
 import Avatar from '../Avatar'
 import Icon from '../Icon'
-// Hooks
-import { useAuth } from '../../../hooks/useAuth'
 // Images
 import HomeIcon from '../../../../public/images/home-icon.svg'
 import MessagesIcon from '../../../../public/images/messages-icon.svg'
+// Models
+import { AppState as AppState_ } from '../../../redux'
+import { AuthState as AuthState_ } from '../../../redux/actions/Auth'
 // Styles
 import styles from './index.module.scss'
 
@@ -50,7 +52,7 @@ const renderPages = (pages: Page[], pathname: string) => {
 }
 
 const Header = () => {
-  const { user } = useAuth()
+  const { authState: { user } } = useSelector<AppState_, { authState: AuthState_ }>(state => ({ authState: state.authState }));
   const history = useHistory()
   const { pathname } = history.location
 
