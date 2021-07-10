@@ -1,11 +1,15 @@
 // Libraries
 import React, { useMemo, FC } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // Components
 import Avatar from '../../Global/Avatar';
 import Icon from '../../Global/Icon';
 import Image from '../../Global/Image';
 import Dropdown from '../../Global/Dropdown';
+// Services
+import { likePost, dislikePost } from '../../../services/postService';
+// Redux
+import { updatePostAction } from '../../../redux/actions/Posts';
 // Utils
 import { getTimeDifference } from '../../../utils/date';
 // Images
@@ -32,20 +36,28 @@ const PostCard: FC<Post_> = ({
   comments,
   createdAt,
 }) => {
-  const { authState: { user, }, } = useSelector<AppState_, { authState: AuthState_ }>(state => ({ authState: state.authState, }));
+  const {
+    authState: { user, },
+  } = useSelector<AppState_, {
+    authState: AuthState_
+  }>(state => ({
+    authState: state.authState,
+  }));
+
+  const dispatch = useDispatch();
 
   const dropdownOptions = [
     {
       id: 1,
       // eslint-disable-next-line @typescript-eslint/no-empty-function
-      onClickHandler: () => {},
+      onClickHandler: () => { },
       name: 'Edit',
       optionIcon: EditIcon,
     },
     {
       id: 2,
       // eslint-disable-next-line @typescript-eslint/no-empty-function
-      onClickHandler: () => {},
+      onClickHandler: () => { },
       name: 'Delete',
       optionIcon: DeleteIcon,
     }
@@ -57,14 +69,29 @@ const PostCard: FC<Post_> = ({
 
   // ToDo -> In server
   const isLikedByMe = useMemo(() => {
-    for (const like of likes) {
-      if (like.likedBy.username === user.username) {
-        return true;
-      }
-    }
-
-    return false;
+    return likes.find(like => like?.likedBy?.username === user?.username);
   }, [likes, user.username]);
+
+  const onLikePost = async () => {
+    try {
+      // ToDo -> Make fetch types
+      const likedPost = await likePost(postId) as Post_;
+
+      dispatch(updatePostAction(likedPost));
+    } catch(e) {
+      // ToDo -> Global error handling
+    }
+  };
+
+  const onDislikePost = async () => {
+    try {
+      const dislikedPost = await dislikePost(postId) as Post_;
+
+      dispatch(updatePostAction(dislikedPost));
+    } catch(e) {
+      // ToDo -> Global error handling
+    }
+  };
 
   return (
     <article className={styles.container}>
@@ -72,14 +99,12 @@ const PostCard: FC<Post_> = ({
       <header className={styles.header}>
         <Avatar
           size='md'
-          imageSrc={
-            author.profilePicture ? author.profilePicture.imageUrl : null
-          }
+          imageSrc={author?.profilePicture?.imageUrl}
           imageAlt={author.fullName}
         />
 
         <div className={styles.author}>
-          <h2 className={styles.name}>{author.fullName}</h2>
+          <h2 className={styles.name}>{author?.fullName}</h2>
           <p className={styles.date}>{timeDifference}</p>
         </div>
 
@@ -95,7 +120,7 @@ const PostCard: FC<Post_> = ({
         {image && (
           <Image
             aspectRatio='16-9'
-            imageSrc={image.imageUrl}
+            imageSrc={image?.imageUrl}
             imageAlt={content || ''}
           />
         )}
@@ -104,11 +129,11 @@ const PostCard: FC<Post_> = ({
         <ul className={styles['action-buttons-list']}>
           <li
             className={`${styles['action-button']} ${styles['like-button']} ${isLikedByMe ? styles['status-liked'] : ''}`}
-            // onClick={async () =>
-            //   isLikedByMe
-            //     ? await unlikePostHandler(postId)
-            //     : await likePostHandler(postId)
-            // }
+          onClick={async () =>
+            isLikedByMe
+              ? await onDislikePost()
+              : await onLikePost()
+          }
           >
             <Icon size='sm' color='like' Component={LikeOutlinedIcon} alt='Like Icon' />
           </li>
@@ -127,14 +152,14 @@ const PostCard: FC<Post_> = ({
             <Icon size='sm' color='like' Component={LikeFilledIcon} alt='Like Icon' />
 
             <span className={`${styles.likes}`}>
-              {likes ? likes.length : 0}
+              {likes?.length || 0}
             </span>
           </li>
           <li className={styles.icon}>
             <Icon size='sm' color='comment' Component={CommentFilledIcon} alt='Comment Icon' />
 
             <span className={styles.comments}>
-              {comments ? comments.length : 0}
+              {comments?.length ?? 0}
             </span>
           </li>
         </ul>

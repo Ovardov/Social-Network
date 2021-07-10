@@ -18,6 +18,6 @@ export const likePost = async (postId: string) => {
   return put(`/post/like/${postId}`);
 };
 
-export const unlikePost = async (postId: string) => {
-  return put(`/post/unlike/${postId}`);
+export const dislikePost = async (postId: string) => {
+  return put(`/post/dislike/${postId}`);
 };

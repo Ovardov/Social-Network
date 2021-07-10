@@ -9,7 +9,7 @@ import styles from './index.module.scss';
 
 interface Props {
   size: Size,
-  imageSrc: string,
+  imageSrc?: string,
   imageAlt: string
 }
 
@@ -17,8 +17,7 @@ const Avatar: FC<Props> = ({ size, imageSrc, imageAlt, }) => {
   return (
     <img
       className={`${styles.avatar} ${styles[`size-${size}`]}`}
-      // If user do not have profile picture we showed default
-      src={imageSrc ? imageSrc : defaultProfilePicture}
+      src={imageSrc || defaultProfilePicture}
       alt={imageAlt}
     />
   );

@@ -81,7 +81,7 @@ export const postFormData = async (path: string, formData: FormData, headers?: H
   }
 };
 
-export const put = async (path: string, data: Object, headers?: Headers) => {
+export const put = async (path: string, data?: Object, headers?: Headers) => {
   try {
     const url = baseUrl + path;
 

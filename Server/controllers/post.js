@@ -4,6 +4,41 @@ import { uploader as cloudinaryUploader } from 'cloudinary/lib/v2';
 // Models
 import models from '../models';
 
+const populateOptions = {
+  image: 'image',
+  author: [
+    {
+      path: 'author',
+      select: [
+        'firstName',
+        'lastName',
+        'fullName',
+        'username',
+        'profilePicture',
+      ],
+      populate: 'profilePicture',
+    },
+  ],
+  comments: [
+    {
+      path: 'comments',
+      populate: {
+        path: 'author',
+        select: ['firstName', 'lastName', 'fullName', 'username'],
+      },
+    },
+  ],
+  likes: [
+    {
+      path: 'likes',
+      populate: {
+        path: 'likedBy',
+        select: ['firstName', 'lastName', 'fullName', 'username'],
+      },
+    },
+  ]
+};
+
 module.exports = {
   get: {
     getOnePost: (req, res, next) => {
@@ -185,18 +220,24 @@ module.exports = {
           likedBy: authorId,
         });
 
-        await models.Post.updateOne(
-          { _id: id },
-          { $push: { likes: createdLike._id } }
-        );
+        const updatedPost = await models.Post
+          .findByIdAndUpdate(
+            { _id: id },
+            { $push: { likes: createdLike._id } },
+            { new: true },
+          )
+          .populate(populateOptions.image)
+          .populate(populateOptions.author)
+          .populate(populateOptions.comments)
+          .populate(populateOptions.likes);
 
-        res.status(200).send('Liked Successfully!');
+        res.status(200).send(updatedPost);
       } catch (e) {
         next(e);
       }
     },
 
-    unlikePost: async (req, res, next) => {
+    dislikePost: async (req, res, next) => {
       const { id } = req.params;
       const authorId = req.user._id;
 
@@ -206,12 +247,18 @@ module.exports = {
           likedBy: authorId,
         });
 
-        await models.Post.updateOne(
-          { _id: id },
-          { $pull: { likes: removedLike._id } }
-        );
+        const post = await models.Post
+          .findByIdAndUpdate(
+            { _id: id },
+            { $pull: { likes: removedLike._id } },
+            { new: true, }
+          )
+          .populate(populateOptions.image)
+          .populate(populateOptions.author)
+          .populate(populateOptions.comments)
+          .populate(populateOptions.likes);
 
-        res.status(200).send('Unliked Successfully!');
+        res.status(200).send(post);
       } catch (e) {
         next(e);
       }
