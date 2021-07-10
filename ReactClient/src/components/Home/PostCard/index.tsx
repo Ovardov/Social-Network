@@ -7,9 +7,9 @@ import Icon from '../../Global/Icon';
 import Image from '../../Global/Image';
 import Dropdown from '../../Global/Dropdown';
 // Services
-import { likePost, dislikePost } from '../../../services/postService';
+import { likePost, dislikePost, deletePost } from '../../../services/postService';
 // Redux
-import { updatePostAction } from '../../../redux/actions/Posts';
+import { deletePostAction, updatePostAction } from '../../../redux/actions/Posts';
 // Utils
 import { getTimeDifference } from '../../../utils/date';
 // Images
@@ -46,23 +46,6 @@ const PostCard: FC<Post_> = ({
 
   const dispatch = useDispatch();
 
-  const dropdownOptions = [
-    {
-      id: 1,
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      onClickHandler: () => { },
-      name: 'Edit',
-      optionIcon: EditIcon,
-    },
-    {
-      id: 2,
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      onClickHandler: () => { },
-      name: 'Delete',
-      optionIcon: DeleteIcon,
-    }
-  ];
-
   const timeDifference = useMemo(() => getTimeDifference(createdAt), [
     createdAt
   ]);
@@ -78,7 +61,7 @@ const PostCard: FC<Post_> = ({
       const likedPost = await likePost(postId) as Post_;
 
       dispatch(updatePostAction(likedPost));
-    } catch(e) {
+    } catch (e) {
       // ToDo -> Global error handling
     }
   };
@@ -88,10 +71,36 @@ const PostCard: FC<Post_> = ({
       const dislikedPost = await dislikePost(postId) as Post_;
 
       dispatch(updatePostAction(dislikedPost));
-    } catch(e) {
+    } catch (e) {
       // ToDo -> Global error handling
     }
   };
+
+  const onDeletePost = async () => {
+    try {
+      const { _id, } = await deletePost(postId) as Post_;
+
+      dispatch(deletePostAction(_id));
+    } catch (e) {
+      // ToDo -> Global error handling
+    }
+  };
+
+  const dropdownOptions = [
+    {
+      id: 1,
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      onClickHandler: () => { },
+      name: 'Edit',
+      optionIcon: EditIcon,
+    },
+    {
+      id: 2,
+      onClickHandler: onDeletePost,
+      name: 'Delete',
+      optionIcon: DeleteIcon,
+    }
+  ];
 
   return (
     <article className={styles.container}>
@@ -129,11 +138,11 @@ const PostCard: FC<Post_> = ({
         <ul className={styles['action-buttons-list']}>
           <li
             className={`${styles['action-button']} ${styles['like-button']} ${isLikedByMe ? styles['status-liked'] : ''}`}
-          onClick={async () =>
-            isLikedByMe
-              ? await onDislikePost()
-              : await onLikePost()
-          }
+            onClick={async () =>
+              isLikedByMe
+                ? await onDislikePost()
+                : await onLikePost()
+            }
           >
             <Icon size='sm' color='like' Component={LikeOutlinedIcon} alt='Like Icon' />
           </li>

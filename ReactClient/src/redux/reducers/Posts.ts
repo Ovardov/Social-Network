@@ -1,6 +1,6 @@
 import { Reducer as Reducer_ } from 'redux';
 import { PostsState as PostsState_, PostsActions as PostsActions_ } from '../actions/Posts';
-import { ADD_POST, UPDATE_POST, SET_POSTS } from './../actionTypes';
+import { ADD_POST, UPDATE_POST, SET_POSTS, DELETE_POST } from './../actionTypes';
 
 export const postsReducer: Reducer_<PostsState_, PostsActions_> = (
   state = { posts: [], },
@@ -23,6 +23,13 @@ export const postsReducer: Reducer_<PostsState_, PostsActions_> = (
       });
 
       return { posts: [...newPosts], };
+    }
+    case DELETE_POST: {
+      const { postId: deletedPostId, } = action;
+
+      const newPosts = state.posts?.filter(post => post._id !== deletedPostId);
+
+      return { posts: newPosts, };
     }
     default: {
       return state;

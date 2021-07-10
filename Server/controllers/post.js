@@ -281,7 +281,7 @@ module.exports = {
           { $pull: { posts: removedPost._id } }
         );
 
-        res.status(200).send('Deleted Successfully');
+        res.status(200).send(removedPost);
       } catch (e) {
         next(e);
       }
