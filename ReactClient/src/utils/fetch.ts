@@ -10,7 +10,9 @@ export const makeRequest = async (url: string, method: HttpMethods, data: Object
   // eslint-disable-next-line no-async-promise-executor
   return new Promise(async (resolve, reject) => {
     try {
-      const body = data ? JSON.stringify(data) : null;
+      const body = data instanceof FormData 
+        ? data
+        : data ? JSON.stringify(data) : null;
 
       const res = await fetch(url, {
         method,

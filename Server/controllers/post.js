@@ -185,12 +185,25 @@ module.exports = {
 
         const createdPost = await models.Post.create(postData);
 
-        await models.User.updateOne(
-          { _id: authorId },
-          { $push: { posts: createdPost._id } }
-        );
+        const authorOptions = populateOptions.author[0];
+        const authorFields = authorOptions.select.join(' ');
+        const authorPopulateFields = author.populate;
 
-        res.status(201).send('Created Successfully!');
+        const author = await models.User
+          .findByIdAndUpdate(
+            { _id: authorId },
+            { $push: { posts: createdPost._id } },
+            { select: authorFields, }
+          )
+          .populate(authorPopulateFields);
+
+          
+        const post = {
+          ...createdPost.toJSON(),
+          author: author.toJSON(),
+        };
+
+        res.status(201).send(post);
       } catch (e) {
         next(e);
       }

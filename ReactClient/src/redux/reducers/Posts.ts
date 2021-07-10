@@ -11,7 +11,7 @@ export const postsReducer: Reducer_<PostsState_, PostsActions_> = (
       return { ...action.postsState, };
     }
     case ADD_POST: {
-      return { posts: [...state.posts, action.post], };
+      return { posts: [action.post, ...state.posts ], };
     }
     case UPDATE_POST: {
       const { post: updatedPost, } = action;

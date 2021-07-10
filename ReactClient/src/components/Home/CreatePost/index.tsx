@@ -1,6 +1,6 @@
 // Libraries
 import React, { FC, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Field, Form } from 'formik';
 // Components
 import Avatar from '../../Global/Avatar';
@@ -16,9 +16,17 @@ import { AppState as AppState_ } from '../../../redux';
 import { AuthState as AuthState_ } from '../../../redux/actions/Auth';
 // Styles
 import styles from './index.module.scss';
+import { createPost } from '../../../services/postService';
+import Post_ from '../../../models/Post';
+import { addPostAction } from '../../../redux/actions/Posts';
 
+type CreatePostData = {
+  content: string,
+  image: File
+}
 
 const CreatePost: FC = () => {
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -30,7 +38,22 @@ const CreatePost: FC = () => {
   }));
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const onSubmit = () => { };
+  const onSubmit = async (data: CreatePostData, { resetForm, }: any) => {
+    setIsLoading(true);
+
+    try {
+      const newPost = await createPost(data) as Post_;
+
+      dispatch(addPostAction(newPost));
+
+      resetForm({});
+    } catch (err) {
+      // To Do -> Custom error builder
+
+    }
+
+    setIsLoading(false);
+  };
 
   return (
     <div className={styles.container}>
@@ -46,9 +69,7 @@ const CreatePost: FC = () => {
           <Form className={styles.form}>
             <Avatar
               size='md'
-              imageSrc={
-                user.profilePicture ? user.profilePicture.imageUrl : null
-              }
+              imageSrc={user?.profilePicture?.imageUrl}
               imageAlt={user.fullName}
             />
 
@@ -63,12 +84,12 @@ const CreatePost: FC = () => {
                 />
 
                 {/* Show uploaded image */}
-                {values.image && !errors.image && (
+                {values?.image && !errors?.image && (
                   <Image
                     removeImageHandler={() => setFieldValue('image', null)}
                     aspectRatio='16-9'
-                    imageSrc={URL.createObjectURL(values.image)}
-                    imageAlt={values.content}
+                    imageSrc={URL.createObjectURL(values?.image)}
+                    imageAlt={values?.content}
                   />
                 )}
               </div>
