@@ -10,6 +10,16 @@ const conversationSchema = Schema({
     type: 'ObjectId',
     ref: 'Message',
   }]
-}, { versionKey: false });
+});
+
+conversationSchema.virtual('id').get(function () {
+  return this._id.toHexString();
+});
+
+conversationSchema.set('toJSON', {
+  virtuals: true,
+  versionKey: false,
+  transform: function (model, result) { delete result._id }
+});
 
 module.exports = new model('Conversation', conversationSchema);

@@ -13,13 +13,13 @@ const HomePage = () => {
 
   return (
     <div className={styles.container}>
-      <section>
+      <section className={styles['posts-container']}>
         {/* Errors Box */}
         {errors.length > 0 && <ErrorsList errors={errors} />}
 
         <CreatePost />
 
-        <PostList />
+        <PostList /> 
       </section>
 
       <section>

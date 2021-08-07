@@ -1,16 +1,18 @@
 .button {
-  position: absolute;
   cursor: pointer;
   border: 0;
-
-  &:active {
-    background-color: transparent;
-    background: transparent;
-  }
+  background: transparent;
 
   &:focus {
-    background: transparent;
     outline: 0;
+  }
+
+  &.position-top-left,
+  &.position-top-right,
+  &.position-bottom-right,
+  &.position-bottom-left {
+    z-index: 100;
+    position: absolute;
   }
 
   &.position-top-left {

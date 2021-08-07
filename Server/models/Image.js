@@ -5,6 +5,16 @@ const imageSchema = Schema({
     type: String,
     required: true
   }
-}, { versionKey: false });
+});
+
+imageSchema.virtual('id').get(function () {
+  return this._id.toHexString();
+});
+
+imageSchema.set('toJSON', {
+  virtuals: true,
+  versionKey: false,
+  transform: function (model, result) { delete result._id }
+});
 
 module.exports = new model('Image', imageSchema);

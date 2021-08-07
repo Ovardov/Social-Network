@@ -15,22 +15,6 @@
     display: flex;
     align-items: center;
 
-    .author {
-      margin-left: $sm-spacing;
-
-      .name {
-        font-size: 1rem;
-        margin-bottom: 0.1em;
-        padding-bottom: 0;
-        font-family: $font-main, sans-serif;
-      }
-
-      .date {
-        padding-bottom: 0;
-        color: var(--theme-text-darker-color);
-      }
-    }
-
     .dropdown-container {
       margin-left: auto;
     }
@@ -103,7 +87,6 @@
       }
     }
   }
-
 
   // Post reactions info
   .footer {

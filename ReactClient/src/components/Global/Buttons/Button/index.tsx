@@ -20,7 +20,7 @@ const Button: FC<Props> = ({ type, disabled, isLoading, text, color, onClickHand
   return (
     <button
       type={type}
-      disabled={disabled}
+      disabled={disabled || isLoading}
       className={`${globalButtonStyles.button} ${
         globalButtonStyles[`color-${color}`]
       }`}

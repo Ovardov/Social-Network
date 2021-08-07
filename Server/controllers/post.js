@@ -187,9 +187,10 @@ module.exports = {
 
         const authorOptions = populateOptions.author[0];
         const authorFields = authorOptions.select.join(' ');
-        const authorPopulateFields = author.populate;
+        const authorPopulateFields = authorOptions.populate;
 
         const author = await models.User
+
           .findByIdAndUpdate(
             { _id: authorId },
             { $push: { posts: createdPost._id } },
@@ -201,6 +202,7 @@ module.exports = {
         const post = {
           ...createdPost.toJSON(),
           author: author.toJSON(),
+          ...(createdImage ? { image: createdImage } : null),
         };
 
         res.status(201).send(post);
@@ -214,6 +216,8 @@ module.exports = {
     edit: async (req, res, next) => {
       const { id } = req.params;
       const { content } = req.body;
+
+      
 
       try {
         await models.Post.findOneAndUpdate({ _id: id }, { content });

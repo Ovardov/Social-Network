@@ -6,4 +6,13 @@
   grid-gap: $sm-spacing;
   // border-left: 1px solid var(--theme-border-color);
   // border-right: 1px solid var(--theme-border-color);
+
+  @include bp(tablet) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+
+    .posts-container {
+      grid-row: 2;
+    }
+  }
 }

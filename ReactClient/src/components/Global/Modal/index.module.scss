@@ -9,10 +9,9 @@
   left: 0;
   z-index: 1000;
   background: rgba(0, 0, 0, 0.4);
-
-  .content {
+  
+  .modal {
     position: relative;
-    padding: $md-spacing $lg-spacing;
     background: var(--theme-background-color);
     border: 1px solid var(--theme-border-color);
     border-radius: $border-radius;
@@ -22,6 +21,29 @@
       width: 90%;
       margin: 0 auto;
       min-width: unset;
+    }
+
+    .header,
+    .content {
+      padding: $sm-spacing $md-spacing;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--theme-border-color);
+
+      .title {
+        font-size: 1.3em;
+        font-weight: normal;
+        padding-bottom: 0;
+      }
+
+      .button-container {
+        position: absolute;
+        right: 0.85em;
+      }
     }
   }
 }

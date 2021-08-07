@@ -1,17 +1,18 @@
 // Libraries
-import React, { useMemo, FC } from 'react';
+import React, { useMemo, useState, FC as FC_ } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // Components
 import Avatar from '../../Global/Avatar';
 import Icon from '../../Global/Icon';
 import Image from '../../Global/Image';
 import Dropdown from '../../Global/Dropdown';
+import PostAction from '../PostAction';
 // Services
-import { likePost, dislikePost, deletePost } from '../../../services/postService';
+import { likePost, dislikePost } from '../../../services/postService';
 // Redux
-import { deletePostAction, updatePostAction } from '../../../redux/actions/Posts';
+import { updatePostAction } from '../../../redux/actions/Posts';
 // Utils
-import { getTimeDifference } from '../../../utils/date';
+import { PostActionModes } from '../../../utils/enums';
 // Images
 import LikeOutlinedIcon from '../../../../public/images/like-outlined-icon.svg';
 import LikeFilledIcon from '../../../../public/images/like-filled-icon.svg';
@@ -25,17 +26,16 @@ import { AuthState as AuthState_ } from '../../../redux/actions/Auth';
 import Post_ from '../../../models/Post';
 // Styles
 import styles from './index.module.scss';
+import { capitalizeFirstLetter } from '../../../utils/helper';
 
-// ToDo -> Remove any type
-const PostCard: FC<Post_> = ({
-  _id: postId,
-  author,
-  content,
-  image,
-  likes,
-  comments,
-  createdAt,
-}) => {
+type Props = {
+  post: Post_
+}
+
+const PostCard: FC_<Props> = ({ post, }) => {
+  const [mode, setMode] = useState<PostActionModes>(null);
+  const { id, author, content, image, likes, comments, createdAt, } = post;
+
   const {
     authState: { user, },
   } = useSelector<AppState_, {
@@ -46,10 +46,6 @@ const PostCard: FC<Post_> = ({
 
   const dispatch = useDispatch();
 
-  const timeDifference = useMemo(() => getTimeDifference(createdAt), [
-    createdAt
-  ]);
-
   // ToDo -> In server
   const isLikedByMe = useMemo(() => {
     return likes.find(like => like?.likedBy?.username === user?.username);
@@ -58,7 +54,7 @@ const PostCard: FC<Post_> = ({
   const onLikePost = async () => {
     try {
       // ToDo -> Make fetch types
-      const likedPost = await likePost(postId) as Post_;
+      const likedPost = await likePost(id) as Post_;
 
       dispatch(updatePostAction(likedPost));
     } catch (e) {
@@ -68,19 +64,9 @@ const PostCard: FC<Post_> = ({
 
   const onDislikePost = async () => {
     try {
-      const dislikedPost = await dislikePost(postId) as Post_;
+      const dislikedPost = await dislikePost(id) as Post_;
 
       dispatch(updatePostAction(dislikedPost));
-    } catch (e) {
-      // ToDo -> Global error handling
-    }
-  };
-
-  const onDeletePost = async () => {
-    try {
-      const { _id, } = await deletePost(postId) as Post_;
-
-      dispatch(deletePostAction(_id));
     } catch (e) {
       // ToDo -> Global error handling
     }
@@ -89,33 +75,40 @@ const PostCard: FC<Post_> = ({
   const dropdownOptions = [
     {
       id: 1,
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      onClickHandler: () => { },
+      onClickHandler: () => setMode(PostActionModes.EDIT),
       name: 'Edit',
       optionIcon: EditIcon,
     },
     {
       id: 2,
-      onClickHandler: onDeletePost,
+      onClickHandler: () => setMode(PostActionModes.DELETE),
       name: 'Delete',
       optionIcon: DeleteIcon,
     }
   ];
+
+  if (mode) {
+    return (
+      <PostAction
+        mode={mode} 
+        post={post}
+        onModalClose={() => setMode(null)}
+        modalTitle={`${capitalizeFirstLetter(mode)} Post`}
+      />
+    );
+  }
 
   return (
     <article className={styles.container}>
       {/* Author info */}
       <header className={styles.header}>
         <Avatar
+          type='image-with-info'
           size='md'
           imageSrc={author?.profilePicture?.imageUrl}
-          imageAlt={author.fullName}
+          name={author?.fullName}
+          createdAt={createdAt}
         />
-
-        <div className={styles.author}>
-          <h2 className={styles.name}>{author?.fullName}</h2>
-          <p className={styles.date}>{timeDifference}</p>
-        </div>
 
         <div className={styles['dropdown-container']}>
           <Dropdown options={dropdownOptions} />

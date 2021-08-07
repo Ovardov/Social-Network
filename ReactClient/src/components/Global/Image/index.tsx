@@ -2,6 +2,7 @@
 import React, { FC } from 'react';
 // Images
 import CloseIcon from '../../../../public/images/close-icon.svg';
+import CloseButton from '../Buttons/CloseButton';
 // Styles
 import styles from './index.module.scss';
 
@@ -21,14 +22,12 @@ const Image: FC<Image> = ({ aspectRatio, imageSrc, imageAlt, removeImageHandler,
     <div
       className={`${styles['image-container']} ${styles[aspectRatioClassName]}`}
     >
-      {removeImageHandler && (
-        <button
-          className={styles['remove-button']}
-          onClick={removeImageHandler}
-        >
-          <CloseIcon />
-        </button>
-      )}
+      {removeImageHandler &&
+        <CloseButton
+          color='primary'
+          position='top-left'
+          onClose={removeImageHandler} />
+      }
 
       <img className={styles.image} src={imageSrc} alt={imageAlt} />
     </div>

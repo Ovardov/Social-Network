@@ -8,6 +8,7 @@ import store from '../../redux';
 import { ExternalState as ExternalState_ } from '../../global';
 
 const App: FC<ExternalState_> = ({ user, posts, }) => {
+  console.log(user, posts);
   return (
     <Provider store={store}>
       <Navigation user={user} posts={posts} />

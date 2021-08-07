@@ -9,3 +9,9 @@ export enum HttpMethods {
   PUT = 'PUT',
   DELETE = 'DELETE'
 }
+
+export enum  PostActionModes {
+  CREATE = 'create',
+  EDIT = 'edit',
+  DELETE = 'delete'
+}

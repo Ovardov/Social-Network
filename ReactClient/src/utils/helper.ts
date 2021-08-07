@@ -3,3 +3,5 @@ export const buildUrl = (...paths: string[]): string => {
   
   return '/' + filteredPaths.join('/');
 };
+
+export const capitalizeFirstLetter = (string: string) => string.charAt(0).toUpperCase() + string.slice(1);

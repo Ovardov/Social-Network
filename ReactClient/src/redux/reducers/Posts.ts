@@ -17,17 +17,18 @@ export const postsReducer: Reducer_<PostsState_, PostsActions_> = (
       const { post: updatedPost, } = action;
 
       const newPosts = state?.posts?.map(post => {
-        return post?._id === updatedPost._id
+        return post?.id === updatedPost.id
           ? updatedPost
           : post;
       });
 
+      console.log(state, updatedPost);
       return { posts: [...newPosts], };
     }
     case DELETE_POST: {
       const { postId: deletedPostId, } = action;
 
-      const newPosts = state.posts?.filter(post => post._id !== deletedPostId);
+      const newPosts = state.posts?.filter(post => post.id !== deletedPostId);
 
       return { posts: newPosts, };
     }

@@ -8,18 +8,20 @@ import CloseIcon from '../../../../../public/images/close-icon.svg';
 import styles from './index.module.scss';
 
 interface Props {
-  position: 'top-left' | 'top-right' | 'bottom-right' | 'bottom-left'
+  position?: 'top-left' | 'top-right' | 'bottom-right' | 'bottom-left'
   onClose: () => void,
+  color: 'primary' | 'secondary' | 'text' | 'background' | 'like' | 'comment'
 }
 
-const CloseButton: FC<Props> = ({ position, onClose, }) => {
+const CloseButton: FC<Props> = ({ position, onClose, color, }) => {
   return (
     <button
+      type='button'
       className={`${styles.button} ${styles[`position-${position}`]}`}
       onClick={onClose}
     >
       <Icon
-        color='text'
+        color={color}
         size='md'
         hasHoverEffect={true}
         Component={CloseIcon}

@@ -8,7 +8,7 @@ import { auth } from '../utils';
 // Validators
 import {
   getOnePostDataValidator,
-  createPostDataValidator,
+  createOrEditPostDataValidator,
 } from '../validators/post';
 
 const upload = multer({ storage: multer.diskStorage({}) });
@@ -21,11 +21,11 @@ router.post(
   '/',
   auth(),
   upload.single('image'),
-  createPostDataValidator,
+  createOrEditPostDataValidator,
   postController.post.create
 );
 
-router.put('/:id', auth(), postController.put.edit);
+router.put('/:id', auth(), upload.single('image'), createOrEditPostDataValidator, postController.put.edit);
 router.put('/like/:id', auth(), postController.put.likePost);
 router.put('/dislike/:id', auth(), postController.put.dislikePost);
 

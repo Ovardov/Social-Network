@@ -9,7 +9,7 @@ export const getOnePostDataValidator = [
 ];
 
 // Create post schema
-export const createPostDataValidator = [
+export const createOrEditPostDataValidator = [
   check('content')
     .if((value, { req }) => !value && !req.file)
     .isString()

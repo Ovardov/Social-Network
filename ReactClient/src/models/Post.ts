@@ -4,11 +4,16 @@ import Like_ from './Like';
 import Comment_ from './Comment';
 
 export default class Post {
-  _id: string; // ToDo -> Change with id
+  id: string; 
   createdAt: Date;
   content: string;
   image: Image_;
   author: User_
   likes: Like_[]
   comments: Comment_[];
+}
+
+export class PostFormData {
+  content: string;
+  image: File
 }

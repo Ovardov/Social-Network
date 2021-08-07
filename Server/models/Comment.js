@@ -19,6 +19,16 @@ const commentSchema = new Schema({
     ref: 'Like',
     default: []
   }]
-}, { versionKey: false });
+});
+
+commentSchema.virtual('id').get(function () {
+  return this._id.toHexString();
+});
+
+commentSchema.set('toJSON', {
+  virtuals: true,
+  versionKey: false,
+  transform: function (model, result) { delete result._id }
+});
 
 module.exports = new model('Comment', commentSchema)

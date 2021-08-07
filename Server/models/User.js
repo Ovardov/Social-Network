@@ -63,7 +63,6 @@ const userSchema = new Schema(
       },
     ],
   },
-  { versionKey: false, toJSON: { virtuals: true } }
 );
 
 // Indexes
@@ -78,6 +77,10 @@ userSchema.index(
 // Full Name virtual field
 userSchema.virtual('fullName').get(function () {
   return this.firstName + ' ' + this.lastName;
+});
+
+userSchema.virtual('id').get(function () {
+  return this._id.toHexString();
 });
 
 // Compare password method
@@ -108,5 +111,11 @@ userSchema.pre('save', function (next) {
 
   next();
 })
+
+userSchema.set('toJSON', {
+  virtuals: true,
+  versionKey: false,
+  transform: function (model, result) { delete result._id }
+});
 
 module.exports = new model('User', userSchema)

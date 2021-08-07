@@ -15,6 +15,16 @@ const messageSchema = Schema({
     default: Date.now,
     required: true
   }
-}, { versionKey: false });
+});
+
+messageSchema.virtual('id').get(function () {
+  return this._id.toHexString();
+});
+
+messageSchema.set('toJSON', {
+  virtuals: true,
+  versionKey: false,
+  transform: function (model, result) { delete result._id }
+});
 
 module.exports = new model('Message', messageSchema);

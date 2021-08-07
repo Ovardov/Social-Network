@@ -16,4 +16,14 @@ const likeSchema = new Schema({
   }
 });
 
+likeSchema.virtual('id').get(function () {
+  return this._id.toHexString();
+});
+
+likeSchema.set('toJSON', {
+  virtuals: true,
+  versionKey: false,
+  transform: function (model, result) { delete result._id }
+});
+
 module.exports = new model('Like', likeSchema);

@@ -7,15 +7,28 @@ import styles from './index.module.scss';
 
 interface Props {
   onClose: () => void
+  title: string
 }
 
-const Modal: FC<Props> = ({ children, onClose, }) => {
+const Modal: FC<Props> = ({ children, onClose, title, }) => {
   return (
     <div className={styles.container}>
-      <div className={styles.content}>
-        {children}
+      <div className={styles.modal}>
+        <header className={styles.header}>
+          {title && <p className={styles.title}>{title}</p>}
 
-        <CloseButton position='top-right' onClose={onClose} />
+          <div className={styles['button-container']}>
+            <CloseButton
+              color='primary'
+              onClose={onClose}
+            />
+          </div>
+        </header>
+
+        <div className={styles.content}>
+          {children}
+        </div>
+
       </div>
     </div>
   );

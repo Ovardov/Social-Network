@@ -26,6 +26,16 @@ const postSchema = new Schema({
     ref: 'Comment',
     default: []
   }]
-}, { versionKey: false});
+});
+
+postSchema.virtual('id').get(function () {
+  return this._id.toHexString();
+});
+
+postSchema.set('toJSON', {
+  virtuals: true,
+  versionKey: false,
+  transform: function (model, result) { delete result._id }
+});
 
 module.exports = new model('Post', postSchema)

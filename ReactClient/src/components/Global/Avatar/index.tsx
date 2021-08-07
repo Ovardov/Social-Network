@@ -1,5 +1,7 @@
 // Libraries
-import React, { FC } from 'react';
+import React, { FC as FC_, useMemo } from 'react';
+// Utils
+import { getTimeDifference } from '../../../utils/date';
 // Images
 import defaultProfilePicture from '../../../../public/images/profile-placeholder.png';
 // Models
@@ -8,18 +10,32 @@ import { Size } from '../../../utils/models';
 import styles from './index.module.scss';
 
 interface Props {
+  type: 'image' | 'image-with-info',
   size: Size,
   imageSrc?: string,
-  imageAlt: string
+  name: string,
+  createdAt?: Date,
 }
 
-const Avatar: FC<Props> = ({ size, imageSrc, imageAlt, }) => {
+const Avatar: FC_<Props> = ({ type, size, imageSrc, name, createdAt, }) => {
+
+  const timeDifference = useMemo(() => getTimeDifference(createdAt), [createdAt]);
+
   return (
-    <img
-      className={`${styles.avatar} ${styles[`size-${size}`]}`}
-      src={imageSrc || defaultProfilePicture}
-      alt={imageAlt}
-    />
+    <div className={`${styles.container} ${type === 'image-with-info' ? styles.center : ''}`}>
+      <img
+        className={`${styles.avatar} ${styles[`size-${size}`]}`}
+        src={imageSrc || defaultProfilePicture}
+        alt={name}
+      />
+
+      {type === 'image-with-info' && (
+        <div className={styles.author}>
+          {name && <h2 className={styles.name}>{name}</h2>}
+          {createdAt && <p className={styles.date}>{timeDifference}</p>}
+        </div>
+      )}
+    </div>
   );
 };
 

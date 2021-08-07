@@ -26,7 +26,7 @@ const PostList: FC = () => {
       return (
         <PostCard
           key={post.createdAt + post.author.username}
-          {...post}
+          post={post}
         />
       );
     });

@@ -72,10 +72,10 @@ export const post = async (path: string, data: Object, headers?: Headers) => {
   }
 };
 
-export const postFormData = async (path: string, formData: FormData, headers?: Headers) => {
+export const makeRequestWithFormData = async (path: string, formData: FormData, method: HttpMethods, headers?: Headers) => {
   try {
     const url = baseUrl + path;
-    const resData = await makeRequest(url, HttpMethods.POST, formData, headers);
+    const resData = await makeRequest(url, method, formData, headers);
 
     return resData;
   } catch (err) {

@@ -1,30 +1,24 @@
 .container {
-  margin-bottom: $lg-spacing;
-  background: var(--theme-background-color);
+  padding: $xs-spacing $sm-spacing;
   border: 1px solid var(--theme-border-color);
   border-radius: $border-radius;
+  margin-bottom: $md-spacing;
+  display: flex;
+  align-items: center;
 
-  .form {
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: $xs-spacing $sm-spacing;
+  .button {
+    border: 1px solid var(--theme-border-darker-color);
+    padding: $xs-spacing $md-spacing;
+    border-radius: 2em;
+    width: 100%;
+    text-align: left;
+    color: var(--theme-text-darker-color);
+    cursor: pointer;
 
-    .form-content {
-      display: flex;
-      flex-direction: column;
-      margin-left: $sm-spacing;
-      flex: 2;
-
-      .form-action {
-        display: grid;
-        grid-template-columns: 2fr 1fr;
-        grid-gap: $md-spacing;
-        align-items: center;
-        border-top: 1px solid var(--theme-border-color);
-        margin-top: $xs-spacing;
-        padding-top: $xs-spacing;
-      }
+    &:hover {
+      background: var(--theme-primary-lighter-color);
+      color: var(--theme-primary-color);
+      border-color: var(--theme-primary-color);
     }
   }
 }
