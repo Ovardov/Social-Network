@@ -1,5 +1,7 @@
 // Libraries
 import React, { FC } from 'react';
+// Utils
+import { Colors } from '../../../utils/enums';
 // Components
 import CloseButton from '../Buttons/CloseButton';
 // Styles
@@ -19,7 +21,7 @@ const Modal: FC<Props> = ({ children, onClose, title, }) => {
 
           <div className={styles['button-container']}>
             <CloseButton
-              color='primary'
+              color={Colors.PRIMARY}
               onClose={onClose}
             />
           </div>

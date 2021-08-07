@@ -1,8 +1,9 @@
 // Libraries
 import React, { FC } from 'react';
-// Images
-import CloseIcon from '../../../../public/images/close-icon.svg';
+// Components
 import CloseButton from '../Buttons/CloseButton';
+// Utils
+import { Colors } from '../../../utils/enums';
 // Styles
 import styles from './index.module.scss';
 
@@ -24,7 +25,7 @@ const Image: FC<Image> = ({ aspectRatio, imageSrc, imageAlt, removeImageHandler,
     >
       {removeImageHandler &&
         <CloseButton
-          color='primary'
+          color={Colors.PRIMARY}
           position='top-left'
           onClose={removeImageHandler} />
       }

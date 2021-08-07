@@ -17,7 +17,7 @@ import { createPost, deletePost, updatePost } from '../../../services/postServic
 // Form Validators
 import { postValidationSchema } from '../../../formValidators/post';
 // Utils
-import { PostActionModes, Sizes } from '../../../utils/enums';
+import { Colors, PostActionModes, Sizes } from '../../../utils/enums';
 // Models
 import Post_, { PostFormData as PostFormData_ } from '../../../models/Post';
 import { AppState as AppState_ } from '../../../redux';
@@ -103,7 +103,7 @@ const PostAction: FC<Props> = ({ mode, post, modalTitle, onModalClose, }) => {
             type='button'
             isLoading={isLoading}
             text='No'
-            color='secondary'
+            color={Colors.SECONDARY}
             onClickHandler={onModalClose}
           />
 
@@ -111,7 +111,7 @@ const PostAction: FC<Props> = ({ mode, post, modalTitle, onModalClose, }) => {
             type='button'
             isLoading={isLoading}
             text='Yes'
-            color='primary'
+            color={Colors.PRIMARY}
             onClickHandler={onDeletePost}
           />
         </ButtonsContainer>
@@ -177,7 +177,7 @@ const PostAction: FC<Props> = ({ mode, post, modalTitle, onModalClose, }) => {
                     disabled={!isValid || isLoading}
                     isLoading={isLoading}
                     text='Submit'
-                    color='primary'
+                    color={Colors.PRIMARY}
                   />
                 </ButtonsContainer>
               </div>

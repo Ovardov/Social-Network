@@ -4,7 +4,7 @@ import { Formik, Form, Field, FieldProps } from 'formik';
 // Components
 import Icon from '../Icon';
 // Utils
-import { Sizes } from '../../../utils/enums';
+import { Colors, Sizes } from '../../../utils/enums';
 // Images
 import SearhIcon from '../../../../public/images/search-icon.svg';
 import CloseIcon from '../../../../public/images/close-icon.svg';
@@ -47,7 +47,7 @@ const SearchBox: FC = () => {
               size={Sizes.SM}
               Component={SearhIcon}
               alt='Search Icon'
-              color={isFocused ? 'primary' : 'text'}
+              color={isFocused ? Colors.PRIMARY : Colors.TEXT}
             />
 
             <Field name='search'>
@@ -71,7 +71,7 @@ const SearchBox: FC = () => {
                   size={Sizes.SM}
                   Component={CloseIcon}
                   alt='Close Icon'
-                  color='primary'
+                  color={Colors.PRIMARY}
                 />
               </span>
             )}

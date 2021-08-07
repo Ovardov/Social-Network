@@ -12,7 +12,7 @@ import styles from './index.module.scss';
 interface Props {
   position?: 'top-left' | 'top-right' | 'bottom-right' | 'bottom-left'
   onClose: () => void,
-  color: 'primary' | 'secondary' | 'text' | 'background' | 'like' | 'comment'
+  color: Sizes
 }
 
 const CloseButton: FC<Props> = ({ position, onClose, color, }) => {

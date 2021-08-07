@@ -1,6 +1,6 @@
 // Libraries
 import React, { FC } from 'react';
-import { Sizes } from '../../../utils/enums';
+import { Colors, Sizes } from '../../../utils/enums';
 // Styles
 import styles from './index.module.scss';
 
@@ -8,7 +8,7 @@ export type Icon = {
   Component: typeof React.Component
   alt: string
   size: Sizes
-  color: 'primary' | 'secondary' | 'text' | 'background' | 'like' | 'comment',
+  color: Colors
   hasHoverEffect?: boolean
   isSelected?: boolean
 }

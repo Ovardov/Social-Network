@@ -2,16 +2,15 @@
 import React, { FC as FC_, useMemo } from 'react';
 // Utils
 import { getTimeDifference } from '../../../utils/date';
+import { Sizes } from '../../../utils/enums';
 // Images
 import defaultProfilePicture from '../../../../public/images/profile-placeholder.png';
-// Models
-import { Size } from '../../../utils/models';
 // Styles
 import styles from './index.module.scss';
 
 interface Props {
   type: 'image' | 'image-with-info',
-  size: Size,
+  size: Sizes,
   imageSrc?: string,
   name: string,
   createdAt?: Date,

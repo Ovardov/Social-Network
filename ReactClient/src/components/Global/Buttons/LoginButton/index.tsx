@@ -4,6 +4,7 @@ import React, { FC } from 'react';
 import Loader from '../../Loader';
 // Images
 import ArrowIcon from '../../../../../public/images/arrow-right.svg';
+import { Colors } from '../../../../utils/enums';
 // Styles
 import globalButtonStyles from '../buttons.module.scss';
 import styles from './index.module.scss';
@@ -20,7 +21,7 @@ const LoginButton: FC<Props> = ({ disabled, isLoading, }) => {
       type='submit'
       className={`${globalButtonStyles.button} ${globalButtonStyles['color-primary']} ${styles['login-button']}`}
     >
-      {isLoading && <Loader type='local' color='background' />}
+      {isLoading && <Loader type='local' color={Colors.BACKGROUND} />}
 
       <span className={isLoading ? globalButtonStyles['hidden-text'] : ''}>
         Login

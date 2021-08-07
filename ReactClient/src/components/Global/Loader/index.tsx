@@ -1,11 +1,13 @@
 // Libraries
 import React, { FC } from 'react';
+// Utils
+import { Colors } from '../../../utils/enums';
 // Styles
 import styles from './index.module.scss';
 
 interface Props {
   type: 'local' | 'global'
-  color: 'primary' | 'background'
+  color: Colors
 }
 
 const Loader: FC<Props> = ({ type, color, }) => {

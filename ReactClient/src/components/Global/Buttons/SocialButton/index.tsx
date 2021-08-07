@@ -2,6 +2,8 @@
 import React, { useState, FC } from 'react';
 // Components
 import Loader from '../../Loader';
+// Utils
+import { Colors } from '../../../../utils/enums';
 // Styles
 import globalButtonStyles from '../buttons.module.scss';
 import styles from './index.module.scss';
@@ -36,7 +38,7 @@ const SocialButton: FC<Props> = ({
       href={href}
       onClick={handleOnClick}
     >
-      {isLocalLoading && <Loader type='local' color='primary' />}
+      {isLocalLoading && <Loader type='local' color={Colors.PRIMARY} />}
 
       <span
         className={`${styles.content} ${isLocalLoading ? globalButtonStyles['hidden-text'] : ''}`}

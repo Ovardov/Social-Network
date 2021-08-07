@@ -3,7 +3,7 @@ import React, { useMemo, useState, useEffect, useRef, FC } from 'react';
 // Components
 import Icon from '../Icon';
 // Utils
-import { Sizes } from '../../../utils/enums';
+import { Colors, Sizes } from '../../../utils/enums';
 // Images
 import MoreIcon from '../../../../public/images/more-icon.svg';
 // Styles
@@ -47,7 +47,7 @@ const Dropdown: FC<Props> = ({ options, }) => {
         <li key={id} onClick={onClickHandler} className={styles.option}>
           {optionIcon && (
             <span className={styles['icon-container']}>
-              <Icon size={Sizes.XS} Component={optionIcon} alt='Option Icon' color='text' />
+              <Icon size={Sizes.XS} Component={optionIcon} alt='Option Icon' color={Colors.TEXT} />
             </span>
           )}
 
@@ -69,7 +69,7 @@ const Dropdown: FC<Props> = ({ options, }) => {
           alt='More Info Icon'
           Component={MoreIcon}
           hasHoverEffect={true}
-          color='text'
+          color={Colors.TEXT}
         />
       </span>
 

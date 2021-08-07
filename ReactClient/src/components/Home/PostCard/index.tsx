@@ -12,7 +12,7 @@ import { likePost, dislikePost } from '../../../services/postService';
 // Redux
 import { updatePostAction } from '../../../redux/actions/Posts';
 // Utils
-import { PostActionModes, Sizes } from '../../../utils/enums';
+import { Colors, PostActionModes, Sizes } from '../../../utils/enums';
 import { capitalizeFirstLetter } from '../../../utils/helper';
 // Images
 import LikeOutlinedIcon from '../../../../public/images/like-outlined-icon.svg';
@@ -137,12 +137,12 @@ const PostCard: FC_<Props> = ({ post, }) => {
                 : await onLikePost()
             }
           >
-            <Icon size={Sizes.SM} color='like' Component={LikeOutlinedIcon} alt='Like Icon' />
+            <Icon size={Sizes.SM} color={Colors.LIKE} Component={LikeOutlinedIcon} alt='Like Icon' />
           </li>
           <li
             className={`${styles['action-button']} ${styles['comment-button']} ${styles['status-commented']}`}
           >
-            <Icon size={Sizes.SM} color='comment' Component={CommentOutlinedIcon} alt='Comment Icon' />
+            <Icon size={Sizes.SM} color={Colors.COMMENT} Component={CommentOutlinedIcon} alt='Comment Icon' />
           </li>
         </ul>
       </div>
@@ -151,14 +151,14 @@ const PostCard: FC_<Props> = ({ post, }) => {
       <footer className={styles.footer}>
         <ul className={styles['icons-list']}>
           <li className={styles.icon}>
-            <Icon size={Sizes.SM} color='like' Component={LikeFilledIcon} alt='Like Icon' />
+            <Icon size={Sizes.SM} color={Colors.LIKE} Component={LikeFilledIcon} alt='Like Icon' />
 
             <span className={`${styles.likes}`}>
               {likes?.length || 0}
             </span>
           </li>
           <li className={styles.icon}>
-            <Icon size={Sizes.SM} color='comment' Component={CommentFilledIcon} alt='Comment Icon' />
+            <Icon size={Sizes.SM} color={Colors.COMMENT} Component={CommentFilledIcon} alt='Comment Icon' />
 
             <span className={styles.comments}>
               {comments?.length ?? 0}

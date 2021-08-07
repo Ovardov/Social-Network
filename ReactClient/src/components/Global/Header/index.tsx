@@ -6,7 +6,7 @@ import { Link, useHistory } from 'react-router-dom';
 import Avatar from '../Avatar';
 import Icon from '../Icon';
 // Utils
-import { Sizes } from '../../../utils/enums';
+import { Colors, Sizes } from '../../../utils/enums';
 // Images
 import HomeIcon from '../../../../public/images/home-icon.svg';
 import MessagesIcon from '../../../../public/images/messages-icon.svg';
@@ -38,12 +38,12 @@ const renderPages = (pages: Page[], pathname: string) => {
               Component={IconComponent}
               alt={name}
               size={Sizes.MD}
-              color='text'
+              color={Colors.TEXT}
               hasHoverEffect={false}
             />
           )}
           {url === '/profile' && (
-            <Avatar size={Sizes.SM} imageSrc={avatar} imageAlt={name} />
+            <Avatar type='image' size={Sizes.SM} imageSrc={avatar} name={name} />
           )}
 
           <span className={styles.name}>{name}</span>
@@ -84,7 +84,7 @@ const Header: FC = () => {
             Component={HomeIcon}
             alt='Home'
             size={Sizes.MD}
-            color='primary'
+            color={Colors.PRIMARY}
             hasHoverEffect={true}
             isSelected={true}
           />

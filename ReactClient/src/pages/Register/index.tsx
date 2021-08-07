@@ -19,6 +19,7 @@ import { registerValidationSchema } from '../../formValidators/auth';
 // Utils
 // Styles
 import styles from './index.module.scss';
+import { Colors } from '../../utils/enums';
 
 const RegisterPage: React.FC<RouteComponentProps> = ({ history, }) => {
   const [step, setStep] = useState(1);
@@ -167,7 +168,7 @@ const RegisterPage: React.FC<RouteComponentProps> = ({ history, }) => {
                     <Button
                       type='button'
                       text='Back'
-                      color='secondary'
+                      color={Colors.SECONDARY}
                       disabled={isLoading}
                       onClickHandler={() => setStep(step - 1)}
                     />
@@ -176,7 +177,7 @@ const RegisterPage: React.FC<RouteComponentProps> = ({ history, }) => {
                     <Button
                       type='button'
                       text='Next'
-                      color='primary'
+                      color={Colors.PRIMARY}
                       disabled={false}
                       onClickHandler={() => handleNextStep(validateForm)}
                     />
@@ -186,7 +187,7 @@ const RegisterPage: React.FC<RouteComponentProps> = ({ history, }) => {
                     <Button
                       type='submit'
                       text='Register'
-                      color='primary'
+                      color={Colors.PRIMARY}
                       disabled={isLoading}
                       isLoading={isLoading}
                     />

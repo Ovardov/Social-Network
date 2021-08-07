@@ -17,6 +17,15 @@ export enum Sizes {
   LG = 'lg',
 }
 
+export enum Colors {
+  PRIMARY = 'primary',
+  SECONDARY = 'secondary',
+  BACKGROUND = 'background',
+  TEXT = 'text',
+  LIKE = 'like',
+  COMMENT = 'comment'
+}
+
 export enum PostActionModes {
   CREATE = 'create',
   EDIT = 'edit',
