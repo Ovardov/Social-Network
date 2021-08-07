@@ -4,6 +4,8 @@ import { useFormikContext, FieldProps } from 'formik';
 // Components
 import Icon from '../../Icon';
 import CommonErrorMessage from '../../CommonErrorMessage';
+// Utils
+import { Sizes } from '../../../../utils/enums';
 // Images
 import InsertPhotoIcon from '../../../../../public/images/insert-photo-icon.svg';
 // Styles
@@ -24,7 +26,7 @@ const FileField: FC<FieldProps> = ({ form, field, }) => {
           <Icon
             Component={InsertPhotoIcon}
             alt='Insert Photo icon'
-            size='sm'
+            size={Sizes.SM}
             color='text'
             hasHoverEffect={true}
             isSelected={true}

@@ -17,7 +17,7 @@ import { createPost, deletePost, updatePost } from '../../../services/postServic
 // Form Validators
 import { postValidationSchema } from '../../../formValidators/post';
 // Utils
-import { PostActionModes } from '../../../utils/enums';
+import { PostActionModes, Sizes } from '../../../utils/enums';
 // Models
 import Post_, { PostFormData as PostFormData_ } from '../../../models/Post';
 import { AppState as AppState_ } from '../../../redux';
@@ -127,7 +127,7 @@ const PostAction: FC<Props> = ({ mode, post, modalTitle, onModalClose, }) => {
       <div className={styles.container}>
         <Avatar
           type='image-with-info'
-          size='md'
+          size={Sizes.MD}
           imageSrc={user?.profilePicture?.imageUrl}
           name={user?.fullName}
         />

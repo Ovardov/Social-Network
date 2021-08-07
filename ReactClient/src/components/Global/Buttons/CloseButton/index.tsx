@@ -2,6 +2,8 @@
 import React, { FC } from 'react';
 // Components
 import Icon from '../../Icon';
+// Utils
+import { Sizes } from '../../../../utils/enums';
 // Images
 import CloseIcon from '../../../../../public/images/close-icon.svg';
 // Styles
@@ -22,7 +24,7 @@ const CloseButton: FC<Props> = ({ position, onClose, color, }) => {
     >
       <Icon
         color={color}
-        size='md'
+        size={Sizes.MD}
         hasHoverEffect={true}
         Component={CloseIcon}
         alt='Close Icon'

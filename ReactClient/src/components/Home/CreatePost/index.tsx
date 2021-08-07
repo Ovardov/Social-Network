@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 // Utils
-import { PostActionModes } from '../../../utils/enums';
+import { PostActionModes, Sizes } from '../../../utils/enums';
 // Components
 import Avatar from '../../Global/Avatar';
 import PostAction from '../PostAction';
@@ -37,7 +37,7 @@ const CreatePost = () => {
     <div className={styles.container}>
       <Avatar
         type='image'
-        size='md'
+        size={Sizes.MD}
         imageSrc={user?.profilePicture?.imageUrl}
         name={user?.fullName}
       />

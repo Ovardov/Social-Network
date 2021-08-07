@@ -2,6 +2,8 @@
 import React, { useMemo, useState, useEffect, useRef, FC } from 'react';
 // Components
 import Icon from '../Icon';
+// Utils
+import { Sizes } from '../../../utils/enums';
 // Images
 import MoreIcon from '../../../../public/images/more-icon.svg';
 // Styles
@@ -45,7 +47,7 @@ const Dropdown: FC<Props> = ({ options, }) => {
         <li key={id} onClick={onClickHandler} className={styles.option}>
           {optionIcon && (
             <span className={styles['icon-container']}>
-              <Icon size='xs' Component={optionIcon} alt='Option Icon' color='text' />
+              <Icon size={Sizes.XS} Component={optionIcon} alt='Option Icon' color='text' />
             </span>
           )}
 
@@ -63,7 +65,7 @@ const Dropdown: FC<Props> = ({ options, }) => {
     <div className={styles.container}>
       <span className={styles['action-button']} onClick={() => setIsOpen(true)}>
         <Icon
-          size='sm'
+          size={Sizes.XS}
           alt='More Info Icon'
           Component={MoreIcon}
           hasHoverEffect={true}

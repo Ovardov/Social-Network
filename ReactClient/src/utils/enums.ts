@@ -10,7 +10,14 @@ export enum HttpMethods {
   DELETE = 'DELETE'
 }
 
-export enum  PostActionModes {
+export enum Sizes {
+  XS = 'xs',
+  SM = 'sm',
+  MD = 'md',
+  LG = 'lg',
+}
+
+export enum PostActionModes {
   CREATE = 'create',
   EDIT = 'edit',
   DELETE = 'delete'

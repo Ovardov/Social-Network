@@ -12,7 +12,8 @@ import { likePost, dislikePost } from '../../../services/postService';
 // Redux
 import { updatePostAction } from '../../../redux/actions/Posts';
 // Utils
-import { PostActionModes } from '../../../utils/enums';
+import { PostActionModes, Sizes } from '../../../utils/enums';
+import { capitalizeFirstLetter } from '../../../utils/helper';
 // Images
 import LikeOutlinedIcon from '../../../../public/images/like-outlined-icon.svg';
 import LikeFilledIcon from '../../../../public/images/like-filled-icon.svg';
@@ -26,7 +27,6 @@ import { AuthState as AuthState_ } from '../../../redux/actions/Auth';
 import Post_ from '../../../models/Post';
 // Styles
 import styles from './index.module.scss';
-import { capitalizeFirstLetter } from '../../../utils/helper';
 
 type Props = {
   post: Post_
@@ -104,7 +104,7 @@ const PostCard: FC_<Props> = ({ post, }) => {
       <header className={styles.header}>
         <Avatar
           type='image-with-info'
-          size='md'
+          size={Sizes.MD}
           imageSrc={author?.profilePicture?.imageUrl}
           name={author?.fullName}
           createdAt={createdAt}
@@ -137,12 +137,12 @@ const PostCard: FC_<Props> = ({ post, }) => {
                 : await onLikePost()
             }
           >
-            <Icon size='sm' color='like' Component={LikeOutlinedIcon} alt='Like Icon' />
+            <Icon size={Sizes.SM} color='like' Component={LikeOutlinedIcon} alt='Like Icon' />
           </li>
           <li
             className={`${styles['action-button']} ${styles['comment-button']} ${styles['status-commented']}`}
           >
-            <Icon size='sm' color='comment' Component={CommentOutlinedIcon} alt='Comment Icon' />
+            <Icon size={Sizes.SM} color='comment' Component={CommentOutlinedIcon} alt='Comment Icon' />
           </li>
         </ul>
       </div>
@@ -151,14 +151,14 @@ const PostCard: FC_<Props> = ({ post, }) => {
       <footer className={styles.footer}>
         <ul className={styles['icons-list']}>
           <li className={styles.icon}>
-            <Icon size='sm' color='like' Component={LikeFilledIcon} alt='Like Icon' />
+            <Icon size={Sizes.SM} color='like' Component={LikeFilledIcon} alt='Like Icon' />
 
             <span className={`${styles.likes}`}>
               {likes?.length || 0}
             </span>
           </li>
           <li className={styles.icon}>
-            <Icon size='sm' color='comment' Component={CommentFilledIcon} alt='Comment Icon' />
+            <Icon size={Sizes.SM} color='comment' Component={CommentFilledIcon} alt='Comment Icon' />
 
             <span className={styles.comments}>
               {comments?.length ?? 0}

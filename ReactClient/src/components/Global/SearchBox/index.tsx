@@ -3,6 +3,8 @@ import React, { FC, useEffect, useRef, useState } from 'react';
 import { Formik, Form, Field, FieldProps } from 'formik';
 // Components
 import Icon from '../Icon';
+// Utils
+import { Sizes } from '../../../utils/enums';
 // Images
 import SearhIcon from '../../../../public/images/search-icon.svg';
 import CloseIcon from '../../../../public/images/close-icon.svg';
@@ -42,7 +44,7 @@ const SearchBox: FC = () => {
             className={`${styles['field-container']} ${isFocused ? styles.touched : ''}`}
           >
             <Icon
-              size='sm'
+              size={Sizes.SM}
               Component={SearhIcon}
               alt='Search Icon'
               color={isFocused ? 'primary' : 'text'}
@@ -66,7 +68,7 @@ const SearchBox: FC = () => {
                 onClick={() => resetForm()}
               >
                 <Icon
-                  size='sm'
+                  size={Sizes.SM}
                   Component={CloseIcon}
                   alt='Close Icon'
                   color='primary'
