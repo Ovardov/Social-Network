@@ -1,0 +1,16 @@
+.menu {
+  margin-bottom: var(--spacing-layout-elements);
+
+  .list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0;
+
+    .list-item {
+      width: 10em;
+      height: 2.5em;
+      text-align: center;
+    }
+  }
+}

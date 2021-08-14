@@ -169,8 +169,8 @@ const PostAction: FC<Props> = ({ mode, post, modalTitle, onModalClose, }) => {
                 {/* Submit button */}
                 <ButtonsContainer
                   columns={1}
-                  widthType='fit-content'
                   position='end'
+                  widthType='fit-content'
                 >
                   <Button
                     type='submit'

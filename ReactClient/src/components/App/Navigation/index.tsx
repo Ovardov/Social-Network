@@ -12,15 +12,11 @@ import { setPostsAction } from '../../../redux/actions/Posts';
 import { ExternalState as ExternalState_ } from '../../../global';
 
 // Pages
-const HomePage = loadable(() => import('../../../pages/Home'), {
-  ssr: true,
-});
+const HomePage = loadable(() => import('../../../pages/Home'), { ssr: true, });
 const LoginPage = loadable(() => import('../../../pages/Login'), { ssr: true, });
-const RegisterPage = loadable(() => import('../../../pages/Register'), {
-  ssr: true,
-});
+const RegisterPage = loadable(() => import('../../../pages/Register'), { ssr: true, });
+const ProfilePage = loadable(() => import('../../../pages/Profile'), { ssr: true, });
 
-// ToDo -> Remove any type
 const Navigation: FC<ExternalState_> = ({ user, posts, }) => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -40,6 +36,7 @@ const Navigation: FC<ExternalState_> = ({ user, posts, }) => {
       <LoginAndRegisterRoute path='/login' Component={LoginPage} />
       <LoginAndRegisterRoute path='/register' Component={RegisterPage} />
       <ProtectedRoute exact path='/' Component={HomePage} />
+      <ProtectedRoute exact path='/profile/:username' Component={ProfilePage} />
     </Switch>
   );
 };

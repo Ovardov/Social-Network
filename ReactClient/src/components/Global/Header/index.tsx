@@ -70,7 +70,7 @@ const Header: FC = () => {
       IconComponent: MessagesIcon,
     },
     {
-      url: '/profile',
+      url: `/profile/${user.username}`,
       name: user.fullName,
       avatar: user.profilePicture ? user.profilePicture?.imageUrl : null,
     }
