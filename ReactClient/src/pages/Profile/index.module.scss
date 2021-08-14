@@ -1,0 +1,23 @@
+.container {
+  .photos {
+    position: relative;
+    margin-bottom: $lg-spacing;
+
+    .cover {
+      width: 100%;
+      max-height: 20em;
+      object-fit: cover;
+      border-radius: $border-radius;
+      cursor: pointer;
+      display: block;
+    }
+
+    .profile-picture {
+      position: absolute;
+      bottom: -2.8em;
+      left: 50%;
+      transform: translate(-50%, 0);
+      cursor: pointer;
+    }
+  }
+}

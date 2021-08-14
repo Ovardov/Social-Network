@@ -9,6 +9,7 @@
   .button {
     border: 1px solid var(--theme-border-darker-color);
     padding: $xs-spacing $md-spacing;
+    margin-left: $sm-spacing;
     border-radius: 2em;
     width: 100%;
     text-align: left;

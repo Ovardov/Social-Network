@@ -15,6 +15,7 @@ export enum Sizes {
   SM = 'sm',
   MD = 'md',
   LG = 'lg',
+  XL = 'xl',
 }
 
 export enum Colors {

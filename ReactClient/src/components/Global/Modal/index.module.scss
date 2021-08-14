@@ -9,13 +9,19 @@
   left: 0;
   z-index: 1000;
   background: rgba(0, 0, 0, 0.4);
-  
+  cursor: pointer;
+
   .modal {
     position: relative;
     background: var(--theme-background-color);
-    border: 1px solid var(--theme-border-color);
     border-radius: $border-radius;
     min-width: 450px;
+    cursor: default;
+
+    &.full-width {
+      width: 90%;
+      max-height: 90%;
+    }
 
     @include bp(phone) {
       width: 90%;
@@ -32,6 +38,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      border-top: 1px solid var(--theme-border-color);
       border-bottom: 1px solid var(--theme-border-color);
 
       .title {
@@ -44,6 +51,12 @@
         position: absolute;
         right: 0.85em;
       }
+    }
+
+    .content {
+      border-left: 1px solid var(--theme-border-color);
+      border-right: 1px solid var(--theme-border-color);
+      border-bottom: 1px solid var(--theme-border-color);
     }
   }
 }

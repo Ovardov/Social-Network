@@ -1,16 +1,14 @@
 // Libraries
 import React, { FC as FC_, useMemo } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-// Utils
-import { Colors } from '../../../utils/enums';
 // Components
 import Link from '../../Global/Buttons/Link';
+// Utils
+import { Colors } from '../../../utils/enums';
+// Models
+import { ProfileParams } from '../../../models/Profile';
 // Styles
 import styles from './index.module.scss';
-
-type ProfileParams = {
-  username: string
-}
 
 const ProfileNavigation: FC_ = () => {
   const { username, } = useParams<ProfileParams>();

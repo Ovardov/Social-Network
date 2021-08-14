@@ -10,7 +10,7 @@
     object-position: center;
     border-radius: 50%;
     box-shadow: $avatar-box-shadow;
-    margin-right: $sm-spacing;
+    display: block;
 
     &.size-sm {
       width: 30px;
@@ -26,9 +26,21 @@
       width: 3.5em;
       height: 3.5em;
     }
+
+    &.size-lg {
+      width: 5em;
+      height: 5em;
+    }
+
+    &.size-xl {
+      width: 7em;
+      height: 7em;
+    }
   }
 
   .author {
+    margin-left: $sm-spacing;
+    
     .name {
       font-size: 1rem;
       margin-bottom: 0.1em;

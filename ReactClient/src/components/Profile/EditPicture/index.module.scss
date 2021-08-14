@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 1001;
+  width: 2.25em;
+  height: 2.25em;
+  border-radius: 50%;
+  background: #FF5F59;
+  cursor: pointer;
+
+  &.cover-picture {
+    top: 1em;
+    left: 1em;
+  }
+
+  &.profile-picture {
+    bottom: 0;
+    right: 0;
+  }
+
+  &:hover {
+    background: var(--theme-background-color);
+  }
+
+  &>input[type="file"] {
+    display: none;
+  }
+}

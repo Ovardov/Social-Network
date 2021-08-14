@@ -92,6 +92,7 @@ const PostAction: FC<Props> = ({ mode, post, modalTitle, onModalClose, }) => {
       <Modal
         title={modalTitle}
         onClose={onModalClose}
+        hasHeader
       >
         <p>Are you sure you want to delete this post?</p>
 
@@ -123,6 +124,7 @@ const PostAction: FC<Props> = ({ mode, post, modalTitle, onModalClose, }) => {
     <Modal
       onClose={onModalClose}
       title={modalTitle}
+      hasHeader
     >
       <div className={styles.container}>
         <Avatar
