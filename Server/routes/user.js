@@ -12,8 +12,8 @@ router.get('/me', auth(), userController.get.myProfile);
 
 router.get('/suggested', auth(), userController.get.suggested)
 
-router.put('/friend/add/:id', auth(), userController.put.addFriend);
-router.put('/friend/remove/:id', auth(), userController.put.removeFriend);
+router.put('/friend/add/:username', auth(), userController.put.addFriend);
+router.put('/friend/remove/:username', auth(), userController.put.removeFriend);
 
 router.put('/', auth(), userController.put.update);
 

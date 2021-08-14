@@ -76,11 +76,11 @@ module.exports = {
 
   put: {
     addFriend: async (req, res, next) => {
-      const friendId = req.params.id;
+      const friendUsername = req.params.username;
       const authorId = req.user._id;
 
       try {
-        const friendRes = await models.User.findOneAndUpdate({ _id: friendId, friends: { $ne: authorId } }, { $push: { friends: authorId } }, { new: true })
+        const friendRes = await models.User.findOneAndUpdate({ username: friendUsername, friends: { $ne: authorId } }, { $push: { friends: authorId } }, { new: true })
           .select('firstName lastName');
 
         if (!friendRes) {
@@ -88,6 +88,7 @@ module.exports = {
           return;
         }
 
+        const friendId = friendRes._id;
         await models.User.updateOne({ _id: authorId, friends: { $ne: friendId } }, { $push: { friends: friendId } })
 
         res.status(200).send(`Now, you are friend with ${friendRes.firstName} ${friendRes.lastName}.`);
@@ -96,7 +97,7 @@ module.exports = {
       }
     },
     removeFriend: async (req, res, next) => {
-      const friendId = req.params.id;
+      const friendUsername = req.params.username;
       const authorId = req.user._id;
 
       try {
@@ -108,6 +109,7 @@ module.exports = {
           return;
         }
 
+        const friendId = friendRes._id;
         await models.User.updateOne({ _id: authorId, friends: friendId }, { $pull: { friends: friendId } })
 
         res.status(200).send(`Now, you are not friend with ${friendRes.firstName} ${friendRes.lastName}.`);

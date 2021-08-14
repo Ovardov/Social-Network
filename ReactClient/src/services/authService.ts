@@ -1,4 +1,5 @@
-import { post, postFormData } from '../utils/fetch';
+import { HttpMethods } from './../utils/enums';
+import { get, post, makeRequestWithFormData } from '../utils/fetch';
 
 export const login = async (data: Object) => {
   return post('/auth/login', data);
@@ -11,5 +12,9 @@ export const register = async (data: Object) => {
     fieldValue && formData.append(fieldName, fieldValue);
   });
 
-  return postFormData('/auth/register', formData);
+  return makeRequestWithFormData('/auth/register', formData, HttpMethods.POST);
+};
+
+export const logout = async () => {
+  return get('/auth/logout');
 };

@@ -20,4 +20,46 @@
       cursor: pointer;
     }
   }
+
+  .user-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $lg-spacing;
+
+    .info-container {
+      padding-bottom: 0;
+      line-height: 1.2;
+
+      .category {
+        font-size: 0.9em;
+        text-transform: uppercase;
+      }
+
+      &:nth-child(2) {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      &:last-child {
+        text-align: right;
+      }
+
+      .number {
+        display: block;
+        font-size: 1.5em;
+        font-weight: bold;
+      }
+
+      .user-full-name {
+        margin-bottom: 0;
+      }
+
+      button {
+        padding: 0.5em 1em;
+      }
+    }
+  }
 }

@@ -30,7 +30,6 @@ const Navigation: FC<ExternalState_> = ({ user, posts, }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(dispatch);
   return (
     <Switch>
       <LoginAndRegisterRoute path='/login' Component={LoginPage} />

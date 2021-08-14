@@ -22,7 +22,6 @@ export const postsReducer: Reducer_<PostsState_, PostsActions_> = (
           : post;
       });
 
-      console.log(state, updatedPost);
       return { posts: [...newPosts], };
     }
     case DELETE_POST: {
