@@ -20,6 +20,7 @@ import { AuthState as AuthState_, removeAuthAction } from '../../redux/actions/A
 import { Colors, Sizes } from '../../utils/enums';
 // Styles
 import styles from './index.module.scss';
+import Timeline from '../../components/Profile/Timeline';
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
@@ -50,6 +51,7 @@ const ProfilePage = () => {
   return (
     <>
       <section className={styles.container}>
+        {/* User Photos */}
         <div className={styles.photos}>
           {/* Cover picture */}
           <img className={styles.cover} src={user.profilePicture.imageUrl} alt={user?.fullName} onClick={() => setIsOpenCoverPicture(true)} />
@@ -78,6 +80,7 @@ const ProfilePage = () => {
           )}
         </div>
 
+        {/* Navigation */}
         <ProfileNavigation />
 
         {/* User Info */}
@@ -104,7 +107,10 @@ const ProfilePage = () => {
           </div>
         </div>
 
+        {/* Content */}
 
+        {/* Timeline */}
+        <Timeline />
       </section>
     </>
   );

@@ -9,6 +9,11 @@
   min-height: 100vh;
   background: var(--theme-background-color);
 
+  &.small-header {
+    grid-template-columns: auto 1fr;
+    width: 80%;
+  }
+
   @include bp(desktop-small) {
     grid-template-columns: auto 1fr;
   }

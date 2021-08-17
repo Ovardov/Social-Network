@@ -3,6 +3,10 @@
   justify-self: flex-end;
   background: var(--theme-background-color);
 
+  &.small-header .link .name {
+    display: none;
+  }
+
   @include bp(phone) {
     position: fixed;
     bottom: 0;

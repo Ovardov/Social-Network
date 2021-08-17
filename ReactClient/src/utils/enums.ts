@@ -32,3 +32,8 @@ export enum PostActionModes {
   EDIT = 'edit',
   DELETE = 'delete'
 }
+
+export enum ComponentTypes {
+  PAGE = 'page',
+  LOCAL = 'local',
+}

@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+
+  .left-column {
+    flex-basis: 38%;
+  }
+
+  .right-column {
+    flex-basis: 58%;
+    margin-left: $md-spacing;
+    flex-grow: 1;
+  }
+
+  .last-friends-container {
+    border: 1px solid var(--theme-border-color);
+    border-radius: $border-radius;
+    background: var(--theme-background-color);
+
+    .section-name {
+      text-align: center;
+      padding: $sm-spacing;
+      border-bottom: 1px solid var(--theme-border-color);
+    }
+  }
+}

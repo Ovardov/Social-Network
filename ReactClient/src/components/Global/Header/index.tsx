@@ -58,6 +58,8 @@ const Header: FC = () => {
   const history = useHistory();
   const { pathname, } = history.location;
 
+  const isProfilePage = pathname?.includes('/profile');
+
   const pages = [
     {
       url: '/',
@@ -77,7 +79,7 @@ const Header: FC = () => {
   ];
 
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} ${isProfilePage ? styles['small-header'] : ''}`}>
       <h1 className={styles.title}>
         <Link to='/' className={styles['title-link']}>
           <Icon

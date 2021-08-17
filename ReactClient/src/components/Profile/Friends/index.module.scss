@@ -1,0 +1,109 @@
+.list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 1em;
+  padding-bottom: 0;
+
+  &.local {
+    grid-template-columns: repeat(3, 1fr);
+    padding: $sm-spacing;
+
+    .list-item {
+      padding: 0;
+
+      &:hover .image-container {
+        border: none;
+      }
+
+      .image-container {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .list-item {
+    padding: $lg-spacing;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background: var(--theme-background-color);
+    border: 1px solid var(--theme-border-color);
+    ;
+    border-radius: $border-radius;
+    cursor: pointer;
+
+    &:hover:after {
+      display: block;
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      box-shadow: $box-shadow;
+      border-radius: $border-radius;
+    }
+
+    .image-container {
+      display: flex;
+      position: relative;
+      justify-content: center;
+      align-items: center;
+      width: 6em;
+      height: 6em;
+      border: 1px solid var(--theme-background-color);
+      border-radius: 50%;
+      margin-bottom: 0.5em;
+
+      &>span:first-child {
+        width: 5em;
+        height: 5em;
+      }
+    }
+
+    &:hover>.image-container {
+      border-color: var(--theme-primary-color);
+    }
+
+    &:hover .message-container {
+      display: flex;
+    }
+
+    .message-container {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      bottom: 0;
+      right: 0.2em;
+      z-index: 10;
+      width: 2em;
+      height: 2em;
+      background: var(--theme-primary-color);
+      border-radius: 50%;
+    }
+
+    .info {
+      text-align: center;
+      font-size: 0.9em;
+
+      .name {
+        margin-bottom: 0;
+      }
+
+      .scale {
+        margin-bottom: 1.1em;
+      }
+
+      .additional-info {
+        text-align: center;
+        padding-bottom: 0;
+        margin: 0;
+        font-size: 0.9rem;
+        color: var(--theme-text-darker-color);
+      }
+    }
+  }
+}

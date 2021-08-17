@@ -11,7 +11,7 @@ import styles from './index.module.scss';
 interface Props {
   type: 'image' | 'image-with-info',
   size: Sizes,
-  imageSrc?: string,
+  imageSrc: string,
   name: string,
   createdAt?: Date,
 }
