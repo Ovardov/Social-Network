@@ -9,9 +9,10 @@ import EditUserPicture from '../../components/Profile/EditPicture';
 // Components
 import ProfileNavigation from '../../components/Profile/Navigation';
 import FriendStatus from '../../components/Global/FriendStatus';
-import ProfileGallery from '../../components/Profile/GalleryPage';
-import ProfileFriends from '../../components/Profile/FriendsPage';
 import ProfileTimeline from '../../components/Profile/Timeline';
+import ProfileAbout from '../../components/Profile/About';
+import ProfileFriends from '../../components/Profile/FriendsPage';
+import ProfileGallery from '../../components/Profile/GalleryPage';
 // Services
 import { logout } from '../../services/authService';
 // Models
@@ -111,6 +112,7 @@ const ProfilePage: FC_ = () => {
 
         {/* Content */}
         {pathname === `/profile/${username}` && <ProfileTimeline />}
+        {pathname === `/profile/${username}/about` && <ProfileAbout />}
         {pathname === `/profile/${username}/friends` && <ProfileFriends />}
         {pathname === `/profile/${username}/gallery` && <ProfileGallery />}
       </section>

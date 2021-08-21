@@ -28,6 +28,7 @@ export enum Colors {
 }
 
 export enum PostActionModes {
+  READ = 'read',
   CREATE = 'create',
   EDIT = 'edit',
   DELETE = 'delete'

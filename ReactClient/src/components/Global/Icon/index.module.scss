@@ -17,6 +17,10 @@
       }
     }
   }
+
+  &.clickable {
+    cursor: pointer;
+  }
   
   .icon {
     &.color-primary {

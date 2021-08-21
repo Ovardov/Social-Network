@@ -7,7 +7,7 @@
   width: 90%;
   max-width: 1600px;
   min-height: 100vh;
-  background: var(--theme-background-color);
+  // background: var(--theme-background-color);
 
   &.small-header {
     grid-template-columns: auto 1fr;
@@ -28,6 +28,8 @@
   }
 
   .site-main {
-    padding-top: $sm-spacing;
+    padding: $sm-spacing;
+    background: #F4F4F4;
+
   }
 }

@@ -11,12 +11,14 @@ export type Icon = {
   color: Colors
   hasHoverEffect?: boolean
   isSelected?: boolean
+  onClickHandler?: () => void
 }
 
-const Icon: FC<Icon> = ({ Component, alt, size, color, hasHoverEffect, isSelected, }) => {
+const Icon: FC<Icon> = ({ Component, alt, size, color, hasHoverEffect, isSelected, onClickHandler, }) => {
   return (
     <span
-      className={`${styles['icon-container']} ${hasHoverEffect ? styles['with-hover-effect'] : ''}`}
+      onClick={onClickHandler}
+      className={`${styles['icon-container']} ${hasHoverEffect ? styles['with-hover-effect'] : ''} ${onClickHandler ? styles.clickable : ''}`}
     >
       <Component
         alt={alt}
