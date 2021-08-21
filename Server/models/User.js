@@ -74,7 +74,7 @@ userSchema.index(
   { unique: true }
 );
 
-// Full Name virtual field
+// Virtual fields
 userSchema.virtual('fullName').get(function () {
   return this.firstName + ' ' + this.lastName;
 });

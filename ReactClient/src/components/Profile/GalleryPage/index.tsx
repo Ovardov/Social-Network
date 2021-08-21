@@ -1,5 +1,5 @@
 // Libraries
-import React from 'react';
+import React, { FC as FC_ } from 'react';
 import { useParams } from 'react-router-dom';
 // Components
 import Gallery from '../Gallery';
@@ -7,13 +7,12 @@ import Gallery from '../Gallery';
 import { ComponentTypes } from '../../../utils/enums';
 // Models
 import { ProfileParams as ProfileParams_ } from '../../../models/Profile';
-
-const ProfileGallery = () => {
+import Image_ from '../../../models/Image';
+interface Props {
+  images: Image_[]
+}
+const ProfileGallery: FC_<Props> = ({ images }) => {
   const { username, } = useParams<ProfileParams_>();
-
-  const images = [
-    { id: '1', imageUrl: 'https://via.placeholder.com/1024x768', }
-  ];
 
   return (
     <Gallery

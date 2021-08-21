@@ -1,6 +1,7 @@
 const models = require('../models');
 const config = require('../config/config');
 const utils = require('../utils');
+const { validationResult } = require('express-validator');
 
 module.exports = {
   get: {
@@ -46,6 +47,56 @@ module.exports = {
 
         res.send(userRes);
       } catch (err) {
+        next(err);
+      }
+    },
+
+    profile: async (req, res, next) => {
+      try {
+        const { username } = req.params;
+
+        // Check for data errors
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+          return res.status(400).send({ errors: errors.array() });
+        }
+
+        const query = { username };
+
+        const userData = await models.User.findOne(query)
+          .select('firstName lastName friendsCount',)
+          .populate('coverPicture')
+          .populate('profilePicture')
+          .populate({
+            path: 'friends',
+            select: 'firstName lastName username',
+            populate: [
+              'profilePicture',
+            ],
+            options: {
+              limit: 9,
+              sort: 'desc',
+            },
+          })
+          .populate(
+            {
+              path: 'posts',
+              populate: [
+                'likes',
+                'comments',
+                'image',
+                { path: 'author', select: 'firstName lastName fullName' }
+              ],
+              options: {
+                sort: { createdAt: 'desc' },
+              },
+            }
+          )
+
+        res.send(userData)
+      }
+      catch (err) {
         next(err);
       }
     },

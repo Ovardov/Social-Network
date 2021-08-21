@@ -119,7 +119,7 @@ const PostCard: FC_<Props> = ({ post, }) => {
       <div className={styles['post-data']}>
         {content && <p className={styles.content}>{content}</p>}
 
-        {image && (
+        {image?.imageUrl && (
           <Image
             aspectRatio='16-9'
             imageSrc={image?.imageUrl}

@@ -1,33 +1,25 @@
 // Libraries
-import React from 'react';
+import React, { FC as FC_ } from 'react';
 // Components
 import PostList from '../../Home/PostList';
 import Friends from '../Friends';
 import Gallery from '../Gallery';
+// Models
+import User_ from '../../../models/User';
+import Post_ from '../../../models/Post';
+import Image_ from '../../../models/Image';
 // Utils
 import { ComponentTypes } from '../../../utils/enums';
 // Styles
 import styles from './index.module.scss';
 
-const ProfileTimeline = () => {
+interface Props {
+  lastNineFriends: User_[],
+  lastNinePhotos: Image_[],
+  posts: Post_[],
+}
 
-  const lastNineFriends = [
-    {
-      firstName: 'Test',
-      fullName: 'Test Testov',
-      id: '1',
-      lastName: 'Testov',
-      profilePicture: { id: '1', imageUrl: '', },
-      username: 'Test',
-    }
-  ].slice(0, 9);
-
-  const lastNinePhotos = [
-    {
-      id: "5fdf63d007afc244fc0cbe03",
-      imageUrl: "http://res.cloudinary.com/dxxq5xtsy/image/upload/v1608475599/pmb6bhycp8sxt6qspelu.jpg",
-    }
-  ].slice(0, 9);
+const ProfileTimeline: FC_<Props> = ({ lastNineFriends, lastNinePhotos, posts, }) => {
 
   return (
     <>
@@ -43,7 +35,7 @@ const ProfileTimeline = () => {
           )}
 
           {/* Last Friends */}
-          {lastNineFriends.length > 0 && (
+          {lastNineFriends?.length > 0 && (
             <div className={styles['last-friends-container']}>
               <p className={styles['section-name']}>Last 9 Friends</p>
 
@@ -53,7 +45,7 @@ const ProfileTimeline = () => {
         </section>
 
         <section className={styles['right-column']}>
-          <PostList />
+          <PostList posts={posts} />
         </section>
       </div>
     </>

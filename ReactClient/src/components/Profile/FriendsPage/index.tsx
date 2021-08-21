@@ -1,5 +1,5 @@
 // Libraries
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, FC as FC_ } from 'react';
 // Components
 import SearchBox from '../../Global/SearchBox';
 import Friends from '../Friends';
@@ -11,18 +11,8 @@ import User_ from '../../../models/User';
 import styles from './index.module.scss';
 
 const ProfileFriends = () => {
-  const data = [
-    {
-      firstName: 'Test',
-      fullName: 'Test Testov',
-      id: '1',
-      lastName: 'Testov',
-      profilePicture: { id: '1', imageUrl: '', },
-      username: 'Test',
-    }
-  ];
-
-  const [friendsToShow, setFriendsToShow] = useState<User_[]>(data);
+  const friends: User_[] = [];
+  const [friendsToShow, setFriendsToShow] = useState<User_[]>(friends);
 
   const filterFriends = useCallback(
     (friends: User_[], searchValue: string) => {
@@ -32,7 +22,7 @@ const ProfileFriends = () => {
   );
 
   const onSearchHandler = (searchValue: string) => {
-    const filteredFriends = filterFriends(data, searchValue);
+    const filteredFriends = filterFriends(friends, searchValue);
     setFriendsToShow(filteredFriends);
   };
 

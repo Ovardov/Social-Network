@@ -1,24 +1,17 @@
 // Libraries
 import React, { useMemo, FC } from 'react';
-import { useSelector } from 'react-redux';
 // Components
 import PostCard from '../PostCard';
 // Models
-import { AppState as AppState_ } from '../../../redux/index';
 import Post_ from '../../../models/Post';
-import { PostsState as PostsState_ } from '../../../redux/actions/Posts';
 // Styles
 import styles from './index.module.scss';
 
-// ToDo - Remove Any type
-const PostList: FC = () => {
-  const {
-    postsState: { posts, },
-  } = useSelector<AppState_, {
-    postsState: PostsState_
-  }>(state => ({
-    postsState: state.postsState,
-  }));
+interface Props {
+  posts: Post_[]
+}
+
+const PostList: FC<Props> = ({ posts = [], }) => {
 
   // Memoized posts
   const renderPosts = useMemo(() => {
