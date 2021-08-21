@@ -18,7 +18,7 @@ interface Props {
   componentType: ComponentTypes
 }
 
-const Friends: FC_<Props> = ({ friends, componentType, }) => {
+const FriendsList: FC_<Props> = ({ friends, componentType, }) => {
   // ToDo -> Added real data
   const home = 'NY';
 
@@ -62,4 +62,4 @@ const Friends: FC_<Props> = ({ friends, componentType, }) => {
   );
 };
 
-export default Friends;
+export default FriendsList;

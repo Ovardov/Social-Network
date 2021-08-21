@@ -35,7 +35,7 @@ const Navigation: FC<ExternalState_> = ({ user, posts, }) => {
       <LoginAndRegisterRoute path='/login' Component={LoginPage} />
       <LoginAndRegisterRoute path='/register' Component={RegisterPage} />
       <ProtectedRoute exact path='/' Component={HomePage} />
-      <ProtectedRoute exact path='/profile/:username' Component={ProfilePage} />
+      <ProtectedRoute path='/profile/:username' Component={ProfilePage} />
     </Switch>
   );
 };

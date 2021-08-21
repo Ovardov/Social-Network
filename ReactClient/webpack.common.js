@@ -1,17 +1,17 @@
-const dotENVPlugin = require('dotenv-webpack')
+const dotENVPlugin = require('dotenv-webpack');
 
-const mode = 'development'
-const isDevelopment = mode === 'development'
+const mode = 'development';
+const isDevelopment = mode === 'development';
 
 const dotenvPlugin = new dotENVPlugin({
   path: isDevelopment ? './.env.development' : './.env.production',
-})
+});
 
 const commonStyleLoaders = [
   {
     loader: 'css-loader',
     options: {
-      modules: { localIdentName: '[name]__[local]___[hash:base64:5]' },
+      modules: { localIdentName: '[name]__[local]___[hash:base64:5]', },
       sourceMap: isDevelopment,
     },
   },
@@ -43,13 +43,13 @@ module.exports = {
     {
       test: /\.(svg)$/i,
       use: [
-        { loader: 'babel-loader' },
+        { loader: 'babel-loader', },
         { loader: 'react-svg-loader', options: { tsx: true } },
       ],
-    },
+    }
   ],
   commonResolve: {
     extensions: ['.js', '.ts', '.tsx'],
   },
   commonPlugins: [dotenvPlugin],
-}
+};

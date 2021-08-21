@@ -35,7 +35,7 @@ const Gallery: FC_<Props> = ({ images, componentType, userFullName, }) => {
 
   return (
     <>
-      <ul className={`${styles.list} ${componentType === ComponentTypes.LOCAL ? styles.local : ''}`}>
+      <ul className={`${styles.list} ${componentType === ComponentTypes.LOCAL ? styles.local : styles.page}`}>
         {images?.length > 0 && renderedImages}
       </ul>
 

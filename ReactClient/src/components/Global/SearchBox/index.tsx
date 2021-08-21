@@ -11,9 +11,14 @@ import CloseIcon from '../../../../public/images/close-icon.svg';
 // Styles
 import styles from './index.module.scss';
 
-const SearchBox: FC = () => {
+interface Props {
+  onChange: (searchValue: string) => void
+}
+
+const SearchBox: FC<Props> = ({ onChange, }) => {
   const fieldRef = useRef(null);
   const [isFocused, setIsFocused] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
 
   useEffect(() => {
     const pageClickEvent = (e: MouseEvent) => {
@@ -32,53 +37,55 @@ const SearchBox: FC = () => {
     };
   }, [isFocused]);
 
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newSearchValue = e.target.value;
+    setSearchValue(newSearchValue);
+
+    onChange(newSearchValue);
+  };
+
+  const onResetSearchValue = () => {
+    setSearchValue('');
+    onChange('');
+  };
+
   return (
-    <Formik
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      onSubmit={() => {}}
-      initialValues={{ search: '', }}
-      render={({ resetForm, }) => (
-        <Form>
-          <p
-            ref={fieldRef}
-            className={`${styles['field-container']} ${isFocused ? styles.touched : ''}`}
+    <form>
+      <p
+        ref={fieldRef}
+        className={`${styles['field-container']} ${isFocused ? styles.touched : ''}`}
+      >
+        <Icon
+          size={Sizes.SM}
+          Component={SearhIcon}
+          alt='Search Icon'
+          color={isFocused ? Colors.PRIMARY : Colors.TEXT}
+        />
+
+        <input
+          placeholder='Search'
+          className={styles['input-field']}
+          value={searchValue}
+          // Mouse in event
+          onFocus={() => setIsFocused(true)}
+          onChange={onChangeHandler}
+        />
+
+        {isFocused && (
+          <span
+            className={styles['reset-button']}
+            onClick={onResetSearchValue}
           >
             <Icon
               size={Sizes.SM}
-              Component={SearhIcon}
-              alt='Search Icon'
-              color={isFocused ? Colors.PRIMARY : Colors.TEXT}
+              Component={CloseIcon}
+              alt='Close Icon'
+              color={Colors.PRIMARY}
             />
-
-            <Field name='search'>
-              {({ field, }: FieldProps) => (
-                <input
-                  {...field}
-                  placeholder='Search'
-                  className={styles['input-field']}
-                  // Mouse in event
-                  onFocus={() => setIsFocused(true)}
-                />
-              )}
-            </Field>
-
-            {isFocused && (
-              <span
-                className={styles['reset-button']}
-                onClick={() => resetForm()}
-              >
-                <Icon
-                  size={Sizes.SM}
-                  Component={CloseIcon}
-                  alt='Close Icon'
-                  color={Colors.PRIMARY}
-                />
-              </span>
-            )}
-          </p>
-        </Form>
-      )}
-    />
+          </span>
+        )}
+      </p>
+    </form>
   );
 };
 

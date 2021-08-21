@@ -1,0 +1,9 @@
+.search-box-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: $xs-spacing;
+  border-radius: $border-radius;
+  border: 1px solid var(--theme-border-color);
+  margin-bottom: $lg-spacing;
+}

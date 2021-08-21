@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, FC as FC_ } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import Avatar from '../../components/Global/Avatar';
@@ -9,6 +9,9 @@ import EditUserPicture from '../../components/Profile/EditPicture';
 // Components
 import ProfileNavigation from '../../components/Profile/Navigation';
 import FriendStatus from '../../components/Global/FriendStatus';
+import ProfileGallery from '../../components/Profile/GalleryPage';
+import ProfileFriends from '../../components/Profile/FriendsPage';
+import ProfileTimeline from '../../components/Profile/Timeline';
 // Services
 import { logout } from '../../services/authService';
 // Models
@@ -20,11 +23,10 @@ import { AuthState as AuthState_, removeAuthAction } from '../../redux/actions/A
 import { Colors, Sizes } from '../../utils/enums';
 // Styles
 import styles from './index.module.scss';
-import Timeline from '../../components/Profile/Timeline';
 
-const ProfilePage = () => {
+const ProfilePage: FC_ = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const { location: { pathname, }, push, } = useHistory();
   const { username, } = useParams<ProfileParams>();
   const [isOpenCoverPicture, setIsOpenCoverPicture] = useState(false);
   const [isOpenProfilePicture, setIsOpenProfilePicture] = useState(false);
@@ -42,7 +44,7 @@ const ProfilePage = () => {
       await logout();
 
       dispatch(removeAuthAction());
-      history.push('/login');
+      push('/login');
     } catch (err) {
       console.log(err);
     }
@@ -108,9 +110,9 @@ const ProfilePage = () => {
         </div>
 
         {/* Content */}
-
-        {/* Timeline */}
-        <Timeline />
+        {pathname === `/profile/${username}` && <ProfileTimeline />}
+        {pathname === `/profile/${username}/friends` && <ProfileFriends />}
+        {pathname === `/profile/${username}/gallery` && <ProfileGallery />}
       </section>
     </>
   );
