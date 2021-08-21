@@ -56,7 +56,7 @@ const Friends: FC_<Props> = ({ friends, componentType, }) => {
   }, [friends]);
 
   return (
-    <div className={`${styles.list} ${styles.local}`}>
+    <div className={`${styles.list} ${componentType === ComponentTypes.LOCAL ? styles.local : ''}`}>
       {friends?.length > 0 && renderedFriends}
     </div>
   );

@@ -1,0 +1,23 @@
+.list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 1em;
+  padding-bottom: 0;
+
+  &.local {
+    grid-template-columns: repeat(3, 1fr);
+    padding: $sm-spacing;
+  }
+
+  .list-item {
+    position: relative;
+    list-style: none outside;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: $border-radius;
+
+    &:hover {
+      box-shadow: 0 0 0.5em 0 rgba(0, 0, 0, 0.5);
+    }
+  }
+}
