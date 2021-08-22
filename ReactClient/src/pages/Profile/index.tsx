@@ -20,7 +20,7 @@ import { getProfileData } from '../../services/userService';
 import { ProfileParams } from '../../models/Profile';
 import { AppState as AppState_ } from '../../redux';
 // Actions
-import { AuthState as AuthState_, removeAuthAction } from '../../redux/actions/Auth';
+import { AuthState as AuthState_, removeAuthAction, updateUserAction } from '../../redux/actions/Auth';
 // Models
 import User_ from '../../models/User';
 import Post_ from '../../models/Post';
@@ -28,11 +28,12 @@ import Post_ from '../../models/Post';
 import { Colors, Sizes } from '../../utils/enums';
 // Styles
 import styles from './index.module.scss';
+import { compareTwoObjects } from '../../utils/helper';
 
 const ProfilePage: FC_ = () => {
   const dispatch = useDispatch();
   const { location: { pathname, }, push, } = useHistory();
-  const { username, } = useParams<ProfileParams>();
+  const { username: usernameFromParams, } = useParams<ProfileParams>();
   const [isOpenCoverPicture, setIsOpenCoverPicture] = useState(false);
   const [isOpenProfilePicture, setIsOpenProfilePicture] = useState(false);
   const [userData, setUserData] = useState<User_>(null);
@@ -45,10 +46,16 @@ const ProfilePage: FC_ = () => {
     authState: state.authState,
   }));
 
+  const isMyProfileOpened = usernameFromParams === user.username;
+  console.log(isMyProfileOpened, usernameFromParams, user.username);
   useEffect(() => {
     const initUserData = async () => {
       try {
-        const res = await getProfileData(username) as User_;
+        const res = await getProfileData(usernameFromParams) as User_;
+
+        if (isMyProfileOpened) {
+          dispatch(updateUserAction(res));
+        }
 
         setUserData(res);
       } catch (err) {
@@ -60,6 +67,18 @@ const ProfilePage: FC_ = () => {
       initUserData();
     }
   });
+
+  useEffect(() => {
+    if (isMyProfileOpened) {
+      const isDataEqual = compareTwoObjects(user, userData);
+
+      if (!isDataEqual) {
+        setUserData(user);
+      }
+    }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, isMyProfileOpened]);
 
   const handleLogout = async () => {
     try {
@@ -90,6 +109,9 @@ const ProfilePage: FC_ = () => {
     };
   }, [userData?.posts]);
 
+
+  console.log(userData);
+
   return (
     <>
       <section className={styles.container}>
@@ -103,26 +125,38 @@ const ProfilePage: FC_ = () => {
             onClick={() => setIsOpenCoverPicture(true)}
           />
 
-          {username === user.username && <EditUserPicture user={userData} action='cover-picture' />}
+          {isMyProfileOpened && <EditUserPicture action='cover-picture' />}
 
           {isOpenCoverPicture && (
             <Modal hasHeader={false} onClose={() => setIsOpenCoverPicture(false)} fullWidth>
-              <Image aspectRatio='16-9' imageSrc={userData?.coverPicture?.imageUrl} imageAlt={userData?.fullName} />
+              <Image
+                aspectRatio='16-9'
+                imageSrc={userData?.coverPicture?.imageUrl}
+                imageAlt={userData?.fullName}
+              />
             </Modal>
           )}
 
           {/* Profile picture */}
           <div className={styles['profile-picture']}>
-            {username === user.username && <EditUserPicture user={userData} action='profile-picture' />}
+            {isMyProfileOpened && <EditUserPicture action='profile-picture' />}
 
             <span onClick={() => setIsOpenProfilePicture(true)}>
-              <Avatar type='image' size={Sizes.XL} name={userData?.fullName} imageSrc={userData?.profilePicture?.imageUrl} />
+              <Avatar
+                type='image'
+                size={Sizes.XL}
+                name={userData?.fullName}
+                imageSrc={userData?.profilePicture?.imageUrl}
+              />
             </span>
           </div>
 
           {isOpenProfilePicture && (
             <Modal hasHeader={false} onClose={() => setIsOpenProfilePicture(false)}>
-              <Image aspectRatio='1-1' imageSrc={userData?.profilePicture?.imageUrl} imageAlt={userData?.fullName} />
+              <Image
+                aspectRatio='1-1'
+                imageSrc={userData?.profilePicture?.imageUrl}
+                imageAlt={userData?.fullName} />
             </Modal>
           )}
         </div>
@@ -141,10 +175,10 @@ const ProfilePage: FC_ = () => {
           <div className={styles['info-container']}>
             <h3 className={styles['user-full-name']}>{userData?.fullName}</h3>
 
-            {user.username === username ? (
+            {isMyProfileOpened ? (
               <Button text='Logout' color={Colors.PRIMARY} onClickHandler={handleLogout} />
             ) : (
-              <FriendStatus username={username} />
+              <FriendStatus username={usernameFromParams} />
             )}
           </div>
 
@@ -155,7 +189,7 @@ const ProfilePage: FC_ = () => {
         </div>
 
         {/* Content */}
-        {pathname === `/profile/${username}` && (
+        {pathname === `/profile/${usernameFromParams}` && (
           <ProfileTimeline
             lastNineFriends={lastNineFriends}
             lastNinePhotos={lastNinePhotos}
@@ -163,9 +197,9 @@ const ProfilePage: FC_ = () => {
           />
         )}
 
-        {pathname === `/profile/${username}/about` && <ProfileAbout />}
-        {pathname === `/profile/${username}/friends` && <ProfileFriends />}
-        {pathname === `/profile/${username}/gallery` && <ProfileGallery images={allImages} />}
+        {pathname === `/profile/${usernameFromParams}/about` && <ProfileAbout />}
+        {pathname === `/profile/${usernameFromParams}/friends` && <ProfileFriends />}
+        {pathname === `/profile/${usernameFromParams}/gallery` && <ProfileGallery images={allImages} />}
       </section>
     </>
   );

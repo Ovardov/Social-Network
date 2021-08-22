@@ -11,7 +11,7 @@ import Image_ from '../../../models/Image';
 interface Props {
   images: Image_[]
 }
-const ProfileGallery: FC_<Props> = ({ images }) => {
+const ProfileGallery: FC_<Props> = ({ images, }) => {
   const { username, } = useParams<ProfileParams_>();
 
   return (

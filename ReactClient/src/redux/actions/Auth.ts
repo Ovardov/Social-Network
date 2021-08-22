@@ -1,5 +1,5 @@
 import { Action as Action_ } from 'redux';
-import { REMOVE_AUTH, SET_AUTH } from '../actionTypes';
+import { REMOVE_AUTH, SET_AUTH, UPDATE_USER } from '../actionTypes';
 
 import User_ from './../../models/User';
 
@@ -16,7 +16,11 @@ export interface IRemoveAuth extends Action_<typeof REMOVE_AUTH> {
   authState: AuthState
 }
 
-export type AuthActions = ISetAuth | IRemoveAuth;
+export interface IUpdateUser extends Action_<typeof UPDATE_USER> {
+  newUserData: User_
+}
+
+export type AuthActions = ISetAuth | IRemoveAuth | IUpdateUser;
 
 export const setAuthAction = (user: User_): ISetAuth => {
   return {
@@ -34,5 +38,12 @@ export const removeAuthAction = () => {
     authState: {
       isAuthenticated: false,
     },
+  };
+};
+
+export const updateUserAction = (newUserData: User_) => {
+  return {
+    type: UPDATE_USER,
+    newUserData,
   };
 };

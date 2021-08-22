@@ -16,8 +16,9 @@ module.exports = {
       try {
         const { id } = await jwt.verifyToken(token);
 
-        const user = await models.User.findById(id).select(['firstName', 'lastName', 'username', 'profilePicture'])
-          .populate('profilePicture');
+        const user = await models.User.findById(id).select(['firstName', 'lastName', 'username'])
+          .populate('profilePicture')
+          .populate('coverPicture');
 
         res.send(user);
       } catch (e) {
@@ -129,8 +130,12 @@ module.exports = {
         );
 
         // Create image
-        const createdImage = await models.Image.create({
+        const createdProfilePicture = await models.Image.create({
           imageUrl: uploadedProfilePicture.url,
+        });
+
+        const createdDefaultCoverPicture = await models.Image.create({
+          imageUrl: process.env.DEFAULT_COVER_PICTURE,
         });
 
         // Create user
@@ -141,7 +146,8 @@ module.exports = {
           password,
           firstName,
           lastName,
-          profilePicture: createdImage._id,
+          profilePicture: createdProfilePicture._id,
+          coverPicture: createdDefaultCoverPicture._id
         });
 
         // Create auth token

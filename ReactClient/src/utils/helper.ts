@@ -5,3 +5,5 @@ export const buildUrl = (...paths: string[]): string => {
 };
 
 export const capitalizeFirstLetter = (string: string) => string.charAt(0).toUpperCase() + string.slice(1);
+
+export const compareTwoObjects = (firstObject: Object, secondObject: Object) => JSON.stringify(firstObject) === JSON.stringify(secondObject);

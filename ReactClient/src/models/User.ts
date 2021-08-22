@@ -15,3 +15,7 @@ export default class User {
   posts: Post_[];
   postsCount?: number;
 }
+export class UserPictureFormData {
+  oldImageUrl: string
+  image: File
+}

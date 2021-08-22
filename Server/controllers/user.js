@@ -1,3 +1,5 @@
+import { uploader as cloudinaryUploader } from 'cloudinary/lib/v2';
+
 const models = require('../models');
 const config = require('../config/config');
 const utils = require('../utils');
@@ -65,7 +67,7 @@ module.exports = {
         const query = { username };
 
         const userData = await models.User.findOne(query)
-          .select('firstName lastName friendsCount',)
+          .select('firstName lastName username',)
           .populate('coverPicture')
           .populate('profilePicture')
           .populate('friendsCount')
@@ -88,7 +90,7 @@ module.exports = {
                 'likes',
                 'comments',
                 'image',
-                { path: 'author', select: 'firstName lastName fullName' }
+                { path: 'author', select: 'firstName lastName fullName', populate: 'profilePicture'}
               ],
               options: {
                 sort: { createdAt: 'desc' },
@@ -178,22 +180,56 @@ module.exports = {
         .then(() => res.status(200).send('Updated Successfully'))
         .catch(next);
     },
+    updatePicture: async (req, res, next) => {
+      try {
+        // Check for data errors
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+          return res.status(400).send({ errors: errors.array() });
+        }
+
+        const { oldImageUrl } = req.body;
+        const { file } = req;
+
+        let createdImage;
+
+        // Upload profile picture to cloudinary
+        const uploadedImage = await cloudinaryUploader.upload(file.path, {
+          quality: 'auto',
+          width: 1024,
+          height: 1024,
+          crop: 'limit',
+        });
+
+        // ToDo -> Delete old image
+        createdImage = await models.Image.findOneAndUpdate(
+          { imageUrl: oldImageUrl },
+          { imageUrl: uploadedImage.url },
+          { new: true },
+        );
+
+      res.status(200).send(createdImage);
+    } catch(e) {
+      next(e);
+    }
   },
+},
 
   delete: {
-    removeMyAccount: async (req, res, next) => {
-      const token = req.cookies[config.authCookieName];
+  removeMyAccount: async (req, res, next) => {
+    const token = req.cookies[config.authCookieName];
 
-      try {
-        const { id } = await utils.jwt.verifyToken(token);
+    try {
+      const { id } = await utils.jwt.verifyToken(token);
 
-        await models.User.deleteOne({ _id: id })
-        await models.TokenBlacklist.create({ token });
+      await models.User.deleteOne({ _id: id })
+      await models.TokenBlacklist.create({ token });
 
-        res.clearCookie(config.authCookieName).send('Deleted successfully!');
-      } catch (err) {
-        next(err);
-      }
+      res.clearCookie(config.authCookieName).send('Deleted successfully!');
+    } catch (err) {
+      next(err);
     }
   }
+}
 };
