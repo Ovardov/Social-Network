@@ -83,6 +83,9 @@ userSchema.virtual('id').get(function () {
   return this._id.toHexString();
 });
 
+userSchema.virtual('friendsCount', { ref: 'User', localField: '_id', foreignField: 'friends', count: true });
+userSchema.virtual('postsCount', { ref: 'Post', localField: '_id', foreignField: 'author', count: true });
+
 // Compare password method
 userSchema.methods = {
   matchPassword: function (password) {

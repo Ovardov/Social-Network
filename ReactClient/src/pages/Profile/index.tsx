@@ -134,7 +134,7 @@ const ProfilePage: FC_ = () => {
         <div className={styles['user-info']}>
 
           <div className={styles['info-container']}>
-            <span className={styles.number}>{userData?.friends?.length}</span>
+            <span className={styles.number}>{userData?.friendsCount || 0}</span>
             <span className={styles.category}>Friends</span>
           </div>
 
@@ -149,7 +149,7 @@ const ProfilePage: FC_ = () => {
           </div>
 
           <div className={styles['info-container']}>
-            <span className={styles.number}>{userData?.posts?.length}</span>
+            <span className={styles.number}>{userData?.postsCount || 0}</span>
             <span className={styles.category}>Posts</span>
           </div>
         </div>

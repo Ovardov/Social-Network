@@ -11,5 +11,7 @@ export default class User {
   profilePicture: Image_;
   coverPicture: Image_;
   friends: User_[];
+  friendsCount?: number;
   posts: Post_[];
+  postsCount?: number;
 }

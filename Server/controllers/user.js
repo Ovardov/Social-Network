@@ -68,6 +68,7 @@ module.exports = {
           .select('firstName lastName friendsCount',)
           .populate('coverPicture')
           .populate('profilePicture')
+          .populate('friendsCount')
           .populate({
             path: 'friends',
             select: 'firstName lastName username',
@@ -79,6 +80,7 @@ module.exports = {
               sort: 'desc',
             },
           })
+          .populate('postsCount')
           .populate(
             {
               path: 'posts',
