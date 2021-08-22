@@ -1,10 +1,18 @@
 import React, { useState, FC as FC_ } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 // Components
 import ButtonContainers from '../../Global/Buttons/ButtonsContainer';
 import Button from '../../Global/Buttons/Button';
 import Icon from '../../Global/Icon';
+// Services
+import { updateUserInfo } from '../../../services/userService';
+// Redux
+import { AuthState as AuthState_, updateUserAction } from '../../../redux/actions/Auth';
+import { AppState as AppState_ } from '../../../redux';
 // Utils
 import { Colors, PostActionModes, Sizes } from '../../../utils/enums';
+// Models
+import { UserInfo as UserInfo_ } from '../../../models/User';
 // Icons
 import AddCircleIcon from '../../../../public/images/add-circle-icon.svg';
 import EditIcon from '../../../../public/images/edit-icon.svg';
@@ -13,31 +21,63 @@ import styles from './index.module.scss';
 
 interface Props {
   categoryName: string
-  categoryTitle: string
-  data: string
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+  categoryAddText: string
+  categoryDetails: string
+  categoryFieldName: string
+  categoryData: string
 }
 
-const AboutInfoCard: FC_<Props> = ({ categoryName, categoryTitle, data, onSubmit, }) => {
+const AboutInfoCard: FC_<Props> = ({ categoryName, categoryAddText, categoryDetails, categoryFieldName, categoryData, }) => {
+  const dispatch = useDispatch();
   const [actionMode, setActionMode] = useState<PostActionModes>(PostActionModes.READ);
-  const [localData, setLocalData] = useState(data);
+  const [localData, setLocalData] = useState(categoryData);
+
+  const {
+    authState: { user, },
+  } = useSelector<AppState_, {
+    authState: AuthState_
+  }>(state => ({
+    authState: state.authState,
+  }));
+
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    try {
+      e.preventDefault();
+
+      const newUserInfoData = {
+        [categoryFieldName]: localData,
+      };
+
+      const res = await updateUserInfo(newUserInfoData) as UserInfo_;
+
+      if (Object.keys(res).includes(categoryFieldName) && Object.values(res).includes(localData)) {
+        const action = updateUserAction({ ...user, ...res, });
+        dispatch(action);
+      }
+
+      setActionMode(PostActionModes.READ);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <article className={styles['info-card']}>
       {/* <h4 className={styles.category}>Work</h4> */}
-      {!data && actionMode === PostActionModes.READ && (
+      {!categoryData && actionMode === PostActionModes.READ && (
         <button className={styles.button} onClick={() => setActionMode(PostActionModes.CREATE)}>
           <Icon Component={AddCircleIcon} alt='Add Icon' size={Sizes.MD} color={Colors.PRIMARY} hasHoverEffect />
-          Add a {categoryName.toLowerCase()}
+          {categoryAddText}
         </button>
       )}
 
-      {data && actionMode === PostActionModes.READ && (
+      {categoryData && actionMode === PostActionModes.READ && (
         <>
           <header className={styles.content}>
-            <h4 className={styles['category-name']}>{categoryTitle}</h4>
+            <h4 className={styles['category-name']}>{categoryName}</h4>
 
-            <p className={styles['category-info']}>{data}</p>
+            <p className={styles['category-info']}>{`${categoryDetails} ${categoryData}`}</p>
           </header>
 
           <Icon

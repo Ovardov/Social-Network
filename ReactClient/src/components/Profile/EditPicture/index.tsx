@@ -42,16 +42,12 @@ const EditUserPicture: FC_<Props> = ({ action, }) => {
           image: newPicture,
         }) as Image_;
 
-
-        console.log(updatedPicture, 'up')
         if (updatedPicture?.id && updatedPicture?.imageUrl) {
           const reduxUserAction = updateUserAction({
             ...user,
             ...(action === 'profile-picture' ? { profilePicture: updatedPicture, } : null),
             ...(action === 'cover-picture' ? { coverPicture: updatedPicture, } : null),
           });
-
-          console.log(reduxUserAction,  'ati')
 
           dispatch(reduxUserAction);
         }

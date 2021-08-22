@@ -1,4 +1,5 @@
 import { uploader as cloudinaryUploader } from 'cloudinary/lib/v2';
+import { isNullOrUndefined } from '../utils/helper';
 
 const models = require('../models');
 const config = require('../config/config');
@@ -36,19 +37,34 @@ module.exports = {
       }
     },
 
-    myProfile: async (req, res, next) => {
-      const token = req.cookies[config.authCookieName];
-
+    friends: async (req, res, next) => {
       try {
-        const { id } = await utils.jwt.verifyToken(token);
+        // Check for data errors
+        const errors = validationResult(req);
 
-        // To Do -> Last 9 friends, last 9 photos
-        const userRes = await models.User.findOne({ _id: id })
-          .select('-password')
-          .populate('posts');
+        if (!errors.isEmpty()) {
+          return res.status(400).send({ errors: errors.array() });
+        }
 
-        res.send(userRes);
-      } catch (err) {
+        const { username } = req.params;
+        const query = { username };
+
+        const user = await models.User.findOne(query)
+          .select('friends')
+          .populate({
+            path: 'friends',
+            select: 'firstName lastName username about work education home',
+            populate: [
+              'profilePicture',
+            ],
+            options: {
+              sort: { fullName: 'asc' },
+            },
+          })
+
+        res.status(200).send(user.friends)
+      }
+      catch (err) {
         next(err);
       }
     },
@@ -67,7 +83,7 @@ module.exports = {
         const query = { username };
 
         const userData = await models.User.findOne(query)
-          .select('firstName lastName username',)
+          .select('firstName lastName username home work education about',)
           .populate('coverPicture')
           .populate('profilePicture')
           .populate('friendsCount')
@@ -90,7 +106,7 @@ module.exports = {
                 'likes',
                 'comments',
                 'image',
-                { path: 'author', select: 'firstName lastName fullName', populate: 'profilePicture'}
+                { path: 'author', select: 'firstName lastName fullName', populate: 'profilePicture' }
               ],
               options: {
                 sort: { createdAt: 'desc' },
@@ -173,12 +189,48 @@ module.exports = {
       }
     },
     // To Do with new models
-    update: (req, res, next) => {
-      const data = req.body;
+    updateInfo: async (req, res, next) => {
+      try {
+        // Check for data errors
+        const errors = validationResult(req);
 
-      models.User.updateOne({ username: data.username }, data)
-        .then(() => res.status(200).send('Updated Successfully'))
-        .catch(next);
+        if (!errors.isEmpty()) {
+          return res.status(400).send({ errors: errors.array() });
+        }
+
+        const authorId = req.user._id;
+        const { home, education, work, about } = req.body;
+
+        const dataToSave = {
+          home,
+          education,
+          work,
+          about
+        };
+
+        const validFields = Object.entries(dataToSave)
+          .filter(([key, value]) => !isNullOrUndefined(value))
+          .map(([key, value]) => {
+            return {
+              [key]: value
+            };
+          });
+
+        const fieldToSave = validFields.length > 0 ? validFields[0] : {};
+
+        const updatedUserData = await models.User.findOneAndUpdate(
+          { _id: authorId },
+          { ...fieldToSave },
+        );
+
+        if (updatedUserData._id.toString() === authorId.toString()) {
+          return res.status(200).send(fieldToSave);
+        }
+
+        res.status(500).send('Server Error');
+      } catch (err) {
+        next(err);
+      }
     },
     updatePicture: async (req, res, next) => {
       try {
@@ -209,27 +261,27 @@ module.exports = {
           { new: true },
         );
 
-      res.status(200).send(createdImage);
-    } catch(e) {
-      next(e);
-    }
+        res.status(200).send(createdImage);
+      } catch (e) {
+        next(e);
+      }
+    },
   },
-},
 
   delete: {
-  removeMyAccount: async (req, res, next) => {
-    const token = req.cookies[config.authCookieName];
+    removeMyAccount: async (req, res, next) => {
+      const token = req.cookies[config.authCookieName];
 
-    try {
-      const { id } = await utils.jwt.verifyToken(token);
+      try {
+        const { id } = await utils.jwt.verifyToken(token);
 
-      await models.User.deleteOne({ _id: id })
-      await models.TokenBlacklist.create({ token });
+        await models.User.deleteOne({ _id: id })
+        await models.TokenBlacklist.create({ token });
 
-      res.clearCookie(config.authCookieName).send('Deleted successfully!');
-    } catch (err) {
-      next(err);
+        res.clearCookie(config.authCookieName).send('Deleted successfully!');
+      } catch (err) {
+        next(err);
+      }
     }
   }
-}
 };

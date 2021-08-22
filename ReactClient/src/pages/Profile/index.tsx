@@ -13,6 +13,7 @@ import ProfileTimeline from '../../components/Profile/Timeline';
 import ProfileAbout from '../../components/Profile/About';
 import ProfileFriends from '../../components/Profile/FriendsPage';
 import ProfileGallery from '../../components/Profile/GalleryPage';
+import Loader from '../../components/Global/Loader';
 // Services
 import { logout } from '../../services/authService';
 import { getProfileData } from '../../services/userService';
@@ -26,9 +27,9 @@ import User_ from '../../models/User';
 import Post_ from '../../models/Post';
 // Utils
 import { Colors, Sizes } from '../../utils/enums';
+import { compareTwoObjects } from '../../utils/helper';
 // Styles
 import styles from './index.module.scss';
-import { compareTwoObjects } from '../../utils/helper';
 
 const ProfilePage: FC_ = () => {
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ const ProfilePage: FC_ = () => {
   const [isOpenCoverPicture, setIsOpenCoverPicture] = useState(false);
   const [isOpenProfilePicture, setIsOpenProfilePicture] = useState(false);
   const [userData, setUserData] = useState<User_>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     authState: { user, },
@@ -47,10 +49,11 @@ const ProfilePage: FC_ = () => {
   }));
 
   const isMyProfileOpened = usernameFromParams === user.username;
-  console.log(isMyProfileOpened, usernameFromParams, user.username);
+
   useEffect(() => {
     const initUserData = async () => {
       try {
+        setIsLoading(true);
         const res = await getProfileData(usernameFromParams) as User_;
 
         if (isMyProfileOpened) {
@@ -58,6 +61,7 @@ const ProfilePage: FC_ = () => {
         }
 
         setUserData(res);
+        setIsLoading(false);
       } catch (err) {
         console.log(err);
       }
@@ -77,7 +81,7 @@ const ProfilePage: FC_ = () => {
       }
     }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, isMyProfileOpened]);
 
   const handleLogout = async () => {
@@ -110,7 +114,9 @@ const ProfilePage: FC_ = () => {
   }, [userData?.posts]);
 
 
-  console.log(userData);
+  if (isLoading) {
+    return <Loader type='global' color={Colors.PRIMARY} />;
+  }
 
   return (
     <>
@@ -123,6 +129,7 @@ const ProfilePage: FC_ = () => {
             src={userData?.coverPicture?.imageUrl}
             alt={userData?.fullName}
             onClick={() => setIsOpenCoverPicture(true)}
+            loading='lazy'
           />
 
           {isMyProfileOpened && <EditUserPicture action='cover-picture' />}
@@ -197,7 +204,7 @@ const ProfilePage: FC_ = () => {
           />
         )}
 
-        {pathname === `/profile/${usernameFromParams}/about` && <ProfileAbout />}
+        {pathname === `/profile/${usernameFromParams}/about` && <ProfileAbout userData={userData} />}
         {pathname === `/profile/${usernameFromParams}/friends` && <ProfileFriends />}
         {pathname === `/profile/${usernameFromParams}/gallery` && <ProfileGallery images={allImages} />}
       </section>

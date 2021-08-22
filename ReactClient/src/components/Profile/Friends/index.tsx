@@ -19,14 +19,11 @@ interface Props {
 }
 
 const FriendsList: FC_<Props> = ({ friends, componentType, }) => {
-  // ToDo -> Added real data
-  const home = 'NY';
-
   const isComponentTypePage = componentType === ComponentTypes.PAGE;
 
   const renderedFriends = useMemo(() => {
     return friends?.map((friend: User_) => {
-      const { username, fullName, profilePicture, } = friend;
+      const { username, fullName, profilePicture, home, } = friend;
 
       return (
         <Link key={friend.username} to={`/profile/${username}`}>

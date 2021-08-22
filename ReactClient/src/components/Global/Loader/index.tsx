@@ -13,7 +13,7 @@ interface Props {
 const Loader: FC<Props> = ({ type, color, }) => {
   return (
     <span className={`${styles.container}  ${styles[`type-${type}`]}`}>
-      <span className={`${styles.loader} ${styles[`color-${color}`]}`}></span>
+      <span className={`${styles.loader} ${styles[`color-${color}`]}`} />
     </span>
   );
 };

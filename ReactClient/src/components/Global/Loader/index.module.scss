@@ -2,23 +2,27 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 
-
-  &.local {
-    position: absolute;
+  &.type-local {
+    .loader {
+      width: $md-spacing;
+      height: $md-spacing;
+    }
   }
 
-  &.global {
+  &.type-global {
     position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    .loader {
+      width: $xl-spacing;
+      height: $xl-spacing;
+    }
   }
 
   .loader {
-    width: 1.5em;
-    height: 1.5em;
     border-radius: 50%;
     animation: load infinite linear 1s;
 
@@ -33,9 +37,7 @@
     &.color-primary,
     &.color-background {
       border-top: 5px solid transparent;
-
     }
-
   }
 }
 

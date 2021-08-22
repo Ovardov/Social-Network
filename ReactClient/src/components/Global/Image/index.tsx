@@ -30,7 +30,7 @@ const Image: FC<Image> = ({ aspectRatio, imageSrc, imageAlt, removeImageHandler,
           onClose={removeImageHandler} />
       }
 
-      <img className={styles.image} src={imageSrc} alt={imageAlt} />
+      <img className={styles.image} src={imageSrc} alt={imageAlt} loading='lazy' />
     </div>
   );
 };

@@ -4,7 +4,7 @@ import multer from 'multer';
 // Controllers
 import { userController } from '../controllers';
 // Validators
-import { getProfileDataValidator, updateUserPictureValidator } from '../validators/user';
+import { getProfileDataValidator, updateUserPictureValidator, updateUserInfoValidator} from '../validators/user';
 // Utils
 import { auth } from '../utils';
 
@@ -13,15 +13,13 @@ const router = Router();
 
 router.get('/', auth(), userController.get.home);
 router.get('/:username', auth(), getProfileDataValidator, userController.get.profile);
-router.get('/me', auth(), userController.get.myProfile);
-
+router.get('/:username/friends', auth(), getProfileDataValidator, userController.get.friends);
 router.get('/suggested', auth(), userController.get.suggested)
 
 router.put('/friend/add/:username', auth(), userController.put.addFriend);
 router.put('/friend/remove/:username', auth(), userController.put.removeFriend);
-router.put('/update-picture', auth(), upload.single('image'), updateUserPictureValidator, userController.put.updatePicture);
-
-router.put('/', auth(), userController.put.update);
+router.put('/picture', auth(), upload.single('image'), updateUserPictureValidator, userController.put.updatePicture);
+router.put('/info', auth(), updateUserInfoValidator, userController.put.updateInfo);
 
 router.delete('/', auth(), userController.delete.removeMyAccount);
 

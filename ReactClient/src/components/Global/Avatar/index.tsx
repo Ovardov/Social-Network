@@ -26,6 +26,7 @@ const Avatar: FC_<Props> = ({ type, size, imageSrc, name, createdAt, }) => {
         className={`${styles.avatar} ${styles[`size-${size}`]}`}
         src={imageSrc || defaultProfilePicture}
         alt={name}
+        loading='lazy'
       />
 
       {type === 'image-with-info' && (
