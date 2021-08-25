@@ -6,12 +6,19 @@ import PostCard from '../PostCard';
 import Post_ from '../../../models/Post';
 // Styles
 import styles from './index.module.scss';
+import { AppState } from '../../../redux';
+import { useSelector } from 'react-redux';
+import { PostsState } from '../../../redux/actions/Posts';
 
-interface Props {
-  posts: Post_[]
-}
+const PostList: FC = () => {
 
-const PostList: FC<Props> = ({ posts = [], }) => {
+  const {
+    postsState: { posts, },
+  } = useSelector<AppState, {
+    postsState: PostsState
+  }>(state => ({
+    postsState: state.postsState,
+  }));
 
   // Memoized posts
   const renderPosts = useMemo(() => {

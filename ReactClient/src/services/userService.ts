@@ -7,11 +7,11 @@ import {
 } from '../models/User';
 
 export const addFriend = async (username: string) => {
-  return put(`/user/friend/add/${username}`);
+  return put(`/users/friends/add/${username}`);
 };
 
 export const removeFriend = async (username: string) => {
-  return put(`/user/friend/remove/${username}`);
+  return put(`/users/friends/remove/${username}`);
 };
 
 export const updateUserPicture = async (data: UserPictureFormData_) => {
@@ -21,19 +21,19 @@ export const updateUserPicture = async (data: UserPictureFormData_) => {
     fieldValue && formData.append(fieldName, fieldValue);
   });
 
-  return makeRequestWithFormData(`/user/picture`, formData, HttpMethods.PUT);
+  return makeRequestWithFormData(`/users/pictures`, formData, HttpMethods.PUT);
 };
 
 export const updateUserInfo = async (data: UserInfo_) => {
 
-  return put(`/user/info`, data);
+  return put(`/users/info`, data);
 };
 
 
 export const getProfileData = async (username: string) => {
-  return get(`/user/${username}`);
+  return get(`/users/${username}`);
 };
 
 export const getUserFriends = async (username: string) => {
-  return get(`/user/${username}/friends`);
+  return get(`/users/${username}/friends`);
 };

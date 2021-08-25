@@ -1,6 +1,10 @@
 import { HttpMethods } from '../utils/enums';
-import { makeRequestWithFormData, put, deleteRequest } from '../utils/fetch';
+import { makeRequestWithFormData, put, deleteRequest, get } from '../utils/fetch';
 import { PostFormData as PostFormData_ } from './../models/Post';
+
+export const getAllPosts = async () => {
+  return get('/posts');
+};
 
 export const createPost = async (data: PostFormData_) => {
   const formData = new FormData();
@@ -9,7 +13,7 @@ export const createPost = async (data: PostFormData_) => {
     fieldValue && formData.append(fieldName, fieldValue);
   });
 
-  return makeRequestWithFormData('/post', formData, HttpMethods.POST);
+  return makeRequestWithFormData('/posts', formData, HttpMethods.POST);
 };
 
 export const updatePost = async (data: PostFormData_, postId: string) => {
@@ -19,17 +23,17 @@ export const updatePost = async (data: PostFormData_, postId: string) => {
     fieldValue && formData.append(fieldName, fieldValue);
   });
 
-  return put(`/post/${postId}`, data);
+  return put(`/posts/${postId}`, data);
 };
 
 export const deletePost = async (postId: string) => {
-  return deleteRequest(`/post/${postId}`);
+  return deleteRequest(`/posts/${postId}`);
 };
 
 export const likePost = async (postId: string) => {
-  return put(`/post/like/${postId}`);
+  return put(`/posts/like/${postId}`);
 };
 
 export const dislikePost = async (postId: string) => {
-  return put(`/post/dislike/${postId}`);
+  return put(`/posts/dislike/${postId}`);
 };
