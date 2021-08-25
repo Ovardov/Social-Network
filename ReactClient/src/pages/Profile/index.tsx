@@ -114,7 +114,7 @@ const ProfilePage: FC_ = () => {
   }, [userData?.posts]);
 
 
-  if (isLoading) {
+  if (isLoading || !userData) {
     return <Loader type='global' color={Colors.PRIMARY} />;
   }
 
@@ -152,8 +152,7 @@ const ProfilePage: FC_ = () => {
               <Avatar
                 type='image'
                 size={Sizes.XL}
-                name={userData?.fullName}
-                imageSrc={userData?.profilePicture?.imageUrl}
+                user={userData}
               />
             </span>
           </div>

@@ -38,8 +38,7 @@ const CreatePost = () => {
       <Avatar
         type='image'
         size={Sizes.MD}
-        imageSrc={user?.profilePicture?.imageUrl}
-        name={user?.fullName}
+        user={user}
       />
 
       <button

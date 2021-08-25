@@ -23,13 +23,13 @@ const FriendsList: FC_<Props> = ({ friends, componentType, }) => {
 
   const renderedFriends = useMemo(() => {
     return friends?.map((friend: User_) => {
-      const { username, fullName, profilePicture, home, } = friend;
+      const { username, fullName, home, } = friend;
 
       return (
         <Link key={friend.username} to={`/profile/${username}`}>
           <div className={styles['list-item']}>
             <div className={styles['image-container']}>
-              <Avatar type='image' size={Sizes.LG} name={fullName} imageSrc={profilePicture?.imageUrl} />
+              <Avatar type='image' size={Sizes.LG} user={friend} />
 
               {isComponentTypePage && (
                 <div className={styles['message-container']}>

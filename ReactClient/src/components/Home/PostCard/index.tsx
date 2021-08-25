@@ -34,7 +34,7 @@ type Props = {
 
 const PostCard: FC_<Props> = ({ post, }) => {
   const [mode, setMode] = useState<PostActionModes>(null);
-  const { id, author, content, image, likes, comments, createdAt, } = post;
+  const { id, content, image, likes, comments, createdAt, } = post;
 
   const {
     authState: { user, },
@@ -90,7 +90,7 @@ const PostCard: FC_<Props> = ({ post, }) => {
   if (mode) {
     return (
       <PostAction
-        mode={mode} 
+        mode={mode}
         post={post}
         onModalClose={() => setMode(null)}
         modalTitle={`${capitalizeFirstLetter(mode)} Post`}
@@ -101,12 +101,11 @@ const PostCard: FC_<Props> = ({ post, }) => {
   return (
     <article className={styles.container}>
       {/* Author info */}
-      <header className={styles.header}>
+      <header className={styles.header} >
         <Avatar
           type='image-with-info'
           size={Sizes.MD}
-          imageSrc={author?.profilePicture?.imageUrl}
-          name={author?.fullName}
+          user={user}
           createdAt={createdAt}
         />
 

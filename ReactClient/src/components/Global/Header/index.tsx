@@ -13,18 +13,18 @@ import MessagesIcon from '../../../../public/images/messages-icon.svg';
 // Models
 import { AppState as AppState_ } from '../../../redux';
 import { AuthState as AuthState_ } from '../../../redux/actions/Auth';
+import User_ from '../../../models/User';
 // Styles
 import styles from './index.module.scss';
 
 type Page = {
   url: string
   name: string
-  avatar?: string,
   IconComponent?: typeof React.Component
 }
 
-const renderPages = (pages: Page[], pathname: string) => {
-  return pages.map(({ url, name, IconComponent, avatar, }: Page) => {
+const renderPages = (pages: Page[], pathname: string, user: User_) => {
+  return pages.map(({ url, name, IconComponent, }: Page) => {
     const isSelected = pathname === url;
 
     return (
@@ -42,8 +42,9 @@ const renderPages = (pages: Page[], pathname: string) => {
               hasHoverEffect={false}
             />
           )}
+          
           {url === '/profile' && (
-            <Avatar type='image' size={Sizes.SM} imageSrc={avatar} name={name} />
+            <Avatar type='image' size={Sizes.SM} user={user} />
           )}
 
           <span className={styles.name}>{name}</span>
@@ -74,7 +75,6 @@ const Header: FC = () => {
     {
       url: `/profile/${user.username}`,
       name: user.fullName,
-      avatar: user.profilePicture ? user.profilePicture?.imageUrl : null,
     }
   ];
 
@@ -95,7 +95,7 @@ const Header: FC = () => {
 
       {pages && pages.length > 0 && (
         <nav className={styles.navigation}>
-          <ul className={styles.list}>{renderPages(pages, pathname)}</ul>
+          <ul className={styles.list}>{renderPages(pages, pathname, user)}</ul>
         </nav>
       )}
     </header>

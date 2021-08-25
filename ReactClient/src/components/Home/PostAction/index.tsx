@@ -130,8 +130,7 @@ const PostAction: FC<Props> = ({ mode, post, modalTitle, onModalClose, }) => {
         <Avatar
           type='image-with-info'
           size={Sizes.MD}
-          imageSrc={user?.profilePicture?.imageUrl}
-          name={user?.fullName}
+          user={user}
         />
 
         <Formik
