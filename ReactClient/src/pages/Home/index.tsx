@@ -13,22 +13,29 @@ import { getAllPosts } from '../../services/postService';
 import { Colors } from '../../utils/enums';
 // Models
 import Post_ from '../../models/Post';
+import User_ from '../../models/User';
 // Styles
 import styles from './index.module.scss';
 import { setPostsAction } from '../../redux/actions/Posts';
+import { getSuggestedNewFriends } from '../../services/userService';
+import UserInfo from '../../components/Global/UserInfo';
+import InfoCard from '../../components/Global/InfoCard';
 
 const HomePage = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
+  const [suggestedNewFriends, setSuggestedNewFriends] = useState([]);
 
   useEffect(() => {
     const initHomePageData = async () => {
       try {
         setIsLoading(true);
 
-        const res = await getAllPosts() as Post_[];
+        const allPosts = await getAllPosts() as Post_[];
+        const allSuggestedNewFriends = await getSuggestedNewFriends() as User_[];
 
-        dispatch(setPostsAction(res));
+        setSuggestedNewFriends(allSuggestedNewFriends);
+        dispatch(setPostsAction(allPosts));
       } catch (err) {
         console.log(err);
       } finally {
@@ -52,7 +59,15 @@ const HomePage = () => {
       </section>
 
       <section>
-        <SearchBox />
+        {/* <SearchBox /> */}
+
+        {suggestedNewFriends?.length > 0 && (
+          <InfoCard title='Suggested New Friends'>
+            {suggestedNewFriends.map((suggestedFriend: User_) => (
+              <UserInfo key={suggestedFriend.username} user={suggestedFriend} />
+            ))}
+          </InfoCard>
+        )}
       </section>
     </div>
   );

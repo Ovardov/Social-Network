@@ -22,7 +22,7 @@ import facebookIcon from '../../../public/images/facebook-icon.png';
 import googleIcon from '../../../public/images/google-icon.png';
 // Styles
 import styles from './index.module.scss';
-import { setAuthAction } from '../../redux/actions/Auth';
+import { setAuthAction } from '../../redux/actions/User';
 import User_ from '../../models/User';
 
 const LoginPage = () => {

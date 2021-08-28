@@ -37,3 +37,7 @@ export const getProfileData = async (username: string) => {
 export const getUserFriends = async (username: string) => {
   return get(`/users/${username}/friends`);
 };
+
+export const getSuggestedNewFriends = async () => {
+  return get(`/users/suggested-new-friends`);
+};

@@ -21,7 +21,7 @@ import { Colors, PostActionModes, Sizes } from '../../../utils/enums';
 // Models
 import Post_, { PostFormData as PostFormData_ } from '../../../models/Post';
 import { AppState as AppState_ } from '../../../redux';
-import { AuthState as AuthState_ } from '../../../redux/actions/Auth';
+import { UserState as UserState_ } from '../../../redux/actions/User';
 // Styles
 import styles from './index.module.scss';
 
@@ -36,14 +36,7 @@ const PostAction: FC<Props> = ({ mode, post, modalTitle, onModalClose, }) => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
 
-  const {
-    authState: { user, },
-  } = useSelector<AppState_, {
-    authState: AuthState_
-  }>(state => ({
-    authState: state.authState,
-  }));
-
+  const user = useSelector<AppState_, UserState_>(state => state.user);
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   const onSubmit = async (data: PostFormData_, { resetForm, }: any) => {

@@ -3,33 +3,33 @@ import { PostsState as PostsState_, PostsActions as PostsActions_ } from '../act
 import { ADD_POST, UPDATE_POST, SET_POSTS, DELETE_POST } from './../actionTypes';
 
 export const postsReducer: Reducer_<PostsState_, PostsActions_> = (
-  state = { posts: [], },
+  state = [],
   action
 ) => {
   switch (action.type) {
     case SET_POSTS: {
-      return { ...action.postsState, };
+      return [...action.posts];
     }
     case ADD_POST: {
-      return { posts: [action.post, ...state.posts ], };
+      return [action.post, ...state];
     }
     case UPDATE_POST: {
       const { post: updatedPost, } = action;
 
-      const newPosts = state?.posts?.map(post => {
+      const newPosts = state?.map(post => {
         return post?.id === updatedPost.id
           ? updatedPost
           : post;
       });
 
-      return { posts: [...newPosts], };
+      return [...newPosts];
     }
     case DELETE_POST: {
       const { postId: deletedPostId, } = action;
 
-      const newPosts = state.posts?.filter(post => post.id !== deletedPostId);
+      const newPosts = state?.filter(post => post.id !== deletedPostId);
 
-      return { posts: newPosts, };
+      return [...newPosts];
     }
     default: {
       return state;

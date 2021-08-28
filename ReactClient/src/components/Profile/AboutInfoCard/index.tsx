@@ -7,7 +7,7 @@ import Icon from '../../Global/Icon';
 // Services
 import { updateUserInfo } from '../../../services/userService';
 // Redux
-import { AuthState as AuthState_, updateUserAction } from '../../../redux/actions/Auth';
+import { UserState as UserState_, updateUserAction } from '../../../redux/actions/User';
 import { AppState as AppState_ } from '../../../redux';
 // Utils
 import { Colors, PostActionModes, Sizes } from '../../../utils/enums';
@@ -32,14 +32,7 @@ const AboutInfoCard: FC_<Props> = ({ categoryName, categoryAddText, categoryDeta
   const [actionMode, setActionMode] = useState<PostActionModes>(PostActionModes.READ);
   const [localData, setLocalData] = useState(categoryData);
 
-  const {
-    authState: { user, },
-  } = useSelector<AppState_, {
-    authState: AuthState_
-  }>(state => ({
-    authState: state.authState,
-  }));
-
+  const user = useSelector<AppState_, UserState_>(state => state.user);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {

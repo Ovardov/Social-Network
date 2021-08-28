@@ -7,7 +7,7 @@ import { Switch } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import LoginAndRegisterRoute from './LoginAndRegisterRoute';
 // Redux
-import { setAuthAction } from '../../../redux/actions/Auth';
+import { setUserAction } from '../../../redux/actions/User';
 import { setPostsAction } from '../../../redux/actions/Posts';
 import { ExternalState as ExternalState_ } from '../../../global';
 
@@ -21,7 +21,7 @@ const Navigation: FC<ExternalState_> = ({ user, posts, }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     if(user) {
-      dispatch(setAuthAction(user));
+      dispatch(setUserAction(user));
     }
 
     if(posts?.length > 0) {

@@ -18,7 +18,8 @@ module.exports = {
 
         const user = await models.User.findById(id).select(['firstName', 'lastName', 'username'])
           .populate('profilePicture')
-          .populate('coverPicture');
+          .populate('coverPicture')
+          .populate({ path: 'friends', select: 'firstName lastName username' });
 
         res.send(user);
       } catch (e) {
@@ -61,7 +62,7 @@ module.exports = {
         if (!errors.isEmpty()) {
           return res.status(400).send({ errors: errors.array() });
         }
-        
+
         const user = await models.User.findOne({ email })
           .populate('profilePicture')
 
@@ -126,7 +127,7 @@ module.exports = {
         // Upload profile picture to cloudinary
         const uploadedProfilePicture = await cloudinaryUploader.upload(
           file.path,
-          {quality: 'auto', width: 1024, height: 1024, crop: 'limit'}
+          { quality: 'auto', width: 1024, height: 1024, crop: 'limit' }
         );
 
         // Create image

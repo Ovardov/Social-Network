@@ -21,7 +21,7 @@ import { getProfileData } from '../../services/userService';
 import { ProfileParams } from '../../models/Profile';
 import { AppState as AppState_ } from '../../redux';
 // Actions
-import { AuthState as AuthState_, removeAuthAction, updateUserAction } from '../../redux/actions/Auth';
+import { UserState as UserState_, removeUserAction, updateUserAction } from '../../redux/actions/User';
 // Models
 import User_ from '../../models/User';
 import Post_ from '../../models/Post';
@@ -40,13 +40,7 @@ const ProfilePage: FC_ = () => {
   const [userData, setUserData] = useState<User_>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const {
-    authState: { user, },
-  } = useSelector<AppState_, {
-    authState: AuthState_
-  }>(state => ({
-    authState: state.authState,
-  }));
+  const user = useSelector<AppState_, UserState_>(state => state.user);
 
   const isMyProfileOpened = usernameFromParams === user.username;
 
@@ -88,7 +82,7 @@ const ProfilePage: FC_ = () => {
     try {
       await logout();
 
-      dispatch(removeAuthAction());
+      dispatch(removeUserAction());
       push('/login');
     } catch (err) {
       console.log(err);

@@ -8,20 +8,15 @@ import Avatar from '../../Global/Avatar';
 import PostAction from '../PostAction';
 // Models
 import { AppState as AppState_ } from '../../../redux';
-import { AuthState as AuthState_ } from '../../../redux/actions/Auth';
+import { UserState as UserState_ } from '../../../redux/actions/User';
 // Styles
 import styles from './index.module.scss';
 
 const CreatePost = () => {
   const [isInCreateMode, setIsInCreateMode] = useState(false);
 
-  const {
-    authState: { user, },
-  } = useSelector<AppState_, {
-    authState: AuthState_
-  }>(state => ({
-    authState: state.authState,
-  }));
+  const user = useSelector<AppState_, UserState_>(state => state.user);
+
 
   if (isInCreateMode) {
     return (

@@ -121,20 +121,18 @@ module.exports = {
       }
     },
 
-    suggested: async (req, res, next) => {
-      const token = req.cookies[config.authCookieName];
-
+    suggestedNewFriends: async (req, res, next) => {
       try {
-        const { id } = await utils.jwt.verifyToken(token);
+        const authorId = req.user._id;
 
-        const myFriendsRes = await models.User.findOne({ _id: id })
+        const myFriendsRes = await models.User.findById(authorId)
           .select('friends');
 
-        const excludedUsers = [id, ...myFriendsRes.friends];
+        const excludedUsers = [authorId, ...myFriendsRes.friends];
 
-        // To Do -> select profile image
         const suggestedUserRes = await models.User.find({ _id: { $nin: excludedUsers } })
-          .select('firstName lastName home');
+          .select('firstName lastName username home')
+          .populate('profilePicture');
 
         res.send(suggestedUserRes);
       } catch (err) {
@@ -152,7 +150,8 @@ module.exports = {
 
       try {
         const friendRes = await models.User.findOneAndUpdate({ username: friendUsername, friends: { $ne: authorId } }, { $push: { friends: authorId } }, { new: true })
-          .select('firstName lastName');
+          .select('firstName lastName username')
+          .populate('profilePicture')
 
         if (!friendRes) {
           res.status(404).end();
@@ -162,7 +161,12 @@ module.exports = {
         const friendId = friendRes._id;
         await models.User.updateOne({ _id: authorId, friends: { $ne: friendId } }, { $push: { friends: friendId } })
 
-        res.status(200).send(`Now, you are friend with ${friendRes.firstName} ${friendRes.lastName}.`);
+        const result = {
+          message: `Now, you are friend with ${friendRes.firstName} ${friendRes.lastName}.`,
+          user: friendRes,
+        }
+
+        res.status(200).send(result);
       } catch (e) {
         next(e)
       }
@@ -172,8 +176,8 @@ module.exports = {
       const authorId = req.user._id;
 
       try {
-        const friendRes = await models.User.findOneAndUpdate({ _id: friendId, friends: authorId }, { $pull: { friends: authorId } }, { new: true })
-          .select('firstName lastName');
+        const friendRes = await models.User.findOneAndUpdate({ username: friendUsername, friends: authorId }, { $pull: { friends: authorId } }, { new: true })
+          .select('firstName lastName username');
 
         if (!friendRes) {
           res.status(404).end();
@@ -183,7 +187,11 @@ module.exports = {
         const friendId = friendRes._id;
         await models.User.updateOne({ _id: authorId, friends: friendId }, { $pull: { friends: friendId } })
 
-        res.status(200).send(`Now, you are not friend with ${friendRes.firstName} ${friendRes.lastName}.`);
+        const result = {
+          message: `Now, you are not friend with ${friendRes.firstName} ${friendRes.lastName}.`,
+          user: friendRes,
+        }
+        res.status(200).send(result);
       } catch (e) {
         next(e)
       }

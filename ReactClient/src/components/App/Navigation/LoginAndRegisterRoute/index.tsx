@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 // Models
 import { AppState as AppState_ } from '../../../../redux';
-import { AuthState as AuthState_ } from '../../../../redux/actions/Auth';
+import { UserState as UserState_ } from '../../../../redux/actions/User';
 
 interface Props {
   path: string,
@@ -13,11 +13,11 @@ interface Props {
 }
 
 const LoginAndRegisterRoute: FC<Props> = ({ path, Component, ...props }) => {
-  const { authState: { isAuthenticated, }, } = useSelector<AppState_, { authState: AuthState_ }>(state => ({ authState: state.authState, }));
+  const user = useSelector<AppState_, UserState_>(state => state.user);
 
   return (
     <Route path={path}>
-      {isAuthenticated ? <Redirect to='/' /> : <Component {...props} />}
+      {user?.username ? <Redirect to='/' /> : <Component {...props} />}
     </Route>
   );
 };

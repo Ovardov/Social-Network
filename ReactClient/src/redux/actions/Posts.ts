@@ -2,13 +2,10 @@ import { Action as Action_ } from 'redux';
 import Post_ from '../../models/Post';
 import { ADD_POST, SET_POSTS, UPDATE_POST, DELETE_POST } from './../actionTypes';
 
-
-export type PostsState = {
-  posts: Post_[];
-}
+export type PostsState = Post_[];
 
 export interface ISetPosts extends Action_<typeof SET_POSTS> {
-  postsState: PostsState
+  posts: Post_[]
 }
 
 export interface IAddPost extends Action_<typeof ADD_POST> {
@@ -35,9 +32,7 @@ export const addPostAction = (post: Post_): IAddPost => {
 export const setPostsAction = (posts: Post_[]) => {
   return {
     type: SET_POSTS,
-    postsState: {
-      posts,
-    },
+    posts,
   };
 };
 

@@ -7,7 +7,7 @@ import { Colors, Sizes } from '../../../utils/enums';
 // Models
 import Image_ from '../../../models/Image';
 import { AppState as AppState_ } from '../../../redux';
-import { AuthState as AuthState_, updateUserAction } from '../../../redux/actions/Auth';
+import { UserState as UserState_, updateUserAction } from '../../../redux/actions/User';
 // Icons
 import AddIcon from '../../../../public/images/photo-camera-icon.svg';
 // Styles
@@ -21,13 +21,7 @@ interface Props {
 const EditUserPicture: FC_<Props> = ({ action, }) => {
   const dispatch = useDispatch();
 
-  const {
-    authState: { user, },
-  } = useSelector<AppState_, {
-    authState: AuthState_
-  }>(state => ({
-    authState: state.authState,
-  }));
+  const user = useSelector<AppState_, UserState_>(state => state.user);
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.stopPropagation();

@@ -1,6 +1,6 @@
 // Libraries
-import React, { FC as FC_, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { FC as FC_, useState, useMemo } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 // Components
 import Button from '../Buttons/Button';
 // Services
@@ -8,35 +8,46 @@ import { addFriend, removeFriend } from '../../../services/userService';
 // Utils
 import { Colors } from '../../../utils/enums';
 import { AppState as AppState_ } from '../../../redux';
-import { AuthState as AuthState_ } from '../../../redux/actions/Auth';
+import { UserState as UserState_, addFriendAction, removeFriendAction } from '../../../redux/actions/User';
+// Models
+import User_ from '../../../models/User';
 
 interface Props {
   username: string
 }
 
 const FriendStatus: FC_<Props> = ({ username, }) => {
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
 
-  const {
-    authState: { user, },
-  } = useSelector<AppState_, {
-    authState: AuthState_
-  }>(state => ({
-    authState: state.authState,
-  }));
+  const user = useSelector<AppState_, UserState_>(state => state.user);
 
-  // ToDo -> Check is friends
-  const isFriends = true;
+  const isFriends = useMemo(() => {
+    console.log('find');
+    return user?.friends?.find((friend: User_) => friend.username === username);
+  }, [user, username]);
 
+  console.log('here', user);
   const handleClick = async () => {
     setIsLoading(true);
 
     try {
-      const res = isFriends ? await removeFriend(username) : await addFriend(username);
 
-      // ToDo- print message
-      console.log(res);
-      // Action
+      if (isFriends) {
+        const { message, user: friend, } = await removeFriend(username) as { message: string, user: User_ };
+        dispatch(removeFriendAction(friend));
+
+        // ToDo - print message
+        console.log(message);
+      }
+
+      if (!isFriends) {
+        const { message, user: friend, } = await addFriend(username) as { message: string, user: User_ };
+        dispatch(addFriendAction(friend));
+
+        // ToDo - print message
+        console.log(message);
+      }
     } catch (err) {
       console.log(err);
     }

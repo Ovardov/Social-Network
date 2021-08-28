@@ -7,7 +7,7 @@ import { Route, Redirect, RouteProps } from 'react-router-dom';
 import Layout from '../../../Layout';
 // Models
 import { AppState as AppState_ } from '../../../../redux';
-import { AuthState as AuthState_ } from '../../../../redux/actions/Auth';
+import { UserState as UserState_ } from '../../../../redux/actions/User';
 
 interface Props extends RouteProps {
   path: string,
@@ -15,17 +15,11 @@ interface Props extends RouteProps {
 }
 
 const ProtectedRoute: FC<Props> = ({ path, Component, ...props }) => {
-  const {
-    authState: { isAuthenticated, },
-  } = useSelector<AppState_, {
-    authState: AuthState_,
-  }>(state => ({
-    authState: state.authState,
-  }));
+  const user = useSelector<AppState_, UserState_>(state => state.user);
 
   return (
     <Route path={path}>
-      {isAuthenticated ? (
+      {user?.username ? (
         <Layout>
           <Component {...props} />
         </Layout>

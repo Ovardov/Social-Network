@@ -23,7 +23,7 @@ import EditIcon from '../../../../public/images/edit-icon.svg';
 import DeleteIcon from '../../../../public/images/delete-icon.svg';
 // Models
 import { AppState as AppState_ } from '../../../redux';
-import { AuthState as AuthState_ } from '../../../redux/actions/Auth';
+import { UserState as UserState_ } from '../../../redux/actions/User';
 import Post_ from '../../../models/Post';
 // Styles
 import styles from './index.module.scss';
@@ -36,13 +36,7 @@ const PostCard: FC_<Props> = ({ post, }) => {
   const [mode, setMode] = useState<PostActionModes>(null);
   const { id, content, image, likes, comments, createdAt, } = post;
 
-  const {
-    authState: { user, },
-  } = useSelector<AppState_, {
-    authState: AuthState_
-  }>(state => ({
-    authState: state.authState,
-  }));
+  const user = useSelector<AppState_, UserState_>(state => state.user);
 
   const dispatch = useDispatch();
 

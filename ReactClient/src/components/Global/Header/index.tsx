@@ -12,7 +12,7 @@ import HomeIcon from '../../../../public/images/home-icon.svg';
 import MessagesIcon from '../../../../public/images/messages-icon.svg';
 // Models
 import { AppState as AppState_ } from '../../../redux';
-import { AuthState as AuthState_ } from '../../../redux/actions/Auth';
+import { UserState as UserState_ } from '../../../redux/actions/User';
 import User_ from '../../../models/User';
 // Styles
 import styles from './index.module.scss';
@@ -55,7 +55,7 @@ const renderPages = (pages: Page[], pathname: string, user: User_) => {
 };
 
 const Header: FC = () => {
-  const { authState: { user, }, } = useSelector<AppState_, { authState: AuthState_ }>(state => ({ authState: state.authState, }));
+  const user = useSelector<AppState_, UserState_>(state => state.user);
   const history = useHistory();
   const { pathname, } = history.location;
 

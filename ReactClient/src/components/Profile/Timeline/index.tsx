@@ -12,6 +12,7 @@ import Image_ from '../../../models/Image';
 import { ComponentTypes } from '../../../utils/enums';
 // Styles
 import styles from './index.module.scss';
+import InfoCard from '../../Global/InfoCard';
 
 interface Props {
   lastNineFriends: User_[],
@@ -27,25 +28,21 @@ const ProfileTimeline: FC_<Props> = ({ lastNineFriends, lastNinePhotos, posts, }
         <section className={styles['left-column']}>
           {/* Last Photos */}
           {lastNinePhotos.length > 0 && (
-            <div className={styles['last-photos-container']}>
-              <p className={styles['section-name']}>Last 9 Photos</p>
-
+            <InfoCard title='Last 9 Photos'>
               <Gallery images={lastNinePhotos} userFullName={'Test Name'} componentType={ComponentTypes.LOCAL} />
-            </div>
+            </InfoCard>
           )}
 
           {/* Last Friends */}
           {lastNineFriends?.length > 0 && (
-            <div className={styles['last-friends-container']}>
-              <p className={styles['section-name']}>Last 9 Friends</p>
-
+            <InfoCard title='Last 9 Friends'>
               <Friends friends={lastNineFriends} componentType={ComponentTypes.LOCAL} />
-            </div>
+            </InfoCard>
           )}
         </section>
 
         <section className={styles['right-column']}>
-          <PostList posts={posts} />
+          {/* <PostList posts={posts} /> */}
         </section>
       </div>
     </>

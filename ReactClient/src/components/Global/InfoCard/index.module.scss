@@ -1,0 +1,16 @@
+.container {
+  border: 1px solid var(--theme-border-color);
+  border-radius: $border-radius;
+  background: var(--theme-background-color);
+  margin-bottom: $md-spacing;
+
+  .title {
+    text-align: center;
+    padding: $sm-spacing;
+    border-bottom: 1px solid var(--theme-border-color);
+  }
+
+  .content {
+    padding: $sm-spacing;
+  }
+}

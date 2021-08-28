@@ -11,33 +11,4 @@
     margin-left: $md-spacing;
     flex-grow: 1;
   }
-
-  .last-photos-container {
-    border: 1px solid var(--theme-border-color);
-    border-radius: $border-radius;
-    background: var(--theme-background-color);
-    margin-bottom: $md-spacing;
-
-    .section-name {
-      text-align: center;
-      padding: 1em;
-      border-bottom: 1px solid var(--theme-border-color);
-    }
-
-    & ul {
-      padding: 1em;
-    }
-  }
-
-  .last-friends-container {
-    border: 1px solid var(--theme-border-color);
-    border-radius: $border-radius;
-    background: var(--theme-background-color);
-
-    .section-name {
-      text-align: center;
-      padding: $sm-spacing;
-      border-bottom: 1px solid var(--theme-border-color);
-    }
-  }
 }
