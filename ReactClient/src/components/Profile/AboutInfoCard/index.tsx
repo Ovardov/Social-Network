@@ -19,15 +19,19 @@ import EditIcon from '../../../../public/images/edit-icon.svg';
 // Styles
 import styles from './index.module.scss';
 
+// To Do -> Check props
 interface Props {
-  categoryName: string
-  categoryAddText: string
-  categoryDetails: string
-  categoryFieldName: string
-  categoryData: string
+  data: {
+    categoryName: string
+    categoryAddText: string
+    categoryDetails: string
+    categoryFieldName: string
+    categoryData: string
+  }
 }
 
-const AboutInfoCard: FC_<Props> = ({ categoryName, categoryAddText, categoryDetails, categoryFieldName, categoryData, }) => {
+const AboutInfoCard: FC_<Props> = ({ data, }) => {
+  const { categoryName, categoryAddText, categoryDetails, categoryFieldName, categoryData, } = data;
   const dispatch = useDispatch();
   const [actionMode, setActionMode] = useState<PostActionModes>(PostActionModes.READ);
   const [localData, setLocalData] = useState(categoryData);

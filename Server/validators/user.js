@@ -21,3 +21,14 @@ export const updateUserInfoValidator = [
     ],
   ),
 ];
+
+export const addUserInterestValidator = [
+  body('name')
+    .isString().withMessage('Please select a valid interest name')
+    .isLength({ min: 3, max: 30 }).withMessage('Interest name should be between 3 and 30 symbols')
+    .matches(/^[A-Za-z\s]+$/).withMessage('Interest must be alphabetic.')
+];
+
+export const removeUserInterestValidator = [
+  param('interestId').exists().isString().withMessage('Please select a valid interest'),
+];

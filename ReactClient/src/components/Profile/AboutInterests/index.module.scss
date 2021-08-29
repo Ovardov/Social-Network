@@ -1,0 +1,38 @@
+.list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: $sm-spacing;
+  background: var(--theme-background-color);
+  height: fit-content;
+
+  .interest {
+    border: 1px solid var(--theme-border-color);
+    border-radius: $border-radius;
+    padding: $xs-spacing;
+    text-align: center;
+
+    &:hover {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: var(--theme-background-darker-color);
+    }
+
+    &.add {
+      border-color: var(--theme-primary-color);
+
+      .name-field {
+        border: none;
+        background: transparent;
+
+        // Chrome AutoFill
+        &:-webkit-autofill,
+        &:-webkit-autofill:hover,
+        &:-webkit-autofill:focus,
+        &:-webkit-autofill:active {
+          -webkit-box-shadow: 0 0 0px 1000px white inset;
+        }
+      }
+    }
+  }
+}

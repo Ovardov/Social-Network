@@ -23,11 +23,9 @@ const FriendStatus: FC_<Props> = ({ username, }) => {
   const user = useSelector<AppState_, UserState_>(state => state.user);
 
   const isFriends = useMemo(() => {
-    console.log('find');
     return user?.friends?.find((friend: User_) => friend.username === username);
   }, [user, username]);
 
-  console.log('here', user);
   const handleClick = async () => {
     setIsLoading(true);
 
@@ -38,7 +36,7 @@ const FriendStatus: FC_<Props> = ({ username, }) => {
         dispatch(removeFriendAction(friend));
 
         // ToDo - print message
-        console.log(message);
+        //console.log(message);
       }
 
       if (!isFriends) {
@@ -46,7 +44,7 @@ const FriendStatus: FC_<Props> = ({ username, }) => {
         dispatch(addFriendAction(friend));
 
         // ToDo - print message
-        console.log(message);
+        //console.log(message);
       }
     } catch (err) {
       console.log(err);

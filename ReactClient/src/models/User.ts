@@ -1,4 +1,5 @@
 import Image_ from './Image';
+import Interest_ from './Interest';
 import Post_ from './Post';
 import User_ from './User';
 
@@ -20,6 +21,7 @@ export default class User extends UserInfo {
   friendsCount?: number;
   posts: Post_[];
   postsCount?: number;
+  interests: Interest_[];
 }
 export class UserPictureFormData {
   oldImageUrl: string

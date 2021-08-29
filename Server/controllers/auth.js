@@ -162,7 +162,7 @@ module.exports = {
       } catch (err) {
         if (err.code === 11000) {
           // Build user unique fields errors
-          const errors = buildValidationUniqueErrors(err);
+          const errors = buildValidationUniqueErrors(err, models.User);
 
           res.status(401).send(errors);
         } else {

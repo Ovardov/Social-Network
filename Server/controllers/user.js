@@ -1,4 +1,5 @@
 import { uploader as cloudinaryUploader } from 'cloudinary/lib/v2';
+import { buildValidationUniqueErrors } from '../utils/errorHandling';
 import { isNullOrUndefined } from '../utils/helper';
 
 const models = require('../models');
@@ -113,6 +114,13 @@ module.exports = {
               },
             }
           )
+          .populate({
+            path: 'interests',
+            select: 'name',
+            options: {
+              sort: { name: 'asc' }
+            }
+          })
 
         res.send(userData)
       }
@@ -176,7 +184,7 @@ module.exports = {
       const authorId = req.user._id;
 
       try {
-        const friendRes = await models.User.findOneAndUpdate({ username: friendUsername, friends: authorId }, { $pull: { friends: authorId } }, { new: true })
+        const friendRes = await models.User.findOneAndUpdate({ username: friendUsername, friends: authorId }, { $pull: { friends: authorId } })
           .select('firstName lastName username');
 
         if (!friendRes) {
@@ -196,7 +204,6 @@ module.exports = {
         next(e)
       }
     },
-    // To Do with new models
     updateInfo: async (req, res, next) => {
       try {
         // Check for data errors
@@ -272,6 +279,84 @@ module.exports = {
         res.status(200).send(createdImage);
       } catch (e) {
         next(e);
+      }
+    },
+    addInterest: async (req, res, next) => {
+      try {
+        // Check for data errors
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+          return res.status(400).send({ errors: errors.array() });
+        }
+
+        const { name: interestName } = req.body;
+        const authorId = req.user._id;
+
+        const interestRes = await models.Interest
+          .findOneAndUpdate({ name: interestName, users: { $ne: authorId } }, { name: interestName, $push: { users: authorId } }, { upsert: true, returnOriginal: false })
+          .select('name')
+
+        if (!interestRes) {
+          res.status(404).end();
+          return;
+        }
+
+        const { _id: interestId } = interestRes;
+        await models.User.updateOne({ _id: authorId, interests: { $ne: interestId } }, { $push: { interests: interestId } });
+
+        const result = {
+          message: `Added ${interestName} interest successfully!`,
+          interest: interestRes,
+        }
+
+        res.status(200).send(result);
+      } catch (err) {
+        if (err.code === 11000) {
+          // Build interest unique fields errors
+          const errors = buildValidationUniqueErrors(err, models.Interest);
+
+          res.status(401).send(errors);
+        } else {
+          next(err);
+        }
+      }
+    },
+    removeInterest: async (req, res, next) => {
+      try {
+        // Check for data errors
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+          return res.status(400).send({ errors: errors.array() });
+        }
+
+        const { interestId, } = req.params;
+        const authorId = req.user._id;
+
+        const userRes = await models.User.findOneAndUpdate({ _id: authorId, interests: interestId }, { $pull: { interests: interestId } });
+
+        if (!userRes) {
+          res.status(404).end();
+          return;
+        }
+
+        const interestRes = await models.Interest
+          .findOneAndUpdate({ _id: interestId, users: authorId }, { $pull: { users: authorId } },  { returnOriginal: false })
+          .select('name users');
+
+        if (interestRes.users.length === 0) {
+          await models.Interest.deleteOne({ _id: interestId });
+        }
+
+        const result = {
+          message: `You have been deleted ${interestRes.name} from your interests successfully!`,
+          interest: interestRes,
+        }
+
+        res.status(200).send(result);
+      } catch (e) {
+        next(e)
       }
     },
   },

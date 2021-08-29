@@ -1,9 +1,10 @@
 // Libraries
 import React, { FC } from 'react';
-// Models
-import User_ from '../../../models/User';
 // Components
 import AboutInfoCard from '../AboutInfoCard';
+import AboutInterests from '../AboutInterests';
+// Models
+import User_ from '../../../models/User';
 // Styles
 import styles from './index.module.scss';
 
@@ -12,9 +13,8 @@ interface Props {
 }
 
 const ProfileAbout: FC<Props> = ({ userData, }) => {
-  const { work, education, home, about, } = userData;
+  const { work, education, home, about, interests, } = userData;
 
-  console.log(userData);
   const aboutData = [
     {
       id: 1,
@@ -52,11 +52,12 @@ const ProfileAbout: FC<Props> = ({ userData, }) => {
 
   return (
     <section className={styles.container}>
-      <div className={styles.list}>
-        {aboutData?.map(data => <AboutInfoCard key={data.id} {...data} />)}
+      <div className={styles['about-list']}>
+        {aboutData?.map(data => <AboutInfoCard key={data.id} data={data} />)}
       </div>
 
-      {/* ToDo Interests */}
+
+      <AboutInterests interests={interests} />
     </section>
   );
 };

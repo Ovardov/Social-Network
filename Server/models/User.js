@@ -62,6 +62,12 @@ const userSchema = new Schema(
         ref: 'User',
       },
     ],
+    interests: [
+      {
+        type: 'ObjectId',
+        ref: 'Interest'
+      }
+    ]
   },
 );
 

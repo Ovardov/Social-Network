@@ -3,6 +3,7 @@ import post from './post'
 import comment from './comment'
 import auth from './auth'
 import conversation from './conversation'
+import interest from './interest'
 
 export const routes = {
   user,
@@ -10,4 +11,5 @@ export const routes = {
   comment,
   auth,
   conversation,
+  interest
 }

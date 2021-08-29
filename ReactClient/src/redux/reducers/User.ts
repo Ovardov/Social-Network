@@ -1,7 +1,8 @@
 import { Reducer as Reducer_ } from 'redux';
 import { UserState as UserState_, UserActions as UserActions_ } from '../actions/User';
-import { SET_USER, REMOVE_USER, UPDATE_USER, ADD_FRIEND, REMOVE_FRIEND } from '../actionTypes';
+import { SET_USER, REMOVE_USER, UPDATE_USER, ADD_FRIEND, REMOVE_FRIEND, ADD_INTEREST, REMOVE_INTEREST } from '../actionTypes';
 import User_ from '../../models/User';
+import Interest_ from '../../models/Interest';
 
 export const userReducer: Reducer_<UserState_, UserActions_> = (
   state = null,
@@ -28,6 +29,20 @@ export const userReducer: Reducer_<UserState_, UserActions_> = (
       return {
         ...state,
         friends: newFriends,
+      };
+    }
+    case ADD_INTEREST: {
+      return {
+        ...state,
+        interests: [...state.interests, action.newInterest],
+      };
+    }
+    case REMOVE_INTEREST: {
+      const newInterests = state.interests.filter((interest: Interest_) => interest.name !== action.removedInterest.name);
+      
+      return {
+        ...state,
+        interests: newInterests,
       };
     }
     default: {

@@ -5,10 +5,9 @@
   background: var(--theme-background-color);
   border-radius: $border-radius;
   padding: $sm-spacing;
-  margin-bottom: $sm-spacing;
-
-  &:not(:last-child) {
-    border-bottom: 1px solid var(--theme-border-color);
+  
+  &:not(:last-of-type) {
+    margin-bottom: $sm-spacing;
   }
 
   .content {

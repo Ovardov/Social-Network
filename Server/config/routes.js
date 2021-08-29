@@ -10,7 +10,9 @@ export const initRoutes = (app) => {
 
   app.use('/api/comments', routes.comment);
 
-  app.use('/api/conversations', routes.conversation)
+  app.use('/api/conversations', routes.conversation);
+
+  app.use('/api/interests', routes.interest);
 
   app.use('*', (req, res, next) => res.status(404).end());
 };

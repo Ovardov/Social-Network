@@ -6,6 +6,7 @@ const Like = require('./Like');
 const Image = require('./Image');
 const Conversation = require('./Conversation');
 const Message = require('./Message');
+const Interest = require('./Interest');
 
 module.exports = {
     User,
@@ -15,5 +16,6 @@ module.exports = {
     Like,
     Image,
     Conversation,
-    Message
+    Message,
+    Interest
 };
