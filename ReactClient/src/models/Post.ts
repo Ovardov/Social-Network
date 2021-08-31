@@ -1,6 +1,5 @@
 import Image_ from './Image';
 import User_ from './User';
-import Like_ from './Like';
 import Comment_ from './Comment';
 
 export default class Post {
@@ -9,7 +8,8 @@ export default class Post {
   content: string;
   image: Image_;
   author: User_
-  likes: Like_[]
+  likesCount?: Number;
+  isLikedByMe: boolean;
   comments: Comment_[];
 }
 

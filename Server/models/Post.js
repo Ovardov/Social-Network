@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, models } = require('mongoose');
 
 const postSchema = new Schema({
   createdAt: {
@@ -32,10 +32,23 @@ postSchema.virtual('id').get(function () {
   return this._id.toHexString();
 });
 
+postSchema.virtual('likesCount').get(function () {
+  return this.likes.length;
+});
+
+postSchema.virtual('isLikedByMe').get(function () {
+  const currentLike = this.likes.find(like => like.likedBy._id.toString() === this.author._id.toString());
+  
+  return !!currentLike;
+});
+
 postSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,
-  transform: function (model, result) { delete result._id }
+  transform: function (model, result) {
+    delete result._id;
+    delete result.likes;
+   }
 });
 
 module.exports = new model('Post', postSchema)

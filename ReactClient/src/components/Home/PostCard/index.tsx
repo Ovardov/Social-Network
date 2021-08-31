@@ -1,5 +1,5 @@
 // Libraries
-import React, { useMemo, useState, FC as FC_ } from 'react';
+import React, { useMemo, useState, FC as FC_, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // Components
 import Avatar from '../../Global/Avatar';
@@ -34,16 +34,18 @@ type Props = {
 
 const PostCard: FC_<Props> = ({ post, }) => {
   const [mode, setMode] = useState<PostActionModes>(null);
-  const { id, content, image, likes, comments, createdAt, } = post;
+  const [showLikes, setShowLikes] = useState(false);
+  const { id, content, image, comments, createdAt, likesCount, isLikedByMe, } = post;
 
   const user = useSelector<AppState_, UserState_>(state => state.user);
 
   const dispatch = useDispatch();
 
-  // ToDo -> In server
-  const isLikedByMe = useMemo(() => {
-    return likes.find(like => like?.likedBy?.username === user?.username);
-  }, [likes, user.username]);
+  useEffect(() => {
+    if (showLikes) {
+      console.log('here', isLikedByMe);
+    }
+  }, [showLikes]);
 
   const onLikePost = async () => {
     try {
@@ -143,11 +145,11 @@ const PostCard: FC_<Props> = ({ post, }) => {
       {/* All reactions */}
       <footer className={styles.footer}>
         <ul className={styles['icons-list']}>
-          <li className={styles.icon}>
+          <li className={styles.icon} onClick={() => setShowLikes(true)}>
             <Icon size={Sizes.SM} color={Colors.LIKE} Component={LikeFilledIcon} alt='Like Icon' />
 
             <span className={`${styles.likes}`}>
-              {likes?.length || 0}
+              {likesCount}
             </span>
           </li>
           <li className={styles.icon}>

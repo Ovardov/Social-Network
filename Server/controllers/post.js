@@ -129,9 +129,10 @@ module.exports = {
           .populate([
             {
               path: 'likes',
+              select: 'likedBy',
               populate: {
                 path: 'likedBy',
-                select: ['firstName', 'lastName', 'fullName', 'username'],
+                select: '_id'
               },
             },
           ])
@@ -198,7 +199,7 @@ module.exports = {
           )
           .populate(authorPopulateFields);
 
-          
+
         const post = {
           ...createdPost.toJSON(),
           author: author.toJSON(),
@@ -217,7 +218,7 @@ module.exports = {
       const { id } = req.params;
       const { content } = req.body;
 
-      
+
 
       try {
         await models.Post.findOneAndUpdate({ _id: id }, { content });
