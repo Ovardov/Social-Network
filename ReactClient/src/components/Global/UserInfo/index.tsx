@@ -7,13 +7,14 @@ import styles from './index.module.scss';
 
 interface Props {
   user: User_
+  isSeparated?: boolean
 }
 
-const UserInfo: FC<Props> = ({ user, }) => {
+const UserInfo: FC<Props> = ({ user, isSeparated, }) => {
   const { username, } = user;
 
   return (
-    <div className={styles.content}>
+    <div className={`${styles.content} ${isSeparated ? styles['separated-users'] : ''}`}>
       <Avatar
         type='image-with-info'
         size={Sizes.MD}

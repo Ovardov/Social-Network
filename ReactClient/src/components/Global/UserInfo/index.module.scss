@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
+
   &:not(:last-of-type) {
     border-bottom: 1px solid var(--theme-border-color);
     padding-bottom: $sm-spacing;
@@ -10,5 +10,13 @@
 
   &:last-of-type {
     padding-top: $sm-spacing;
+  }
+
+  &.separated-users {
+    background: #FFF;
+    border-radius: 0.3em;
+    border-bottom: none;
+    padding: 1em;
+    margin-bottom: $lg-spacing;
   }
 }

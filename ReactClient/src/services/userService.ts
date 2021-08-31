@@ -1,7 +1,7 @@
 import { makeRequestWithFormData } from './../utils/fetch';
 import { get, put, deleteRequest } from '../utils/fetch';
 import { HttpMethods } from '../utils/enums';
-import {
+import User_, {
   UserInfo as UserInfo_,
   UserPictureFormData as UserPictureFormData_
 } from '../models/User';
@@ -40,6 +40,10 @@ export const getUserFriends = async (username: string) => {
 
 export const getSuggestedNewFriends = async () => {
   return get(`/users/suggested-new-friends`);
+};
+
+export const searchUsers = async (searchValue: string, criterion: 'fullName' | 'interests') => {
+  return get(`/users/search/${searchValue}?criterion=${criterion}`) as Promise<User_[]>;
 };
 
 export const addInterest = async (data: InterestFormData_) => {

@@ -1,10 +1,11 @@
 .container {
-  padding: $xs-spacing $sm-spacing;
-  border: 1px solid var(--theme-border-color);
-  border-radius: $border-radius;
-  margin-bottom: $md-spacing;
   display: flex;
   align-items: center;
+  padding: $xs-spacing $sm-spacing;
+  margin-bottom: $sm-spacing;
+  border: 1px solid var(--theme-border-color);
+  border-radius: $border-radius;
+  background: var(--theme-background-color);
 
   .button {
     border: 1px solid var(--theme-border-darker-color);

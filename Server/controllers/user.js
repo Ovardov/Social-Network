@@ -146,6 +146,62 @@ module.exports = {
       } catch (err) {
         next(err);
       }
+    },
+
+    searchUsers: async (req, res, next) => {
+      try {
+        // Check for data errors
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+          return res.status(400).send({ errors: errors.array() });
+        }
+
+        const { searchValue } = req.params;
+        const { criterion } = req.query;
+
+        if (criterion === 'fullName') {
+          const query = {
+            $or: [
+              { firstName: { $regex: searchValue, $options: 'i' } },
+              { lastName: { $regex: searchValue, $options: 'i' } },
+            ]
+          };
+
+          const users = await models.User.find(query)
+            .sort({ firstName: 'asc', lastName: 'asc' })
+            .select('firstName lastName username')
+            .populate('profilePicture')
+
+          res.status(200).send(users);
+          return;
+        }
+
+        if (criterion === 'interests') {
+          const query = { name: searchValue };
+
+          const interest = await models.Interest.findOne(query)
+            .sort('users')
+            .populate({
+              path: 'users',
+              select: 'firstName lastName',
+              populate: 'profilePicture',
+              options: { sort: { firstName: 'asc', lastName: 'asc' } }
+            });
+
+          const users = interest
+            ? interest.users
+            : []
+
+          res.status(200).send(users);
+          return;
+        }
+
+        res.status(200).send([]);
+      }
+      catch (err) {
+        next(err);
+      }
     }
   },
 
@@ -322,6 +378,24 @@ module.exports = {
         }
       }
     },
+
+  },
+
+  delete: {
+    removeMyAccount: async (req, res, next) => {
+      const token = req.cookies[config.authCookieName];
+
+      try {
+        const { id } = await utils.jwt.verifyToken(token);
+
+        await models.User.deleteOne({ _id: id })
+        await models.TokenBlacklist.create({ token });
+
+        res.clearCookie(config.authCookieName).send('Deleted successfully!');
+      } catch (err) {
+        next(err);
+      }
+    },
     removeInterest: async (req, res, next) => {
       try {
         // Check for data errors
@@ -342,7 +416,7 @@ module.exports = {
         }
 
         const interestRes = await models.Interest
-          .findOneAndUpdate({ _id: interestId, users: authorId }, { $pull: { users: authorId } },  { returnOriginal: false })
+          .findOneAndUpdate({ _id: interestId, users: authorId }, { $pull: { users: authorId } }, { returnOriginal: false })
           .select('name users');
 
         if (interestRes.users.length === 0) {
@@ -359,22 +433,5 @@ module.exports = {
         next(e)
       }
     },
-  },
-
-  delete: {
-    removeMyAccount: async (req, res, next) => {
-      const token = req.cookies[config.authCookieName];
-
-      try {
-        const { id } = await utils.jwt.verifyToken(token);
-
-        await models.User.deleteOne({ _id: id })
-        await models.TokenBlacklist.create({ token });
-
-        res.clearCookie(config.authCookieName).send('Deleted successfully!');
-      } catch (err) {
-        next(err);
-      }
-    }
   }
 };

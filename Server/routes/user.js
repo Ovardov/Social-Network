@@ -9,7 +9,8 @@ import {
   updateUserPictureValidator,
   updateUserInfoValidator,
   addUserInterestValidator,
-  removeUserInterestValidator
+  removeUserInterestValidator,
+  searchUsersValidator
 } from '../validators/user';
 // Utils
 import { auth } from '../utils';
@@ -21,6 +22,7 @@ router.get('/', auth(), userController.get.home);
 router.get('/suggested-new-friends', auth(), userController.get.suggestedNewFriends)
 router.get('/:username', auth(), getProfileDataValidator, userController.get.profile);
 router.get('/:username/friends', auth(), getProfileDataValidator, userController.get.friends);
+router.get('/search/:searchValue', auth(), searchUsersValidator, userController.get.searchUsers);
 
 router.put('/friends/add/:username', auth(), userController.put.addFriend);
 router.put('/friends/remove/:username', auth(), userController.put.removeFriend);
@@ -28,7 +30,7 @@ router.put('/pictures', auth(), upload.single('image'), updateUserPictureValidat
 router.put('/info', auth(), updateUserInfoValidator, userController.put.updateInfo);
 router.put('/interests/add', auth(), addUserInterestValidator, userController.put.addInterest);
 
-router.delete('/interests/remove/:interestId', auth(), removeUserInterestValidator, userController.put.removeInterest);
+router.delete('/interests/remove/:interestId', auth(), removeUserInterestValidator, userController.delete.removeInterest);
 router.delete('/', auth(), userController.delete.removeMyAccount);
 
 export default router;

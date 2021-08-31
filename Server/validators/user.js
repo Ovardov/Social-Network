@@ -1,5 +1,5 @@
 // Libraries
-import { param, body, oneOf, check } from 'express-validator';
+import { param, body, oneOf, check, query } from 'express-validator';
 import { checkImage } from './file';
 
 export const getProfileDataValidator = [
@@ -24,11 +24,18 @@ export const updateUserInfoValidator = [
 
 export const addUserInterestValidator = [
   body('name')
-    .isString().withMessage('Please select a valid interest name')
-    .isLength({ min: 3, max: 30 }).withMessage('Interest name should be between 3 and 30 symbols')
-    .matches(/^[A-Za-z\s]+$/).withMessage('Interest must be alphabetic.')
+    .isString().withMessage('Please select a valid interest name!')
+    .isLength({ min: 3, max: 30 }).withMessage('Interest name should be between 3 and 30 symbols!')
+    .matches(/^[A-Za-z\s]+$/).withMessage('Interest must be alphabetic!')
 ];
 
 export const removeUserInterestValidator = [
-  param('interestId').exists().isString().withMessage('Please select a valid interest'),
+  param('interestId').exists().isString().withMessage('Please select a valid interest!'),
+];
+
+export const searchUsersValidator = [
+  param('searchValue').exists().isString().withMessage('Please enter a valid user full name!'),
+  query('criterion')
+  .exists().isString().withMessage('Please select a  valid criterion!')
+  .if((value) => value === 'fullName' || value === 'interests').withMessage('Criterion should be fullName or interests!')
 ];

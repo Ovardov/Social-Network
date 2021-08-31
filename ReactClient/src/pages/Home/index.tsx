@@ -1,14 +1,19 @@
 // Libraries
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 // Components
 import CreatePost from '../../components/Home/CreatePost';
-import ErrorsList from '../../components/Global/ErrorsList';
 import PostList from '../../components/Home/PostList';
 import SearchBox from '../../components/Global/SearchBox';
 import Loader from '../../components/Global/Loader';
+import UserInfo from '../../components/Global/UserInfo';
+import InfoCard from '../../components/Global/InfoCard';
 // Services
 import { getAllPosts } from '../../services/postService';
+import { getSuggestedNewFriends, searchUsers } from '../../services/userService';
+// Actions
+import { setPostsAction } from '../../redux/actions/Posts';
 // Utils
 import { Colors } from '../../utils/enums';
 // Models
@@ -16,13 +21,10 @@ import Post_ from '../../models/Post';
 import User_ from '../../models/User';
 // Styles
 import styles from './index.module.scss';
-import { setPostsAction } from '../../redux/actions/Posts';
-import { getSuggestedNewFriends } from '../../services/userService';
-import UserInfo from '../../components/Global/UserInfo';
-import InfoCard from '../../components/Global/InfoCard';
 
 const HomePage = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
   const [suggestedNewFriends, setSuggestedNewFriends] = useState([]);
 
@@ -50,6 +52,18 @@ const HomePage = () => {
     // eslint-disable-next-line
   }, []);
 
+  const onSearchHandler = async (searchValue: string) => {
+    try {
+      const searchedUsersByFullName = await searchUsers(searchValue, 'fullName');
+      const searchedUsersByInterests = await searchUsers(searchValue, 'interests');
+
+      history.push('/search', { searchedUsersByFullName, searchedUsersByInterests, });
+    } catch (err) {
+      // To Do -> Handle Error
+      console.log(err);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <section className={styles['posts-container']}>
@@ -59,7 +73,9 @@ const HomePage = () => {
       </section>
 
       <section>
-        {/* <SearchBox /> */}
+        <div className={styles['search-box-container']}>
+          <SearchBox onSubmit={onSearchHandler} />
+        </div>
 
         {suggestedNewFriends?.length > 0 && (
           <InfoCard title='Suggested New Friends'>

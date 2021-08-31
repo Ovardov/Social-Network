@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 // Components
 import Loader from '../../Loader';
 // Images
-import ArrowIcon from '../../../../../public/images/arrow-right.svg';
+import ArrowIcon from '../../../../../public/images/arrow-right-icon.svg';
 import { Colors } from '../../../../utils/enums';
 // Styles
 import globalButtonStyles from '../buttons.module.scss';

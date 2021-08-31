@@ -23,4 +23,12 @@
   .reset-button {
     cursor: pointer;
   }
+
+  .submit-button {
+    margin-left: $xs-spacing;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+  }
 }

@@ -13,6 +13,7 @@ import { ExternalState as ExternalState_ } from '../../../global';
 
 // Pages
 const HomePage = loadable(() => import('../../../pages/Home'), { ssr: true, });
+const SearchPage = loadable(() => import('../../../pages/Search'), { ssr: true, });
 const LoginPage = loadable(() => import('../../../pages/Login'), { ssr: true, });
 const RegisterPage = loadable(() => import('../../../pages/Register'), { ssr: true, });
 const ProfilePage = loadable(() => import('../../../pages/Profile'), { ssr: true, });
@@ -36,6 +37,7 @@ const Navigation: FC<ExternalState_> = ({ user, posts, }) => {
       <LoginAndRegisterRoute path='/register' Component={RegisterPage} />
       <ProtectedRoute exact path='/' Component={HomePage} />
       <ProtectedRoute path='/profile/:username' Component={ProfilePage} />
+      <ProtectedRoute path='/search/' Component={SearchPage} />
     </Switch>
   );
 };

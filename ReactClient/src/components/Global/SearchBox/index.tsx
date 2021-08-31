@@ -1,21 +1,22 @@
 // Libraries
 import React, { FC, useEffect, useRef, useState } from 'react';
-import { Formik, Form, Field, FieldProps } from 'formik';
 // Components
 import Icon from '../Icon';
 // Utils
 import { Colors, Sizes } from '../../../utils/enums';
 // Images
-import SearhIcon from '../../../../public/images/search-icon.svg';
+import SearchIcon from '../../../../public/images/search-icon.svg';
 import CloseIcon from '../../../../public/images/close-icon.svg';
+import ArrowRightIcon from '../../../../public/images/arrow-right-icon.svg';
 // Styles
 import styles from './index.module.scss';
 
 interface Props {
-  onChange: (searchValue: string) => void
+  onChange?: (searchValue: string) => void
+  onSubmit?: (searchValue: string) => void
 }
 
-const SearchBox: FC<Props> = ({ onChange, }) => {
+const SearchBox: FC<Props> = ({ onChange, onSubmit, }) => {
   const fieldRef = useRef(null);
   const [isFocused, setIsFocused] = useState(false);
   const [searchValue, setSearchValue] = useState('');
@@ -41,7 +42,9 @@ const SearchBox: FC<Props> = ({ onChange, }) => {
     const newSearchValue = e.target.value;
     setSearchValue(newSearchValue);
 
-    onChange(newSearchValue);
+    if (onChange) {
+      onChange(newSearchValue);
+    }
   };
 
   const onResetSearchValue = () => {
@@ -49,15 +52,23 @@ const SearchBox: FC<Props> = ({ onChange, }) => {
     onChange('');
   };
 
+  const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (onSubmit) {
+      onSubmit(searchValue);
+    }
+  };
+
   return (
-    <form>
+    <form onSubmit={onSubmitHandler}>
       <p
         ref={fieldRef}
         className={`${styles['field-container']} ${isFocused ? styles.touched : ''}`}
       >
         <Icon
           size={Sizes.SM}
-          Component={SearhIcon}
+          Component={SearchIcon}
           alt='Search Icon'
           color={isFocused ? Colors.PRIMARY : Colors.TEXT}
         />
@@ -72,17 +83,33 @@ const SearchBox: FC<Props> = ({ onChange, }) => {
         />
 
         {isFocused && (
-          <span
-            className={styles['reset-button']}
-            onClick={onResetSearchValue}
-          >
-            <Icon
-              size={Sizes.SM}
-              Component={CloseIcon}
-              alt='Close Icon'
-              color={Colors.PRIMARY}
-            />
-          </span>
+          <>
+            <span
+              className={styles['reset-button']}
+              onClick={onResetSearchValue}
+            >
+              <Icon
+                size={Sizes.SM}
+                Component={CloseIcon}
+                alt='Close Icon'
+                color={Colors.PRIMARY}
+              />
+            </span>
+
+            {onSubmit && (
+              <button
+                className={styles['submit-button']}
+                type='submit'
+              >
+                <Icon
+                  size={Sizes.SM}
+                  Component={ArrowRightIcon}
+                  alt='Arrow Right Icon'
+                  color={Colors.PRIMARY}
+                />
+              </button>
+            )}
+          </>
         )}
       </p>
     </form>
