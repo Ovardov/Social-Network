@@ -143,6 +143,30 @@ module.exports = {
         next(err);
       }
     },
+    getPostLikes: async (req, res, next) => {
+      try {
+        // Check for data errors
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+          return res.status(400).send({ errors: errors.array() });
+        }
+
+        const { id } = req.params;
+
+        const likes = await models.Like.find({ post: id })
+          .select('-post')
+          .populate({
+            path: 'likedBy',
+            select: 'firstName lastName username',
+            populate: 'profilePicture',
+          });
+
+        res.status(200).send(likes);
+      } catch (err) {
+        next(err);
+      }
+    },
   },
 
   post: {

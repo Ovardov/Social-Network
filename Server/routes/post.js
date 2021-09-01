@@ -16,6 +16,8 @@ const router = Router();
 
 router.get('/', auth(), postController.get.getAllPosts);
 router.get('/:id', auth(), getOnePostDataValidator, postController.get.getOnePost);
+router.get('/:id/likes', auth(), getOnePostDataValidator, postController.get.getPostLikes);
+
 
 router.post(
   '/',

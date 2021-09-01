@@ -1,9 +1,14 @@
 import { HttpMethods } from '../utils/enums';
 import { makeRequestWithFormData, put, deleteRequest, get } from '../utils/fetch';
 import { PostFormData as PostFormData_ } from './../models/Post';
+import Like_ from '../models/Like';
 
 export const getAllPosts = async () => {
   return get('/posts');
+};
+
+export const getPostLikes = async (postId: string) => {
+  return get(`/posts/${postId}/likes`) as Promise<Like_[]>;
 };
 
 export const createPost = async (data: PostFormData_) => {

@@ -26,6 +26,10 @@ const FriendStatus: FC_<Props> = ({ username, }) => {
     return user?.friends?.find((friend: User_) => friend.username === username);
   }, [user, username]);
 
+  const isMyProfile = useMemo(() => {
+    return user.username === username;
+  }, [user, username]);
+
   const handleClick = async () => {
     setIsLoading(true);
 
@@ -52,6 +56,10 @@ const FriendStatus: FC_<Props> = ({ username, }) => {
 
     setIsLoading(false);
   };
+
+  if (isMyProfile) {
+    return null;
+  }
 
   return (
     <Button

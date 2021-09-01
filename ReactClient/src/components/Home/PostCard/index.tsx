@@ -8,7 +8,7 @@ import Image from '../../Global/Image';
 import Dropdown from '../../Global/Dropdown';
 import PostAction from '../PostAction';
 // Services
-import { likePost, dislikePost } from '../../../services/postService';
+import { likePost, dislikePost, getPostLikes } from '../../../services/postService';
 // Redux
 import { updatePostAction } from '../../../redux/actions/Posts';
 // Utils
@@ -25,27 +25,49 @@ import DeleteIcon from '../../../../public/images/delete-icon.svg';
 import { AppState as AppState_ } from '../../../redux';
 import { UserState as UserState_ } from '../../../redux/actions/User';
 import Post_ from '../../../models/Post';
+import Like_ from '../../../models/Like';
 // Styles
 import styles from './index.module.scss';
+import Modal from '../../Global/Modal';
+import Loader from '../../Global/Loader';
+import UserInfo from '../../Global/UserInfo';
 
 type Props = {
   post: Post_
 }
 
 const PostCard: FC_<Props> = ({ post, }) => {
-  const [mode, setMode] = useState<PostActionModes>(null);
-  const [showLikes, setShowLikes] = useState(false);
   const { id, content, image, comments, createdAt, likesCount, isLikedByMe, } = post;
+
+  const [mode, setMode] = useState<PostActionModes>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showLikes, setShowLikes] = useState(false);
+  const [likes, setLikes] = useState<Like_[]>([]);
 
   const user = useSelector<AppState_, UserState_>(state => state.user);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
+    const initLikes = async () => {
+      setIsLoading(true);
+
+      try {
+        const allLikes = await getPostLikes(id);
+
+        setLikes(allLikes);
+      } catch (err) {
+        // To Do -> Show error
+        console.log(err);
+      }
+
+      setIsLoading(false);
+    };
+
     if (showLikes) {
-      console.log('here', isLikedByMe);
+      initLikes();
     }
-  }, [showLikes]);
+  }, [showLikes, id]);
 
   const onLikePost = async () => {
     try {
@@ -91,6 +113,24 @@ const PostCard: FC_<Props> = ({ post, }) => {
         onModalClose={() => setMode(null)}
         modalTitle={`${capitalizeFirstLetter(mode)} Post`}
       />
+    );
+  }
+
+  if (showLikes) {
+    return (
+      <Modal
+        title='Likes'
+        onClose={() => setShowLikes(false)}
+        hasHeader
+      >
+        <>
+          {isLoading && <Loader type='local' color={Colors.PRIMARY} />}
+
+          {!isLoading && likes?.map((like: Like_) => (
+            <UserInfo key={like?.likedBy?.username} user={like?.likedBy} />
+          ))}
+        </>
+      </Modal>
     );
   }
 
