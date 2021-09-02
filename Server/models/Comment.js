@@ -25,6 +25,8 @@ commentSchema.virtual('id').get(function () {
   return this._id.toHexString();
 });
 
+commentSchema.virtual('likesCount', { ref: 'Like', localField: 'likes', foreignField: '_id', count: true });
+
 commentSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,

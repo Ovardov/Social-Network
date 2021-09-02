@@ -2,6 +2,7 @@ import { HttpMethods } from '../utils/enums';
 import { makeRequestWithFormData, put, deleteRequest, get } from '../utils/fetch';
 import { PostFormData as PostFormData_ } from './../models/Post';
 import Like_ from '../models/Like';
+import Comment_ from '../models/Comment';
 
 export const getAllPosts = async () => {
   return get('/posts');
@@ -9,6 +10,10 @@ export const getAllPosts = async () => {
 
 export const getPostLikes = async (postId: string) => {
   return get(`/posts/${postId}/likes`) as Promise<Like_[]>;
+};
+
+export const getPostComments = async (postId: string) => {
+  return get(`/posts/${postId}/comments`) as Promise<Comment_[]>;
 };
 
 export const createPost = async (data: PostFormData_) => {

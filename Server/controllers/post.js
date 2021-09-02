@@ -167,6 +167,30 @@ module.exports = {
         next(err);
       }
     },
+    getPostComments: async (req, res, next) => {
+      try {
+        // Check for data errors
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+          return res.status(400).send({ errors: errors.array() });
+        }
+
+        const { id } = req.params;
+
+        const comments = await models.Comment.find({ post: id })
+          .select('-post')
+          .populate({
+            path: 'author',
+            select: 'firstName lastName username',
+            populate: 'profilePicture',
+          });
+
+        res.status(200).send(comments);
+      } catch (err) {
+        next(err);
+      }
+    },
   },
 
   post: {
