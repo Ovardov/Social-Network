@@ -1,0 +1,43 @@
+.comment {
+  display: flex;
+  align-items: center;
+
+  &:not(:last-of-type) {
+    border-bottom: 1px solid var(--theme-border-color);
+    padding: $sm-spacing 0;
+  }
+
+  &:last-of-type {
+    padding-top: $sm-spacing;
+  }
+
+  &:first-of-type {
+    padding-top: 0;
+  }
+
+  .content {
+    padding: 0;
+    margin-left: $md-spacing;
+  }
+
+
+  .likes-container {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .like {
+      margin-left: 0.25em;
+    }
+  }
+
+  .dropdown-container {
+    margin-left: $xs-spacing;
+  }
+
+  .edit-field-container {
+    padding-bottom: 0;
+    margin-left: $md-spacing;
+  }
+}

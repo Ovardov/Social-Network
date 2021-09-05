@@ -27,11 +27,16 @@ export enum Colors {
   COMMENT = 'comment'
 }
 
-export enum PostActionModes {
+export enum ActionModes {
   READ = 'read',
   CREATE = 'create',
   EDIT = 'edit',
   DELETE = 'delete'
+}
+
+export enum PostDetailModes {
+  LIKES = 'likes',
+  COMMENTS = 'comments',
 }
 
 export enum ComponentTypes {

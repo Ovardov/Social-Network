@@ -119,15 +119,6 @@ module.exports = {
           ])
           .populate([
             {
-              path: 'comments',
-              populate: {
-                path: 'author',
-                select: ['firstName', 'lastName', 'fullName', 'username'],
-              },
-            },
-          ])
-          .populate([
-            {
               path: 'likes',
               select: 'likedBy',
               populate: {
@@ -179,12 +170,19 @@ module.exports = {
         const { id } = req.params;
 
         const comments = await models.Comment.find({ post: id })
-          .select('-post')
+          .select('content')
           .populate({
             path: 'author',
             select: 'firstName lastName username',
             populate: 'profilePicture',
-          });
+          })
+          .populate('likesCount')
+          .populate([
+            {
+              path: 'likes',
+              select: 'likedBy',
+            },
+          ]);
 
         res.status(200).send(comments);
       } catch (err) {

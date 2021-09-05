@@ -8,6 +8,7 @@
     padding: $xs-spacing;
     transition: all 0.2s ease-in-out;
     border-radius: 50%;
+    cursor: pointer;
     
     &:hover {
       background: var(--theme-primary-lighter-color);

@@ -1,11 +1,18 @@
-import Post_ from './Post';
 import User_ from './User';
-import Like_ from './Like';
-
 export default class Comment {
   id: string;
   content: string;
   author: User_;
-  post: Post_;
-  likes: Like_[];
+  post: string;
+  isLikedByMe: boolean;
+  likesCount?: number;
+}
+
+export class CommentFormData {
+  content: string;
+  postId: string;
+}
+
+export class EditCommentFormData {
+  content: string;
 }

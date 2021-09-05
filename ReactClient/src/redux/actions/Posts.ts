@@ -1,6 +1,6 @@
 import { Action as Action_ } from 'redux';
 import Post_ from '../../models/Post';
-import { ADD_POST, SET_POSTS, UPDATE_POST, DELETE_POST } from './../actionTypes';
+import { ADD_POST, SET_POSTS, UPDATE_POST, REMOVE_POST, REMOVE_POST_COMMENT } from './../actionTypes';
 
 export type PostsState = Post_[];
 
@@ -16,11 +16,15 @@ export interface IUpdatePost extends Action_<typeof UPDATE_POST> {
   post: Post_
 }
 
-export interface IDeletePost extends Action_<typeof DELETE_POST> {
+export interface IDeletePost extends Action_<typeof REMOVE_POST> {
   postId: string
 }
 
-export type PostsActions = ISetPosts | IAddPost | IUpdatePost | IDeletePost;
+export interface IDeletePostComment extends Action_<typeof REMOVE_POST_COMMENT> {
+  postId: string
+}
+
+export type PostsActions = ISetPosts | IAddPost | IUpdatePost | IDeletePost | IDeletePostComment;
 
 export const addPostAction = (post: Post_): IAddPost => {
   return {
@@ -43,9 +47,16 @@ export const updatePostAction = (post: Post_): IUpdatePost => {
   };
 };
 
-export const deletePostAction = (postId: string): IDeletePost => {
+export const removePostAction = (postId: string): IDeletePost => {
   return {
-    type: DELETE_POST,
+    type: REMOVE_POST,
+    postId,
+  };
+};
+
+export const removePostCommentAction = (postId: string): IDeletePostComment => {
+  return {
+    type: REMOVE_POST_COMMENT,
     postId,
   };
 };

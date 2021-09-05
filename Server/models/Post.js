@@ -36,6 +36,10 @@ postSchema.virtual('likesCount').get(function () {
   return this.likes.length;
 });
 
+postSchema.virtual('commentsCount').get(function () {
+  return this.comments.length;
+});
+
 postSchema.virtual('isLikedByMe').get(function () {
   const currentLike = this.likes.find(like => like.likedBy._id.toString() === this.author._id.toString());
   

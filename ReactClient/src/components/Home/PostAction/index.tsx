@@ -11,13 +11,13 @@ import FileField from '../../Global/FormFields/FileField';
 import Image from '../../Global/Image';
 import Modal from '../../Global/Modal';
 // Redux
-import { addPostAction, deletePostAction, updatePostAction } from '../../../redux/actions/Posts';
+import { addPostAction, removePostAction, updatePostAction } from '../../../redux/actions/Posts';
 // Services
 import { createPost, deletePost, updatePost } from '../../../services/postService';
 // Form Validators
 import { postValidationSchema } from '../../../formValidators/post';
 // Utils
-import { Colors, PostActionModes, Sizes } from '../../../utils/enums';
+import { Colors, ActionModes, Sizes } from '../../../utils/enums';
 // Models
 import Post_, { PostFormData as PostFormData_ } from '../../../models/Post';
 import { AppState as AppState_ } from '../../../redux';
@@ -27,7 +27,7 @@ import styles from './index.module.scss';
 
 interface Props {
   post?: Post_,
-  mode: PostActionModes
+  mode: ActionModes
   modalTitle: string,
   onModalClose: () => void
 }
@@ -43,10 +43,10 @@ const PostAction: FC<Props> = ({ mode, post, modalTitle, onModalClose, }) => {
     try {
       setIsLoading(true);
 
-      if (mode === PostActionModes.CREATE) {
+      if (mode === ActionModes.CREATE) {
         const newPost = await createPost(data) as Post_;
         dispatch(addPostAction(newPost));
-      } else if (mode === PostActionModes.EDIT) {
+      } else if (mode === ActionModes.EDIT) {
         const updatedPost = await updatePost(data, post?.id) as Post_;
         
         dispatch(updatePostAction(updatedPost));
@@ -70,7 +70,7 @@ const PostAction: FC<Props> = ({ mode, post, modalTitle, onModalClose, }) => {
       const { id, } = post;
       await deletePost(id) as Post_;
 
-      dispatch(deletePostAction(id));
+      dispatch(removePostAction(id));
       setIsLoading(false);
 
       onModalClose();
@@ -80,7 +80,7 @@ const PostAction: FC<Props> = ({ mode, post, modalTitle, onModalClose, }) => {
     }
   };
 
-  if (mode === PostActionModes.DELETE) {
+  if (mode === ActionModes.DELETE) {
     return (
       <Modal
         title={modalTitle}

@@ -8,9 +8,9 @@ export default class Post {
   content: string;
   image: Image_;
   author: User_
-  likesCount?: Number;
+  likesCount?: number;
   isLikedByMe: boolean;
-  comments: Comment_[];
+  commentsCount?: number;
 }
 
 export class PostFormData {

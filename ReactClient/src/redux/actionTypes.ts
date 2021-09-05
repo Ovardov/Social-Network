@@ -10,4 +10,5 @@ export const REMOVE_INTEREST = 'REMOVE_INTEREST';
 export const SET_POSTS = 'SET_POSTS';
 export const ADD_POST = 'ADD_POST';
 export const UPDATE_POST = 'UPDATE_POST';
-export const DELETE_POST = 'DELETE_POST';
+export const REMOVE_POST = 'REMOVE_POST';
+export const REMOVE_POST_COMMENT = 'REMOVE_POST_COMMENT';

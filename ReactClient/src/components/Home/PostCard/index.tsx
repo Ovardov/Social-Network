@@ -1,18 +1,23 @@
 // Libraries
-import React, { useMemo, useState, FC as FC_, useEffect } from 'react';
+import React, { useState, FC as FC_ } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // Components
 import Avatar from '../../Global/Avatar';
 import Icon from '../../Global/Icon';
 import Image from '../../Global/Image';
 import Dropdown from '../../Global/Dropdown';
+import Modal from '../../Global/Modal';
+import Button from '../../Global/Buttons/Button';
 import PostAction from '../PostAction';
+import PostDetail from '../PostDetail';
+import ButtonContainers from '../../Global/Buttons/ButtonsContainer';
 // Services
-import { likePost, dislikePost, getPostLikes } from '../../../services/postService';
+import { likePost, dislikePost } from '../../../services/postService';
+import { commentPost } from '../../../services/commentService';
 // Redux
 import { updatePostAction } from '../../../redux/actions/Posts';
 // Utils
-import { Colors, PostActionModes, Sizes } from '../../../utils/enums';
+import { Colors, ActionModes, PostDetailModes, Sizes } from '../../../utils/enums';
 import { capitalizeFirstLetter } from '../../../utils/helper';
 // Images
 import LikeOutlinedIcon from '../../../../public/images/like-outlined-icon.svg';
@@ -25,49 +30,28 @@ import DeleteIcon from '../../../../public/images/delete-icon.svg';
 import { AppState as AppState_ } from '../../../redux';
 import { UserState as UserState_ } from '../../../redux/actions/User';
 import Post_ from '../../../models/Post';
-import Like_ from '../../../models/Like';
 // Styles
 import styles from './index.module.scss';
-import Modal from '../../Global/Modal';
-import Loader from '../../Global/Loader';
-import UserInfo from '../../Global/UserInfo';
+import inputStyles from '../../Global/InputField/input-field.module.scss';
 
 type Props = {
   post: Post_
 }
 
-const PostCard: FC_<Props> = ({ post, }) => {
-  const { id, content, image, comments, createdAt, likesCount, isLikedByMe, } = post;
+type PostDetail = { likes: boolean } | { comments: boolean }
 
-  const [mode, setMode] = useState<PostActionModes>(null);
+const PostCard: FC_<Props> = ({ post, }) => {
+  const { id, content, image, createdAt, likesCount, isLikedByMe, commentsCount, } = post;
+
+  const [actionMode, setActionMode] = useState<ActionModes>(null);
+  const [postDetailMode, setPostDetailMode] = useState<PostDetailModes>(null);
+  const [isCommentBoxOpen, setIsCommentBoxOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [showLikes, setShowLikes] = useState(false);
-  const [likes, setLikes] = useState<Like_[]>([]);
+  const [newComment, setNewComment] = useState('');
 
   const user = useSelector<AppState_, UserState_>(state => state.user);
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    const initLikes = async () => {
-      setIsLoading(true);
-
-      try {
-        const allLikes = await getPostLikes(id);
-
-        setLikes(allLikes);
-      } catch (err) {
-        // To Do -> Show error
-        console.log(err);
-      }
-
-      setIsLoading(false);
-    };
-
-    if (showLikes) {
-      initLikes();
-    }
-  }, [showLikes, id]);
 
   const onLikePost = async () => {
     try {
@@ -90,46 +74,96 @@ const PostCard: FC_<Props> = ({ post, }) => {
     }
   };
 
+  const onCommentPost = async () => {
+    try {
+      setIsLoading(true);
+
+      const postFormData = {
+        content: newComment,
+        postId: id,
+      };
+
+      const commentedPost = await commentPost(postFormData);
+
+      dispatch(updatePostAction(commentedPost));
+      setNewComment('');
+      setIsCommentBoxOpen(false);
+    } catch (e) {
+      // ToDo -> Global error handling
+    }
+
+    setIsLoading(false);
+  };
+
   const dropdownOptions = [
     {
       id: 1,
-      onClickHandler: () => setMode(PostActionModes.EDIT),
+      onClickHandler: () => setActionMode(ActionModes.EDIT),
       name: 'Edit',
       optionIcon: EditIcon,
     },
     {
       id: 2,
-      onClickHandler: () => setMode(PostActionModes.DELETE),
+      onClickHandler: () => setActionMode(ActionModes.DELETE),
       name: 'Delete',
       optionIcon: DeleteIcon,
     }
   ];
 
-  if (mode) {
+  if (actionMode) {
     return (
       <PostAction
-        mode={mode}
+        mode={actionMode}
         post={post}
-        onModalClose={() => setMode(null)}
-        modalTitle={`${capitalizeFirstLetter(mode)} Post`}
+        onModalClose={() => setActionMode(null)}
+        modalTitle={`${capitalizeFirstLetter(actionMode)} Post`}
       />
     );
   }
 
-  if (showLikes) {
+  if (postDetailMode) {
+    return (
+      <PostDetail
+        mode={postDetailMode}
+        post={post}
+        onModalClose={() => setPostDetailMode(null)}
+        modalTitle={capitalizeFirstLetter(postDetailMode)}
+      />
+    );
+  }
+
+  if (isCommentBoxOpen) {
     return (
       <Modal
-        title='Likes'
-        onClose={() => setShowLikes(false)}
+        title='Add a coment'
+        onClose={() => setIsCommentBoxOpen(false)}
         hasHeader
       >
-        <>
-          {isLoading && <Loader type='local' color={Colors.PRIMARY} />}
+        <form>
+          <p className={inputStyles.container}>
+            <input
+              name='comment'
+              placeholder='You look awesome.'
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              className={inputStyles.input}
+              autoFocus />
+          </p>
 
-          {!isLoading && likes?.map((like: Like_) => (
-            <UserInfo key={like?.likedBy?.username} user={like?.likedBy} />
-          ))}
-        </>
+          <ButtonContainers
+            columns={1}
+            widthType='full-width'
+          >
+            <Button
+              text='Save'
+              type='button'
+              color={Colors.PRIMARY}
+              isLoading={isLoading}
+              disabled={newComment?.length < 1}
+              onClickHandler={onCommentPost}
+            />
+          </ButtonContainers>
+        </form>
       </Modal>
     );
   }
@@ -166,16 +200,17 @@ const PostCard: FC_<Props> = ({ post, }) => {
         <ul className={styles['action-buttons-list']}>
           <li
             className={`${styles['action-button']} ${styles['like-button']} ${isLikedByMe ? styles['status-liked'] : ''}`}
-            onClick={async () =>
+            onClick={() =>
               isLikedByMe
-                ? await onDislikePost()
-                : await onLikePost()
+                ? onDislikePost()
+                : onLikePost()
             }
           >
             <Icon size={Sizes.SM} color={Colors.LIKE} Component={LikeOutlinedIcon} alt='Like Icon' />
           </li>
           <li
             className={`${styles['action-button']} ${styles['comment-button']} ${styles['status-commented']}`}
+            onClick={() => setIsCommentBoxOpen(true)}
           >
             <Icon size={Sizes.SM} color={Colors.COMMENT} Component={CommentOutlinedIcon} alt='Comment Icon' />
           </li>
@@ -185,23 +220,23 @@ const PostCard: FC_<Props> = ({ post, }) => {
       {/* All reactions */}
       <footer className={styles.footer}>
         <ul className={styles['icons-list']}>
-          <li className={styles.icon} onClick={() => setShowLikes(true)}>
+          <li className={styles.icon} onClick={() => setPostDetailMode(PostDetailModes.LIKES)}>
             <Icon size={Sizes.SM} color={Colors.LIKE} Component={LikeFilledIcon} alt='Like Icon' />
 
             <span className={`${styles.likes}`}>
-              {likesCount}
+              {likesCount ?? 0}
             </span>
           </li>
-          <li className={styles.icon}>
+          <li className={styles.icon} onClick={() => setPostDetailMode(PostDetailModes.COMMENTS)}>
             <Icon size={Sizes.SM} color={Colors.COMMENT} Component={CommentFilledIcon} alt='Comment Icon' />
 
             <span className={styles.comments}>
-              {comments?.length ?? 0}
+              {commentsCount ?? 0}
             </span>
           </li>
         </ul>
       </footer>
-    </article>
+    </article >
   );
 };
 
