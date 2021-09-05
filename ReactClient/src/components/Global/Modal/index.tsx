@@ -19,6 +19,7 @@ const Modal: FC<Props> = ({ children, onClose, title, hasHeader, fullWidth, }) =
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
+    e.stopPropagation();
 
     if (modalRef.current && !modalRef.current.contains(e.target)) {
       onClose();
@@ -26,8 +27,8 @@ const Modal: FC<Props> = ({ children, onClose, title, hasHeader, fullWidth, }) =
   };
 
   return (
-    <div className={styles.container} onClick={handleClick}>
-      <div className={`${styles.modal} ${fullWidth ? styles['full-width'] : ''}`} ref={modalRef}>
+    <div className={styles.container} {...!hasHeader ? { onClick: handleClick, } : null}>
+      <div className={`${styles.modal} ${fullWidth ? styles['full-width'] : ''}`} >
         {hasHeader && (
           <header className={styles.header}>
             {title && <p className={styles.title}>{title}</p>}

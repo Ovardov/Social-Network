@@ -41,7 +41,11 @@ postSchema.virtual('commentsCount').get(function () {
 });
 
 postSchema.virtual('isLikedByMe').get(function () {
-  const currentLike = this.likes.find(like => like.likedBy._id.toString() === this.author._id.toString());
+  if (!this.likes || !this.author) {
+    return null;
+  };
+
+  const currentLike = this.likes.find(like => like.likedBy ? like.likedBy._id.toString() === this.author._id.toString() : false);
   
   return !!currentLike;
 });
@@ -52,6 +56,7 @@ postSchema.set('toJSON', {
   transform: function (model, result) {
     delete result._id;
     delete result.likes;
+    delete result.comments;
    }
 });
 

@@ -19,24 +19,15 @@ const populateOptions = {
       populate: 'profilePicture',
     },
   ],
-  comments: [
-    {
-      path: 'comments',
-      populate: {
-        path: 'author',
-        select: ['firstName', 'lastName', 'fullName', 'username'],
-      },
-    },
-  ],
   likes: [
     {
       path: 'likes',
       populate: {
         path: 'likedBy',
-        select: ['firstName', 'lastName', 'fullName', 'username'],
+        select: '_id',
       },
     },
-  ]
+  ],
 };
 
 module.exports = {
@@ -54,38 +45,9 @@ module.exports = {
       const query = { _id: id };
 
       models.Post.find(query)
-        .populate('image')
-        .populate([
-          {
-            path: 'author',
-            select: [
-              'firstName',
-              'lastName',
-              'fullName',
-              'username',
-              'profilePicture',
-            ],
-            populate: 'profilePicture',
-          },
-        ])
-        .populate([
-          {
-            path: 'comments',
-            populate: {
-              path: 'author',
-              select: ['firstName', 'lastName', 'fullName', 'username'],
-            },
-          },
-        ])
-        .populate([
-          {
-            path: 'likes',
-            populate: {
-              path: 'likedBy',
-              select: ['firstName', 'lastName', 'fullName', 'username'],
-            },
-          },
-        ])
+        .populate(populateOptions.image)
+        .populate(populateOptions.author)
+        .populate(populateOptions.likes)
         .sort({ createdAt: -1 })
         .then((post) => res.send(post))
         .catch(next);
@@ -103,30 +65,9 @@ module.exports = {
         const posts = await models.Post.find({
           author: { $in: [...myFriends, userId] },
         })
-          .populate('image')
-          .populate([
-            {
-              path: 'author',
-              select: [
-                'firstName',
-                'lastName',
-                'fullName',
-                'username',
-                'profilePicture',
-              ],
-              populate: 'profilePicture',
-            },
-          ])
-          .populate([
-            {
-              path: 'likes',
-              select: 'likedBy',
-              populate: {
-                path: 'likedBy',
-                select: '_id'
-              },
-            },
-          ])
+          .populate(populateOptions.image)
+          .populate(populateOptions.author)
+          .populate(populateOptions.likes)
           .sort({ createdAt: -1 });
 
         res.send(posts);
@@ -171,18 +112,8 @@ module.exports = {
 
         const comments = await models.Comment.find({ post: id })
           .select('content')
-          .populate({
-            path: 'author',
-            select: 'firstName lastName username',
-            populate: 'profilePicture',
-          })
-          .populate('likesCount')
-          .populate([
-            {
-              path: 'likes',
-              select: 'likedBy',
-            },
-          ]);
+          .populate(populateOptions.author)
+          .populate(populateOptions.likes)
 
         res.status(200).send(comments);
       } catch (err) {
@@ -193,12 +124,6 @@ module.exports = {
 
   post: {
     create: async (req, res, next) => {
-      const { content } = req.body;
-      const authorId = req.user._id;
-
-      // Post Image
-      const { file } = req;
-
       try {
         // Check for data errors
         const errors = validationResult(req);
@@ -206,6 +131,12 @@ module.exports = {
         if (!errors.isEmpty()) {
           return res.status(400).send({ errors: errors.array() });
         }
+
+        const { content } = req.body;
+        const authorId = req.user._id;
+
+        // Post Image
+        const { file } = req;
 
         let createdImage;
 
@@ -261,14 +192,24 @@ module.exports = {
 
   put: {
     edit: async (req, res, next) => {
-      const { id } = req.params;
-      const { content } = req.body;
-
-
-
       try {
-        await models.Post.findOneAndUpdate({ _id: id }, { content });
-        res.status(200).send('Edited Successfully!');
+        // Check for data errors
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+          return res.status(400).send({ errors: errors.array() });
+        }
+
+        const { id } = req.params;
+        const { content } = req.body;
+
+        const updatedPost = await models.Post.findOneAndUpdate({ _id: id }, { content }, { new: true })
+          .populate(populateOptions.image)
+          .populate(populateOptions.author)
+          .populate(populateOptions.comments)
+          .populate(populateOptions.likes);
+
+        res.status(200).send(updatedPost);
       } catch (e) {
         next(e);
       }

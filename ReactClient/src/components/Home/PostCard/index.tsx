@@ -74,8 +74,10 @@ const PostCard: FC_<Props> = ({ post, }) => {
     }
   };
 
-  const onCommentPost = async () => {
+  const onCommentPost = async (e: React.MouseEvent<HTMLFormElement>) => {
     try {
+      e.preventDefault();
+
       setIsLoading(true);
 
       const postFormData = {
@@ -139,7 +141,7 @@ const PostCard: FC_<Props> = ({ post, }) => {
         onClose={() => setIsCommentBoxOpen(false)}
         hasHeader
       >
-        <form>
+        <form onSubmit={onCommentPost}>
           <p className={inputStyles.container}>
             <input
               name='comment'
@@ -156,11 +158,10 @@ const PostCard: FC_<Props> = ({ post, }) => {
           >
             <Button
               text='Save'
-              type='button'
+              type='submit'
               color={Colors.PRIMARY}
               isLoading={isLoading}
               disabled={newComment?.length < 1}
-              onClickHandler={onCommentPost}
             />
           </ButtonContainers>
         </form>

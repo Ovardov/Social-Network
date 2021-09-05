@@ -48,7 +48,6 @@ const PostAction: FC<Props> = ({ mode, post, modalTitle, onModalClose, }) => {
         dispatch(addPostAction(newPost));
       } else if (mode === ActionModes.EDIT) {
         const updatedPost = await updatePost(data, post?.id) as Post_;
-        
         dispatch(updatePostAction(updatedPost));
       }
 
@@ -134,7 +133,7 @@ const PostAction: FC<Props> = ({ mode, post, modalTitle, onModalClose, }) => {
           validateOnBlur={true}
           onSubmit={onSubmit}
         >
-          {({ values, errors, isValid, setFieldValue, }) => (
+          {({ isValid, }) => (
             <Form className={styles.form}>
               <div className={styles['form-content']}>
                 {/* Content Field */}
@@ -144,37 +143,22 @@ const PostAction: FC<Props> = ({ mode, post, modalTitle, onModalClose, }) => {
                   rows={3}
                   component={TextAreaField}
                 />
-
-                {/* Show uploaded image */}
-                {(values?.image) && !errors?.image && (
-                  <Image
-                    removeImageHandler={() => setFieldValue('image', null)}
-                    aspectRatio='16-9'
-                    imageSrc={URL.createObjectURL(values?.image)}
-                    imageAlt={values?.content}
-                  />
-                )}
               </div>
 
-              <div className={styles['form-action']}>
-                {/* Input type file */}
-                <Field name='image' component={FileField} />
-
-                {/* Submit button */}
-                <ButtonsContainer
-                  columns={1}
-                  position='end'
-                  widthType='fit-content'
-                >
-                  <Button
-                    type='submit'
-                    disabled={!isValid || isLoading}
-                    isLoading={isLoading}
-                    text='Submit'
-                    color={Colors.PRIMARY}
-                  />
-                </ButtonsContainer>
-              </div>
+              {/* Submit button */}
+              <ButtonsContainer
+                columns={1}
+                position='end'
+                widthType='full-width'
+              >
+                <Button
+                  type='submit'
+                  disabled={!isValid || isLoading}
+                  isLoading={isLoading}
+                  text='Submit'
+                  color={Colors.PRIMARY}
+                />
+              </ButtonsContainer>
             </Form>
           )}
         </Formik>

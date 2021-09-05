@@ -1,19 +1,18 @@
+// Libraries
 import React, { FC as FC_, useState, useEffect } from 'react';
-import { getPostComments, getPostLikes } from '../../../services/postService';
-import { ActionModes, Colors, PostDetailModes, Sizes } from '../../../utils/enums';
-import Like_ from '../../../models/Like';
-import Comment_ from '../../../models/Comment';
+// Components
 import Modal from '../../Global/Modal';
 import Loader from '../../Global/Loader';
 import UserInfo from '../../Global/UserInfo';
+import CommentDetail from '../Comment';
+// Services
+import { getPostComments, getPostLikes } from '../../../services/postService';
+// Utils
+import { Colors, PostDetailModes } from '../../../utils/enums';
+// Models
+import Like_ from '../../../models/Like';
+import Comment_ from '../../../models/Comment';
 import Post_ from '../../../models/Post';
-
-import { useSelector } from 'react-redux';
-import { AppState as AppState_ } from '../../../redux';
-import { UserState as UserState_ } from '../../../redux/actions/User';
-import { deleteComment } from '../../../services/commentService';
-
-import CommentDetail from '../CommentDetail';
 
 type PostDetailProps = {
   mode: PostDetailModes
@@ -24,8 +23,6 @@ type PostDetailProps = {
 
 const PostDetail: FC_<PostDetailProps> = ({ mode, post, onModalClose, modalTitle, }) => {
   const { id: postId, } = post;
-
-  const user = useSelector<AppState_, UserState_>(state => state.user);
 
   const [isLoading, setIsLoading] = useState(false);
   const [likes, setLikes] = useState<Like_[]>([]);
@@ -56,8 +53,6 @@ const PostDetail: FC_<PostDetailProps> = ({ mode, post, onModalClose, modalTitle
     }
   }, [mode, postId]);
 
-
-  console.log(comments);
   return (
     <Modal
       title={modalTitle}

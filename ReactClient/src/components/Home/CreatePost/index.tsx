@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 // Utils
-import { PostActionModes, Sizes } from '../../../utils/enums';
+import { ActionModes, Sizes } from '../../../utils/enums';
 // Components
 import Avatar from '../../Global/Avatar';
 import PostAction from '../PostAction';
@@ -23,7 +23,7 @@ const CreatePost = () => {
       <PostAction
         modalTitle='Create Post'
         onModalClose={() => setIsInCreateMode(false)}
-        mode={PostActionModes.CREATE}
+        mode={ActionModes.CREATE}
       />
     );
   }

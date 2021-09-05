@@ -67,6 +67,7 @@ const CommentDetail: FC<CommentDetailProps> = ({ comment, setComments, }) => {
       }
 
       const updatedComment = await updateComment(id, { content: newContent, });
+      setIsLoading(false);
 
       if (updatedComment.id) {
         setComments((comments: Comment_[]) => comments.map((comment: Comment_) => (comment.id === updatedComment.id ? updatedComment : comment)));

@@ -28,11 +28,11 @@ commentSchema.virtual('id').get(function () {
 commentSchema.virtual('likesCount', { ref: 'Like', localField: 'likes', foreignField: '_id', count: true });
 
 commentSchema.virtual('isLikedByMe').get(function () {
-  if(!this.likes) {
+  if (!this.likes || !this.author) {
     return null;
   };
-  
-  const currentLike = this.likes.find(like => like.likedBy._id.toString() === this.author._id.toString());
+
+  const currentLike = this.likes.find(like => like.likedBy ? like.likedBy._id.toString() === this.author._id.toString() : false);
 
   return !!currentLike;
 });
