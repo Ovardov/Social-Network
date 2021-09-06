@@ -7,6 +7,10 @@ import User_, {
 } from '../models/User';
 import Interest_, { InterestFormData as InterestFormData_ } from './../models/Interest';
 
+export const auth = async () => {
+  return get(`/auth`) as Promise<User_>;
+};
+
 export const addFriend = async (username: string) => {
   return put(`/users/friends/add/${username}`);
 };

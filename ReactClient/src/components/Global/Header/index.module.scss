@@ -1,7 +1,7 @@
 .header {
   max-width: 20em;
   justify-self: flex-end;
-  background: var(--theme-background-color);
+  background: var(--theme-layout-color);
 
   &.small-header .link .name {
     display: none;
@@ -19,56 +19,9 @@
   }
 
   // Common styles
-  .title,
-  .list-item {
-    padding: 0.3em 0;
-  }
-
-  // Common styles
-  .title-link,
-  .link {
-    display: flex;
-    align-items: center;
-  }
-
-  // Common styles
   .link,
   svg {
     transition: all 0.2s ease-in-out;
-  }
-
-  // Common styles
-  .link {
-    color: var(--theme-text-color);
-    word-break: break-all;
-    padding: $xs-spacing;
-
-    @include bp(phone) {
-      width: fit-content;
-      justify-self: center;
-    }
-
-    &.selected,
-    &:hover,
-    &:focus {
-      background: var(--theme-primary-lighter-color);
-      color: var(--theme-primary-color);
-
-      svg {
-        fill: var(--theme-primary-color);
-      }
-    }
-  }
-
-  // Logo
-  .title {
-    font-size: 1em;
-    margin-bottom: 0;
-    width: fit-content;
-
-    @include bp(phone) {
-      display: none;
-    }
   }
 
   // Navigation
@@ -89,6 +42,8 @@
       }
 
       .list-item {
+        padding: 0.3em 0;
+
         @include bp(phone) {
           width: fit-content;
           margin: 0 auto;
@@ -96,7 +51,29 @@
         }
 
         .link {
+          display: flex;
+          align-items: center;
           border-radius: $md-spacing;
+          background: var(--theme-layout-color);
+          color: var(--theme-text-color);
+          word-break: break-all;
+          padding: $xs-spacing;
+
+          @include bp(phone) {
+            width: fit-content;
+            justify-self: center;
+          }
+      
+          &.selected,
+          &:hover,
+          &:focus {
+            background: var(--theme-primary-lighter-color);
+            color: var(--theme-primary-color);
+      
+            svg {
+              fill: var(--theme-primary-color);
+            }
+          }
 
           .name {
             font-weight: bold;

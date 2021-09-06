@@ -5,13 +5,9 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint src/**/*.ts src/**/*.tsx --fix",
-    "build:dev-client": "webpack --mode=development --watch",
-    "build:dev-server": "webpack --mode=development --config webpack.server.js --watch",
-    "ssr:start": "nodemon ./server-build/index.js",
-    "dev": "npm run lint && npm-run-all --parallel build:dev* ssr:start",
-    "build:prod-client": "webpack --mode=production",
-    "build:prod-server": "webpack --mode=production --config webpack.server.js",
-    "build": "npm-run-all build:prod*",
+    "start": "webpack serve --mode=development --watch",
+    "dev": "npm run lint && npm run start",
+    "build": "webpack --mode=production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

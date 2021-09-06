@@ -1,43 +1,59 @@
 // Libraries
-import React, { FC, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import loadable from '@loadable/component';
+import React, { FC, lazy, Suspense, useMemo, useState} from 'react';
 import { Switch } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 // Components
 import ProtectedRoute from './ProtectedRoute';
 import LoginAndRegisterRoute from './LoginAndRegisterRoute';
-// Redux
+import Loader from '../../Global/Loader';
+// Services
+import { auth } from '../../../services/userService';
+// Actions
 import { setUserAction } from '../../../redux/actions/User';
-import { setPostsAction } from '../../../redux/actions/Posts';
-import { ExternalState as ExternalState_ } from '../../../global';
+// Utils
+import { Colors } from '../../../utils/enums';
 
 // Pages
-const HomePage = loadable(() => import('../../../pages/Home'), { ssr: true, });
-const SearchPage = loadable(() => import('../../../pages/Search'), { ssr: true, });
-const LoginPage = loadable(() => import('../../../pages/Login'), { ssr: true, });
-const RegisterPage = loadable(() => import('../../../pages/Register'), { ssr: true, });
-const ProfilePage = loadable(() => import('../../../pages/Profile'), { ssr: true, });
+const HomePage = lazy(() => import('../../../pages/Home'));
+const SearchPage = lazy(() => import('../../../pages/Search'));
+const LoginPage = lazy(() => import('../../../pages/Login'));
+const RegisterPage = lazy(() => import('../../../pages/Register'));
+const ProfilePage = lazy(() => import('../../../pages/Profile'));
 
-const Navigation: FC<ExternalState_> = ({ user, posts, }) => {
+const Navigation: FC = () => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    if(user) {
-      dispatch(setUserAction(user));
-    }
+  const [isLoading, setIsLoading] = useState(false);
 
-    if(posts?.length > 0) {
-      dispatch(setPostsAction(posts));
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useMemo(() => {
+    const initUser = async () => {
+      setIsLoading(true);
+
+      try {
+        const user = await auth();
+        dispatch(setUserAction(user));
+      } catch (err) {
+        console.log(err);
+      }
+
+      setIsLoading(false);
+    };
+
+    initUser();
   }, []);
+
+  if(isLoading) {
+    return <Loader type='global' color={Colors.PRIMARY} />;
+  }
 
   return (
     <Switch>
-      <LoginAndRegisterRoute path='/login' Component={LoginPage} />
-      <LoginAndRegisterRoute path='/register' Component={RegisterPage} />
-      <ProtectedRoute exact path='/' Component={HomePage} />
-      <ProtectedRoute path='/profile/:username' Component={ProfilePage} />
-      <ProtectedRoute path='/search/' Component={SearchPage} />
+      <Suspense fallback={<Loader type='global' color={Colors.PRIMARY} />}>
+        <LoginAndRegisterRoute path='/login' Component={LoginPage} />
+        <LoginAndRegisterRoute path='/register' Component={RegisterPage} />
+        <ProtectedRoute path='/profile/:username' Component={ProfilePage} />
+        <ProtectedRoute path='/search/' Component={SearchPage} />
+        <ProtectedRoute exact path='/' Component={HomePage} />
+      </Suspense>
     </Switch>
   );
 };

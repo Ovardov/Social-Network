@@ -1,5 +1,4 @@
 // Libraries
-import { LoadableComponent } from '@loadable/component';
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Redirect, RouteProps } from 'react-router-dom';
@@ -11,7 +10,7 @@ import { UserState as UserState_ } from '../../../../redux/actions/User';
 
 interface Props extends RouteProps {
   path: string,
-  Component: LoadableComponent<any>
+  Component: React.LazyExoticComponent<any>
 }
 
 const ProtectedRoute: FC<Props> = ({ path, Component, ...props }) => {

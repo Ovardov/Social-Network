@@ -5,13 +5,11 @@ import { Provider } from 'react-redux';
 import Navigation from './Navigation';
 // Redux
 import store from '../../redux';
-import { ExternalState as ExternalState_ } from '../../global';
 
-const App: FC<ExternalState_> = ({ user, posts, }) => {
-  console.log(user, posts);
+const App: FC = () => {
   return (
     <Provider store={store}>
-      <Navigation user={user} posts={posts} />
+      <Navigation />
     </Provider>
   );
 };

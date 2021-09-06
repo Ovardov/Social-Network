@@ -64,7 +64,10 @@ module.exports = {
         }
 
         const user = await models.User.findOne({ email })
+          .select(['firstName', 'lastName', 'username', 'providers', 'password'])
           .populate('profilePicture')
+          .populate('coverPicture')
+          .populate({ path: 'friends', select: 'firstName lastName username' });
 
         if (!user) {
           const errors = buildCustomError('Invalid email or password!');

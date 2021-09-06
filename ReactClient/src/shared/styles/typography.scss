@@ -36,7 +36,11 @@ html {
   }
 }
 
-body, input, textarea, option, select, table, a, button {
+body {
+  background: var(--theme-layout-color);
+}
+
+input, textarea, option, select, table, a, button {
   font: inherit;
   background: var(--theme-background-color);
   color: var(--theme-text-color);

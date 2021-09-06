@@ -33,7 +33,7 @@ const renderPages = (pages: Page[], pathname: string, user: User_) => {
           to={url}
           className={`${styles.link} ${isSelected ? styles.selected : ''}`}
         >
-          {IconComponent && url !== '/profile' && (
+          {IconComponent && !url.includes('/profile') && (
             <Icon
               Component={IconComponent}
               alt={name}
@@ -43,7 +43,7 @@ const renderPages = (pages: Page[], pathname: string, user: User_) => {
             />
           )}
           
-          {url === '/profile' && (
+          {url.includes('/profile') && (
             <Avatar type='image' size={Sizes.SM} user={user} />
           )}
 
@@ -80,19 +80,6 @@ const Header: FC = () => {
 
   return (
     <header className={`${styles.header} ${isProfilePage ? styles['small-header'] : ''}`}>
-      <h1 className={styles.title}>
-        <Link to='/' className={styles['title-link']}>
-          <Icon
-            Component={HomeIcon}
-            alt='Home'
-            size={Sizes.MD}
-            color={Colors.PRIMARY}
-            hasHoverEffect={true}
-            isSelected={true}
-          />
-        </Link>
-      </h1>
-
       {pages && pages.length > 0 && (
         <nav className={styles.navigation}>
           <ul className={styles.list}>{renderPages(pages, pathname, user)}</ul>
