@@ -15,7 +15,8 @@ export const getTimeDifference = (createdDate: string | Date): string => {
 
   // Seconds
   if (differenceInMs < msPerMinute) {
-    return Math.floor(differenceInMs / 1000) + ' seconds ago';
+    const seconds = Math.floor(differenceInMs / 1000);
+    return (seconds || 1) + ' seconds ago';
     // Minutes
   } else if (differenceInMs < msPerHour) {
     return Math.floor(differenceInMs / msPerMinute) + ' minutes ago';

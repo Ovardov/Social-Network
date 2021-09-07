@@ -32,7 +32,10 @@ dbConnection()
       console.log(`Listening on port ${port}!`)
     );
 
-    const io = socketIO(server);
+    const io = socketIO(server, {
+      transports: ['websocket'],
+      upgrade: false,
+    });
     initSocket(io, app);
   })
   .catch(console.error);

@@ -43,3 +43,9 @@ export enum ComponentTypes {
   PAGE = 'page',
   LOCAL = 'local',
 }
+
+export enum SocketActions {
+  JOIN = 'join',
+  MESSAGE = 'message',
+  ERROR = 'error'
+}

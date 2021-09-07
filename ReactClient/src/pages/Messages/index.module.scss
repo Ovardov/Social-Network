@@ -1,0 +1,139 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: $md-spacing;
+  padding: $md-spacing;
+  height: 100%;
+  border: 1px solid var(--theme-border-color);
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  background: #F9F9F9;
+
+  .users {
+
+    .user {
+      padding: $sm-spacing;
+      border: 1px solid transparent;
+      background: #FDFDFD;
+
+      &:not(:last-child) {
+        margin-bottom: $sm-spacing;
+      }
+
+      &.selected,
+      &:hover,
+      &:focus {
+        background: #FEF9EF;
+        border-color: #FFE0BD;
+        border-radius: $xs-spacing;
+      }
+    }
+  }
+
+  .message,
+  .input,
+  .send-button,
+  .user {
+    border-radius: $md-spacing;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-height: 91vh;
+
+    .messages {
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      height: 100%;
+      margin-bottom: $lg-spacing;
+      padding: 0 $md-spacing;
+
+      .message-container {
+        display: flex;
+        align-items: center;
+        flex-flow: wrap;
+        margin-bottom: $sm-spacing;
+
+        &:first-of-type {
+          margin-top: auto;
+        }
+
+        &.left {
+          .message {
+            border-bottom-left-radius: 0;
+            background: var(--theme-border-color);
+            margin-left: $sm-spacing;
+          }
+        }
+
+        &.right {
+          justify-self: right;
+          margin-left: auto;
+          flex-flow: row-reverse wrap;
+
+          .message {
+            border-bottom-right-radius: 0;
+            background: var(--theme-primary-color);
+            color: var(--theme-primary-font-color);
+            margin-right: $sm-spacing;
+          }
+
+          .info {
+            text-align: right;
+          }
+        }
+
+        .message {
+          padding: 0.25em $sm-spacing;
+        }
+
+        .info {
+          font-size: 0.8em;
+          color: var(--theme-text-darker-color);
+          width: 100%;
+          margin-top: 0.3em;
+        }
+      }
+    }
+
+    .form {
+      display: flex;
+      align-items: center;
+      position: relative;
+      margin-top: auto;
+
+      .input {
+        padding: $xs-spacing $md-spacing;
+        background: var(--theme-primary-lighter-color);
+        border: 1px solid var(--theme-primary-lighter-color);
+        width: 100%;
+      }
+
+      .send-button {
+        position: absolute;
+        right: $xs-spacing;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.2em $sm-spacing;
+        background: var(--theme-primary-color);
+        color: var(--theme-primary-font-color);
+        border: none;
+        cursor: pointer;
+
+        .text {
+          margin-right: $xs-spacing;
+        }
+      }
+    }
+
+    .text {
+      justify-self: center;
+      align-self: center;
+      margin-bottom: 0;
+    }
+  }
+}

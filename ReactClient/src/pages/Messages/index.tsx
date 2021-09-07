@@ -1,0 +1,213 @@
+// Libraries
+import React, { FC, useEffect, useState, useRef, useCallback } from 'react';
+import io from 'socket.io-client';
+import { useSelector } from 'react-redux';
+// Components
+import Avatar from '../../components/Global/Avatar';
+import Icon from '../../components/Global/Icon';
+import Loader from '../../components/Global/Loader';
+// Services
+import { getAllUserFromMyChat, getAllRoomMessages } from '../../services/conversationService';
+// Models
+import { AppState } from '../../redux';
+import { UserState } from '../../redux/actions/User';
+import Message_ from '../../models/Message';
+import User_ from '../../models/User';
+// Utils
+import { getTimeDifference } from '../../utils/date';
+// Icons
+import MessageIcon from '../../../public/images/messages-icon.svg';
+import { Colors, Sizes, SocketActions } from '../../utils/enums';
+// Styles
+import styles from './index.module.scss';
+
+const Messages: FC = () => {
+  const user = useSelector<AppState, UserState>(state => state.user);
+  const myUsername = user?.username;
+  const messagesEndRef = useRef(null);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [socket, setSocket] = useState(null);
+  const [messages, setMessages] = useState<Message_[]>([]);
+  const [users, setUsers] = useState<User_[]>([]);
+  const [newMessage, setNewMessage] = useState('');
+  const [currentRoom, setCurrentRoom] = useState('');
+
+  useEffect(() => {
+    const newSocket = io(process.env.SOCKET_URL, { transports: ['websocket'], upgrade: false, });
+    setSocket(newSocket);
+
+    newSocket?.on(SocketActions.MESSAGE, (newMessage: Message_) => {
+      onMessage(newMessage);
+      scrollMessagesToBottom();
+    });
+
+    newSocket?.on(SocketActions.ERROR, (error: string) => {
+      onReceiveError(error);
+      scrollMessagesToBottom();
+    });
+
+    return () => {
+      newSocket.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    const initUsers = async () => {
+      setIsLoading(true);
+
+      try {
+        const allUsers = await getAllUserFromMyChat();
+
+        setUsers(allUsers);
+      } catch (err) {
+        console.log(err);
+      }
+
+      setIsLoading(false);
+    };
+
+    initUsers();
+  }, []);
+
+  const onMessage = (newMessage: Message_) => {
+    setMessages((oldMessages) => {
+      return [
+        ...oldMessages,
+        newMessage
+      ];
+    });
+  };
+
+  const onReceiveError = (error: string) => {
+    // To Do -> show error
+    console.log(error);
+  };
+
+  const generateRoomName = (username: string) => {
+    // Room name is represented like 'john-doe' => "username"-"username"
+    return [username, myUsername]
+      .sort((a: string, b: string) => a.localeCompare(b))
+      .join('-');
+  };
+
+  const joinRoom = (roomName: string) => {
+    if (roomName) {
+      socket.emit('join', roomName);
+    }
+  };
+
+  const sendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
+    try {
+      e.preventDefault();
+
+      if (socket) {
+        socket.emit('message', { room: currentRoom, message: newMessage, sender: user.id, });
+
+        setNewMessage('');
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const onChangeUser = async (e: React.MouseEvent<HTMLElement>, username: string) => {
+    try {
+      e.stopPropagation();
+      setIsLoading(true);
+
+      const room = generateRoomName(username);
+      joinRoom(room);
+
+      const { messages, } = await getAllRoomMessages(room);
+
+      setMessages(messages);
+      setCurrentRoom(room);
+      scrollMessagesToBottom();
+    } catch (err) {
+      // To Do -> Add global error
+      console.log(err);
+    }
+
+    setIsLoading(false);
+  };
+
+  const scrollMessagesToBottom = () => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth', });
+    }
+  };
+
+  const getTimeDifferenceMemoized = useCallback((date: Date) => {
+    return getTimeDifference(date);
+  }, []);
+
+  return (
+    <div className={styles.container}>
+      <section className={styles.users}>
+        {users.length > 0 && users.map((userFromChat) => (
+          <article
+            key={userFromChat.username}
+            className={`${styles.user} ${currentRoom?.includes(myUsername) ? styles.selected : ''}`}
+            onClick={(e) => onChangeUser(e, userFromChat.username)}
+          >
+            <Avatar type='image-with-info' user={userFromChat} size={Sizes.SM} />
+          </article>
+        ))}
+      </section>
+
+
+      <section className={styles.content}>
+        {isLoading && <Loader type='local' color={Colors.PRIMARY} />}
+
+        {!isLoading && !currentRoom && <h4 className={styles.text}>Please select a conversation!</h4>}
+
+        {!isLoading && currentRoom && (
+          <>
+            <div className={styles.messages}>
+              {messages?.length > 0 && messages.map(({ id, sender, message, createdAt, }) => (
+                <div
+                  key={id}
+                  className={`${styles['message-container']} ${sender === user.id ? styles.right : styles.left}`}
+                >
+                  <Avatar type='image' user={user} size={Sizes.SM} />
+
+                  <span className={styles.message}>{message}</span>
+
+                  <span className={styles.info}>{getTimeDifferenceMemoized(createdAt)}</span>
+                </div>
+              ))}
+
+              <div ref={messagesEndRef} />
+            </div>
+
+            <form className={styles.form} onSubmit={sendMessage}>
+              <input
+                className={styles.input}
+                placeholder='Add your message'
+                value={newMessage}
+                onChange={(e) => setNewMessage(e.target.value)}
+              />
+
+              <button
+                type='submit'
+                className={styles['send-button']}
+              >
+                <span className={styles.text}>Sent</span>
+
+                <Icon
+                  color={Colors.BACKGROUND}
+                  size={Sizes.XS}
+                  alt='Send Message Icon'
+                  Component={MessageIcon}
+                />
+              </button>
+            </form>
+          </>
+        )}
+      </section>
+    </div>
+  );
+};
+
+export default Messages;

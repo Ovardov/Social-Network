@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 // Config
 import { dbURL } from './config';
 
-mongoose.set('debug', true);
+//mongoose.set('debug', true);
 
 export const dbConnection = () => {
   return mongoose.connect(dbURL, {

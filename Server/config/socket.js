@@ -1,27 +1,37 @@
 import models from '../models'
 
 export const initSocket = (io) => {
-  io.on('connection', (socket) => {
-    console.log(`New connection ${socket.id}`);
-
+  io.on('connect', (socket) => {
+    
     socket.on('join', (room) => {
-      io.in(room).clients((err, clients) => {
-        if (clients.length < 2) {
+      if (room) {
+        const clients = io.sockets.adapter.rooms.get(room)
+        const clientsInRoom = clients ? clients.size : 0;
+
+        if (clientsInRoom < 2) {
           socket.join(room);
         }
-      })
+      }
     })
 
     socket.on('message', async ({ message, room, sender }) => {
       try {
         const createdMessage = await models.Message.create({ sender, message });
+
         await models.Conversation.updateOne(
           { room },
           { $push: { messages: createdMessage._id } },
           { upsert: true }
         );
 
-        socket.to(room).emit('chat', message);
+        const messageData = {
+          id: createdMessage._id,
+          sender: createdMessage.sender,
+          message: createdMessage.message,
+          createdAt: createdMessage.createdAt
+        }
+
+        io.to(room).emit('message', messageData);
       } catch (err) {
         console.log(err);
         socket.to(room).emit('error', err);
