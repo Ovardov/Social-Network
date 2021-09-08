@@ -16,11 +16,12 @@ interface Props {
   size: Sizes,
   createdAt?: Date,
   user: User_,
+  stopRedirectToProfile?: boolean
 }
 
-const Avatar: FC_<Props> = ({ type, size, user, createdAt, }) => {
+const Avatar: FC_<Props> = ({ type, size, user, createdAt, stopRedirectToProfile = false, }) => {
   const { push, } = useHistory();
-  
+
   const { profilePicture, fullName, username, } = user;
   const timeDifference = useMemo(() => getTimeDifference(createdAt), [createdAt]);
 
@@ -28,7 +29,7 @@ const Avatar: FC_<Props> = ({ type, size, user, createdAt, }) => {
   return (
     <div
       className={`${styles.container} ${type === 'image-with-info' ? styles.center : ''}`}
-      onClick={() => push(`/profile/${username}`)}
+      onClick={stopRedirectToProfile ? null: () => push(`/profile/${username}`)}
     >
       <img
         className={`${styles.avatar} ${styles[`size-${size}`]}`}

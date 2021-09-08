@@ -1,6 +1,6 @@
 // Libraries
 import React, { FC, lazy, Suspense, useEffect, useState } from 'react';
-import { Switch } from 'react-router-dom';
+import { Switch, BrowserRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 // Components
 import ProtectedRoute from './ProtectedRoute';
@@ -24,7 +24,6 @@ const Messages = lazy(() => import('../../../pages/Messages'));
 const Navigation: FC = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
-  const [socket, setSocket] = useState(null);
 
   useEffect(() => {
     const initUser = async () => {
@@ -48,16 +47,18 @@ const Navigation: FC = () => {
   }
 
   return (
-    <Switch>
-      <Suspense fallback={<Loader type='global' color={Colors.PRIMARY} />}>
-        <LoginAndRegisterRoute path='/login' Component={LoginPage} />
-        <LoginAndRegisterRoute path='/register' Component={RegisterPage} />
-        <ProtectedRoute path='/profile/:username' Component={ProfilePage} />
-        <ProtectedRoute path='/search/' Component={SearchPage} />
-        <ProtectedRoute path='/messages' Component={Messages} />
-        <ProtectedRoute exact path='/' Component={HomePage} />
-      </Suspense>
-    </Switch>
+    <BrowserRouter>
+      <Switch>
+        <Suspense fallback={<Loader type='global' color={Colors.PRIMARY} />}>
+          <LoginAndRegisterRoute path='/login' Component={LoginPage} />
+          <LoginAndRegisterRoute path='/register' Component={RegisterPage} />
+          <ProtectedRoute path='/profile/:username' Component={ProfilePage} />
+          <ProtectedRoute path='/search/' Component={SearchPage} />
+          <ProtectedRoute path='/messages' Component={Messages} />
+          <ProtectedRoute exact path='/' Component={HomePage} />
+        </Suspense>
+      </Switch>
+    </BrowserRouter>
   );
 };
 

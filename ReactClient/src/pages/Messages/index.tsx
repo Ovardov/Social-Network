@@ -16,7 +16,7 @@ import User_ from '../../models/User';
 // Utils
 import { getTimeDifference } from '../../utils/date';
 // Icons
-import MessageIcon from '../../../public/images/messages-icon.svg';
+import SendIcon from '../../../public/images/send-icon.svg';
 import { Colors, Sizes, SocketActions } from '../../utils/enums';
 // Styles
 import styles from './index.module.scss';
@@ -24,7 +24,7 @@ import styles from './index.module.scss';
 const Messages: FC = () => {
   const user = useSelector<AppState, UserState>(state => state.user);
   const myUsername = user?.username;
-  const messagesEndRef = useRef(null);
+  const messagesContainerRef = useRef(null);
 
   const [isLoading, setIsLoading] = useState(false);
   const [socket, setSocket] = useState(null);
@@ -39,12 +39,10 @@ const Messages: FC = () => {
 
     newSocket?.on(SocketActions.MESSAGE, (newMessage: Message_) => {
       onMessage(newMessage);
-      scrollMessagesToBottom();
     });
 
     newSocket?.on(SocketActions.ERROR, (error: string) => {
       onReceiveError(error);
-      scrollMessagesToBottom();
     });
 
     return () => {
@@ -123,7 +121,6 @@ const Messages: FC = () => {
 
       setMessages(messages);
       setCurrentRoom(room);
-      scrollMessagesToBottom();
     } catch (err) {
       // To Do -> Add global error
       console.log(err);
@@ -132,9 +129,19 @@ const Messages: FC = () => {
     setIsLoading(false);
   };
 
+  // Subscribe to DOM event
+  useEffect(() => {
+    if (messagesContainerRef.current) {
+      // Everytime when new message is addde in HTML DOM, this event is triggered
+      messagesContainerRef.current.addEventListener('DOMNodeInserted', () => {
+        scrollMessagesToBottom();
+      });
+    }
+  }, []);
+
   const scrollMessagesToBottom = () => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: 'smooth', });
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scroll({ top: messagesContainerRef.current.scrollHeight, behavior: 'smooth', });
     }
   };
 
@@ -151,62 +158,73 @@ const Messages: FC = () => {
             className={`${styles.user} ${currentRoom?.includes(myUsername) ? styles.selected : ''}`}
             onClick={(e) => onChangeUser(e, userFromChat.username)}
           >
-            <Avatar type='image-with-info' user={userFromChat} size={Sizes.SM} />
+            <Avatar
+              type='image-with-info'
+              user={userFromChat}
+              size={Sizes.SM}
+              stopRedirectToProfile
+            />
           </article>
         ))}
       </section>
 
 
       <section className={styles.content}>
-        {isLoading && <Loader type='local' color={Colors.PRIMARY} />}
-
-        {!isLoading && !currentRoom && <h4 className={styles.text}>Please select a conversation!</h4>}
-
-        {!isLoading && currentRoom && (
+        <div
+          ref={messagesContainerRef}
+          className={styles.messages}
+        >
           <>
-            <div className={styles.messages}>
-              {messages?.length > 0 && messages.map(({ id, sender, message, createdAt, }) => (
-                <div
-                  key={id}
-                  className={`${styles['message-container']} ${sender === user.id ? styles.right : styles.left}`}
-                >
-                  <Avatar type='image' user={user} size={Sizes.SM} />
+            {isLoading && (
+              <div className={styles['loader-container']}>
+                <Loader type='local' color={Colors.PRIMARY} />
+              </div>
+            )}
 
-                  <span className={styles.message}>{message}</span>
+            {!isLoading && !currentRoom && <h4 className={styles.text}>Please select a conversation!</h4>}
 
-                  <span className={styles.info}>{getTimeDifferenceMemoized(createdAt)}</span>
-                </div>
-              ))}
-
-              <div ref={messagesEndRef} />
-            </div>
-
-            <form className={styles.form} onSubmit={sendMessage}>
-              <input
-                className={styles.input}
-                placeholder='Add your message'
-                value={newMessage}
-                onChange={(e) => setNewMessage(e.target.value)}
-              />
-
-              <button
-                type='submit'
-                className={styles['send-button']}
+            {!isLoading && messages?.length > 0 && messages.map(({ id, sender, message, createdAt, }) => (
+              <div
+                key={id}
+                className={`${styles['message-container']} ${sender === user.id ? styles.right : styles.left}`}
               >
-                <span className={styles.text}>Sent</span>
-
-                <Icon
-                  color={Colors.BACKGROUND}
-                  size={Sizes.XS}
-                  alt='Send Message Icon'
-                  Component={MessageIcon}
-                />
-              </button>
-            </form>
+                <Avatar type='image' user={user} size={Sizes.SM} />
+                <span className={styles.message}>{message}</span>
+                <span className={styles.info}>{getTimeDifferenceMemoized(createdAt)}</span>
+              </div>
+            ))}
           </>
-        )}
+        </div>
+
+        <form
+          className={styles.form}
+          onSubmit={sendMessage}
+        >
+          <input
+            className={styles.input}
+            placeholder='Add your message'
+            value={newMessage}
+            onChange={(e) => setNewMessage(e.target.value)}
+            disabled={!currentRoom}
+          />
+
+          <button
+            type='submit'
+            className={styles['send-button']}
+            disabled={newMessage.length === 0}
+          >
+            <span className={styles.text}>Sent</span>
+
+            <Icon
+              color={Colors.BACKGROUND}
+              size={Sizes.XS}
+              alt='Send Message Icon'
+              Component={SendIcon}
+            />
+          </button>
+        </form>
       </section>
-    </div>
+    </div >
   );
 };
 

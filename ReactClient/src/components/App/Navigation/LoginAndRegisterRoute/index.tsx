@@ -11,13 +11,15 @@ interface Props {
   Component: React.LazyExoticComponent<any>
 }
 
-const LoginAndRegisterRoute: FC<Props> = ({ path, Component, ...props }) => {
+const LoginAndRegisterRoute: FC<Props> = ({ path, Component, ...restOfProps }) => {
   const user = useSelector<AppState_, UserState_>(state => state.user);
 
   return (
-    <Route path={path}>
-      {user?.username ? <Redirect to='/' /> : <Component {...props} />}
-    </Route>
+    <Route
+      path={path}
+      {...restOfProps}
+      render={(props) => user?.username ? <Redirect to='/' /> : <Component {...props} />}
+    />
   );
 };
 

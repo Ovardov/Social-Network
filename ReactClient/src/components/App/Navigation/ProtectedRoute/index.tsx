@@ -13,19 +13,15 @@ interface Props extends RouteProps {
   Component: React.LazyExoticComponent<any>
 }
 
-const ProtectedRoute: FC<Props> = ({ path, Component, ...props }) => {
+const ProtectedRoute: FC<Props> = ({ path, Component, ...restOfProps }) => {
   const user = useSelector<AppState_, UserState_>(state => state.user);
 
   return (
-    <Route path={path}>
-      {user?.username ? (
-        <Layout>
-          <Component {...props} />
-        </Layout>
-      ) : (
-        <Redirect to='/login' />
-      )}
-    </Route>
+    <Route
+      path={path}
+      {...restOfProps}
+      render={(props) => user?.username ? <Layout><Component {...props} /></Layout> : <Redirect to='/login' />}
+    />
   );
 };
 

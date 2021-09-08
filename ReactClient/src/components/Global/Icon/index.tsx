@@ -23,7 +23,7 @@ const Icon: FC<Icon> = ({ Component, alt, size, color, hasHoverEffect, isSelecte
       <Component
         alt={alt}
         className={`${styles.icon} ${styles[`size-${size}`]} ${styles[`color-${color}`]} ${isSelected ? styles.selected : ''}`}
-        {...(size === Sizes.XS ? { shapeRendering: 'crispEdges', } : '')}
+        // {...(size === Sizes.XS ? { shapeRendering: 'crispEdges', } : '')}
       />
     </span>
   );
