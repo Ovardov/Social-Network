@@ -1,6 +1,6 @@
 import Image_ from './Image';
 import User_ from './User';
-import Comment_ from './Comment';
+import Like from './Like';
 
 export default class Post {
   id: string; 
@@ -9,7 +9,7 @@ export default class Post {
   image: Image_;
   author: User_
   likesCount?: number;
-  isLikedByMe: boolean;
+  likes: Like[];
   commentsCount?: number;
 }
 

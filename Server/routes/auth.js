@@ -21,7 +21,6 @@ router.get('/logout', auth(), authController.get.logout);
 
 // Social Providers
 router.get('/facebook', passport.authenticate('facebook', { scope: ['email'] }));
-// To Do error handling
 router.get('/facebook/callback', passport.authenticate('facebook', { failureRedirect: clientLoginFailureRedirectUrl }), authController.get.socialLogin);
 
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));

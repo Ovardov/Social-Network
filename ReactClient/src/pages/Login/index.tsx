@@ -44,8 +44,7 @@ const LoginPage = () => {
         password: data.password,
       };
 
-      // ToDo -> Make api with types
-      const userData = await login(finalData) as User_;
+      const userData = await login(finalData);
       dispatch(setUserAction(userData));
 
       history.push('/');

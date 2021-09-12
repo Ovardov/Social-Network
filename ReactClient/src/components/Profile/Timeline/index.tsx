@@ -4,24 +4,21 @@ import React, { FC as FC_ } from 'react';
 import PostList from '../../Home/PostList';
 import Friends from '../Friends';
 import Gallery from '../Gallery';
+import InfoCard from '../../Global/InfoCard';
 // Models
 import User_ from '../../../models/User';
-import Post_ from '../../../models/Post';
 import Image_ from '../../../models/Image';
 // Utils
 import { ComponentTypes } from '../../../utils/enums';
 // Styles
 import styles from './index.module.scss';
-import InfoCard from '../../Global/InfoCard';
 
 interface Props {
   lastNineFriends: User_[],
   lastNinePhotos: Image_[],
-  posts: Post_[],
 }
 
-const ProfileTimeline: FC_<Props> = ({ lastNineFriends, lastNinePhotos, posts, }) => {
-
+const ProfileTimeline: FC_<Props> = ({ lastNineFriends, lastNinePhotos, }) => {
   return (
     <>
       <div className={styles.container}>
@@ -42,7 +39,7 @@ const ProfileTimeline: FC_<Props> = ({ lastNineFriends, lastNinePhotos, posts, }
         </section>
 
         <section className={styles['right-column']}>
-          {/* <PostList posts={posts} /> */}
+          <PostList />
         </section>
       </div>
     </>

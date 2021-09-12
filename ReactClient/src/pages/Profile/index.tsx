@@ -27,9 +27,10 @@ import User_ from '../../models/User';
 import Post_ from '../../models/Post';
 // Utils
 import { Colors, Sizes } from '../../utils/enums';
-import { compareTwoObjects } from '../../utils/helper';
+import { checkIsLoggedUser, compareTwoObjects } from '../../utils/helper';
 // Styles
 import styles from './index.module.scss';
+import { setPostsAction } from '../../redux/actions/Posts';
 
 const ProfilePage: FC_ = () => {
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ const ProfilePage: FC_ = () => {
 
   const user = useSelector<AppState_, UserState_>(state => state.user);
 
-  const isMyProfileOpened = usernameFromParams === user.username;
+  const isMyProfileOpened = checkIsLoggedUser(usernameFromParams, user);
 
   useEffect(() => {
     const initUserData = async () => {
@@ -52,6 +53,8 @@ const ProfilePage: FC_ = () => {
 
         if (isMyProfileOpened) {
           dispatch(updateUserAction(res));
+        } else {
+          dispatch(setPostsAction(res.posts));
         }
 
         setUserData(res);

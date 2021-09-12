@@ -53,8 +53,6 @@ module.exports = {
 
   post: {
     login: async (req, res, next) => {
-      const { email, password } = req.body;
-
       try {
         // Check for data errors
         const errors = validationResult(req);
@@ -62,6 +60,8 @@ module.exports = {
         if (!errors.isEmpty()) {
           return res.status(400).send({ errors: errors.array() });
         }
+
+        const { email, password } = req.body;
 
         const user = await models.User.findOne({ email })
           .select(['firstName', 'lastName', 'username', 'providers', 'password'])
@@ -112,14 +112,7 @@ module.exports = {
       }
     },
     register: async (req, res, next) => {
-      const { email, username, password, firstName, lastName } = req.body;
-      // Profile picture
-      const { file } = req;
-
       try {
-        const lowerCaseUsername = username.toLowerCase();
-        const providers = ['email'];
-
         // Check for data errors
         const errors = validationResult(req);
 
@@ -127,15 +120,26 @@ module.exports = {
           return res.status(400).send({ errors: errors.array() });
         }
 
+        const { email, username, password, firstName, lastName } = req.body;
+        // Profile picture
+        const { file } = req;
+
+        const lowerCaseUsername = username.toLowerCase();
+        const providers = ['email'];
+
         // Upload profile picture to cloudinary
-        const uploadedProfilePicture = await cloudinaryUploader.upload(
-          file.path,
-          { quality: 'auto', width: 1024, height: 1024, crop: 'limit' }
-        );
+        let uploadedProfilePicture;
+
+        if (file) {
+          uploadedProfilePicture = await cloudinaryUploader.upload(
+            file.path,
+            { quality: 'auto', width: 1024, height: 1024, crop: 'limit' }
+          );
+        }
 
         // Create image
         const createdProfilePicture = await models.Image.create({
-          imageUrl: uploadedProfilePicture.url,
+          imageUrl: uploadedProfilePicture ? uploadedProfilePicture.url : process.env.DEFAULT_PROFILE_PICTURE
         });
 
         const createdDefaultCoverPicture = await models.Image.create({
@@ -157,11 +161,19 @@ module.exports = {
         // Create auth token
         const token = jwt.createToken({ id: createdUser._id });
 
+        const responseData = {
+          firstName: createdUser.firstName,
+          lastName: createdUser.lastName,
+          fullName: createdUser.fullName,
+          profilePicture: { id: createdProfilePicture.id, imageUrl: createdProfilePicture.imageUrl },
+          username: createdUser.username
+        }
+
         // Send auth token
         res
           .cookie(authCookieName, token, { httpOnly: true })
           .status(201)
-          .end();
+          .send(responseData);
       } catch (err) {
         if (err.code === 11000) {
           // Build user unique fields errors

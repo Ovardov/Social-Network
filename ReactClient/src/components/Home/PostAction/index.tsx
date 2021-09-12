@@ -133,7 +133,7 @@ const PostAction: FC<Props> = ({ mode, post, modalTitle, onModalClose, }) => {
           validateOnBlur={true}
           onSubmit={onSubmit}
         >
-          {({ isValid, }) => (
+          {({ values, errors, isValid, setFieldValue, }) => (
             <Form className={styles.form}>
               <div className={styles['form-content']}>
                 {/* Content Field */}
@@ -143,22 +143,39 @@ const PostAction: FC<Props> = ({ mode, post, modalTitle, onModalClose, }) => {
                   rows={3}
                   component={TextAreaField}
                 />
+
+                {/* Show uploaded image */}
+                {mode === ActionModes.CREATE && (values?.image) && !errors?.image && (
+                  <Image
+                    removeImageHandler={() => setFieldValue('image', null)}
+                    aspectRatio='16-9'
+                    imageSrc={URL.createObjectURL(values?.image)}
+                    imageAlt={values?.content}
+                  />
+                )}
               </div>
 
-              {/* Submit button */}
-              <ButtonsContainer
-                columns={1}
-                position='end'
-                widthType='full-width'
-              >
-                <Button
-                  type='submit'
-                  disabled={!isValid || isLoading}
-                  isLoading={isLoading}
-                  text='Submit'
-                  color={Colors.PRIMARY}
-                />
-              </ButtonsContainer>
+              <div className={styles['form-action']}>
+                {/* Input type file */}
+                {mode === ActionModes.CREATE && (
+                  <Field name='image' component={FileField} />
+                )}
+
+                {/* Submit button */}
+                <ButtonsContainer
+                  columns={1}
+                  position='end'
+                  widthType='full-width'
+                >
+                  <Button
+                    type='submit'
+                    disabled={!isValid || isLoading}
+                    isLoading={isLoading}
+                    text='Submit'
+                    color={Colors.PRIMARY}
+                  />
+                </ButtonsContainer>
+              </div>
             </Form>
           )}
         </Formik>

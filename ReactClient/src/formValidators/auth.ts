@@ -43,15 +43,16 @@ const secondStepRegisterValidationSchema = Yup.object({
     .oneOf([Yup.ref('password')], 'Passwords must match'),
 });
 
+// Profile picture is not required
 const thirdStepRegisterValidationSchema = Yup.object({
   profilePicture: Yup.mixed()
     .test(
       'fileSize',
       'The file is too large, must be lower than 3MB',
-      (image) => image.size < 3145728
+      (image) => image ? image.size < 3145728 : true
     )
     .test('fileType', 'Allowed file types are .jpeg, .jpg, .png', (image) =>
-      ['image/jpeg', 'image/png'].includes(image.type)
+      image ? ['image/jpeg', 'image/png'].includes(image.type) : true
     ),
 });
 

@@ -22,6 +22,7 @@ const populateOptions = {
   likes: [
     {
       path: 'likes',
+      select: 'likedBy',
       populate: {
         path: 'likedBy',
         select: '_id',
@@ -114,6 +115,7 @@ module.exports = {
           .select('content')
           .populate(populateOptions.author)
           .populate(populateOptions.likes)
+          .populate('likesCount');
 
         res.status(200).send(comments);
       } catch (err) {
@@ -208,6 +210,9 @@ module.exports = {
           .populate(populateOptions.author)
           .populate(populateOptions.comments)
           .populate(populateOptions.likes);
+
+        // We need to send virtual field manually, because 
+        updatedPost.isLikedByMe = true;
 
         res.status(200).send(updatedPost);
       } catch (e) {

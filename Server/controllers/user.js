@@ -325,7 +325,6 @@ module.exports = {
           crop: 'limit',
         });
 
-        // ToDo -> Delete old image
         createdImage = await models.Image.findOneAndUpdate(
           { imageUrl: oldImageUrl },
           { imageUrl: uploadedImage.url },

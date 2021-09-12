@@ -45,8 +45,6 @@ export const postsReducer: Reducer_<PostsState_, PostsActions_> = (
         return post;
       });
 
-      console.log(newPosts);
-
       return [...newPosts];
     }
     default: {

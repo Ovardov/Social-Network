@@ -30,17 +30,25 @@ const EditUserPicture: FC_<Props> = ({ action, }) => {
     try {
       const newPicture = e?.target?.files[0];
 
-      if (newPicture) {
+      if (newPicture && action) {
+        const oldImageUrl = action === 'profile-picture'
+          ? user?.profilePicture?.imageUrl
+          : user?.coverPicture?.imageUrl;
+
+
         const updatedPicture = await updateUserPicture({
-          oldImageUrl: user?.coverPicture?.imageUrl,
+          oldImageUrl,
           image: newPicture,
         }) as Image_;
 
         if (updatedPicture?.id && updatedPicture?.imageUrl) {
+          const newData = action === 'profile-picture'
+            ? { profilePicture: updatedPicture, }
+            : { coverPicture: updatedPicture, };
+
           const reduxUserAction = updateUserAction({
             ...user,
-            ...(action === 'profile-picture' ? { profilePicture: updatedPicture, } : null),
-            ...(action === 'cover-picture' ? { coverPicture: updatedPicture, } : null),
+            ...newData,
           });
 
           dispatch(reduxUserAction);

@@ -1,5 +1,5 @@
 // Libraries
-import React, { useState, FC as FC_ } from 'react';
+import React, { useState, useMemo, FC as FC_ } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // Components
 import Avatar from '../../Global/Avatar';
@@ -18,7 +18,7 @@ import { commentPost } from '../../../services/commentService';
 import { updatePostAction } from '../../../redux/actions/Posts';
 // Utils
 import { Colors, ActionModes, PostDetailModes, Sizes } from '../../../utils/enums';
-import { capitalizeFirstLetter } from '../../../utils/helper';
+import { capitalizeFirstLetter, checkIsLoggedUser } from '../../../utils/helper';
 // Images
 import LikeOutlinedIcon from '../../../../public/images/like-outlined-icon.svg';
 import LikeFilledIcon from '../../../../public/images/like-filled-icon.svg';
@@ -41,7 +41,7 @@ type Props = {
 type PostDetail = { likes: boolean } | { comments: boolean }
 
 const PostCard: FC_<Props> = ({ post, }) => {
-  const { id, content, image, createdAt, likesCount, isLikedByMe, commentsCount, } = post;
+  const { id, author, content, image, createdAt, likesCount, likes, commentsCount, } = post;
 
   const [actionMode, setActionMode] = useState<ActionModes>(null);
   const [postDetailMode, setPostDetailMode] = useState<PostDetailModes>(null);
@@ -52,6 +52,10 @@ const PostCard: FC_<Props> = ({ post, }) => {
   const user = useSelector<AppState_, UserState_>(state => state.user);
 
   const dispatch = useDispatch();
+
+  const isLikedByMe = useMemo(() => {
+    return likes.find(like => like.likedBy.id === user.id);
+  }, [likes, user]);
 
   const onLikePost = async () => {
     try {
@@ -176,13 +180,15 @@ const PostCard: FC_<Props> = ({ post, }) => {
         <Avatar
           type='image-with-info'
           size={Sizes.MD}
-          user={user}
+          user={author}
           createdAt={createdAt}
         />
 
-        <div className={styles['dropdown-container']}>
-          <Dropdown options={dropdownOptions} />
-        </div>
+        {checkIsLoggedUser(author.username, user) && (
+          <div className={styles['dropdown-container']}>
+            <Dropdown options={dropdownOptions} />
+          </div>
+        )}
       </header>
 
       {/* Post Info */}

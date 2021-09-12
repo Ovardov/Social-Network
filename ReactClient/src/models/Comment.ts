@@ -1,10 +1,11 @@
+import Like_ from './Like';
 import User_ from './User';
 export default class Comment {
   id: string;
   content: string;
   author: User_;
   post: string;
-  isLikedByMe: boolean;
+  likes: Like_[];
   likesCount?: number;
 }
 

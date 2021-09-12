@@ -1,6 +1,7 @@
 // Libraries
 import React, { useState, useMemo } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { Field, Form, Formik } from 'formik';
 // Components
 import PublicHome from '../../components/PublicHome';
@@ -11,17 +12,19 @@ import ButtonsContainer from '../../components/Global/Buttons/ButtonsContainer';
 import PhotoUpload from '../../components/Global/PhotoUpload';
 import ErrorsList from '../../components/Global/ErrorsList';
 import MultiStepSlider from '../../components/Register/MultistepSlider';
-// Hooks
+// Actions
+import { setUserAction } from '../../redux/actions/User';
 // Services
 import { register } from '../../services/authService';
 // Form Validators
 import { registerValidationSchema } from '../../formValidators/auth';
 // Utils
+import { Colors } from '../../utils/enums';
 // Styles
 import styles from './index.module.scss';
-import { Colors } from '../../utils/enums';
 
 const RegisterPage: React.FC<RouteComponentProps> = ({ history, }) => {
+  const dispatch = useDispatch();
   const [step, setStep] = useState(1);
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -40,11 +43,12 @@ const RegisterPage: React.FC<RouteComponentProps> = ({ history, }) => {
     }
   }, [step]);
 
-  // ToDo -> Remove formit
   const handleNextStep = async (validateForm: any) => {
     try {
       // Validate Step
       const errors = await validateForm();
+
+      console.log(errors);
 
       // Go to next step if current step form is valid
       if (Object.keys(errors).length === 0) {
@@ -55,13 +59,12 @@ const RegisterPage: React.FC<RouteComponentProps> = ({ history, }) => {
     }
   };
 
-  // ToDo -> Refactor type when remove Formik
   const handleSubmit = async (data: Object) => {
     setIsLoading(true);
 
     try {
-      await register(data);
-      setIsLogged(true);
+      const createdUser = await register(data);
+      dispatch(setUserAction(createdUser));
 
       history.push('/');
     } catch (err) {
@@ -72,6 +75,7 @@ const RegisterPage: React.FC<RouteComponentProps> = ({ history, }) => {
     }
   };
 
+  console.log(errors);
   return (
     <PublicHome>
       <MultiStepSlider step={step} />

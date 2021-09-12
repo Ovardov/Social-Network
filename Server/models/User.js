@@ -1,7 +1,8 @@
 const { Schema, model } = require('mongoose')
 const bcrypt = require('bcrypt')
 const saltRounds = process.env.PASSWORD_SALT_ROUNDS
-const { passwordRegex } = require('../utils/regex')
+const { passwordRegex } = require('../utils/regex');
+const { joinValidElements } = require('../utils/helper');
 
 const userSchema = new Schema(
   {
@@ -82,7 +83,7 @@ userSchema.index(
 
 // Virtual fields
 userSchema.virtual('fullName').get(function () {
-  return this.firstName + ' ' + this.lastName;
+  return joinValidElements([this.firstName, this.lastName]);
 });
 
 userSchema.virtual('id').get(function () {

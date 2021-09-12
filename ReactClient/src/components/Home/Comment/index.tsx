@@ -1,5 +1,5 @@
 // Libraries
-import React, { FC, useState } from 'react';
+import React, { FC, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // Components
 import ButtonContainers from '../../Global/Buttons/ButtonsContainer';
@@ -15,7 +15,7 @@ import { UserState as UserState_ } from '../../../redux/actions/User';
 import { removePostCommentAction } from '../../../redux/actions/Posts';
 // Utils
 import { ActionModes, Colors, Sizes } from '../../../utils/enums';
-import { capitalizeFirstLetter } from '../../../utils/helper';
+import { capitalizeFirstLetter, checkIsLoggedUser } from '../../../utils/helper';
 // Models
 import { AppState as AppState_ } from '../../../redux';
 import Comment_ from '../../../models/Comment';
@@ -34,13 +34,17 @@ type CommentDetailProps = {
 }
 
 const CommentDetail: FC<CommentDetailProps> = ({ comment, setComments, }) => {
-  const { id, content, author, likesCount, isLikedByMe, } = comment;
+  const { id, content, author, likesCount, likes, } = comment;
   const user = useSelector<AppState_, UserState_>(state => state.user);
 
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [commentActionMode, setCommentActionMode] = useState<ActionModes>(ActionModes.READ);
   const [newContent, setNewContent] = useState(content);
+
+  const isLikedByMe = useMemo(() => {
+    return likes.find(like => like?.likedBy?.id === user.id);
+  }, [likes, user]);
 
   const commentDropdownOptions = [
     {
@@ -208,7 +212,7 @@ const CommentDetail: FC<CommentDetailProps> = ({ comment, setComments, }) => {
       }
 
       {/* If current comment is written by me */}
-      {author.username === user.username && (
+      {checkIsLoggedUser(author.username, user) && (
         <div className={styles['dropdown-container']}>
           <Dropdown options={commentDropdownOptions} />
         </div>
