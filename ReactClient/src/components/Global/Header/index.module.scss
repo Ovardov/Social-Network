@@ -78,6 +78,7 @@
           .name {
             font-weight: bold;
             margin-left: $sm-spacing;
+            word-break: break-word;
 
             @include bp(desktop-small) {
               display: none;
