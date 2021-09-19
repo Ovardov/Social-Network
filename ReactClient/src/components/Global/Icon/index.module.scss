@@ -67,6 +67,11 @@
     &.size-xs {
       width: 19px;
       height: 19px;
+
+      @include bp(phone) {
+        width: 18px;
+        height: 18px;
+      }
     }
 
     &.size-sm {

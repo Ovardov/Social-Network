@@ -1,16 +1,11 @@
-import { BodyInit } from 'node-fetch';
 import { baseUrl } from './config';
 import { HttpMethods } from './enums';
-
-type test = {
-  [key: string]: string
-}
 
 export const makeRequest = async (url: string, method: HttpMethods, data: Object | FormData | null, headers?: Headers) => {
   // eslint-disable-next-line no-async-promise-executor
   return new Promise(async (resolve, reject) => {
     try {
-      const body = data instanceof FormData 
+      const body = data instanceof FormData
         ? data
         : data ? JSON.stringify(data) : null;
 
@@ -43,72 +38,43 @@ export const makeRequest = async (url: string, method: HttpMethods, data: Object
   });
 };
 
-export const get = async (path: string, headers?: Headers) => {
+export const get = (path: string, headers?: Headers) => {
   const url = baseUrl + path;
 
-  try {
-    const resData = await makeRequest(url, HttpMethods.GET, null, headers);
-
-    return resData;
-  } catch (err) {
-    throw new Error(err.message);
-  }
+  return makeRequest(url, HttpMethods.GET, null, headers);
 };
 
-export const post = async (path: string, data: Object, headers?: Headers) => {
-  try {
-    const url = baseUrl + path;
+export const post = (path: string, data: Object, headers?: Headers) => {
+  const url = baseUrl + path;
 
-    const allHeaders = {
-      'Content-Type': 'application/json',
-      ...headers,
-    };
+  const allHeaders = {
+    'Content-Type': 'application/json',
+    ...headers,
+  };
 
-    const resData = await makeRequest(url, HttpMethods.POST, data, allHeaders);
-
-    return resData;
-  } catch (err) {
-    throw new Error(err.message);
-  }
+  return makeRequest(url, HttpMethods.POST, data, allHeaders);
 };
 
-export const makeRequestWithFormData = async (path: string, formData: FormData, method: HttpMethods, headers?: Headers) => {
-  try {
-    const url = baseUrl + path;
-    const resData = await makeRequest(url, method, formData, headers);
+export const makeRequestWithFormData = (path: string, formData: FormData, method: HttpMethods, headers?: Headers) => {
+  const url = baseUrl + path;
 
-    return resData;
-  } catch (err) {
-    throw new Error(err.message);
-  }
+  return makeRequest(url, method, formData, headers);
 };
 
-export const put = async (path: string, data?: Object, headers?: Headers) => {
-  try {
-    const url = baseUrl + path;
+export const put = (path: string, data?: Object, headers?: Headers) => {
+  const url = baseUrl + path;
 
-    const allHeaders = {
-      'Content-Type': 'application/json',
-      ...headers,
-    };
+  const allHeaders = {
+    'Content-Type': 'application/json',
+    ...headers,
+  };
 
-    const resData = await makeRequest(url, HttpMethods.PUT, data, allHeaders);
-
-    return resData;
-  } catch (err) {
-    throw new Error(err.message);
-  }
+  return makeRequest(url, HttpMethods.PUT, data, allHeaders);
 };
 
-export const deleteRequest = async (path: string, headers?: Headers) => {
-  try {
-    const url = baseUrl + path;
+export const deleteRequest = (path: string, headers?: Headers) => {
+  const url = baseUrl + path;
 
-    const resData = await makeRequest(url, HttpMethods.DELETE, null, headers);
-
-    return resData;
-  } catch (err) {
-    throw new Error(err.message);
-  }
+  return makeRequest(url, HttpMethods.DELETE, null, headers);
 };
 

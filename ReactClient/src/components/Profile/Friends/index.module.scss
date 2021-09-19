@@ -4,6 +4,10 @@
   grid-gap: 1em;
   padding-bottom: 0;
 
+  @include bp(tablet) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
   &.local {
     grid-template-columns: repeat(3, 1fr);
 
@@ -31,6 +35,10 @@
     border: 1px solid var(--theme-border-color);
     border-radius: $border-radius;
     cursor: pointer;
+
+    @include bp(tablet) {
+      padding: $sm-spacing;
+    }
 
     &:hover {
       box-shadow: 0 0 0.5em 0 rgba(0, 0, 0, 0.5);

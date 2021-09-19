@@ -64,10 +64,9 @@ const ProfilePage: FC_ = () => {
       }
     };
 
-    if (!userData) {
-      initUserData();
-    }
-  });
+    initUserData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [usernameFromParams]);
 
   useEffect(() => {
     if (isMyProfileOpened) {
@@ -86,6 +85,7 @@ const ProfilePage: FC_ = () => {
       await logout();
 
       dispatch(removeUserAction());
+      dispatch(setPostsAction([]));
       push('/login');
     } catch (err) {
       console.log(err);
@@ -109,7 +109,6 @@ const ProfilePage: FC_ = () => {
       lastNinePhotos,
     };
   }, [userData?.posts]);
-
 
   if (isLoading || !userData) {
     return <Loader type='global' color={Colors.PRIMARY} />;
@@ -196,7 +195,6 @@ const ProfilePage: FC_ = () => {
           <ProfileTimeline
             lastNineFriends={lastNineFriends}
             lastNinePhotos={lastNinePhotos}
-            posts={userData?.posts}
           />
         )}
 

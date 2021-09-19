@@ -39,7 +39,7 @@ export const getProfileData = async (username: string) => {
 };
 
 export const getUserFriends = async (username: string) => {
-  return get(`/users/${username}/friends`);
+  return get(`/users/${username}/friends`) as Promise<User_[]>;
 };
 
 export const getSuggestedNewFriends = async () => {

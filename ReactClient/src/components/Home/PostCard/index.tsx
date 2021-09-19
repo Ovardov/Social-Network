@@ -59,22 +59,21 @@ const PostCard: FC_<Props> = ({ post, }) => {
 
   const onLikePost = async () => {
     try {
-      // ToDo -> Make fetch types
-      const likedPost = await likePost(id) as Post_;
+      const likedPost = await likePost(id);
 
       dispatch(updatePostAction(likedPost));
     } catch (e) {
-      // ToDo -> Global error handling
+      console.log(e);
     }
   };
 
   const onDislikePost = async () => {
     try {
-      const dislikedPost = await dislikePost(id) as Post_;
+      const dislikedPost = await dislikePost(id);
 
       dispatch(updatePostAction(dislikedPost));
     } catch (e) {
-      // ToDo -> Global error handling
+      console.log(e);
     }
   };
 
@@ -95,7 +94,7 @@ const PostCard: FC_<Props> = ({ post, }) => {
       setNewComment('');
       setIsCommentBoxOpen(false);
     } catch (e) {
-      // ToDo -> Global error handling
+      console.log(e);
     }
 
     setIsLoading(false);

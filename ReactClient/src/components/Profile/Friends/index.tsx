@@ -29,7 +29,7 @@ const FriendsList: FC_<Props> = ({ friends, componentType, }) => {
         <Link key={friend.username} to={`/profile/${username}`}>
           <div className={styles['list-item']}>
             <div className={styles['image-container']}>
-              <Avatar type='image' size={Sizes.LG} user={friend} />
+              <Avatar type='image' size={Sizes.LG} user={friend} stopRedirectToProfile />
 
               {isComponentTypePage && (
                 <div className={styles['message-container']}>

@@ -9,35 +9,6 @@ const { validationResult } = require('express-validator');
 
 module.exports = {
   get: {
-    // To Do with new models
-    home: (req, res, next) => {
-      const { username, limit, name } = req.query;
-      let query = {};
-
-      if (username) {
-        query = { username }
-      }
-
-      if (name) {
-        query = { ...query, name: { $regex: name, $options: 'i' } };
-      }
-
-      if (limit) {
-        models.User.find(query).populate('friends').populate('posts').limit(+limit)
-          .then((users) => res.send(users))
-          .catch(next)
-      } else {
-        models.User.find(query)
-          .populate('friends')
-          .populate([{ path: 'posts', populate: { path: 'author', populate: { path: 'friends' } } }])
-          .populate([{ path: 'posts', populate: { path: 'comments', populate: { path: 'author' } } }])
-          .populate([{ path: 'posts', populate: { path: 'likes', populate: { path: 'author' } } }])
-          .sort({ _id: -1 })
-          .then((users) => res.send(users))
-          .catch(next)
-      }
-    },
-
     friends: async (req, res, next) => {
       try {
         // Check for data errors
@@ -107,7 +78,7 @@ module.exports = {
                 'likes',
                 'comments',
                 'image',
-                { path: 'author', select: 'firstName lastName fullName', populate: 'profilePicture' }
+                { path: 'author', select: 'firstName lastName fullName username', populate: 'profilePicture' }
               ],
               options: {
                 sort: { createdAt: 'desc' },
@@ -139,6 +110,7 @@ module.exports = {
         const excludedUsers = [authorId, ...myFriendsRes.friends];
 
         const suggestedUserRes = await models.User.find({ _id: { $nin: excludedUsers } })
+          .limit(5)
           .select('firstName lastName username home')
           .populate('profilePicture');
 
@@ -178,20 +150,30 @@ module.exports = {
         }
 
         if (criterion === 'interests') {
-          const query = { name: searchValue };
+          const query = { name: { $regex: searchValue, $options: 'i' } };
 
-          const interest = await models.Interest.findOne(query)
+          const interests = await models.Interest.find(query)
             .sort('users')
             .populate({
               path: 'users',
-              select: 'firstName lastName',
+              select: 'firstName lastName username',
               populate: 'profilePicture',
               options: { sort: { firstName: 'asc', lastName: 'asc' } }
             });
+          
+          const users = [];
+          
+          interests.forEach(interest => {
+            if (interest.users && interest.users.length > 0) {
+              interest.users.forEach(currentUser => {
+                const isUserAlreadyExist = users.find(user => user.id === currentUser.id);
 
-          const users = interest
-            ? interest.users
-            : []
+                if(!isUserAlreadyExist) {
+                  users.push(currentUser);
+                }
+              })
+            }
+          });
 
           res.status(200).send(users);
           return;
@@ -319,10 +301,7 @@ module.exports = {
 
         // Upload profile picture to cloudinary
         const uploadedImage = await cloudinaryUploader.upload(file.path, {
-          quality: 'auto',
-          width: 1024,
-          height: 1024,
-          crop: 'limit',
+          quality: 'auto:best',
         });
 
         createdImage = await models.Image.findOneAndUpdate(

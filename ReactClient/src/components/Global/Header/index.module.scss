@@ -2,6 +2,7 @@
   max-width: 20em;
   justify-self: flex-end;
   background: var(--theme-layout-color);
+  padding-top: $sm-spacing;
 
   &.small-header .link .name {
     display: none;
@@ -13,6 +14,7 @@
     left: 0;
     right: 0;
     max-width: unset;
+    padding-top: 0;
     padding-bottom: env(safe-area-inset-bottom);
     border-top: 1px solid var(--theme-border-color);
     z-index: 1000;
@@ -43,6 +45,10 @@
 
       .list-item {
         padding: 0.3em 0;
+
+        &:first-of-type {
+          padding: 0;
+        }
 
         @include bp(phone) {
           width: fit-content;

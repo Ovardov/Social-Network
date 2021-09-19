@@ -53,6 +53,8 @@ const EditUserPicture: FC_<Props> = ({ action, }) => {
 
           dispatch(reduxUserAction);
         }
+
+        e.target.value = '';
       }
     } catch (err) {
       console.log(err);

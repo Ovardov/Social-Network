@@ -7,7 +7,8 @@ import Avatar from '../../components/Global/Avatar';
 import Icon from '../../components/Global/Icon';
 import Loader from '../../components/Global/Loader';
 // Services
-import { getAllUserFromMyChat, getAllRoomMessages } from '../../services/conversationService';
+import { getUserFriends } from '../../services/userService';
+import { getAllRoomMessages } from '../../services/conversationService';
 // Models
 import { AppState } from '../../redux';
 import { UserState } from '../../redux/actions/User';
@@ -55,9 +56,9 @@ const Messages: FC = () => {
       setIsLoading(true);
 
       try {
-        const allUsers = await getAllUserFromMyChat();
+        const allFriends = await getUserFriends(myUsername);
 
-        setUsers(allUsers);
+        setUsers(allFriends);
       } catch (err) {
         console.log(err);
       }
@@ -70,15 +71,18 @@ const Messages: FC = () => {
 
   const onMessage = (newMessage: Message_) => {
     setMessages((oldMessages) => {
-      return [
-        ...oldMessages,
-        newMessage
-      ];
+      if (oldMessages?.length > 0) {
+        return [
+          ...oldMessages,
+          newMessage
+        ];
+      }
+
+      return [newMessage];
     });
   };
 
   const onReceiveError = (error: string) => {
-    // To Do -> show error
     console.log(error);
   };
 
@@ -122,7 +126,6 @@ const Messages: FC = () => {
       setMessages(messages);
       setCurrentRoom(room);
     } catch (err) {
-      // To Do -> Add global error
       console.log(err);
     }
 
@@ -149,13 +152,19 @@ const Messages: FC = () => {
     return getTimeDifference(date);
   }, []);
 
+  const findUser = useCallback((id: string) => {
+    return user.id === id
+      ? user
+      : users?.find(currentUser => currentUser.id === id);
+  }, [user, users]);
+
   return (
     <div className={styles.container}>
       <section className={styles.users}>
         {users.length > 0 && users.map((userFromChat) => (
           <article
             key={userFromChat.username}
-            className={`${styles.user} ${currentRoom?.includes(myUsername) ? styles.selected : ''}`}
+            className={`${styles.user} ${currentRoom?.includes(userFromChat.username) ? styles.selected : ''}`}
             onClick={(e) => onChangeUser(e, userFromChat.username)}
           >
             <Avatar
@@ -183,16 +192,20 @@ const Messages: FC = () => {
 
             {!isLoading && !currentRoom && <h4 className={styles.text}>Please select a conversation!</h4>}
 
-            {!isLoading && messages?.length > 0 && messages.map(({ id, sender, message, createdAt, }) => (
-              <div
-                key={id}
-                className={`${styles['message-container']} ${sender === user.id ? styles.right : styles.left}`}
-              >
-                <Avatar type='image' user={user} size={Sizes.SM} />
-                <span className={styles.message}>{message}</span>
-                <span className={styles.info}>{getTimeDifferenceMemoized(createdAt)}</span>
-              </div>
-            ))}
+            {!isLoading && messages?.length > 0 && messages.map(({ id, sender, message, createdAt, }) => {
+              const currentUser = findUser(sender);
+
+              return (
+                <div
+                  key={id}
+                  className={`${styles['message-container']} ${sender === user.id ? styles.right : styles.left}`}
+                >
+                  <Avatar type='image' user={currentUser} size={Sizes.SM} />
+                  <span className={styles.message}>{message}</span>
+                  <span className={styles.info}>{getTimeDifferenceMemoized(createdAt)}</span>
+                </div>
+              );
+            })}
           </>
         </div>
 

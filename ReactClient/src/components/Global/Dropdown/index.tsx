@@ -65,7 +65,7 @@ const Dropdown: FC<Props> = ({ options, }) => {
     <div className={styles.container}>
       <span className={styles['action-button']} onClick={() => setIsOpen(true)}>
         <Icon
-          size={Sizes.XS}
+          size={Sizes.SM}
           alt='More Info Icon'
           Component={MoreIcon}
           hasHoverEffect={true}

@@ -30,5 +30,9 @@
     border: none;
     box-shadow: none;
     cursor: pointer;
+
+    @include bp(tablet) {
+      margin-left: $sm-spacing;
+    }
   }
 }

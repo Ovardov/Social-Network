@@ -1,7 +1,7 @@
 // Libraries
 import React, { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Formik, Field, Form } from 'formik';
+import { Formik, Field, Form, FormikValues } from 'formik';
 // Components
 import Avatar from '../../Global/Avatar';
 import ButtonsContainer from '../../Global/Buttons/ButtonsContainer';
@@ -38,8 +38,7 @@ const PostAction: FC<Props> = ({ mode, post, modalTitle, onModalClose, }) => {
 
   const user = useSelector<AppState_, UserState_>(state => state.user);
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const onSubmit = async (data: PostFormData_, { resetForm, }: any) => {
+  const onSubmit = async (data: PostFormData_, { resetForm, }: FormikValues) => {
     try {
       setIsLoading(true);
 
@@ -57,8 +56,6 @@ const PostAction: FC<Props> = ({ mode, post, modalTitle, onModalClose, }) => {
       onModalClose();
     } catch (err) {
       setIsLoading(false);
-
-      // To Do -> Custom error builder
     }
   };
 
@@ -75,7 +72,6 @@ const PostAction: FC<Props> = ({ mode, post, modalTitle, onModalClose, }) => {
       onModalClose();
     } catch (e) {
       setIsLoading(false);
-      // ToDo -> Global error handling
     }
   };
 
@@ -155,7 +151,7 @@ const PostAction: FC<Props> = ({ mode, post, modalTitle, onModalClose, }) => {
                 )}
               </div>
 
-              <div className={styles['form-action']}>
+              <div className={`${mode === ActionModes.CREATE ? styles['form-action'] : ''}`}>
                 {/* Input type file */}
                 {mode === ActionModes.CREATE && (
                   <Field name='image' component={FileField} />

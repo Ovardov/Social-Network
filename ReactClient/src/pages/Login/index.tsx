@@ -33,8 +33,7 @@ const LoginPage = () => {
   const dispatch = useDispatch();
 
   // Login handler
-  // ToDo -> Remove Any type
-  const onSubmitHandler = async (data: any) => {
+  const onSubmitHandler = async (data: { email: string, password: string }) => {
     setIsLoading(true);
     setIsDisabled(true);
 
@@ -49,9 +48,7 @@ const LoginPage = () => {
 
       history.push('/');
     } catch (err) {
-      // To Do -> Custom error builder
-      setErrors(JSON.parse(err.message).errors);
-
+      setErrors(JSON.parse(err).errors);
       setIsLoading(false);
       setIsDisabled(false);
 

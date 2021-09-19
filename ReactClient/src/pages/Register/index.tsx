@@ -2,7 +2,7 @@
 import React, { useState, useMemo } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Field, Form, Formik } from 'formik';
+import { Field, Form, Formik, FormikErrors, FormikValues } from 'formik';
 // Components
 import PublicHome from '../../components/PublicHome';
 import InputField from '../../components/Global/InputField';
@@ -43,12 +43,10 @@ const RegisterPage: React.FC<RouteComponentProps> = ({ history, }) => {
     }
   }, [step]);
 
-  const handleNextStep = async (validateForm: any) => {
+  const handleNextStep = async (validateForm: (values?: Object) => Promise<FormikErrors<Object>>) => {
     try {
       // Validate Step
       const errors = await validateForm();
-
-      console.log(errors);
 
       // Go to next step if current step form is valid
       if (Object.keys(errors).length === 0) {
@@ -68,14 +66,12 @@ const RegisterPage: React.FC<RouteComponentProps> = ({ history, }) => {
 
       history.push('/');
     } catch (err) {
-      // To Do -> Custom error builder
-      setErrors(JSON.parse(err.message).errors);
+      setErrors(JSON.parse(err).errors);
       setIsLoading(false);
       console.error('Error while submit login form', err);
     }
   };
 
-  console.log(errors);
   return (
     <PublicHome>
       <MultiStepSlider step={step} />

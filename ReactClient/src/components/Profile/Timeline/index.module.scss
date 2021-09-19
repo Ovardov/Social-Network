@@ -2,6 +2,11 @@
   display: flex;
   flex-wrap: wrap;
 
+  @include bp(tablet) {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+
   .left-column {
     flex-basis: 38%;
   }
@@ -10,5 +15,9 @@
     flex-basis: 58%;
     margin-left: $md-spacing;
     flex-grow: 1;
+
+    @include bp(tablet) {
+      margin-left: 0;
+    }
   }
 }

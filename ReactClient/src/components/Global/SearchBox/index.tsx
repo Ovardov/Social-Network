@@ -7,7 +7,7 @@ import { Colors, Sizes } from '../../../utils/enums';
 // Images
 import SearchIcon from '../../../../public/images/search-icon.svg';
 import CloseIcon from '../../../../public/images/close-icon.svg';
-import ArrowRightIcon from '../../../../public/images/arrow-right-icon.svg';
+import ArrowRightIcon from '../../../../public/images/arrow-right-small-icon.svg';
 // Styles
 import styles from './index.module.scss';
 
@@ -49,7 +49,10 @@ const SearchBox: FC<Props> = ({ onChange, onSubmit, }) => {
 
   const onResetSearchValue = () => {
     setSearchValue('');
-    onChange('');
+    
+    if(onChange) {
+      onChange('');
+    }
   };
 
   const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {

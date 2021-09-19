@@ -16,7 +16,6 @@ const preparePlugins = (isDevelopment) => {
     filename: './index.html',
   });
 
-  // To Do -> Remove duplicate styles from [name].css and main.css
   const miniCssExctractPlugin = new MiniCssExtractPlugin();
   const optimizeCssAssetsPlugin = new OptimizeCssAssetsPlugin();
 

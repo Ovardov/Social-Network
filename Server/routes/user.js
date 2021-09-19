@@ -18,7 +18,6 @@ import { auth } from '../utils';
 const upload = multer({ storage: multer.diskStorage({}) });
 const router = Router();
 
-router.get('/', auth(), userController.get.home);
 router.get('/suggested-new-friends', auth(), userController.get.suggestedNewFriends)
 router.get('/:username', auth(), getProfileDataValidator, userController.get.profile);
 router.get('/:username/friends', auth(), getProfileDataValidator, userController.get.friends);

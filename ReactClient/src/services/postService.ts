@@ -1,6 +1,6 @@
 import { HttpMethods } from '../utils/enums';
 import { makeRequestWithFormData, put, deleteRequest, get } from '../utils/fetch';
-import { PostFormData as PostFormData_ } from './../models/Post';
+import Post_, { PostFormData as PostFormData_ } from './../models/Post';
 import Like_ from '../models/Like';
 import Comment_ from '../models/Comment';
 
@@ -41,9 +41,9 @@ export const deletePost = async (postId: string) => {
 };
 
 export const likePost = async (postId: string) => {
-  return put(`/posts/like/${postId}`);
+  return put(`/posts/like/${postId}`) as Promise<Post_>;
 };
 
 export const dislikePost = async (postId: string) => {
-  return put(`/posts/dislike/${postId}`);
+  return put(`/posts/dislike/${postId}`) as Promise<Post_>;
 };

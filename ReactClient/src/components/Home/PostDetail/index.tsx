@@ -13,6 +13,8 @@ import { Colors, PostDetailModes } from '../../../utils/enums';
 import Like_ from '../../../models/Like';
 import Comment_ from '../../../models/Comment';
 import Post_ from '../../../models/Post';
+// Styles
+import styles from './index.module.scss';
 
 type PostDetailProps = {
   mode: PostDetailModes
@@ -41,7 +43,6 @@ const PostDetail: FC_<PostDetailProps> = ({ mode, post, onModalClose, modalTitle
           setComments(alLComments);
         }
       } catch (err) {
-        // To Do -> Show error
         console.log(err);
       }
 
@@ -59,7 +60,7 @@ const PostDetail: FC_<PostDetailProps> = ({ mode, post, onModalClose, modalTitle
       onClose={onModalClose}
       hasHeader
     >
-      <>
+      <div className={styles.container}>
         {isLoading && <Loader type='local' color={Colors.PRIMARY} />}
 
         {/* Likes */}
@@ -71,7 +72,7 @@ const PostDetail: FC_<PostDetailProps> = ({ mode, post, onModalClose, modalTitle
         {mode === PostDetailModes.COMMENTS && comments?.length > 0 && comments.map((comment: Comment_) => (
           <CommentDetail key={comment.id} comment={comment} setComments={setComments} />
         ))}
-      </>
+      </div>
     </Modal>
   );
 };

@@ -1,4 +1,3 @@
-// ToDo Add const in enums
 export enum AppRoutes {
   Profile = 'profile'
 }

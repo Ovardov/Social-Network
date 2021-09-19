@@ -7,7 +7,7 @@ import CommonErrorMessage from '../../CommonErrorMessage';
 // Utils
 import { Colors, Sizes } from '../../../../utils/enums';
 // Images
-import InsertPhotoIcon from '../../../../../public/images/insert-photo-icon.svg';
+import InsertPhotoIcon from '../../../../../public/images/insert-photo-small-icon.svg';
 // Styles
 import styles from './index.module.scss';
 

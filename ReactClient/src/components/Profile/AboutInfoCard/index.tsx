@@ -10,7 +10,7 @@ import { updateUserInfo } from '../../../services/userService';
 import { UserState as UserState_, updateUserAction } from '../../../redux/actions/User';
 import { AppState as AppState_ } from '../../../redux';
 // Utils
-import { Colors, PostActionModes, Sizes } from '../../../utils/enums';
+import { Colors, ActionModes, Sizes } from '../../../utils/enums';
 // Models
 import { UserInfo as UserInfo_ } from '../../../models/User';
 // Icons
@@ -19,7 +19,6 @@ import EditIcon from '../../../../public/images/edit-icon.svg';
 // Styles
 import styles from './index.module.scss';
 
-// To Do -> Check props
 interface Props {
   data: {
     categoryName: string
@@ -33,7 +32,7 @@ interface Props {
 const AboutInfoCard: FC_<Props> = ({ data, }) => {
   const { categoryName, categoryAddText, categoryDetails, categoryFieldName, categoryData, } = data;
   const dispatch = useDispatch();
-  const [actionMode, setActionMode] = useState<PostActionModes>(PostActionModes.READ);
+  const [actionMode, setActionMode] = useState<ActionModes>(ActionModes.READ);
   const [localData, setLocalData] = useState(categoryData);
 
   const user = useSelector<AppState_, UserState_>(state => state.user);
@@ -53,7 +52,7 @@ const AboutInfoCard: FC_<Props> = ({ data, }) => {
         dispatch(action);
       }
 
-      setActionMode(PostActionModes.READ);
+      setActionMode(ActionModes.READ);
     } catch (err) {
       console.log(err);
     }
@@ -62,14 +61,14 @@ const AboutInfoCard: FC_<Props> = ({ data, }) => {
   return (
     <article className={styles['info-card']}>
       {/* <h4 className={styles.category}>Work</h4> */}
-      {!categoryData && actionMode === PostActionModes.READ && (
-        <button className={styles.button} onClick={() => setActionMode(PostActionModes.CREATE)}>
+      {!categoryData && actionMode === ActionModes.READ && (
+        <button className={styles.button} onClick={() => setActionMode(ActionModes.CREATE)}>
           <Icon Component={AddCircleIcon} alt='Add Icon' size={Sizes.MD} color={Colors.PRIMARY} hasHoverEffect />
           {categoryAddText}
         </button>
       )}
 
-      {categoryData && actionMode === PostActionModes.READ && (
+      {categoryData && actionMode === ActionModes.READ && (
         <>
           <header className={styles.content}>
             <h4 className={styles['category-name']}>{categoryName}</h4>
@@ -83,12 +82,12 @@ const AboutInfoCard: FC_<Props> = ({ data, }) => {
             size={Sizes.SM}
             color={Colors.PRIMARY}
             hasHoverEffect
-            onClickHandler={() => setActionMode(PostActionModes.EDIT)}
+            onClickHandler={() => setActionMode(ActionModes.EDIT)}
           />
         </>
       )}
 
-      {(actionMode === PostActionModes.CREATE || actionMode === PostActionModes.EDIT) && (
+      {(actionMode === ActionModes.CREATE || actionMode === ActionModes.EDIT) && (
         <form onSubmit={onSubmit}>
           <input
             className={styles.input}
@@ -103,7 +102,7 @@ const AboutInfoCard: FC_<Props> = ({ data, }) => {
               type='button'
               text='Cancel'
               color={Colors.SECONDARY}
-              onClickHandler={() => setActionMode(PostActionModes.READ)}
+              onClickHandler={() => setActionMode(ActionModes.READ)}
             />
 
             <Button

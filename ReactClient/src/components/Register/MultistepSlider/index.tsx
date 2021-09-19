@@ -1,11 +1,9 @@
 // Libraries
 import React, { useCallback, Component, FC} from 'react';
-// Components
-import Icon from '../../Global/Icon';
 // Images
 import PersonIcon from '../../../../public/images/person-icon.svg';
 import LockIcon from '../../../../public/images/lock-icon.svg';
-import InsertPhotoIcon from '../../../../public/images/insert-photo-icon.svg';
+import InsertPhotoIcon from '../../../../public/images/insert-photo-small-icon.svg';
 // Styles
 import styles from './multi-step-slider.module.scss';
 

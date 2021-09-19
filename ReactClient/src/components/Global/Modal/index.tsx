@@ -28,7 +28,7 @@ const Modal: FC<Props> = ({ children, onClose, title, hasHeader, fullWidth, }) =
 
   return (
     <div className={styles.container} {...!hasHeader ? { onClick: handleClick, } : null}>
-      <div className={`${styles.modal} ${fullWidth ? styles['full-width'] : ''}`} >
+      <div className={`${styles.modal} ${fullWidth ? styles['full-width'] : ''}`} ref={modalRef}>
         {hasHeader && (
           <header className={styles.header}>
             {title && <p className={styles.title}>{title}</p>}

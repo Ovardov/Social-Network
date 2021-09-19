@@ -5,7 +5,7 @@ import User_ from '../../models/User';
 import Interest_ from '../../models/Interest';
 
 export const userReducer: Reducer_<UserState_, UserActions_> = (
-  state = null,
+  state = new User_(),
   action
 ) => {
   switch (action.type) {

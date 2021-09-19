@@ -42,7 +42,6 @@ const userSchema = new Schema(
     work: String,
     education: String,
     home: String,
-    relationshipStatus: String,
     profilePicture: {
       type: 'ObjectId',
       ref: 'Image',

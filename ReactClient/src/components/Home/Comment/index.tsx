@@ -34,7 +34,7 @@ type CommentDetailProps = {
 }
 
 const CommentDetail: FC<CommentDetailProps> = ({ comment, setComments, }) => {
-  const { id, content, author, likesCount, likes, } = comment;
+  const { id, content, author, likesCount, likes = [], } = comment;
   const user = useSelector<AppState_, UserState_>(state => state.user);
 
   const dispatch = useDispatch();
@@ -43,7 +43,7 @@ const CommentDetail: FC<CommentDetailProps> = ({ comment, setComments, }) => {
   const [newContent, setNewContent] = useState(content);
 
   const isLikedByMe = useMemo(() => {
-    return likes.find(like => like?.likedBy?.id === user.id);
+    return likes?.find(like => like?.likedBy?.id === user.id);
   }, [likes, user]);
 
   const commentDropdownOptions = [
@@ -66,7 +66,6 @@ const CommentDetail: FC<CommentDetailProps> = ({ comment, setComments, }) => {
       setIsLoading(true);
 
       if (newContent.length < 1) {
-        // ToDo -> Show validation error
         return;
       }
 
@@ -80,7 +79,6 @@ const CommentDetail: FC<CommentDetailProps> = ({ comment, setComments, }) => {
       setCommentActionMode(ActionModes.READ);
     } catch (e) {
       setIsLoading(false);
-      // ToDo -> Global error handling
     }
   };
 
@@ -100,7 +98,6 @@ const CommentDetail: FC<CommentDetailProps> = ({ comment, setComments, }) => {
       }
     } catch (e) {
       setIsLoading(false);
-      // ToDo -> Global error handling
     }
   };
 
@@ -118,7 +115,6 @@ const CommentDetail: FC<CommentDetailProps> = ({ comment, setComments, }) => {
       setCommentActionMode(ActionModes.READ);
     } catch (e) {
       setIsLoading(false);
-      // ToDo -> Global error handling
     }
   };
 
@@ -136,7 +132,6 @@ const CommentDetail: FC<CommentDetailProps> = ({ comment, setComments, }) => {
       setCommentActionMode(ActionModes.READ);
     } catch (e) {
       setIsLoading(false);
-      // ToDo -> Global error handling
     }
   };
 
@@ -181,7 +176,7 @@ const CommentDetail: FC<CommentDetailProps> = ({ comment, setComments, }) => {
         <>
           <p className={styles.content}>{content}</p>
 
-          <li
+          <div
             className={styles['likes-container']}
             onClick={() => isLikedByMe ? onDisikeComment() : onLikeComment()}
           >
@@ -190,7 +185,7 @@ const CommentDetail: FC<CommentDetailProps> = ({ comment, setComments, }) => {
             <span className={styles.likes}>
               {likesCount ?? 0}
             </span>
-          </li>
+          </div>
         </>
       )}
 

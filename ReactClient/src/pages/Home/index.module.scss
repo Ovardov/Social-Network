@@ -10,13 +10,27 @@
   @include bp(tablet) {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
+    grid-gap: 0;
 
     .posts-container {
       grid-row: 2;
     }
   }
 
-  .search-box-container {
-    margin-bottom: $xl-spacing;
+  .additional-actions-container {
+    .search-box-container {
+      margin-bottom: 3.5em;
+    }
+
+    // Suggested friends
+    @include bp(tablet) {
+      .search-box-container {
+        margin-bottom: $md-spacing;
+      }
+
+      & > *:last-child {
+        display: none;
+      }
+    }
   }
 }

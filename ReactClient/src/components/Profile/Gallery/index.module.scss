@@ -4,8 +4,20 @@
   grid-gap: 1em;
   padding-bottom: 0;
 
+  @include bp(tablet) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include bp(phone) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   &.local {
     grid-template-columns: repeat(3, 1fr);
+
+    @include bp(phone) {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   &.page {

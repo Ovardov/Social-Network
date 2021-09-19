@@ -59,7 +59,6 @@ const HomePage = () => {
 
       history.push('/search', { searchedUsersByFullName, searchedUsersByInterests, });
     } catch (err) {
-      // To Do -> Handle Error
       console.log(err);
     }
   };
@@ -72,7 +71,7 @@ const HomePage = () => {
         {isLoading ? <Loader type='local' color={Colors.PRIMARY} /> : <PostList />}
       </section>
 
-      <section>
+      <section className={styles['additional-actions-container']}>
         <div className={styles['search-box-container']}>
           <SearchBox onSubmit={onSearchHandler} />
         </div>

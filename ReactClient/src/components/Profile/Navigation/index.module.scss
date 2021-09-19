@@ -3,6 +3,7 @@
 
   .list {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     padding-bottom: 0;
@@ -11,6 +12,10 @@
       width: 10em;
       height: 2.5em;
       text-align: center;
+
+      @include bp(tablet) {
+        margin-bottom: $sm-spacing;
+      }
     }
   }
 }

@@ -9,7 +9,7 @@ import InfoCard from '../../Global/InfoCard';
 import { addInterest, removeInterest } from '../../../services/userService';
 // Utils
 import { Colors, Sizes } from '../../../utils/enums';
-import { PostActionModes } from '../../../utils/enums';
+import { ActionModes } from '../../../utils/enums';
 import { interestRegex } from '../../../utils/regex';
 // Actions
 import { addInterestAction, removeInterestAction } from '../../../redux/actions/User';
@@ -27,7 +27,7 @@ interface Props {
 
 const AboutInterests: FC<Props> = ({ interests, }) => {
   const dispatch = useDispatch();
-  const [actionMode, setActionMode] = useState<PostActionModes>(PostActionModes.READ);
+  const [actionMode, setActionMode] = useState<ActionModes>(ActionModes.READ);
   const [newInterestName, setNewInterestName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [interestThatShownActionButtons, setInterestThatShownActionButtons] = useState(null);
@@ -35,8 +35,6 @@ const AboutInterests: FC<Props> = ({ interests, }) => {
   const onInterestSave = async () => {
     try {
       if (!interestRegex.test(newInterestName)) {
-        // To Do -> Show error
-        // console.log('Interest name must be alphabetic and should be between 3 and 30 symbols.');
         return;
       }
       
@@ -48,10 +46,8 @@ const AboutInterests: FC<Props> = ({ interests, }) => {
         dispatch(addInterestAction(interest));
       }
 
-      setActionMode(PostActionModes.READ);
+      setActionMode(ActionModes.READ);
       setNewInterestName('');
-
-      // To Do -> print message
     } catch (err) {
       console.log(err);
     }
@@ -69,9 +65,7 @@ const AboutInterests: FC<Props> = ({ interests, }) => {
         dispatch(removeInterestAction(interest));
       }
 
-      setActionMode(PostActionModes.READ);
-
-      // To Do -> print message
+      setActionMode(ActionModes.READ);
     } catch (err) {
       console.log(err);
     }
@@ -115,17 +109,17 @@ const AboutInterests: FC<Props> = ({ interests, }) => {
             <Loader type='local' color={Colors.PRIMARY} />
           ) : (
             <>
-              {actionMode === PostActionModes.READ && (
+              {actionMode === ActionModes.READ && (
                 <Icon
                   Component={AddIcon}
                   alt='Add interest icon'
                   size={Sizes.SM}
                   color={Colors.PRIMARY}
-                  onClickHandler={() => setActionMode(PostActionModes.CREATE)}
+                  onClickHandler={() => setActionMode(ActionModes.CREATE)}
                 />
               )}
 
-              {actionMode === PostActionModes.CREATE && (
+              {actionMode === ActionModes.CREATE && (
                 <input
                   className={styles['name-field']}
                   onChange={(e) => setNewInterestName(e.target.value)}

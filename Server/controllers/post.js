@@ -145,10 +145,7 @@ module.exports = {
         if (file) {
           // Upload profile picture to cloudinary
           const uploadedImage = await cloudinaryUploader.upload(file.path, {
-            quality: 'auto',
-            width: 1024,
-            height: 1024,
-            crop: 'limit',
+            quality: 'auto:best'
           });
 
           createdImage = await models.Image.create({
@@ -170,7 +167,6 @@ module.exports = {
         const authorPopulateFields = authorOptions.populate;
 
         const author = await models.User
-
           .findByIdAndUpdate(
             { _id: authorId },
             { $push: { posts: createdPost._id } },

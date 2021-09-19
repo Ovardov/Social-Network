@@ -35,7 +35,7 @@ const SocialButton: FC<Props> = ({
   return (
     <a
       className={`${globalButtonStyles.button} ${styles['social-button']} ${disabled ? styles.disabled : ''}`}
-      href={href}
+     href={href}
       onClick={handleOnClick}
     >
       {isLocalLoading && <Loader type='local' color={Colors.PRIMARY} />}

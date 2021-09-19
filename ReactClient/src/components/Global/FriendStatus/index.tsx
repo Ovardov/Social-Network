@@ -36,19 +36,13 @@ const FriendStatus: FC_<Props> = ({ username, }) => {
     try {
 
       if (isFriends) {
-        const { message, user: friend, } = await removeFriend(username) as { message: string, user: User_ };
+        const { user: friend, } = await removeFriend(username) as { message: string, user: User_ };
         dispatch(removeFriendAction(friend));
-
-        // ToDo - print message
-        //console.log(message);
       }
 
       if (!isFriends) {
-        const { message, user: friend, } = await addFriend(username) as { message: string, user: User_ };
+        const { user: friend, } = await addFriend(username) as { message: string, user: User_ };
         dispatch(addFriendAction(friend));
-
-        // ToDo - print message
-        //console.log(message);
       }
     } catch (err) {
       console.log(err);

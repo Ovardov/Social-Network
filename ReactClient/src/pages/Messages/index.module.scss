@@ -9,6 +9,11 @@
   box-shadow: $box-shadow;
   background: #F9F9F9;
 
+  @include bp(tablet) {
+    grid-template-columns: 1fr;
+    grid-template-rows: max-content 1fr;
+  }
+
   .users {
 
     &:hover {
@@ -47,6 +52,11 @@
     flex-direction: column;
     justify-content: center;
     max-height: 91vh;
+
+    @include bp(tablet) {
+      max-height: 94vh;
+      overflow-y: auto;
+    }
 
     .messages {
       display: flex;
