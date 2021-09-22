@@ -207,7 +207,7 @@ module.exports = {
           .populate(populateOptions.comments)
           .populate(populateOptions.likes);
 
-        // We need to send virtual field manually, because 
+      
         updatedPost.isLikedByMe = true;
 
         res.status(200).send(updatedPost);

@@ -104,12 +104,13 @@ module.exports = {
       try {
         const authorId = req.user._id;
 
-        const myFriendsRes = await models.User.findById(authorId)
-          .select('friends');
+        const userRes = await models.User.findById(authorId)
+          .select('friends interests');
 
-        const excludedUsers = [authorId, ...myFriendsRes.friends];
+        const excludedUsers = [authorId, ...userRes.friends];
+        const userInterests = userRes.interests;
 
-        const suggestedUserRes = await models.User.find({ _id: { $nin: excludedUsers } })
+        const suggestedUserRes = await models.User.find({ _id: { $nin: excludedUsers }, interests: { $in: userInterests } })
           .limit(5)
           .select('firstName lastName username home')
           .populate('profilePicture');
@@ -160,15 +161,15 @@ module.exports = {
               populate: 'profilePicture',
               options: { sort: { firstName: 'asc', lastName: 'asc' } }
             });
-          
+
           const users = [];
-          
+
           interests.forEach(interest => {
             if (interest.users && interest.users.length > 0) {
               interest.users.forEach(currentUser => {
                 const isUserAlreadyExist = users.find(user => user.id === currentUser.id);
 
-                if(!isUserAlreadyExist) {
+                if (!isUserAlreadyExist) {
                   users.push(currentUser);
                 }
               })
