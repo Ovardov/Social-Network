@@ -96,6 +96,7 @@ module.exports = {
         const token = jwt.createToken({ id: user._id });
 
         const responseData = {
+          id: user._id,
           firstName: user.firstName,
           lastName: user.lastName,
           fullName: user.fullName,

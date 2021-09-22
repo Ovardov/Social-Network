@@ -67,7 +67,7 @@ const Messages: FC = () => {
     };
 
     initUsers();
-  }, []);
+  }, [myUsername]);
 
   const onMessage = (newMessage: Message_) => {
     setMessages((oldMessages) => {

@@ -16,7 +16,7 @@ const preparePlugins = (isDevelopment) => {
     filename: './index.html',
   });
 
-  const miniCssExctractPlugin = new MiniCssExtractPlugin();
+  const miniCssExctractPlugin = new MiniCssExtractPlugin({ ignoreOrder: true, });
   const optimizeCssAssetsPlugin = new OptimizeCssAssetsPlugin();
 
   return [
@@ -85,6 +85,7 @@ module.exports = (env, arg) => {
 
   return {
     entry: './src/index.tsx',
+    stats: { children: false, },
     output: {
       path: path.resolve(__dirname, 'build'),
       filename: 'bundle.js',

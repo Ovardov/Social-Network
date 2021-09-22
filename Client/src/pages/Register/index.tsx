@@ -2,7 +2,7 @@
 import React, { useState, useMemo } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Field, Form, Formik, FormikErrors, FormikValues } from 'formik';
+import { Field, Form, Formik, FormikErrors } from 'formik';
 // Components
 import PublicHome from '../../components/PublicHome';
 import InputField from '../../components/Global/InputField';

@@ -1,7 +1,7 @@
 // Libraries
-import React, { FC, MouseEventHandler, useRef } from 'react';
+import React, { FC, useRef } from 'react';
 // Utils
-import { Colors, Sizes } from '../../../utils/enums';
+import { Colors } from '../../../utils/enums';
 // Components
 import CloseButton from '../Buttons/CloseButton';
 // Styles

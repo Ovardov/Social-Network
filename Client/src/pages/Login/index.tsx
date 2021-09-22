@@ -23,7 +23,6 @@ import googleIcon from '../../../public/images/google-icon.png';
 // Styles
 import styles from './index.module.scss';
 import { setUserAction } from '../../redux/actions/User';
-import User_ from '../../models/User';
 
 const LoginPage = () => {
   const history = useHistory();

@@ -28,14 +28,13 @@ const renderSlides = (slideIconComponents: Component[], step: number) => {
   });
 };
 
-const MultiStepSlider: FC<Props> = ({ step, }) => {
-  // Define Icon components
-  const slideIconComponents = [PersonIcon, LockIcon, InsertPhotoIcon];
-
+const MultiStepSlider: FC<Props> = ({ step, }) => {  
   // Memoize render funcion
   const renderAllSlides = useCallback(() => {
+    const slideIconComponents = [PersonIcon, LockIcon, InsertPhotoIcon];
+    
     return renderSlides(slideIconComponents, step);
-  }, [slideIconComponents, step]);
+  }, [step]);
 
   return (
     <ul className={styles.slider}>
