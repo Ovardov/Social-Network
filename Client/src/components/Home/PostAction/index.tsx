@@ -6,7 +6,7 @@ import { Formik, Field, Form, FormikValues } from 'formik';
 import Avatar from '../../Global/Avatar';
 import ButtonsContainer from '../../Global/Buttons/ButtonsContainer';
 import Button from '../../Global/Buttons/Button';
-import TextAreaField from '../../Global/InputField/TextareaField';
+import TextAreaField from '../../Global/InputField/TextAreaField';
 import FileField from '../../Global/FormFields/FileField';
 import Image from '../../Global/Image';
 import Modal from '../../Global/Modal';
