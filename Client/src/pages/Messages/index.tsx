@@ -35,7 +35,7 @@ const Messages: FC = () => {
   const [currentRoom, setCurrentRoom] = useState('');
 
   useEffect(() => {
-    const newSocket = io(process.env.SOCKET_URL, { transports: ['websocket'], upgrade: false, });
+    const newSocket = io(process.env.REACT_APP_SOCKET_URL, { transports: ['websocket'], upgrade: false, });
     setSocket(newSocket);
 
     newSocket?.on(SocketActions.MESSAGE, (newMessage: Message_) => {
