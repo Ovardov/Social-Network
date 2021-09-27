@@ -8,7 +8,7 @@ const dotENVPlugin = require('dotenv-webpack');
 const preparePlugins = (isDevelopment) => {
   const dotenvPlugin = new dotENVPlugin({
     path: isDevelopment ? './.env.development' : './.env.production',
-    systemvars: true
+    systemvars: true,
   });
 
   const htmlPlugin = new HTMLWebpackPlugin({
