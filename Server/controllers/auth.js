@@ -105,7 +105,7 @@ module.exports = {
         }
 
         res
-          .cookie(authCookieName, token, { httpOnly: true, domain: authCookieDomain, sameSite: 'strict' })
+          .cookie(authCookieName, token, { httpOnly: true, domain: authCookieDomain, sameSite: 'none' })
           .status(200)
           .send(responseData);
       } catch (err) {
