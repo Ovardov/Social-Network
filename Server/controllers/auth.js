@@ -43,7 +43,7 @@ module.exports = {
 
         const token = jwt.createToken({ id: userId });
 
-        res.cookie(authCookieName, token, { httpOnly: true });
+        res.cookie(authCookieName, token, { httpOnly: true, sameSite: 'none', secure: true })
         res.redirect(clientLoginSuccessRedirectUrl);
       } catch (err) {
         next(err);
@@ -172,7 +172,7 @@ module.exports = {
 
         // Send auth token
         res
-          .cookie(authCookieName, token, { httpOnly: true })
+          .cookie(authCookieName, token, { httpOnly: true, sameSite: 'none', secure: true })
           .status(201)
           .send(responseData);
       } catch (err) {

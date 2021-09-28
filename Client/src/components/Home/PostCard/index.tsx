@@ -57,6 +57,10 @@ const PostCard: FC_<Props> = ({ post, }) => {
     return likes.find(like => like.likedBy.id === user.id);
   }, [likes, user]);
 
+  const isLoggedUser = useMemo(() => {
+    return checkIsLoggedUser(author.username, user);
+  }, [user, author.username]);
+
   const onLikePost = async () => {
     try {
       const likedPost = await likePost(id);
@@ -179,11 +183,11 @@ const PostCard: FC_<Props> = ({ post, }) => {
         <Avatar
           type='image-with-info'
           size={Sizes.MD}
-          user={author}
+          user={isLoggedUser ? user : author}
           createdAt={createdAt}
         />
 
-        {checkIsLoggedUser(author.username, user) && (
+        {isLoggedUser && (
           <div className={styles['dropdown-container']}>
             <Dropdown options={dropdownOptions} />
           </div>
