@@ -6,7 +6,7 @@ import { uploader as cloudinaryUploader } from 'cloudinary/lib/v2';
 import { jwt } from '../utils';
 import { buildCustomError, buildValidationUniqueErrors } from '../utils/errorHandling';
 // Config
-import { authCookieName, clientLoginSuccessRedirectUrl, authCookieDomain } from '../config/config';
+import { authCookieName, clientLoginSuccessRedirectUrl } from '../config/config';
 
 module.exports = {
   get: {
@@ -105,7 +105,7 @@ module.exports = {
         }
 
         res
-          .cookie(authCookieName, token, { httpOnly: true, domain: authCookieDomain, sameSite: 'none' })
+          .cookie(authCookieName, token, { httpOnly: true, sameSite: 'lax' })
           .status(200)
           .send(responseData);
       } catch (err) {

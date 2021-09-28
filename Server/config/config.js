@@ -3,7 +3,6 @@ export const port = process.env.PORT || 3001;
 export const dbURL = process.env.DB_URL;
 export const authCookieName = process.env.AUTH_COOKIE_NAME;
 export const authCookieSecret = process.env.AUTH_COOKIE_SECRET;
-export const authCookieDomain = process.env.AUTH_COOKIE_DOMAIN;
 export const corsOrigin = process.env.CORS_ORIGIN;
 
 // Social Providers
