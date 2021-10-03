@@ -51,7 +51,8 @@
 ## Table of Contents
 1. [Application Configurations](https://github.com/Ovardov/Social-Network#application-configurations)
 2. [Technology stack](https://github.com/Ovardov/Social-Network#technology-stack)
-3. [Routing](https://github.com/Ovardov/Social-Network#routing)
+3. [Functionalities](https://github.com/Ovardov/Social-Network#list-of-all-functionalities)
+4. [Routing](https://github.com/Ovardov/Social-Network#routing)
 
 ## Application Configurations
 1. Rename ".env.example" file to ".env" in both Server and Client directory and fill in necessary information in it.
