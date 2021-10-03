@@ -15,7 +15,7 @@ import { UserState as UserState_ } from '../../../redux/actions/User';
 import { removePostCommentAction } from '../../../redux/actions/Posts';
 // Utils
 import { ActionModes, Colors, Sizes } from '../../../utils/enums';
-import { capitalizeFirstLetter, checkIsLoggedUser } from '../../../utils/helper';
+import { capitalizeFirstLetter, checkIsAuthenticatedUser } from '../../../utils/helper';
 // Models
 import { AppState as AppState_ } from '../../../redux';
 import Comment_ from '../../../models/Comment';
@@ -207,7 +207,7 @@ const CommentDetail: FC<CommentDetailProps> = ({ comment, setComments, }) => {
       }
 
       {/* If current comment is written by me */}
-      {checkIsLoggedUser(author.username, user) && (
+      {checkIsAuthenticatedUser(author.username, user.username) && (
         <div className={styles['dropdown-container']}>
           <Dropdown options={commentDropdownOptions} />
         </div>

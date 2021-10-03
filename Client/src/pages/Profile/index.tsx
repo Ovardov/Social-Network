@@ -17,25 +17,27 @@ import Loader from '../../components/Global/Loader';
 // Services
 import { logout } from '../../services/authService';
 import { getProfileData } from '../../services/userService';
+// Hooks
+import useProfile from '../../hooks/useProfile';
 // Models
-import { ProfileParams } from '../../models/Profile';
+import { ProfileParams as ProfileParams_ } from '../../models/Profile';
 import { AppState as AppState_ } from '../../redux';
 // Actions
 import { UserState as UserState_, removeUserAction, updateUserAction } from '../../redux/actions/User';
+import { setPostsAction } from '../../redux/actions/Posts';
 // Models
 import User_ from '../../models/User';
 import Post_ from '../../models/Post';
 // Utils
 import { Colors, Sizes } from '../../utils/enums';
-import { checkIsLoggedUser, compareTwoObjects } from '../../utils/helper';
+import { compareTwoObjects } from '../../utils/helper';
 // Styles
 import styles from './index.module.scss';
-import { setPostsAction } from '../../redux/actions/Posts';
 
 const ProfilePage: FC_ = () => {
   const dispatch = useDispatch();
   const { location: { pathname, }, push, } = useHistory();
-  const { username: usernameFromParams, } = useParams<ProfileParams>();
+  const { username: usernameFromParams, } = useParams<ProfileParams_>();
   const [isOpenCoverPicture, setIsOpenCoverPicture] = useState(false);
   const [isOpenProfilePicture, setIsOpenProfilePicture] = useState(false);
   const [userData, setUserData] = useState<User_>(null);
@@ -43,7 +45,7 @@ const ProfilePage: FC_ = () => {
 
   const user = useSelector<AppState_, UserState_>(state => state.user);
 
-  const isMyProfileOpened = checkIsLoggedUser(usernameFromParams, user);
+  const { isAuthenticatedUser, } = useProfile();
 
   useEffect(() => {
     const initUserData = async () => {
@@ -51,7 +53,7 @@ const ProfilePage: FC_ = () => {
         setIsLoading(true);
         const res = await getProfileData(usernameFromParams) as User_;
 
-        if (isMyProfileOpened) {
+        if (isAuthenticatedUser) {
           dispatch(updateUserAction(res));
         } else {
           dispatch(setPostsAction(res.posts));
@@ -69,7 +71,7 @@ const ProfilePage: FC_ = () => {
   }, [usernameFromParams]);
 
   useEffect(() => {
-    if (isMyProfileOpened) {
+    if (isAuthenticatedUser) {
       const isDataEqual = compareTwoObjects(user, userData);
 
       if (!isDataEqual) {
@@ -78,7 +80,7 @@ const ProfilePage: FC_ = () => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, isMyProfileOpened]);
+  }, [user, isAuthenticatedUser]);
 
   const handleLogout = async () => {
     try {
@@ -128,7 +130,7 @@ const ProfilePage: FC_ = () => {
             loading='lazy'
           />
 
-          {isMyProfileOpened && <EditUserPicture action='cover-picture' />}
+          {isAuthenticatedUser && <EditUserPicture action='cover-picture' />}
 
           {isOpenCoverPicture && (
             <Modal hasHeader={false} onClose={() => setIsOpenCoverPicture(false)} fullWidth>
@@ -142,7 +144,7 @@ const ProfilePage: FC_ = () => {
 
           {/* Profile picture */}
           <div className={styles['profile-picture']}>
-            {isMyProfileOpened && <EditUserPicture action='profile-picture' />}
+            {isAuthenticatedUser && <EditUserPicture action='profile-picture' />}
 
             <span onClick={() => setIsOpenProfilePicture(true)}>
               <Avatar
@@ -177,7 +179,7 @@ const ProfilePage: FC_ = () => {
           <div className={styles['info-container']}>
             <h3 className={styles['user-full-name']}>{userData?.fullName}</h3>
 
-            {isMyProfileOpened ? (
+            {isAuthenticatedUser ? (
               <Button text='Logout' color={Colors.PRIMARY} onClickHandler={handleLogout} />
             ) : (
               <FriendStatus username={usernameFromParams} />

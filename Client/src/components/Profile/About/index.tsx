@@ -19,6 +19,7 @@ const ProfileAbout: FC<Props> = ({ userData, }) => {
     {
       id: 1,
       categoryAddText: 'Add a workplace',
+      missingDataText: 'No workplace entered.',
       categoryName: 'Work',
       categoryDetails: 'Work at',
       categoryFieldName: 'work',
@@ -27,14 +28,16 @@ const ProfileAbout: FC<Props> = ({ userData, }) => {
     {
       id: 2,
       categoryAddText: 'Add an education',
+      missingDataText: 'No education entered.',
       categoryName: 'Education',
-      categoryDetails: 'Studied',
+      categoryDetails: 'Studied at',
       categoryFieldName: 'education',
       categoryData: education,
     },
     {
       id: 3,
       categoryAddText: 'Add a place that you live',
+      missingDataText: 'No residence entered.',
       categoryName: 'Home',
       categoryDetails: `Lives in`,
       categoryFieldName: 'home',
@@ -43,6 +46,7 @@ const ProfileAbout: FC<Props> = ({ userData, }) => {
     {
       id: 4,
       categoryAddText: 'Write some details about you',
+      missingDataText: 'No details entered.',
       categoryName: 'About You',
       categoryDetails: '',
       categoryFieldName: 'about',

@@ -9,6 +9,7 @@ import { addFriend, removeFriend } from '../../../services/userService';
 import { Colors } from '../../../utils/enums';
 import { AppState as AppState_ } from '../../../redux';
 import { UserState as UserState_, addFriendAction, removeFriendAction } from '../../../redux/actions/User';
+import { checkIsAuthenticatedUser } from '../../../utils/helper';
 // Models
 import User_ from '../../../models/User';
 
@@ -27,8 +28,8 @@ const FriendStatus: FC_<Props> = ({ username, }) => {
   }, [user, username]);
 
   const isMyProfile = useMemo(() => {
-    return user.username === username;
-  }, [user, username]);
+    return checkIsAuthenticatedUser(username, user.username);
+  }, [user.username, username]);
 
   const handleClick = async () => {
     setIsLoading(true);

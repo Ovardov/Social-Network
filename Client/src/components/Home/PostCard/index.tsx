@@ -18,7 +18,7 @@ import { commentPost } from '../../../services/commentService';
 import { updatePostAction } from '../../../redux/actions/Posts';
 // Utils
 import { Colors, ActionModes, PostDetailModes, Sizes } from '../../../utils/enums';
-import { capitalizeFirstLetter, checkIsLoggedUser } from '../../../utils/helper';
+import { capitalizeFirstLetter, checkIsAuthenticatedUser } from '../../../utils/helper';
 // Images
 import LikeOutlinedIcon from '../../../../public/images/like-outlined-icon.svg';
 import LikeFilledIcon from '../../../../public/images/like-filled-icon.svg';
@@ -57,9 +57,9 @@ const PostCard: FC_<Props> = ({ post, }) => {
     return likes.find(like => like.likedBy.id === user.id);
   }, [likes, user]);
 
-  const isLoggedUser = useMemo(() => {
-    return checkIsLoggedUser(author.username, user);
-  }, [user, author.username]);
+  const isAuthenticatedUser = useMemo(() => {
+    return checkIsAuthenticatedUser(author.username, user.username);
+  }, [user.username, author.username]);
 
   const onLikePost = async () => {
     try {
@@ -183,11 +183,11 @@ const PostCard: FC_<Props> = ({ post, }) => {
         <Avatar
           type='image-with-info'
           size={Sizes.MD}
-          user={isLoggedUser ? user : author}
+          user={isAuthenticatedUser ? user : author}
           createdAt={createdAt}
         />
 
-        {isLoggedUser && (
+        {isAuthenticatedUser && (
           <div className={styles['dropdown-container']}>
             <Dropdown options={dropdownOptions} />
           </div>

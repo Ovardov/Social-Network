@@ -6,7 +6,7 @@ import { uploader as cloudinaryUploader } from 'cloudinary/lib/v2';
 import { jwt } from '../utils';
 import { buildCustomError, buildValidationUniqueErrors } from '../utils/errorHandling';
 // Config
-import { authCookieName, clientLoginSuccessRedirectUrl } from '../config/config';
+import { authCookieName, authCookieOptions, clientLoginSuccessRedirectUrl } from '../config/config';
 
 module.exports = {
   get: {
@@ -31,7 +31,7 @@ module.exports = {
 
       try {
         await models.TokenBlacklist.create({ token });
-        res.clearCookie(authCookieName).send('Logout successfully!');
+        res.clearCookie(authCookieName, authCookieOptions).send('Logout successfully!');
       } catch (err) {
         next(err);
       }
@@ -43,7 +43,7 @@ module.exports = {
 
         const token = jwt.createToken({ id: userId });
 
-        res.cookie(authCookieName, token, { httpOnly: true, sameSite: 'none', secure: true })
+        res.cookie(authCookieName, token, authCookieOptions)
         res.redirect(clientLoginSuccessRedirectUrl);
       } catch (err) {
         next(err);
@@ -101,11 +101,12 @@ module.exports = {
           lastName: user.lastName,
           fullName: user.fullName,
           profilePicture: user.profilePicture,
-          username: user.username
+          username: user.username,
+          friends: user.friends
         }
 
         res
-          .cookie(authCookieName, token, { httpOnly: true, sameSite: 'none', secure: true })
+          .cookie(authCookieName, token, authCookieOptions)
           .status(200)
           .send(responseData);
       } catch (err) {
@@ -172,7 +173,7 @@ module.exports = {
 
         // Send auth token
         res
-          .cookie(authCookieName, token, { httpOnly: true, sameSite: 'none', secure: true })
+          .cookie(authCookieName, token, authCookieOptions)
           .status(201)
           .send(responseData);
       } catch (err) {

@@ -6,6 +6,8 @@ import Button from '../../Global/Buttons/Button';
 import Icon from '../../Global/Icon';
 // Services
 import { updateUserInfo } from '../../../services/userService';
+// Hooks
+import useProfile from '../../../hooks/useProfile';
 // Redux
 import { UserState as UserState_, updateUserAction } from '../../../redux/actions/User';
 import { AppState as AppState_ } from '../../../redux';
@@ -23,6 +25,7 @@ interface Props {
   data: {
     categoryName: string
     categoryAddText: string
+    missingDataText: string
     categoryDetails: string
     categoryFieldName: string
     categoryData: string
@@ -30,8 +33,10 @@ interface Props {
 }
 
 const AboutInfoCard: FC_<Props> = ({ data, }) => {
-  const { categoryName, categoryAddText, categoryDetails, categoryFieldName, categoryData, } = data;
+  const { categoryName, categoryAddText, missingDataText, categoryDetails, categoryFieldName, categoryData, } = data;
   const dispatch = useDispatch();
+  const { isAuthenticatedUser, } = useProfile();
+
   const [actionMode, setActionMode] = useState<ActionModes>(ActionModes.READ);
   const [localData, setLocalData] = useState(categoryData);
 
@@ -60,30 +65,33 @@ const AboutInfoCard: FC_<Props> = ({ data, }) => {
 
   return (
     <article className={styles['info-card']}>
-      {/* <h4 className={styles.category}>Work</h4> */}
-      {!categoryData && actionMode === ActionModes.READ && (
-        <button className={styles.button} onClick={() => setActionMode(ActionModes.CREATE)}>
-          <Icon Component={AddCircleIcon} alt='Add Icon' size={Sizes.MD} color={Colors.PRIMARY} hasHoverEffect />
-          {categoryAddText}
-        </button>
-      )}
-
-      {categoryData && actionMode === ActionModes.READ && (
+      {actionMode === ActionModes.READ && (
         <>
-          <header className={styles.content}>
-            <h4 className={styles['category-name']}>{categoryName}</h4>
+          {!categoryData && isAuthenticatedUser && (
+            <button className={styles.button} onClick={() => setActionMode(ActionModes.CREATE)}>
+              <Icon Component={AddCircleIcon} alt='Add Icon' size={Sizes.MD} color={Colors.PRIMARY} hasHoverEffect />
+              {categoryAddText}
+            </button>
+          )}
 
-            <p className={styles['category-info']}>{`${categoryDetails} ${categoryData}`}</p>
-          </header>
+          {(categoryData || (!categoryData && !isAuthenticatedUser)) && (
+            <header className={styles.content}>
+              <h4 className={styles['category-name']}>{categoryName}</h4>
 
-          <Icon
-            Component={EditIcon}
-            alt='Edit Icon'
-            size={Sizes.SM}
-            color={Colors.PRIMARY}
-            hasHoverEffect
-            onClickHandler={() => setActionMode(ActionModes.EDIT)}
-          />
+              <p className={styles['category-info']}>{categoryData ? `${categoryDetails} ${categoryData}` : missingDataText}</p>
+            </header>
+          )}
+
+          {isAuthenticatedUser && (
+            <Icon
+              Component={EditIcon}
+              alt='Edit Icon'
+              size={Sizes.SM}
+              color={Colors.PRIMARY}
+              hasHoverEffect
+              onClickHandler={() => setActionMode(ActionModes.EDIT)}
+            />
+          )}
         </>
       )}
 

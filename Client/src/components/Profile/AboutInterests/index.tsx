@@ -1,5 +1,5 @@
 // Libraries
-import React, { FC, useState } from 'react';
+import React, { FC as FC_, useState } from 'react';
 import { useDispatch } from 'react-redux';
 // Components
 import Icon from '../../Global/Icon';
@@ -7,12 +7,17 @@ import Loader from '../../Global/Loader';
 import InfoCard from '../../Global/InfoCard';
 // Services
 import { addInterest, removeInterest } from '../../../services/userService';
+// Hooks
+import useProfile from '../../../hooks/useProfile';
 // Utils
 import { Colors, Sizes } from '../../../utils/enums';
 import { ActionModes } from '../../../utils/enums';
 import { interestRegex } from '../../../utils/regex';
 // Actions
-import { addInterestAction, removeInterestAction } from '../../../redux/actions/User';
+import {
+  addInterestAction,
+  removeInterestAction
+} from '../../../redux/actions/User';
 // Icons
 import AddIcon from '../../../../public/images/add-icon.svg';
 import DeleteIcon from '../../../../public/images/delete-icon.svg';
@@ -25,8 +30,11 @@ interface Props {
   interests: Interest_[],
 }
 
-const AboutInterests: FC<Props> = ({ interests, }) => {
+const AboutInterests: FC_<Props> = ({ interests, }) => {
   const dispatch = useDispatch();
+
+  const { isAuthenticatedUser, } = useProfile();
+
   const [actionMode, setActionMode] = useState<ActionModes>(ActionModes.READ);
   const [newInterestName, setNewInterestName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -37,7 +45,7 @@ const AboutInterests: FC<Props> = ({ interests, }) => {
       if (!interestRegex.test(newInterestName)) {
         return;
       }
-      
+
       setIsLoading(true);
 
       const { interest, } = await addInterest({ name: newInterestName, });
@@ -73,6 +81,7 @@ const AboutInterests: FC<Props> = ({ interests, }) => {
     setIsLoading(false);
   };
 
+
   return (
     <InfoCard title='Interests'>
       <ul className={styles.list}>
@@ -80,8 +89,8 @@ const AboutInterests: FC<Props> = ({ interests, }) => {
           <li
             key={name}
             className={styles.interest}
-            onMouseEnter={() => setInterestThatShownActionButtons(name)}
-            onMouseLeave={() => setInterestThatShownActionButtons(null)}
+            {...(isAuthenticatedUser ? { onMouseEnter: () => setInterestThatShownActionButtons(name), } : null)}
+            {...(isAuthenticatedUser ? { onMouseLeave: () => setInterestThatShownActionButtons(null), } : null)}
           >
             {interestThatShownActionButtons === name && (
               <>
@@ -104,35 +113,37 @@ const AboutInterests: FC<Props> = ({ interests, }) => {
         ))}
 
 
-        <li className={`${styles.interest} ${styles.add}`}>
-          {isLoading ? (
-            <Loader type='local' color={Colors.PRIMARY} />
-          ) : (
-            <>
-              {actionMode === ActionModes.READ && (
-                <Icon
-                  Component={AddIcon}
-                  alt='Add interest icon'
-                  size={Sizes.SM}
-                  color={Colors.PRIMARY}
-                  onClickHandler={() => setActionMode(ActionModes.CREATE)}
-                />
-              )}
+        {isAuthenticatedUser && (
+          <li className={`${styles.interest} ${styles.add}`}>
+            {isLoading ? (
+              <Loader type='local' color={Colors.PRIMARY} />
+            ) : (
+              <>
+                {actionMode === ActionModes.READ && (
+                  <Icon
+                    Component={AddIcon}
+                    alt='Add interest icon'
+                    size={Sizes.SM}
+                    color={Colors.PRIMARY}
+                    onClickHandler={() => setActionMode(ActionModes.CREATE)}
+                  />
+                )}
 
-              {actionMode === ActionModes.CREATE && (
-                <input
-                  className={styles['name-field']}
-                  onChange={(e) => setNewInterestName(e.target.value)}
-                  value={newInterestName}
-                  onBlur={onInterestSave}
-                  autoFocus
-                />
-              )}
-            </>
-          )}
-        </li>
+                {actionMode === ActionModes.CREATE && (
+                  <input
+                    className={styles['name-field']}
+                    onChange={(e) => setNewInterestName(e.target.value)}
+                    value={newInterestName}
+                    onBlur={onInterestSave}
+                    autoFocus
+                  />
+                )}
+              </>
+            )}
+          </li>
+        )}
       </ul>
-    </InfoCard>
+    </InfoCard >
   );
 };
 

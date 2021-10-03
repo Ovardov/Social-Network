@@ -1,5 +1,3 @@
-import User from "../models/User";
-
 export const buildUrl = (...paths: string[]): string => {
   const filteredPaths = paths.filter((path) => path !== '');
 
@@ -10,4 +8,4 @@ export const capitalizeFirstLetter = (string: string) => string.charAt(0).toUppe
 
 export const compareTwoObjects = (firstObject: Object, secondObject: Object) => JSON.stringify(firstObject) === JSON.stringify(secondObject);
 
-export const checkIsLoggedUser = (username: string, loggedUser: User) => username === loggedUser.username;
+export const checkIsAuthenticatedUser = (username: string, authenticatedUsername: string) => username === authenticatedUsername;
