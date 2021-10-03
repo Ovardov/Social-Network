@@ -54,7 +54,7 @@
 3. [Routing](https://github.com/Ovardov/Social-Network#routing)
 
 ## Application Configurations
-1. Rename ".env.example" file to ".env" and fill in necessary information in it.
+1. Rename ".env.example" file to ".env" in both Server and Client directory and fill in necessary information in it.
 2. Type in the terminal the following in both Server and Client directory:
 ```bash
 npm install
