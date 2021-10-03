@@ -4,35 +4,44 @@
   <tbody>
     <tr>
       <td align="center" valign="middle"> 
-        <img width="450px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372203/profile-page_ll4kvu.png" alt="Profile Page" />
+        <img width="450px" src="./Screenshots/Profile-Page.png" alt="Profile Page" />
       </td>
       <td align="center" valign="middle"> 
-        <img width="450px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372202/private-home-page_crynmr.png" alt="Home Page" />
+        <img width="450px" src="./Screenshots/Profile-About-Page.png" alt="About Page" />
       </td>
       <td align="center" valign="middle"> 
-        <img width="450px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372202/guest-home-page_rsqulo.png" alt="Guest Home Page" />
+        <img width="450px" src="./Screenshots/Profile-Friends-Page.png" alt="Friends Page" />
       </td>
        <td align="center" valign="middle"> 
-        <img width="450px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372202/gallery_oitukn.png" alt="Gallery Page" />
+        <img width="450px" src="./Screenshots/Profile-Gallery-Page.png" alt="Gallery Page" />
       </td>
     </tr>
     <tr>
       <td align="center" valign="middle"> 
-        <img width="450px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576500079/friends_mywxry.png" alt="Friends Page" />
+        <img width="450px" src="./Screenshots/Home-Page.png" alt="Home Page" />
       </td>
       <td align="center" valign="middle"> 
-        <img width="450px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372202/about_cmimmy.png" alt="About Page" />
-      </td>
-       <td align="center" valign="middle"> 
-        <img width="450px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576372203/search_jpl3jw.png" alt="Search Page" />
+        <img width="450px" src="./Screenshots/Create-Post.png" alt="Create Post" />
       </td>
       <td align="center" valign="middle"> 
-        <img width="450px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576417977/comments_bsn85a.png" alt="Comments" />
+        <img width="450px" src="./Screenshots/Chat-Page.png" alt="Chat Page" />
+      </td>
+      <td align="center" valign="middle"> 
+        <img width="450px" src="./Screenshots/Search-Page.png" alt="Search Page" />
       </td>
     </tr>
     <tr>
+       <td align="center" valign="middle"> 
+        <img width="450px" src="./Screenshots/Login-Page.png" alt="Login Page" />
+      </td>
       <td align="center" valign="middle"> 
-        <img width="450px" src="https://res.cloudinary.com/dxxq5xtsy/image/upload/v1576417977/photo-modal_rmacce.png" alt="Photo Modal Gallery Page" />
+        <img width="450px" src="./Screenshots/Register-Page-Step-1.png" alt="Register Page Step 1" />
+      </td>
+      <td align="center" valign="middle"> 
+        <img width="450px" src="./Screenshots/Register-Page-Step-2.png" alt="Register Page Step 2" />
+      </td>
+      <td align="center" valign="middle"> 
+        <img width="450px" src="./Screenshots/Register-Page-Step-3.png" alt="Register Page Step 3" />
       </td>
     </tr>
   </tbody>
@@ -43,18 +52,18 @@
 1. [Application Configurations](https://github.com/Ovardov/Social-Network#application-configurations)
 2. [Technology stack](https://github.com/Ovardov/Social-Network#technology-stack)
 3. [Routing](https://github.com/Ovardov/Social-Network#routing)
-4. [Data API](https://github.com/Ovardov/Social-Network#data-api)
 
 ## Application Configurations
-1. Type in the terminal the following in both Server and Client directory:
+1. Rename ".env.example" file to ".env" and fill in necessary information in it.
+2. Type in the terminal the following in both Server and Client directory:
 ```bash
 npm install
 ```
-2. Type in the terminal the following in both Server and Client directory:
+3. Type in the terminal the following in both Server and Client directory:
 ```bash
-npm start
+npm run dev
 ```
-3. Enjoy it!
+4. Enjoy it!
 
 ## Technology stack
 - React.js
@@ -62,61 +71,31 @@ npm start
 - Node.js
 - MongoDB
 - SASS
+- Socket.IO
 
 ## List of all functionalities
 1. Register
-2. Login
+2. Login with Email/Facebook/Google
 3. Logout
-4. Profile Page
-5. Add Post
-6. Edit Post
-7. Delete Post
-8. Like Post
-9. Dislike Post
-10. Add Comment on Post
-11. Edit Comment on Post
-12. Delete Comment on Post
-13. Add Profile Picture
-14. Change Profile Picuture
-15. Add Cover Picture
-16. Change Cover Picture
-17. Add User Info
-17. Search Users
+4. Real-Time chat with friends
+5. Add/Edit/Delete/Like/Dislike post
+6. Add/Edit/Delete/Like/Dislike comment on post
+7. User profile page
+8. Add/Change profile picture
+9. Add/Change cover picture
+10. Add/Edit/Delete user personal information
+11. Add/Edit/Delete user interests
+12. Search users by their name or by their interests
 
 ## Routing
 Route | Description
 ------|------------|
-/ | Public or Private Home page
+/ | Home Page
 /login | Login page
 /register | Register page
+/messages | Real-Time Chat page
 /profile/:username | Profile page
+/profile/:username/about | User's personal information
+/profile/:username/friends | User's friends
+/profile/:username/gallery | User's gallery
 /search | Search page
-
-## DATA API
-
-###### User
-> - **username**: Username
-> - **password**: Password
-> - **name**: Name
-> - **profilePicture**: Link to cloudinary
-> - **coverPicture**: Link to cloudinary
-> - **posts**: Collection of posts's id
-> - **friends**: Collection of friends's id
-> - **about**: User Bio
-> - **work**: Workplace
-> - **education**: Education
-> - **home**: home
-> - **relationshipStatus**: Relationship Status
-
-###### Post
-> - **author**: Author Id
-> - **date**: Date
-> - **description**: Post description
-> - **image**: Link to cloudinary
-> - **likes**: Collection of users's id
-> - **comments**: Collection of comments's id
-
-###### Comment
-> - **author**: Author Id
-> - **description**: Comment description
-> - **post**: Post Id
